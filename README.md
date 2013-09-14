@@ -1,2 +1,2 @@
-photo-album
+Photo Album
 ===========

@@ -1,4 +1,3 @@
-*.rbc
 *.sassc
 .sass-cache
 capybara-*.html
@@ -12,5 +11,3 @@ capybara-*.html
 /coverage/
 /spec/tmp/*
 **.orig
-rerun.txt
-pickle-email-*.html
