@@ -1,0 +1,30 @@
+// This File is imported last, and will override other styles in the cascade
+// Add styles here to make changes without digging in too much
+
+ul.album-thumbs {
+  list-style-type: none;
+  li {
+    display: inline-block;
+  }
+}
+
+#fancybox-loading {
+  border-radius: 8px;
+  border: none;
+  div {
+    border: none;
+  }
+}
+
+.album-list {
+  li {
+    width: 100px;
+    text-align: center;
+    vertical-align: top;
+    display: inline-block;
+    padding-left: 55px;
+    a {
+      text-decoration: none;
+    }
+  }
+}
