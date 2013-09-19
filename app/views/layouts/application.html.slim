@@ -1,0 +1,66 @@
+doctype
+/[if IEMobile 7 ] <html class="no-js iem7">
+/[if lt IE 9] <html class="no-js lte-ie8">
+/[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)] <html.no-js lang="en">
+html
+  head
+    meta charset="utf-8"
+      title Robin's Photos
+      == stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+      == javascript_include_tag "application", "data-turbolinks-track" => true
+      == csrf_meta_tags
+      meta content="Robin Clowers" name="author"
+        meta content=" Bangkok Chiang Mai Don Det Luang Prabang Pai Pakse & Vientiane Siem Reap Slow Boat to Thailand Vang Vieng Recent Posts " name="description"
+          /! http://t.co/dKP3o1e
+          meta content="True" name="HandheldFriendly"
+            meta content="320" name="MobileOptimized"
+              meta content="width=(device-width,)initial-scale=1" name="viewport"
+                link href="http://photos.robinclowers.com/" rel="canonical"
+                  link href="/favicon.png" rel="icon"
+                    link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css"
+                      script src="/javascripts/modernizr-2.0.js"
+                      script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js" type="text/javascript"
+                      script src="/javascripts/octopress.js" type="text/javascript"
+                      link href="/atom.xml" rel="alternate" title="Robin's Photos" type="application/atom+xml"
+                        /! Fonts from Google"s Web font directory at http://google.com/webfonts
+                        link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
+                          link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
+  body
+    header role="banner"
+      hgroup
+        h1
+          a href="/" Robin's Photos
+        h2 Pictures from around the world
+    nav role="navigation"
+      ul.subscription data-subscription="rss"
+        li
+          a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS"
+      form action="http://google.com/search" method="get"
+        fieldset role="search"
+          input name="q" type="hidden" value="site:photos.robinclowers.com"
+          input.search name="q" placeholder="Search" results="0" type="text"
+      ul.main-navigation.login-view
+        li
+          a href="/"
+    #main
+      #content
+        == yield
+        aside.sidebar
+          section
+            h1 Recent Posts
+            ul#recent_posts
+    footer role="contentinfo"
+      p
+        | Copyright &copy; 2013 - Robin Clowers -
+        span.credit
+          | Powered by
+          a href="http://octopress.org"
+      script src="/assets/application.js" type="text/javascript"
+    javascript:
+      | (function(){
+        | var twitterWidgets = document.createElement('script');
+        | twitterWidgets.type = 'text/javascript';
+        | twitterWidgets.async = true;
+        | twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+        | document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+      | })();
