@@ -1,5 +1,5 @@
 PhotoAlbum::Application.routes.draw do
-  root 'root#index'
+  root 'albums#index'
 
-  resources :albums, only: [:index, :show]
+  resources :albums, only: [:show]
 end
