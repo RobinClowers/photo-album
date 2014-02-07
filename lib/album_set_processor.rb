@@ -1,3 +1,5 @@
+require "album_processor"
+
 class AlbumSetProcessor
   attr_reader :set_path, :ignore_file, :full_path
 
@@ -12,7 +14,7 @@ class AlbumSetProcessor
       @full_path = File.join(set_path, entry)
       if valid_album?(entry)
         puts "processing #{entry}"
-        processor = ImageProcessor.new(full_path)
+        processor = AlbumProcessor.new(full_path)
         processor.process_images
       end
     end
