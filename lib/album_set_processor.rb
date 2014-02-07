@@ -1,26 +1,37 @@
 require "album_processor"
 
 class AlbumSetProcessor
-  attr_reader :set_path, :ignore_file, :full_path
+  attr_reader :set_path, :ignore_file
 
-  def initialize(set_path, ignore_file)
+  def initialize(set_path, ignore_file: '.album_set_ignore')
     @set_path = File.expand_path set_path
     @ignore_file = ignore_file
   end
 
   def process
-    Dir.foreach set_path do |entry|
+    each_entry do |entry, full_path|
       ObjectSpace.garbage_collect # seems bad, hopefully there is a better way
-      @full_path = File.join(set_path, entry)
-      if valid_album?(entry)
-        puts "processing #{entry}"
-        processor = AlbumProcessor.new(full_path)
-        processor.process_images
-      end
+      processor = AlbumProcessor.new(full_path)
+      processor.process_images
     end
   end
 
-  def valid_album?(name)
+  def each_entry
+    Dir.foreach set_path do |entry|
+      full_path = File.join(set_path, entry)
+      next unless valid_album?(entry, full_path)
+      puts "processing #{full_path}"
+      yield entry, full_path
+    end
+  end
+
+  def syncronize_photos
+    each_entry do |entry, full_path|
+      AlbumProcessor.new(full_path).insert_photos
+    end
+  end
+
+  def valid_album?(name, full_path)
     return false unless File.directory?(full_path)
     return false if name =~ /\A\./
     return is_ignored?(name)

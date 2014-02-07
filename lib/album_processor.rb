@@ -16,6 +16,17 @@ class AlbumProcessor
     @images_to_process = @image_names - processed_images
   end
 
+  def insert_photos
+    @images_to_process.each do |filename|
+      insert_photo(filename)
+    end
+  end
+
+  def insert_photo(filename)
+    Photo.create!(filename: filename)
+  rescue ActiveRecord::NotUnique
+  end
+
   def process_images
     each_image do |image, basename|
       auto_orient_image!(image)

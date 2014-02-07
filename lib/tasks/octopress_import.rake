@@ -1,4 +1,10 @@
+require "album_set_processor"
+
 namespace :import do
+  task :all_photos, [:path] => :environment do |t, args|
+    AlbumSetProcessor.new(args.path).syncronize_photos
+  end
+
   task :albums => :environment do
     require 'yaml'
 
