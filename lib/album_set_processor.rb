@@ -34,18 +34,16 @@ class AlbumSetProcessor
   def valid_album?(name, full_path)
     return false unless File.directory?(full_path)
     return false if name =~ /\A\./
-    return is_ignored?(name)
+    return false if ignored?(name)
+    return true
   end
 
-  def is_ignored?(name)
-    ignores.each do |ignore|
-      return false if name == ignore.strip
-    end
-    true
+  def ignored?(name)
+    return ignores.include?(name)
   end
 
   def ignores
-    @ignores ||= load_ignores
+    @ignores ||= load_ignores.map(&:strip)
   end
 
   def load_ignores
