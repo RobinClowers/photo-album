@@ -24,7 +24,7 @@ class AlbumProcessor
 
   def insert_photo(filename)
     Photo.create!(filename: filename)
-  rescue ActiveRecord::NotUnique
+  rescue ActiveRecord::RecordNotUnique
   end
 
   def process_images
