@@ -17,13 +17,14 @@ class AlbumProcessor
   end
 
   def insert_photos
+    path = Pathname.new(@directory).basename.to_s.to_url
     @images_to_process.each do |filename|
-      insert_photo(filename)
+      insert_photo(path, filename)
     end
   end
 
-  def insert_photo(filename)
-    Photo.create!(filename: filename)
+  def insert_photo(path, filename)
+    Photo.create!(path: path, filename: filename)
   rescue ActiveRecord::RecordNotUnique
   end
 
