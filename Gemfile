@@ -32,6 +32,7 @@ gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'decent_exposure'
 gem 'rmagick'
 gem 'stringex'
+gem 'modernizr-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
