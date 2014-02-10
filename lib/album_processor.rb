@@ -23,7 +23,8 @@ class AlbumProcessor
   end
 
   def insert_photo(path, filename)
-    Photo.create!(path: path, filename: filename)
+    album = Album.where(title: path).first_or_create
+    Photo.create!(path: path, filename: filename, album: album)
     @added_images_count += 1
   rescue ActiveRecord::RecordNotUnique
   end
