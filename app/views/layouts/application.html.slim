@@ -19,7 +19,7 @@ html
     /! Fonts from Google"s Web font directory at http://google.com/webfonts
     link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
     link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
-  body
+  body.no-sidebar
     header role="banner"
       hgroup
         h1
@@ -36,10 +36,6 @@ html
     #main
       #content
         == yield
-        aside.sidebar
-          section
-            h1 Recent Posts
-            ul#recent_posts
     footer role="contentinfo"
       p
         | Copyright &copy; 2013 - Robin Clowers -
