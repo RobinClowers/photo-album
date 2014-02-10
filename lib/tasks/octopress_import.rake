@@ -25,7 +25,7 @@ namespace :import do
     paths.each do |name|
       album_data = YAML.load_file(File.join(root_path, name, index_filename))
       photo = Photo.where(path: name, filename: album_data['cover']).first
-      raise "can't find photo #{name}#{album_data['cover']}" unless photo
+      raise "can't find photo #{name}/#{album_data['cover']}" unless photo
       album = Album.where(title: album_data['title']).first_or_create
       album.update_attributes(cover_photo: photo)
     end
