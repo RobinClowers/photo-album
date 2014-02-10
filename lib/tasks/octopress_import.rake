@@ -1,11 +1,13 @@
-require "album_set_processor"
-
 namespace :import do
+
   task :all_photos, [:path] => :environment do |t, args|
+    require "album_set_processor"
+
     AlbumSetProcessor.new(args.path).syncronize_photos
   end
 
   task :albums => :environment do
+    require "album_set_processor"
     require 'yaml'
 
     root_path = "../photo-site-generator/source/albums/"
