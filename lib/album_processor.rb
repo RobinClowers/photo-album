@@ -1,24 +1,20 @@
 require "RMagick"
 
 class AlbumProcessor
+  attr_reader :directory, :web_dir, :thumbs_dir
+
   def initialize(directory)
-    directory = File.expand_path(directory)
+    @directory = File.expand_path(directory)
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
-    @directory = directory
-    @image_names = get_images(directory)
     @web_dir = File.join(directory, 'web')
     @thumbs_dir = File.join(directory, 'thumbs')
     guard_dir @web_dir
     guard_dir @thumbs_dir
-    exisiting_web_images = get_images(File.join(directory, 'web'))
-    exisiting_thumbnail_images = get_images(File.join(directory, 'thumbs'))
-    processed_images = exisiting_web_images & exisiting_thumbnail_images
-    @images_to_process = @image_names - processed_images
   end
 
   def insert_photos
-    path = Pathname.new(@directory).basename.to_s.to_url
-    @images_to_process.each do |filename|
+    path = Pathname.new(directory).basename.to_s.to_url
+    unprocessed_images.each do |filename|
       insert_photo(path, filename)
     end
   end
@@ -74,8 +70,8 @@ class AlbumProcessor
   end
 
   def each_image
-    @images_to_process.each do |filename|
-      image = Magick::ImageList.new(File.join(@directory, filename))
+    unprocessed_images.each do |filename|
+      image = Magick::ImageList.new(File.join(directory, filename))
       yield image, filename
     end
   end
@@ -84,8 +80,27 @@ class AlbumProcessor
     Dir.mkdir(name) unless Dir.exists?(name)
   end
 
-end
+  def unprocessed_images
+    @unprocessed_images ||= all_images - processed_images
+  end
 
-def get_images(directory)
-  Dir.entries(directory).select { |f| f =~ /\.jpg|png\Z/i }
+  def processed_images
+    @processed_images ||= exisiting_web_images & exisiting_thumbnail_images
+  end
+
+  def exisiting_web_images
+    @exisiting_web_images ||= valid_images(File.join(directory, 'web'))
+  end
+
+  def exisiting_thumbnail_images
+    @exisiting_thumbnail_images ||= valid_images(File.join(directory, 'thumbs'))
+  end
+
+  def all_images
+    @image_names ||= valid_images(directory)
+  end
+
+  def valid_images(directory)
+    Dir.entries(directory).select { |f| f =~ /\.jpg|png\Z/i }
+  end
 end
