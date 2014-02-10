@@ -11,20 +11,21 @@ namespace :import do
     root_path = "../photo-site-generator/source/albums/"
     index_filename = "index.markdown"
     paths = %w[
-      bangkok/
-      chiang-mai/
-      don-det/
-      luang-prabang/
-      pai/
-      pakse-and-vientiane/
-      siem-reap/
-      slow-boat-to-thailand/
-      vang-vieng/
+      bangkok
+      chiang-mai
+      don-det
+      luang-prabang
+      pai
+      pakse-and-vientiane
+      siem-reap
+      slow-boat-to-thailand
+      vang-vieng
     ]
 
     paths.each do |name|
-      album = YAML.load_file(Path.join(root_path, name, index_filename))
-      photo = Photo.where(path: path, filename: album['cover']).first
+      album = YAML.load_file(File.join(root_path, name, index_filename))
+      photo = Photo.where(path: name, filename: album['cover']).first
+      raise "can't find photo #{name}#{album['cover']}" unless photo
       Album.create!(title: album['title'], cover_photo: photo)
     end
   end
