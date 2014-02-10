@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  expose(:albums) { [] }
+  expose(:albums) { Album.active.to_a }
   expose(:images) { [] }
 
   def index; end
