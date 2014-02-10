@@ -10,7 +10,11 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.mousewheel-3.0.6.pack.js
+//= require jquery.fancybox.js
+//= require jquery.fancybox-buttons.js
+//= require jquery.fancybox-media.js
+//= require jquery.fancybox-thumbs.js
 //= require_tree .
