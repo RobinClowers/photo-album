@@ -2,4 +2,7 @@
   ul
     - albums.each do |album|
       li
+        a.fancybox href=album_path(album)
+          img src=album.cover_photo.thumb_url
+          p= album.title
 

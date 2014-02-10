@@ -1,5 +1,11 @@
-.album-thumbs
-  ul
-    - images.each do |image|
-      li
-        a.fancybox
+.album-photos
+  article role="article"
+    header
+      h1.entry-title= album.title
+      p.meta= album.created_at.to_s(:short)
+    .album-photos
+      ul.album-thumbs
+        - images.each do |image|
+          li
+            a.fancybox rel="group" href=image.url
+              img src=image.thumb_url
