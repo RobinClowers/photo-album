@@ -13,14 +13,18 @@ class AlbumProcessor
   end
 
   def insert_all_photos
+    @added_images_count = 0
     path = Pathname.new(directory).basename.to_s.to_url
+    puts "attempting to import #{all_images.count} images"
     all_images.each do |filename|
       insert_photo(path, filename)
     end
+    puts "imported #{@added_images_count} images"
   end
 
   def insert_photo(path, filename)
     Photo.create!(path: path, filename: filename)
+    @added_images_count += 1
   rescue ActiveRecord::RecordNotUnique
   end
 
