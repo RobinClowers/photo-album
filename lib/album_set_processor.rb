@@ -27,7 +27,7 @@ class AlbumSetProcessor
 
   def syncronize_photos
     each_entry do |entry, full_path|
-      AlbumProcessor.new(full_path).insert_photos
+      AlbumProcessor.new(full_path).insert_all_photos
     end
   end
 

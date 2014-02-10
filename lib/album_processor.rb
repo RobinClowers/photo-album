@@ -12,9 +12,9 @@ class AlbumProcessor
     guard_dir @thumbs_dir
   end
 
-  def insert_photos
+  def insert_all_photos
     path = Pathname.new(directory).basename.to_s.to_url
-    unprocessed_images.each do |filename|
+    all_images.each do |filename|
       insert_photo(path, filename)
     end
   end
