@@ -1,3 +1,4 @@
+.env
 *.sassc
 .sass-cache
 capybara-*.html
