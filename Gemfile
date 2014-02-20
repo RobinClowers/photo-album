@@ -32,6 +32,7 @@ gem 'decent_exposure'
 gem 'rmagick'
 gem 'stringex'
 gem 'modernizr-rails'
+gem 'dotenv-rails'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
