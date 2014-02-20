@@ -1,5 +1,4 @@
 namespace :import do
-
   task :all_photos, [:path] => :environment do |t, args|
     require "album_set_processor"
 
@@ -32,5 +31,6 @@ namespace :import do
       album.update_attributes(cover_photo: photo)
     end
   end
+
 end
 
