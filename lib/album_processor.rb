@@ -3,8 +3,8 @@ require "RMagick"
 class AlbumProcessor
   attr_reader :directory, :web_dir, :thumbs_dir
 
-  def initialize(directory)
-    @directory = File.expand_path(directory)
+  def initialize(dir)
+    @directory = File.expand_path(dir)
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
     @web_dir = File.join(directory, 'web')
     @thumbs_dir = File.join(directory, 'thumbs')
