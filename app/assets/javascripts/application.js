@@ -11,7 +11,6 @@
 // about supported directives.
 //
 //= require jquery_ujs
-//= require turbolinks
 //= require jquery.mousewheel-3.0.6.pack.js
 //= require jquery.fancybox.js
 //= require jquery.fancybox-buttons.js
