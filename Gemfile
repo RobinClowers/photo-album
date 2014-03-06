@@ -48,3 +48,7 @@ end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Use Omiauth for social sign in
+gem 'omniauth', '~>1.2.1'
+gem 'omniauth-facebook', '~> 1.6.0'
