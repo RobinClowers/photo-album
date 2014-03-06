@@ -8,6 +8,10 @@ describe User do
         create_user(email: "a@b.com")
       }.to raise_error ActiveRecord::RecordNotUnique
     end
+
+    it "doesn't require a password" do
+      User.create!(provider: 'custom')
+    end
   end
 
   def create_user(attributes)

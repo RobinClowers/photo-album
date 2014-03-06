@@ -33,6 +33,14 @@ html
       ul.main-navigation.login-view
         li
           a href="/" Home
+        - if current_user
+          li
+            a Hello #{current_user.name}
+          li
+            = link_to("Sign out", signout_path, :method => :delete)
+        - else
+          li
+            = link_to "Sign in with Facebook", "/auth/facebook"
     #main
       #content
         == yield
