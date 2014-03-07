@@ -4,14 +4,10 @@ class Photo < ActiveRecord::Base
   default_scope -> { order(:filename) }
 
   def thumb_url
-    File.join(Rails.application.config.base_photo_url, old_path, 'thumbs', filename)
+    File.join(Rails.application.config.base_photo_url, path, 'thumbs', filename)
   end
 
   def url
-    File.join(Rails.application.config.base_photo_url, old_path, filename)
-  end
-
-  def old_path
-    path.gsub('-', ' ').gsub(' and', ' &')
+    File.join(Rails.application.config.base_photo_url, path, filename)
   end
 end
