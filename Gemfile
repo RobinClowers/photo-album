@@ -48,7 +48,7 @@ group :production do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.0.0'
+gem 'bcrypt-ruby', '~> 3.1.1'
 
 # Use Omiauth for social sign in
 gem 'omniauth', '~>1.2.1'
