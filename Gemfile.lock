@@ -190,7 +190,7 @@ DEPENDENCIES
   bcrypt-ruby (~> 3.0.0)
   better_errors
   binding_of_caller
-  coffee-rails
+  coffee-rails (~> 4.0.0)
   compass-rails
   decent_exposure
   dotenv-rails
