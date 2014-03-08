@@ -30,3 +30,13 @@ task :auto_orient, :image_directory do |t, args|
   processor = AlbumProcessor.new(args.image_directory)
   processor.auto_orient_images!
 end
+
+# usage rake auto_orient_st['~/Pictures']
+desc "orients each directory of images based on their exif rotation data"
+task :auto_orient_set, :image_directory do |t, args|
+  require "album_set_processor"
+
+  args.with_defaults(:image_directory => '')
+  processor = AlbumSetProcessor.new(args.image_directory)
+  processor.auto_orient_images!
+end

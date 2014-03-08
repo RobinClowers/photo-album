@@ -16,6 +16,12 @@ class AlbumSetProcessor
     end
   end
 
+  def auto_orient_images
+    each_entry do |entry, full_path|
+      AlbumProcessor.new(full_path).auto_orient_images
+    end
+  end
+
   def each_entry
     Dir.foreach set_path do |entry|
       full_path = File.join(set_path, entry)
