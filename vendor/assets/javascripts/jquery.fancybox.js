@@ -1761,7 +1761,8 @@
 			this.overlay = null;
 
 			if (this.margin !== false) {
-				$('body').css('margin-right', this.margin);
+				// This breaks Firefox on large displays. No idea why this seemed like a good idea.
+				// $('body').css('margin-right', this.margin);
 
 				this.margin = false;
 			}
@@ -1820,7 +1821,8 @@
 				this.el.addClass('fancybox-lock');
 
 				if (this.margin !== false) {
-					$('body').css('margin-right', getScalar( this.margin ) + obj.scrollbarWidth);
+					// This breaks Firefox on large displays. No idea why this seemed like a good idea.
+					// $('body').css('margin-right', getScalar( this.margin ) + obj.scrollbarWidth);
 				}
 			}
 
