@@ -59,4 +59,4 @@ gem 'capistrano', '~> 3.1.0'
 
 # Use Puma server
 gem 'puma', '~> 2.8.1'
-gem 'capistrano3-puma'
+gem 'capistrano3-puma', github: "seuros/capistrano-puma"
