@@ -56,3 +56,6 @@ gem 'omniauth-facebook', '~> 1.6.0'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.1.0'
+
+# Use Puma server
+gem 'puma', '~> 2.8.1'
