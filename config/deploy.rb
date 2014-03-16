@@ -5,6 +5,7 @@ lock '3.1.0'
 
 set :application, 'photo-album'
 set :repo_url, 'git@github.com:RobinClowers/photo-album.git'
+set :puma_role, :app
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
