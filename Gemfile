@@ -38,7 +38,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'pry'
   gem 'better_errors'
-  gem 'sprockets_better_errors'
+  gem 'sprockets_better_errors', git: 'git@github.com:RobinClowers/sprockets_better_errors.git',
+    branch: 'update-for-rails-4-1'
   gem 'binding_of_caller'
 end
 
