@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.1.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1.1'
 
 # Use postgres as the database for Active Record
 gem 'pg'
@@ -26,7 +26,7 @@ gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
 
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
 gem 'decent_exposure'
 gem 'rmagick'
@@ -39,7 +39,8 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'better_errors'
-  gem 'sprockets_better_errors'
+  gem 'sprockets_better_errors', git: 'git@github.com:RobinClowers/sprockets_better_errors.git',
+    branch: 'update-for-rails-4-1'
   gem 'binding_of_caller'
 end
 
