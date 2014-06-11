@@ -13,3 +13,11 @@ test:
   pool: 5
   username: photo_album
   password: asdfasdf
+
+vagrant:
+  adapter: postgresql
+  encoding: unicode
+  database: photo_album_vagrant
+  pool: 5
+  username: photo_album
+  password: asdfasdf
