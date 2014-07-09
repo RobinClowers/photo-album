@@ -56,7 +56,7 @@ gem 'omniauth', '~>1.2.1'
 gem 'omniauth-facebook', '~> 1.6.0'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 3.1.0'
+gem 'capistrano', '~> 3.2.1'
 gem 'capistrano3-puma', '~> 0.5.1'
 gem 'capistrano-bundler', '~> 1.1.2'
 
