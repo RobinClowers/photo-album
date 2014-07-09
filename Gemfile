@@ -32,9 +32,10 @@ gem 'decent_exposure'
 gem 'rmagick'
 gem 'stringex'
 gem 'modernizr-rails'
-gem 'dotenv-rails'
+gem 'dotenv-deployment'
 
 group :development, :test do
+  gem 'dotenv-rails'
   gem 'rspec-rails', '~> 2.0'
   gem 'pry'
   gem 'pry-byebug'
