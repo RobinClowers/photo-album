@@ -32,6 +32,7 @@ gem 'decent_exposure'
 gem 'rmagick'
 gem 'stringex'
 gem 'modernizr-rails'
+gem 'dotenv', '~> 0.11.1'
 gem 'dotenv-rails'
 gem 'dotenv-deployment'
 
