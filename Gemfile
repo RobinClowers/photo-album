@@ -32,11 +32,14 @@ gem 'decent_exposure'
 gem 'rmagick'
 gem 'stringex'
 gem 'modernizr-rails'
+gem 'dotenv', '~> 0.11.1'
 gem 'dotenv-rails'
+gem 'dotenv-deployment'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
   gem 'pry'
+  gem 'pry-byebug'
   gem 'better_errors'
   gem 'sprockets_better_errors', git: 'git@github.com:RobinClowers/sprockets_better_errors.git',
     branch: 'update-for-rails-4-1'
@@ -45,7 +48,6 @@ end
 
 group :production do
   gem 'rails_12factor'
-  gem 'thin'
 end
 
 # Use ActiveModel has_secure_password
@@ -54,3 +56,11 @@ gem 'bcrypt-ruby', '~> 3.1.1'
 # Use Omiauth for social sign in
 gem 'omniauth', '~>1.2.1'
 gem 'omniauth-facebook', '~> 1.6.0'
+
+# Use Capistrano for deployment
+gem 'capistrano', '~> 3.2.1'
+gem 'capistrano3-puma', '~> 0.5.1'
+gem 'capistrano-bundler', '~> 1.1.2'
+
+# Use Puma server
+gem 'puma', '~> 2.8.1'
