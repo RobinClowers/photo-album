@@ -4,9 +4,10 @@ lock '3.2.1'
 set :application, 'photo-album'
 set :repo_url, 'git@github.com:RobinClowers/photo-album.git'
 set :puma_role, :app
+set :assets_roles, [:app]
 
 set :default_env, {
-  'PATH' => '/opt/rubies/ruby-2.1.1/bin:$PATH',
+  'PATH' => '/opt/rubies/ruby-2.1.2/bin:$PATH',
 }
 
 # Default branch is :master
