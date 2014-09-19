@@ -21,3 +21,11 @@ vagrant:
   pool: 5
   username: photo_album
   password: asdfasdf
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: photo_album_production
+  pool: 5
+  username: photo_album
+  password: asdfasdf
