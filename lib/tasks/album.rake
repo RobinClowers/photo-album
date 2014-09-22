@@ -19,6 +19,13 @@ namespace :album do
     end
   end
 
+  desc "Create an album from photos on s3"
+  task :create, [:title] => :environment do |t, args|
+    require "album_creator"
+
+    AlbumCreator.new(args.title).insert_all_photos_from_s3
+  end
+
   def valid_images(path)
     Dir.entries(path).select { |f| f =~ /\.jpg|png\Z/i }
   end
