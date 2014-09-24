@@ -26,6 +26,12 @@ namespace :album do
     AlbumCreator.new(args.title).insert_all_photos_from_s3
   end
 
+  desc "Sets the cover photo for an album"
+  task :update_cover_photo, [:title, :filename] => :environment do |t, args|
+    photo = Photo.find_by_filename!(args.filename)
+    Album.find_by_title!(args.title).update_attributes!(cover_photo: photo)
+  end
+
   def valid_images(path)
     Dir.entries(path).select { |f| f =~ /\.jpg|png\Z/i }
   end
