@@ -11,6 +11,10 @@ class Photo < ActiveRecord::Base
     File.join(Rails.application.config.base_photo_url, path, filename)
   end
 
+  def insecure_url
+    File.join("http://", Rails.application.config.base_photo_url, path, filename)
+  end
+
   def secure_url
     File.join(Rails.application.config.base_secure_photo_url, path, filename)
   end
