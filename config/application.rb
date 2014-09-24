@@ -26,5 +26,6 @@ module PhotoAlbum
     # config.i18n.default_locale = :de
 
     config.base_photo_url = "//s3.amazonaws.com/robin-photos/"
+    config.base_secure_photo_url = "https://s3.amazonaws.com/robin-photos/"
   end
 end

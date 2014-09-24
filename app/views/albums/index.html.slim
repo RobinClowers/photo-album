@@ -1,3 +1,13 @@
+- content_for :head do
+  link href=root_path rel="canonical"
+  meta property="content" content="Travel photos by Robin Clowers"
+  meta property="og:title" content="Album list"
+  meta property="og:url" content=root_path
+  meta property="og:description" content="Travel photos by Robin Clowers"
+  - albums.each do |album|
+    meta property="og:image" content=album.cover_photo.url
+    meta property="og:image:secure_url" content=album.cover_photo.secure_url
+
 .album-list
   ul
     - albums.each do |album|
