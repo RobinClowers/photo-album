@@ -3,7 +3,7 @@
 
 - content_for :head do
   link href=album_url(album) rel="canonical"
-  meta property="content" content="Photos from #{album.title}"
+  meta property="description" content="Photos from #{album.title}"
   meta property="og:title" content=album.title
   meta property="og:description" content="Photos from #{album.title}"
   meta property="og:url" content=album_url(album)
