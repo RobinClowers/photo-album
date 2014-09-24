@@ -35,6 +35,7 @@ gem 'modernizr-rails'
 gem 'dotenv', '~> 0.11.1'
 gem 'dotenv-rails'
 gem 'dotenv-deployment'
+gem 'aws-sdk'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
