@@ -6,7 +6,7 @@ class Album < ActiveRecord::Base
 
   scope :active, -> { where.not(cover_photo_id: nil) }
 
-  default_scope -> { order(:title) }
+  default_scope -> { order(created_at: :desc) }
 
   def generate_slug
     self.slug = title.parameterize
