@@ -15,4 +15,8 @@ class Album < ActiveRecord::Base
   def to_param
     slug
   end
+
+  def update_cover_photo!(filename)
+    update_attributes!(cover_photo: Photo.find_by_filename!(filename))
+  end
 end
