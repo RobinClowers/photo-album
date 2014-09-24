@@ -1,5 +1,15 @@
 - content_for :title do
   == "Robin's Photos - #{album.title}"
+
+- content_for :head do
+  link href=album_url(album) rel="canonical"
+  meta property="description" content="Photos from #{album.title}"
+  meta property="og:title" content=album.title
+  meta property="og:description" content="Photos from #{album.title}"
+  meta property="og:url" content=album_url(album)
+  meta property="og:image" content=album.cover_photo.insecure_url
+  meta property="og:image:secure_url" content=album.cover_photo.secure_url
+
 .album-photos
   article role="article"
     header
