@@ -9,7 +9,7 @@ class Album < ActiveRecord::Base
   default_scope -> { order(created_at: :desc) }
 
   def generate_slug
-    self.slug = title.parameterize
+    self.slug = title.to_url
   end
 
   def to_param

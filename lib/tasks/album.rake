@@ -2,7 +2,7 @@ namespace :album do
   desc "Upload all photos in an album"
   task :upload, [:path] => :environment do |t, args|
     path = File.expand_path(args.path)
-    title = Pathname.new(path).basename.to_s.parameterize
+    title = Pathname.new(path).basename.to_s.to_url
     s3 = AWS::S3.new
 
     bucket = s3.buckets['robin-photos']
