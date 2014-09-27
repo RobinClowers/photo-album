@@ -25,7 +25,7 @@ namespace :album do
 
     AlbumCreator.new(args.title).insert_all_photos_from_s3
 
-    return unless args.cover_photo_filename
+    next unless args.cover_photo_filename
     Album.find_by_title!(args.title).update_cover_photo!(args.cover_photo_filename)
   end
 
