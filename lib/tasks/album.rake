@@ -13,8 +13,9 @@ namespace :album do
     images.each do |image|
       key = "#{title}/#{image}"
       unless existing_photos.include?(key)
-        puts "creating #{key}"
-        bucket.objects.create(key, "#{path}/#{image}")
+        image_path = "#{path}/#{image}"
+        puts "creating #{key} from #{image_path}"
+        bucket.objects.create(key, file: image_path)
       end
     end
   end
