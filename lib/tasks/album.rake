@@ -11,7 +11,7 @@ namespace :album do
 
     images = valid_images(path)
     images.each do |image|
-      key = "#{title}/#{image}"
+      key = "#{title}/original/#{image}"
       unless existing_photos.include?(key)
         image_path = "#{path}/#{image}"
         puts "creating #{key} from #{image_path}"
