@@ -3,18 +3,21 @@ namespace :album do
   task :upload, [:path] => :environment do |t, args|
     path = File.expand_path(args.path)
     title = Pathname.new(path).basename.to_s.to_url
+    original_prefix = "#{title}/original"
     s3 = AWS::S3.new
 
     bucket = s3.buckets['robin-photos']
-    tree = bucket.as_tree(prefix: title)
+    tree = bucket.as_tree(prefix: original_prefix)
     existing_photos = tree.children.select(&:leaf?).map(&:key)
+    puts "Skipping #{existing_photos}"
 
     images = valid_images(path)
     images.each do |image|
-      key = "#{title}/#{image}"
+      key = "#{original_prefix}/#{image}"
       unless existing_photos.include?(key)
-        puts "creating #{key}"
-        bucket.objects.create(key, "#{path}/#{image}")
+        image_path = "#{path}/#{image}"
+        puts "creating #{key} from #{image_path}"
+        bucket.objects.create(key, file: image_path)
       end
     end
   end
