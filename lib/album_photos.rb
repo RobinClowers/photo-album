@@ -24,18 +24,45 @@ class AlbumPhotos
     bucket.objects.create(key_to_create, file: image_path)
   end
 
+  def download_original(target_dir)
+    FileUtils.mkdir_p(target_dir)
+    leaf_nodes(:original).map(&:object).each do |object|
+      download(object, target_dir)
+    end
+  end
+
   private
 
+  def download(object, target_dir)
+    filename = Pathname.new(object.key).basename
+    filepath = "#{target_dir}/#{filename}"
+    puts "writing to #{filepath}"
+
+    File.open(filepath, 'wb') do |file|
+      object.read do |chunk|
+         file.write(chunk)
+      end
+    end
+  end
+
   def keys(type)
+    leaf_nodes(type).map(&:key)
+  end
+
+  def leaf_nodes(type)
     tree = bucket.as_tree(prefix: prefix(type))
-    tree.children.select(&:leaf?).map(&:key)
+    tree.children.select(&:leaf?)
   end
 
   def key(type, name)
-    [title, prefix(type)].compact.join('/')
+    [prefix(type), name].join('/')
   end
 
   def prefix(type)
+    [title.to_url, subfolder(type)].compact.join('/')
+  end
+
+  def subfolder(type)
     return nil if type == :web
     type
   end

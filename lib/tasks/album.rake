@@ -3,7 +3,7 @@ namespace :album do
   task :upload, [:path] => :environment do |t, args|
     require 'uploader'
 
-    Uploader.new(args.path).upload
+    Uploader.new(args.path).upload(:original)
   end
 
   desc "Create an album from photos on s3"
@@ -19,5 +19,12 @@ namespace :album do
   desc "Sets the cover photo for an album"
   task :update_cover_photo, [:title, :filename] => :environment do |t, args|
     Album.find_by_title!(args.title).update_cover_photo!(args.filename)
+  end
+
+  desc "Process photos for a given album"
+  task :process, [:title] => :environment do |t, args|
+    require 'process_photos'
+
+    ProcessPhotos.new(args.title).process
   end
 end

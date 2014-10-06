@@ -3,19 +3,19 @@ require 'album_photos'
 class Uploader
   attr_accessor :path, :title
 
-  def initialize(path)
+  def initialize(path, title: nil)
     @path = File.expand_path(path)
-    @title = Pathname.new(path).basename.to_s.to_url
+    @title = title || Pathname.new(path).basename.to_s.to_url
   end
 
-  def upload
+  def upload(type=:web)
     existing_photos = photos.original
     puts "Skipping #{existing_photos}"
 
     valid_images(path).each do |image|
       unless existing_photos.include?(image)
         image_path = "#{path}/#{image}"
-        photos.create(image, image_path, type: :original)
+        photos.create(image, image_path, type: type)
       end
     end
   end
