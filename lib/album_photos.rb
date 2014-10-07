@@ -46,7 +46,7 @@ class AlbumPhotos
   end
 
   def keys(type)
-    leaf_nodes(type).map(&:key)
+    leaf_nodes(type).map(&:key).map { |key| Pathname.new(key).basename.to_s }
   end
 
   def leaf_nodes(type)
