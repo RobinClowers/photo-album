@@ -36,6 +36,8 @@ class AlbumPhotos
   def download(object, target_dir)
     filename = Pathname.new(object.key).basename
     filepath = "#{target_dir}/#{filename}"
+    return if File.exist? filepath
+
     puts "writing to #{filepath}"
 
     File.open(filepath, 'wb') do |file|
