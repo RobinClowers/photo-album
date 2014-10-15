@@ -22,6 +22,6 @@ class ProcessPhotos
   end
 
   def tmp_dir
-    @tmp_dir ||= "tmp/photo_processing/#{Time.now.to_i}"
+    @tmp_dir ||= "tmp/photo_processing/#{title}"
   end
 end
