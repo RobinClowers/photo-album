@@ -15,12 +15,19 @@ class Uploader
     valid_images(path).each do |image|
       unless existing_photos.include?(image)
         image_path = "#{path}/#{image}"
-        photos.create(image, image_path, type: type)
+        create(image, image_path, type)
       end
     end
   end
 
   private
+
+  def create(image, image_path, type)
+    photos.create(image, image_path, type: type)
+  rescue Errno::EPIPE
+    puts "Broken pipe, retrying..."
+    retry
+  end
 
   def photos
     @photos ||= AlbumPhotos.new(title)
