@@ -4,7 +4,7 @@ class Uploader
   attr_accessor :path, :title
 
   def initialize(path, title: nil)
-    @path = File.expand_path(path)
+    @path = File.realpath(File.expand_path(path))
     @title = title || Pathname.new(path).basename.to_s.to_url
   end
 
