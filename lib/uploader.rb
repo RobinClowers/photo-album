@@ -9,7 +9,7 @@ class Uploader
   end
 
   def upload(type=:web)
-    existing_photos = photos.original
+    existing_photos = photos.keys(type)
     puts "Skipping #{existing_photos}"
 
     valid_images(path).each do |image|

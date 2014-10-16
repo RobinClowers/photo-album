@@ -17,6 +17,10 @@ class AlbumPhotos
     keys
   end
 
+  def keys(type)
+    leaf_nodes(type).map(&:key).map { |key| Pathname.new(key).basename.to_s }
+  end
+
   def create(name, image_path, type: :web)
     raise 'invalid type' unless [:web, :thumb, :original].include? type.to_sym
     key_to_create = key(type, name)
@@ -45,10 +49,6 @@ class AlbumPhotos
          file.write(chunk)
       end
     end
-  end
-
-  def keys(type)
-    leaf_nodes(type).map(&:key).map { |key| Pathname.new(key).basename.to_s }
   end
 
   def leaf_nodes(type)
