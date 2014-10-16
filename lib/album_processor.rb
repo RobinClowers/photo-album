@@ -4,7 +4,7 @@ class AlbumProcessor
   attr_reader :directory, :web_dir, :thumbs_dir
 
   def initialize(dir)
-    @directory = File.expand_path(dir)
+    @directory = File.realpath(File.expand_path(dir))
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
     @web_dir = File.join(directory, 'web')
     @thumbs_dir = File.join(directory, 'thumbs')
@@ -65,13 +65,19 @@ class AlbumProcessor
   end
 
   def create_thumbnail_image(image, basename)
+    path = File.join(@thumbs_dir, basename)
+    return if File.exists?(path)
     thumb = image.resize_to_fill(75, 75)
-    thumb.write(File.join(@thumbs_dir, basename))
+    puts "writing thumb version for #{image.filename}"
+    thumb.write(path)
   end
 
   def create_web_image(image, basename)
+    path = File.join(@web_dir, basename)
+    return if File.exists?(path)
     web = image.resize_to_fit(1024, 1024)
-    web.write(File.join(@web_dir, basename))
+    puts "writing web version for #{image.filename}"
+    web.write(path)
   end
 
   def each_image

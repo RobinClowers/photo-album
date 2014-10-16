@@ -4,7 +4,7 @@ class AlbumSetProcessor
   attr_reader :set_path, :ignore_file
 
   def initialize(set_path, ignore_file: '.album_set_ignore')
-    @set_path = File.expand_path set_path
+    @set_path = File.realpath(File.expand_path(set_path))
     @ignore_file = ignore_file
   end
 

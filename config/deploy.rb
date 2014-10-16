@@ -3,8 +3,8 @@ lock '3.2.1'
 
 set :application, 'photo-album'
 set :repo_url, 'git@github.com:RobinClowers/photo-album.git'
-set :puma_role, :app
-set :assets_roles, [:app]
+set :puma_role, :web
+set :assets_roles, [:web]
 
 set :default_env, {
   'PATH' => '/opt/rubies/ruby-2.1.2/bin:$PATH',
@@ -31,7 +31,7 @@ set :deploy_to, '/srv/photo_album'
 # Default value for :linked_files is []
 # set :linked_files, %w{config/database.yml}
 
-# Default value for linked_dirs is []
+set :linked_dirs, %w{log tmp}
 set :linked_files, %w{.env}
 
 # Default value for default_env is {}
