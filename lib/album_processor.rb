@@ -65,15 +65,19 @@ class AlbumProcessor
   end
 
   def create_thumbnail_image(image, basename)
+    path = File.join(@thumbs_dir, basename)
+    return if File.exists?(path)
     thumb = image.resize_to_fill(75, 75)
     puts "writing thumb version for #{image.filename}"
-    thumb.write(File.join(@thumbs_dir, basename))
+    thumb.write(path)
   end
 
   def create_web_image(image, basename)
+    path = File.join(@web_dir, basename)
+    return if File.exists?(path)
     web = image.resize_to_fit(1024, 1024)
     puts "writing web version for #{image.filename}"
-    web.write(File.join(@web_dir, basename))
+    web.write(path)
   end
 
   def each_image
