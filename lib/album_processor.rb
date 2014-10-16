@@ -66,11 +66,13 @@ class AlbumProcessor
 
   def create_thumbnail_image(image, basename)
     thumb = image.resize_to_fill(75, 75)
+    puts "writing thumb version for #{image.filename}"
     thumb.write(File.join(@thumbs_dir, basename))
   end
 
   def create_web_image(image, basename)
     web = image.resize_to_fit(1024, 1024)
+    puts "writing web version for #{image.filename}"
     web.write(File.join(@web_dir, basename))
   end
 
