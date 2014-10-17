@@ -36,6 +36,7 @@ gem 'dotenv', '~> 0.11.1'
 gem 'dotenv-rails'
 gem 'dotenv-deployment'
 gem 'aws-sdk'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
