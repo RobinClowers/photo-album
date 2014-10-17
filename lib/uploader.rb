@@ -8,7 +8,7 @@ class Uploader
     @title = title || Pathname.new(path).basename.to_s.to_url
   end
 
-  def upload(type=:web)
+  def upload_all(type=:web)
     raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
     existing_photos = photos.keys(type)
     puts "Skipping #{existing_photos}"
