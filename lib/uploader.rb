@@ -28,7 +28,7 @@ class Uploader
   private
 
   def create(path, name, type)
-    photos.create(path, File.join(path, name), type: type)
+    photos.create(name, File.join(path, name), type: type)
   end
 
   def photos
