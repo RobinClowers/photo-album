@@ -9,6 +9,7 @@ class Uploader
   end
 
   def upload(type=:web)
+    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
     existing_photos = photos.keys(type)
     puts "Skipping #{existing_photos}"
 
