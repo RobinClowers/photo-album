@@ -2328,11 +2328,6 @@
 		F.lockMargin = (w2 - w1);
 
 		$("<style type='text/css'>.fancybox-margin{margin-right:" + F.lockMargin + "px;}</style>").appendTo("head");
-
-		// Auto start
-		if ($("script[src*='jquery.fancybox.js']").attr('src').match(/autorun/) ){
-			$("a[href$='.jpg'],a[href$='.png'],a[href$='.gif'],.fancybox").attr('data-fancybox-group', 'gallery').fancybox();
-		}
 	});
 
 	// jQuery plugin initialization
