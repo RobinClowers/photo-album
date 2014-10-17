@@ -16,9 +16,7 @@ class ProcessPhotos
 
     Uploader.new("#{tmp_dir}/thumbs", title: title).upload(:thumb)
     Uploader.new("#{tmp_dir}/web", title: title).upload(:web)
-  rescue => error
     FileUtils.rm_rf(tmp_dir)
-    raise error
   end
 
   def tmp_dir
