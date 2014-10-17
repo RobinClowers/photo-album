@@ -8,22 +8,27 @@ class Uploader
     @title = title || Pathname.new(path).basename.to_s.to_url
   end
 
-  def upload(type=:web)
+  def upload(name, type=:web)
+    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
+    create(path, name, type)
+  end
+
+  def upload_all(type=:web)
+    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
     existing_photos = photos.keys(type)
     puts "Skipping #{existing_photos}"
 
     valid_images(path).each do |image|
       unless existing_photos.include?(image)
-        image_path = "#{path}/#{image}"
-        create(image, image_path, type)
+        create(path, image, type)
       end
     end
   end
 
   private
 
-  def create(image, image_path, type)
-    photos.create(image, image_path, type: type)
+  def create(path, name, type)
+    photos.create(name, File.join(path, name), type: type)
   rescue Errno::EPIPE
     puts "Broken pipe, retrying..."
     retry

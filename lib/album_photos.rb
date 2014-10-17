@@ -28,24 +28,22 @@ class AlbumPhotos
     bucket.objects.create(key_to_create, file: image_path)
   end
 
-  def download_original(target_dir)
+  def download_original(filename, target_dir)
     FileUtils.mkdir_p(target_dir)
-    leaf_nodes(:original).map(&:object).each do |object|
-      download(object, target_dir)
-    end
+    download(key(:original, filename), target_dir)
   end
 
   private
 
-  def download(object, target_dir)
-    filename = Pathname.new(object.key).basename
+  def download(key, target_dir)
+    filename = Pathname.new(key).basename
     filepath = "#{target_dir}/#{filename}"
     return if File.exist? filepath
 
     puts "writing to #{filepath}"
 
     File.open(filepath, 'wb') do |file|
-      object.read do |chunk|
+      bucket.objects[key].read do |chunk|
          file.write(chunk)
       end
     end
