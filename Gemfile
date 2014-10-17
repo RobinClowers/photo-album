@@ -37,6 +37,7 @@ gem 'dotenv-rails'
 gem 'dotenv-deployment'
 gem 'aws-sdk'
 gem 'sidekiq'
+gem 'sinatra', require: false # for sidekiq
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'

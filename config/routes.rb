@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 PhotoAlbum::Application.routes.draw do
   root 'albums#index'
 
@@ -5,4 +7,6 @@ PhotoAlbum::Application.routes.draw do
   delete "/signout" => "sessions#destroy", :as => :signout
 
   resources :albums, only: [:show]
+
+  mount Sidekiq::Web, at: "/sidekiq"
 end
