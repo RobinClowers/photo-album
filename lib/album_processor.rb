@@ -31,10 +31,19 @@ class AlbumProcessor
 
   def process_images
     each_image do |image, basename|
-      auto_orient_image!(image)
-      create_thumbnail_image(image, basename)
-      create_web_image(image, basename)
+      process_image(image, basename)
     end
+  end
+
+  def process(basename)
+    image = Magick::ImageList.new(File.join(directory, basename))
+    process_image(image, basename)
+  end
+
+  def process_image(image, basename)
+    auto_orient_image!(image)
+    create_thumbnail_image(image, basename)
+    create_web_image(image, basename)
   end
 
   def auto_orient_images!

@@ -15,7 +15,7 @@ class ProcessPhotos
     to_process.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
-      processor.process_images
+      processor.process(filename)
       thumbs_uploader.upload(:thumbs)
       thumbs_uploader.upload(:web)
       FileUtils.rm(File.join(tmp_dir, filename))
