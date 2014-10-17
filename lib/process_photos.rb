@@ -19,7 +19,7 @@ class ProcessPhotos
       album_photos.download_original(filename, tmp_dir)
       processor.process(filename)
       thumbs_uploader.upload(filename, :thumbs)
-      thumbs_uploader.upload(filename, :web)
+      web_uploader.upload(filename, :web)
       FileUtils.rm(File.join(tmp_dir, filename))
     end
     FileUtils.rm_rf(tmp_dir)
