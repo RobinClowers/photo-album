@@ -4,6 +4,7 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
+
   attr_accessor :title
 
   def initialize(title)
