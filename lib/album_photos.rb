@@ -9,8 +9,8 @@ class AlbumPhotos
     keys(:original)
   end
 
-  def thumb
-    keys(:thumb)
+  def thumbs
+    keys(:thumbs)
   end
 
   def web
