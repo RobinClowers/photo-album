@@ -4,14 +4,16 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
-  attr_accessor :title
+  attr_accessor :title, :to_process
 
   def initialize(title)
     @title = title
+    original = album_photos.original
+    processed = album_photos.keys(:web)
+    @to_process = original - processed
   end
 
   def process
-    to_process = album_photos.original
     to_process.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
