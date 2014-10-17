@@ -9,8 +9,8 @@ class AlbumPhotos
     keys(:original)
   end
 
-  def thumb
-    keys(:thumb)
+  def thumbs
+    keys(:thumbs)
   end
 
   def web
@@ -22,7 +22,7 @@ class AlbumPhotos
   end
 
   def create(name, image_path, type: :web)
-    raise 'invalid type' unless [:web, :thumb, :original].include? type.to_sym
+    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
     key_to_create = key(type, name)
     puts "creating #{key_to_create} from #{image_path}"
     bucket.objects.create(key_to_create, file: image_path)
