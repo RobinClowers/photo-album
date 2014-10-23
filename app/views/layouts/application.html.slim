@@ -34,6 +34,9 @@ html
       ul.main-navigation.login-view
         li
           a href="/" Home
+        - if current_user.admin?
+          li
+            = link_to "Admin", admin_root_path
         - if current_user.signed_in?
           li
             a Hello #{current_user.name}
