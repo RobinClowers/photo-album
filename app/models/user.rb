@@ -10,4 +10,10 @@ class User < ActiveRecord::Base
       name: auth["info"]["name"]
     )
   end
+
+  class NullUser < User
+    def admin?
+      false
+    end
+  end
 end
