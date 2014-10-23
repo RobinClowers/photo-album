@@ -8,6 +8,7 @@
 
     section
       h2 Albums
+      .messages
       .albums
         - potential_albums.each do |slug|
           .album
@@ -16,4 +17,5 @@
               = link_to('Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
-                  remote: true)
+                  remote: true,
+                  data: { confirmation: 'true' })
