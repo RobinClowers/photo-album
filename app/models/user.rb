@@ -11,8 +11,16 @@ class User < ActiveRecord::Base
     )
   end
 
+  def signed_in?
+    true
+  end
+
   class NullUser < User
     def admin?
+      false
+    end
+
+    def signed_in?
       false
     end
   end

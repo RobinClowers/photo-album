@@ -34,7 +34,7 @@ html
       ul.main-navigation.login-view
         li
           a href="/" Home
-        - if current_user
+        - if current_user.signed_in?
           li
             a Hello #{current_user.name}
           li
