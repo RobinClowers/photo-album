@@ -17,10 +17,17 @@ class AlbumCreator
   end
 
   def insert_photo(filename)
-    album = Album.where(title: title).first_or_create!
     Photo.create!(path: prefix, filename: filename, album: album)
     @added_images_count += 1
   rescue ActiveRecord::RecordNotUnique
+  end
+
+  def update_cover_photo!(cover_photo_filename)
+    album.update_cover_photo!(cover_photo_filename)
+  end
+
+  def album
+    @album ||= Album.where(title: title).first_or_create!
   end
 
   def s3

@@ -1,0 +1,19 @@
+- content_for :title do
+  | Robin's Photos - new album
+
+.admin
+  article role="article"
+    header
+      h1 New Album
+
+    section
+      .new-album
+        = form_for new_album, url: admin_albums_path do |f|
+          ul.form-fields
+            li= f.hidden_field :slug
+            li= f.label :title
+            li= f.text_field :title
+            li= f.label :cover_photo_filename
+            li= f.text_field :cover_photo_filename
+            li= f.submit
+

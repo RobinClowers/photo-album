@@ -1,0 +1,24 @@
+- content_for :title do
+  | Robin's Photos - administration
+
+.admin
+  article role="article"
+    header
+      h1 Administration
+
+    section
+      h2 Albums
+      .messages
+        - flash.each do |name, msg|
+          = content_tag :div, msg, class: name
+      .albums
+        - potential_albums.each do |slug|
+          .album
+            = slug
+            ul.album-actions
+              li= link_to('Process',
+                  admin_process_album_jobs_path(slug: slug),
+                  method: :post,
+                  remote: true,
+                  data: { confirmation: 'true' })
+              li= link_to('Create', new_admin_album_path(slug: slug))

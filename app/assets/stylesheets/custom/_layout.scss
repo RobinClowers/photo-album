@@ -24,3 +24,26 @@
   width: 75px;
   height: 75px;
 }
+
+.album {
+  margin-bottom: 10px;
+}
+
+.album .album-actions {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.messages .notice {
+  padding: 3px;
+  background-color: #90EE90;
+}
+
+.messages .error {
+  padding: 3px;
+  background-color: #FF6060;
+}
+
+.form-fields {
+  list-style: none;
+}

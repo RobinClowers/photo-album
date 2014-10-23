@@ -10,10 +10,11 @@ namespace :album do
   task :create, [:title, :cover_photo_filename] => :environment do |t, args|
     require "album_creator"
 
-    AlbumCreator.new(args.title).insert_all_photos_from_s3
+    creator = AlbumCreator.new(args.title)
+    creator.insert_all_photos_from_s3
 
     next unless args.cover_photo_filename
-    Album.find_by_title!(args.title).update_cover_photo!(args.cover_photo_filename)
+    creator.update_cover_photo!(args.cover_photo_filename)
   end
 
   desc "Sets the cover photo for an album"
