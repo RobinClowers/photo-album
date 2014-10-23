@@ -1,0 +1,19 @@
+- content_for :title do
+  | Robin's Photos - administration
+
+.admin
+  article role="article"
+    header
+      h1 Administration
+
+    section
+      h2 Albums
+      .albums
+        - potential_albums.each do |slug|
+          .album
+            = slug
+            .album-actions
+              = link_to('Process',
+                  admin_process_album_jobs_path(slug: slug),
+                  method: :post,
+                  remote: true)
