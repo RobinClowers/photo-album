@@ -22,6 +22,10 @@ class AlbumCreator
   rescue ActiveRecord::RecordNotUnique
   end
 
+  def update_cover_photo!(cover_photo_filename)
+    album.update_cover_photo!(cover_photo_filename)
+  end
+
   def album
     @album ||= Album.where(title: title).first_or_create!
   end

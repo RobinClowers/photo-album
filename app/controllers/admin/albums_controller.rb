@@ -1,4 +1,5 @@
 require 'albums'
+require 'album_creator'
 
 class Admin::AlbumsController < Admin::ApplicationController
   expose(:potential_albums) { Albums.new.names - Album.pluck(:slug) }
@@ -20,8 +21,12 @@ class Admin::AlbumsController < Admin::ApplicationController
 
   def create_album
     return unless new_album.update_attributes(album_attributes)
-    AlbumCreator.new(album_attributes[:title]).insert_all_photos_from_s3
-    new_album.update_attributes(cover_photo: cover_photo)
+    album_creator.insert_all_photos_from_s3
+    album_creator.update_cover_photo!(cover_photo_filename)
+  end
+
+  def album_creator
+    @album_creator ||= AlbumCreator.new(album_attributes[:title])
   end
 
   def album_attributes
