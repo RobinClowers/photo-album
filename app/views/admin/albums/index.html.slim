@@ -13,9 +13,10 @@
         - potential_albums.each do |slug|
           .album
             = slug
-            .album-actions
-              = link_to('Process',
+            ul.album-actions
+              li= link_to('Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
                   remote: true,
                   data: { confirmation: 'true' })
+              li= link_to('Create', new_admin_album_path(slug: slug))

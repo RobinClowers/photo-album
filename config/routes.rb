@@ -10,6 +10,7 @@ PhotoAlbum::Application.routes.draw do
   resources :albums, only: [:show]
   namespace :admin do
     root 'albums#index'
+    resources :albums, only: [:new, :create]
     resources :process_album_jobs, only: [:create]
   end
 

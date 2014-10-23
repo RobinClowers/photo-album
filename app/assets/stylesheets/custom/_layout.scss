@@ -30,6 +30,7 @@
 }
 
 .album .album-actions {
+  list-style: none;
   margin-left: 10px;
 }
 
@@ -41,4 +42,8 @@
 .messages .messages-error {
   padding: 3px;
   background-color: #FF6060;
+}
+
+.form-fields {
+  list-style: none;
 }
