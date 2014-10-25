@@ -1,2 +1,4 @@
 $ ->
-  $(".fancybox").fancybox()
+  $(".fancybox").fancybox
+    caption:
+      type: 'inside'
