@@ -12,6 +12,7 @@ PhotoAlbum::Application.routes.draw do
     root 'albums#index'
     resources :albums, only: [:new, :create]
     resources :process_album_jobs, only: [:create]
+    resources :photos, only: [:update]
   end
 
   mount Sidekiq::Web, at: "/sidekiq"

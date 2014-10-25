@@ -19,5 +19,7 @@
       ul.album-thumbs
         - images.each do |image|
           li
-            a.fancybox rel="group" href=image.url
+            a.fancybox rel="group" href=image.url data-fancybox-title=image.caption data-photo-id=image.id
               img src=image.thumb_url
+
+input type='hidden' id='authenticity_token' value= form_authenticity_token
