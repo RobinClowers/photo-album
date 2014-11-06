@@ -34,4 +34,17 @@ class Album < ActiveRecord::Base
   def publish!
     update_attributes!(published_at: Time.current)
   end
+
+  # these methods should be in a presenter
+  def cover_photo_insecure_url
+    cover_photo.insecure_url if cover_photo
+  end
+
+  def cover_photo_secure_url
+    cover_photo.secure_url if cover_photo
+  end
+
+  def cover_photo_thumb_url
+    cover_photo.thumb_url if cover_photo
+  end
 end

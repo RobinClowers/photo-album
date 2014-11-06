@@ -5,8 +5,8 @@
   meta property="og:description" content="Travel photos by Robin Clowers"
   meta property="og:url" content=root_path
   - albums.each do |album|
-    meta property="og:image" content=album.cover_photo.insecure_url
-    meta property="og:image:secure_url" content=album.cover_photo.secure_url
+    meta property="og:image" content=album.cover_photo_insecure_url
+    meta property="og:image:secure_url" content=album.cover_photo_secure_url
 
 .album-list
   article
@@ -14,6 +14,6 @@
       - albums.each do |album|
         li
           a href=album_path(album)
-            img src=album.cover_photo.thumb_url
+            img src=album.cover_photo_thumb_url
             p= album.title
 
