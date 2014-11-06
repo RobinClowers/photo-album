@@ -4,7 +4,7 @@ class Album < ActiveRecord::Base
 
   before_create :generate_slug
 
-  scope :active, -> { where.not(cover_photo_id: nil) }
+  scope :active, -> { where.not(published_at: nil, cover_photo_id: nil) }
   scope :unpublished, -> { where(published_at: nil) }
 
   default_scope -> { order(created_at: :desc) }
