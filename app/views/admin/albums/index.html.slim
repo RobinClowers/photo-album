@@ -7,11 +7,22 @@
       h1 Administration
 
     section
-      h2 Albums
       .messages
         - flash.each do |name, msg|
           = content_tag :div, msg, class: name
       .albums
+        - if unpublished_albums.any?
+          h2 Unpublished Albums
+        - unpublished_albums.each do |album|
+          .album
+            = album.title
+            ul.album-actions
+              li= link_to('Publish',
+                  admin_publish_album_jobs_path(slug: album.slug),
+                  method: :post,
+                  remote: true,
+                  data: { confirmation: 'true' })
+        h2 Potential Albums
         - potential_albums.each do |slug|
           .album
             = slug
