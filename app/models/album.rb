@@ -5,6 +5,7 @@ class Album < ActiveRecord::Base
   before_create :generate_slug
 
   scope :active, -> { where.not(cover_photo_id: nil) }
+  scope :unpublished, -> { where(published_at: nil) }
 
   default_scope -> { order(created_at: :desc) }
 
@@ -28,5 +29,9 @@ class Album < ActiveRecord::Base
   def cover_photo_filename
     return '' unless cover_photo
     cover_photo.filename
+  end
+
+  def publish!
+    update_attributes!(published_at: Time.current)
   end
 end
