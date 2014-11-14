@@ -16,7 +16,7 @@ class Uploader
   def upload_all(type=:web)
     raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
     existing_photos = photos.keys(type)
-    puts "Skipping #{existing_photos}"
+    puts_skipped_photos existing_photos
 
     valid_images(path).each do |image|
       unless existing_photos.include?(image)
@@ -27,11 +27,14 @@ class Uploader
 
   private
 
+  def puts_skipped_photos(existing_photos)
+    return unless existing_photos.count > 0
+    puts "Skipping #{existing_photos.count} photos: "
+    puts existing_photos
+  end
+
   def create(path, name, type)
     photos.create(name, File.join(path, name), type: type)
-  rescue Errno::EPIPE
-    puts "Broken pipe, retrying..."
-    retry
   end
 
   def photos

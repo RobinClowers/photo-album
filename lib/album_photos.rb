@@ -26,6 +26,12 @@ class AlbumPhotos
     key_to_create = key(type, name)
     puts "creating #{key_to_create} from #{image_path}"
     bucket.objects.create(key_to_create, file: image_path)
+  rescue Errno::EPIPE
+    puts "Broken pipe, retrying..."
+    retry
+  rescue Net::OpenTimeout
+    puts "Open timeout, retrying..."
+    retry
   end
 
   def download_original(filename, target_dir)
