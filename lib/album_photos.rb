@@ -29,6 +29,9 @@ class AlbumPhotos
   rescue Errno::EPIPE
     puts "Broken pipe, retrying..."
     retry
+  rescue Net::OpenTimeout
+    puts "Open timeout, retrying..."
+    retry
   end
 
   def download_original(filename, target_dir)
