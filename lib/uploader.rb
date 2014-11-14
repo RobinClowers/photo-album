@@ -29,9 +29,6 @@ class Uploader
 
   def create(path, name, type)
     photos.create(name, File.join(path, name), type: type)
-  rescue Errno::EPIPE
-    puts "Broken pipe, retrying..."
-    retry
   end
 
   def photos
