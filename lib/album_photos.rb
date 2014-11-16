@@ -32,6 +32,12 @@ class AlbumPhotos
   rescue Net::OpenTimeout
     puts "Open timeout, retrying..."
     retry
+  rescue Errno::ECONNRESET
+    puts "Connection reset, retrying..."
+    retry
+  rescue SocketError
+    puts "Socket erorr, retrying..."
+    retry
   end
 
   def download_original(filename, target_dir)
