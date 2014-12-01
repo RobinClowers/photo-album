@@ -38,6 +38,9 @@ class AlbumPhotos
   rescue SocketError
     puts "Socket erorr, retrying..."
     retry
+  rescue AWS::S3::Errors::RequestTimeout
+    puts "Request timeout, retrying..."
+    retry
   end
 
   def download_original(filename, target_dir)
