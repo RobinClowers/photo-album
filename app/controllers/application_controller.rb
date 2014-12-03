@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
   def user_id
     session[:user_id]
   end
+
+  def require_signed_in
+    render nothing: true, status: :unauthorized unless current_user.signed_in?
+  end
 end
