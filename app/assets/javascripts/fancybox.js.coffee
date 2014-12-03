@@ -1,11 +1,14 @@
 loadPlusOneButton = (fancybox) ->
   return unless window.signed_in
-  fancybox.title += plusOneButton()
+  id = fancybox.element.data('photo-id')
+  authenticityToken = $('#authenticity_token').val()
+  fancybox.title += plusOneButton(id, authenticityToken)
 
-plusOneButton = ->
-  "<div class='pull-right'>
-    <button>+1</button>
-  </div>"
+plusOneButton = (id, authenticityToken) ->
+  "<form method='post' action='/photos/#{id}/plus_ones' data-remote class='pull-right'>
+    <input type='hidden' name='authenticity_token' value='#{authenticityToken}'></input>
+    <button type='submit'>+1</button>
+  </form>"
 
 loadMessagesContainer = ->
   "<div class='messages'></div>"
