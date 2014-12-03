@@ -61,4 +61,5 @@ html
         twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
         document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
       })();
+      window.signed_in = #{current_user.signed_in?}
       window.admin = #{current_user.admin?}
