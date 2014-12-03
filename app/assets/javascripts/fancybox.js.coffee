@@ -1,3 +1,10 @@
+loadCaptionForm = (fancybox) ->
+  return unless window.admin
+  id = fancybox.element.data('photo-id')
+  caption = fancybox.title
+  authenticityToken = $('#authenticity_token').val()
+  fancybox.title = captionForm(id, caption, authenticityToken)
+
 captionForm = (id, caption, authenticityToken) ->
   "<form method='post' action='/admin/photos/#{id}' data-remote data-confirmation>
     <input type='hidden' name='_method' value='patch'></input>
@@ -13,8 +20,4 @@ $ ->
     caption:
       type: 'inside'
     afterLoad: ->
-      return unless window.admin
-      id = @element.data('photo-id')
-      caption = @title
-      authenticityToken = $('#authenticity_token').val()
-      @title = captionForm(id, caption, authenticityToken)
+      loadCaptionForm(this)
