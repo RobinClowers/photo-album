@@ -1,5 +1,4 @@
 loadPlusOneButton = (fancybox) ->
-  return unless window.signed_in
   id = fancybox.element.data('photo-id')
   authenticityToken = $('#authenticity_token').val()
   fancybox.title += plusOneButton(id, authenticityToken)
