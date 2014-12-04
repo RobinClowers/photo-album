@@ -4,7 +4,7 @@ class Photos::PlusOnesController < ApplicationController
 
   expose(:plus_one) { existing_plus_one || PlusOne.new(photo_id: photo_id, user: current_user) }
   expose(:count) { plus_one_count == 0 ? 1 : plus_one_count}
-  expose(:button_css_class) { existing_plus_one ? 'voted' : '' }
+  expose(:button_css_class) { existing_plus_one ? 'square-button active' : 'square-button' }
   expose(:plus_one_form_url) { existing_plus_one ? destroy_path : photo_plus_ones_path }
   expose(:plus_one_form_method) { existing_plus_one ? :delete : :post }
 

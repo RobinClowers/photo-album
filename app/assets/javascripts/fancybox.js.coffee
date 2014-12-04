@@ -16,7 +16,7 @@ loadCaptionForm = (fancybox) ->
     authenticityToken = $('#authenticity_token').val()
     fancybox.title += captionForm(id, fancybox.captionText, authenticityToken)
   else
-    fancybox.title += "<div class='fluid-column padding-3'>#{fancybox.captionText}</div>"
+    fancybox.title += "<div class='fluid-column'>#{fancybox.captionText}</div>"
 
 captionForm = (id, caption, authenticityToken) ->
   "<form method='post' action='/admin/photos/#{id}' data-remote data-confirmation class='fluid-column'>
