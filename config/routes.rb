@@ -9,7 +9,7 @@ PhotoAlbum::Application.routes.draw do
 
   resources :albums, only: [:show]
   resources :photos do
-    resources :plus_ones, only: [:create, :destroy], controller: 'photos/plus_ones'
+    resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
   end
   namespace :admin do
     root 'albums#index'

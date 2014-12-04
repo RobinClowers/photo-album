@@ -1,0 +1,4 @@
+= form_for plus_one, url: photo_plus_ones_path, remote: true,
+  html: { class: 'pull-right' } do |f|
+  button class=button_css_class type='submit'
+    | +#{count}

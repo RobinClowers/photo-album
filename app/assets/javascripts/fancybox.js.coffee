@@ -5,10 +5,7 @@ loadPlusOneButton = (fancybox) ->
   fancybox.title += plusOneButton(id, authenticityToken)
 
 plusOneButton = (id, authenticityToken) ->
-  "<form method='post' action='/photos/#{id}/plus_ones' data-remote data-subtle-confirmation class='pull-right'>
-    <input type='hidden' name='authenticity_token' value='#{authenticityToken}'></input>
-    <button class='red-success' type='submit'>+1</button>
-  </form>"
+  "<div data-replace-self-on-load='/photos/#{id}/plus_ones'></div>"
 
 loadMessagesContainer = ->
   "<div class='messages'></div>"
