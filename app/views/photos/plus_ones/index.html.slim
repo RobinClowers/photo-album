@@ -1,4 +1,5 @@
-= form_for plus_one, url: photo_plus_ones_path, remote: true,
+= form_for plus_one, url: plus_one_form_url, remote: true, method: plus_one_form_method,
+  data: { 'replace-self-on-ajax-success' => true },
   html: { class: 'pull-right' } do |f|
   button class=button_css_class type='submit'
     | +#{count}
