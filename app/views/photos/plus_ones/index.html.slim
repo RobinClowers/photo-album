@@ -1,5 +1,8 @@
-= form_for plus_one, url: plus_one_form_url, remote: true, method: plus_one_form_method,
-  data: { 'replace-self-on-ajax-success' => true },
-  html: { class: 'pull-right margin-left-6' } do |f|
-  button class=button_css_class type='submit'
-    | +#{count}
+div data-replace-self-on-ajax-success=true
+  - if plus_one_count > 0
+    span.pull-right
+      | #{pluralize(plus_one_count, 'person')} +1'd this.
+  = form_for plus_one, url: plus_one_form_url, remote: true, method: plus_one_form_method,
+    html: { class: '' } do |f|
+    button class=button_css_class type='submit'
+      | +1
