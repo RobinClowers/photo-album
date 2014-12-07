@@ -3,6 +3,8 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  before_filter :store_return_url
+
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
 
   def render_404
@@ -20,5 +22,11 @@ class ApplicationController < ActionController::Base
 
   def require_signed_in
     render nothing: true, status: :unauthorized unless current_user.signed_in?
+  end
+
+  def store_return_url
+    return if current_user.signed_in?
+    return if request.path =~ /auth\/\w*\/callback/
+    session[:return_url] = request.path
   end
 end

@@ -1,7 +1,9 @@
 class SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: :create
+
   def create
     session[:user_id] = user.id
-    redirect_to root_path, :notice => 'Welcome!'
+    redirect_to session[:return_url] || root_path
   end
 
   def destroy
