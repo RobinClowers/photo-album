@@ -51,6 +51,13 @@ html
     footer role="contentinfo"
       p
         | Copyright &copy; #{Time.current.year} - Robin Clowers
+      #js-login-prompt.hidden
+        p You need to be logged in to do that. Log in with Facebook now?
+        ul.horizontal-list
+          li
+            button.square-button.active.js-login-confirm Login
+          li
+            button.square-button.js-login-cancel Cancel
       script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"
       == javascript_include_tag "application"
     javascript:

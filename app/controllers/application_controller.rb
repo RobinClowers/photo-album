@@ -26,6 +26,7 @@ class ApplicationController < ActionController::Base
 
   def store_return_url
     return if current_user.signed_in?
+    return if request.xhr?
     return if request.path =~ /auth\/\w*\/callback/
     session[:return_url] = request.path
   end

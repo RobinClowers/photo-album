@@ -1,4 +1,10 @@
 $(document).on 'ajax:error', (event, xhr, status, error) ->
   if error == 'Unauthorized'
-    if confirm 'You need to be logged in to do that. Log in with Facebook now?'
-      window.location = '/auth/facebook'
+    $.fancybox.open
+      href: '#js-login-prompt'
+
+$('.js-login-confirm').click ->
+  window.location = '/auth/facebook'
+
+$('.js-login-cancel').click ->
+  $.fancybox.close()
