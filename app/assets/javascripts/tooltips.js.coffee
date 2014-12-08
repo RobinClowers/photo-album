@@ -1,2 +1,4 @@
 RunLoop.register ->
-  $('.tooltip').not('.tooltipstered').tooltipster()
+  $('.tooltip').not('.tooltipstered').each ->
+    $(this).tooltipster
+      position: $(this).data('tooltip-position') || 'top'
