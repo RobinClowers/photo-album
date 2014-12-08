@@ -11,4 +11,7 @@
  *= require screen
  *= require jquery.fancybox
  *= require jquery.fancybox-thumbs
+ *= require fancybox_overrides
+ *= require tooltipster
+ *= require octopress_theme_overrides
  */

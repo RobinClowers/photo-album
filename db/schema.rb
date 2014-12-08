@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141202203308) do
+ActiveRecord::Schema.define(version: 20141204221946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,16 @@ ActiveRecord::Schema.define(version: 20141202203308) do
 
   add_index "photos", ["album_id"], name: "index_photos_on_album_id", using: :btree
   add_index "photos", ["path", "filename"], name: "index_photos_on_path_and_filename", unique: true, using: :btree
+
+  create_table "plus_ones", force: true do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "photo_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plus_ones", ["photo_id", "user_id"], name: "index_plus_ones_on_photo_id_and_user_id", using: :btree
+  add_index "plus_ones", ["user_id", "photo_id"], name: "index_plus_ones_on_user_id_and_photo_id", unique: true, using: :btree
 
   create_table "redirects", force: true do |t|
     t.string   "from"

@@ -8,6 +8,9 @@ PhotoAlbum::Application.routes.draw do
   delete "/signout" => "sessions#destroy", :as => :signout
 
   resources :albums, only: [:show]
+  resources :photos do
+    resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
+  end
   namespace :admin do
     root 'albums#index'
     resources :albums, only: [:new, :create]
