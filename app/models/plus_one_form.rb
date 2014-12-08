@@ -24,10 +24,6 @@ class PlusOneForm
     PlusOne.where(photo_id: photo_id).count
   end
 
-  def button_text
-    count == 0 ? 1 : count
-  end
-
   def button_css_class
     existing_plus_one ? 'square-button active' : 'square-button'
   end
