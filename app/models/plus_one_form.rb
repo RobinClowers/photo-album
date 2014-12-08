@@ -21,7 +21,11 @@ class PlusOneForm
   end
 
   def count
-    PlusOne.where(photo_id: photo_id).count
+    plus_ones.count
+  end
+
+  def names
+    plus_ones.map(&:user).map(&:name).join(', ')
   end
 
   def button_css_class
@@ -45,7 +49,11 @@ class PlusOneForm
   end
 
   def existing_plus_one
-    PlusOne.where(photo_id: photo_id, user: current_user).first
+    plus_ones.where(user: current_user).first
+  end
+
+  def plus_ones
+    PlusOne.where(photo_id: photo_id).includes(:user)
   end
 
   def destroy_path
