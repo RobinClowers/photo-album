@@ -1,5 +1,5 @@
 $(document).on 'ajax:error', (event, xhr, status, error) ->
-  if error == 'Unauthorized'
+  if xhr.status == 401
     $.fancybox.open
       href: '#js-login-prompt'
       scrolling: 'visible' # for button outlines and shadows
