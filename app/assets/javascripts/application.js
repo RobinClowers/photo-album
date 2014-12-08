@@ -13,4 +13,6 @@
 //= require jquery_ujs
 //= require jquery.fancybox.js
 //= require jquery.fancybox-thumbs.js
+//= require jquery.tooltipster.js
+//= require run_loop
 //= require_tree .
