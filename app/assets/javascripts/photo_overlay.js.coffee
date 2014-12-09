@@ -6,8 +6,8 @@ loadPlusOneButton = (fancybox) ->
 plusOneButton = (id, authenticityToken) ->
   "<div data-replace-self-on-load='/photos/#{id}/plus_ones'></div>"
 
-loadMessagesContainer = ->
-  "<div class='messages'></div>"
+loadMessagesContainer = (fancybox) ->
+  fancybox.title += "<div class='messages'></div>"
 
 loadCaptionForm = (fancybox) ->
   if window.admin
@@ -26,6 +26,14 @@ captionForm = (id, caption, authenticityToken) ->
     <input type='submit'>
   </form>"
 
+loadComments = (fancybox) ->
+  id = fancybox.element.data('photo-id')
+  authenticityToken = $('#authenticity_token').val()
+  fancybox.title += comments(id)
+
+comments = (id) ->
+  "<div data-replace-self-on-load='/photos/#{id}/comments'></div>"
+
 $ ->
   $(".fancybox").fancybox
     caption:
@@ -35,4 +43,5 @@ $ ->
       @title = ''
       loadPlusOneButton(this)
       loadCaptionForm(this)
-      loadMessagesContainer()
+      loadMessagesContainer(this)
+      loadComments(this)
