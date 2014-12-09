@@ -18,6 +18,10 @@ class Admin::AlbumsController < Admin::ApplicationController
     end
   end
 
+  def error
+    raise 'This is only a test...'
+  end
+
   private
 
   def create_album
