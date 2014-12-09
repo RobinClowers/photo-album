@@ -38,7 +38,7 @@ gem 'dotenv-deployment'
 gem 'aws-sdk'
 gem 'sidekiq'
 gem 'sinatra', require: false # for sidekiq
-gem 'exception_notification', '~> 4.0.1'
+gem 'exception_notification', '~> 4.1.0.rc1'
 
 group :development, :test do
   gem 'rspec-rails', '~> 2.0'
