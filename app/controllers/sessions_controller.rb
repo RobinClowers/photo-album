@@ -3,6 +3,7 @@ class SessionsController < ApplicationController
 
   def create
     session[:user_id] = user.id
+    user.update_attributes(email: auth["info"]["email"])
     redirect_to return_path
   end
 
