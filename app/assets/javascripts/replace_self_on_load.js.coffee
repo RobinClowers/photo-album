@@ -4,3 +4,4 @@ RunLoop.register ->
     $(el).removeAttr('data-replace-self-on-load')
     $.get url, (html) ->
       $(el).replaceWith(html)
+      $.fancybox.update()
