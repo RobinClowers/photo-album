@@ -20,5 +20,5 @@ PhotoAlbum::Application.routes.draw do
     resources :photos, only: [:update]
   end
 
-  mount Sidekiq::Web, at: "/sidekiq"
+  mount Sidekiq::Web, at: "/sidekiq", constraints: AdminConstraint.new
 end

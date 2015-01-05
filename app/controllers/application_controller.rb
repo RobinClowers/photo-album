@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= user_id && User.find_by_id(user_id) || User::NullUser.new
+    @current_user ||= CurrentUser.get(request)
   end
   helper_method :current_user
 
