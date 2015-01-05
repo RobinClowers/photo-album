@@ -5,6 +5,8 @@ class Admin::AlbumsController < Admin::ApplicationController
   expose(:potential_albums) { Albums.new.names - Album.pluck(:slug) }
   expose(:unpublished_albums) { Album.unpublished }
   expose(:new_album) { Album.new_from_slug(slug) }
+  expose(:albums_options) { Album.pluck(:title, :slug) }
+  expose(:albums_titles) { Album.pluck(:title) }
 
   def index; end
 
@@ -16,6 +18,11 @@ class Admin::AlbumsController < Admin::ApplicationController
     else
       render :new
     end
+  end
+
+  def update
+    album_creator.insert_all_photos_from_s3
+    render nothing: true, status: :ok
   end
 
   def error

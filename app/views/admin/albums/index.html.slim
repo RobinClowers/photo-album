@@ -33,6 +33,21 @@
                   remote: true,
                   data: { confirmation: 'true' })
               li= link_to('Create', new_admin_album_path(slug: slug))
-      .actions
+      .album
         h2 Other Actions
-        = link_to 'Trigger an error', admin_test_error_path
+        ul.album-actions
+          li= link_to 'Trigger an error', admin_test_error_path
+          li
+            = form_tag admin_process_album_jobs_path,
+              method: :post,
+              remote: true,
+              data: { confirmation: 'true' }
+              = select 'album', 'slug', albums_options
+              button type='submit' Process additional photos
+          li
+            = form_tag admin_album_path('id-placeholder'),
+              method: :patch,
+              remote: true,
+              data: { confirmation: 'true', replace_placeholder_on_submit: 'id-placeholder' }
+              = select 'album', 'title', albums_titles, {}, { class: 'id-placeholder' }
+              button type='submit' Add additional photos
