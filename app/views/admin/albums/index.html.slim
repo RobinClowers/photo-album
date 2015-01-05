@@ -44,3 +44,10 @@
               data: { confirmation: 'true' }
               = select 'album', 'slug', albums_options
               button type='submit' Process additional photos
+          li
+            = form_tag admin_album_path('id-placeholder'),
+              method: :patch,
+              remote: true,
+              data: { confirmation: 'true', replace_placeholder_on_submit: 'id-placeholder' }
+              = select 'album', 'title', albums_titles, {}, { class: 'id-placeholder' }
+              button type='submit' Add additional photos
