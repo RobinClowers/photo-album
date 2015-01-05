@@ -5,6 +5,7 @@ class Admin::AlbumsController < Admin::ApplicationController
   expose(:potential_albums) { Albums.new.names - Album.pluck(:slug) }
   expose(:unpublished_albums) { Album.unpublished }
   expose(:new_album) { Album.new_from_slug(slug) }
+  expose(:albums_options) { Album.pluck(:title, :slug) }
 
   def index; end
 

@@ -37,3 +37,10 @@
         h2 Other Actions
         ul.album-actions
           li= link_to 'Trigger an error', admin_test_error_path
+          li
+            = form_tag admin_process_album_jobs_path,
+              method: :post,
+              remote: true,
+              data: { confirmation: 'true' }
+              = select 'album', 'slug', albums_options
+              button type='submit' Process additional photos

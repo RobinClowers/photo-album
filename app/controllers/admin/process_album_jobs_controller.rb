@@ -1,6 +1,16 @@
 class Admin::ProcessAlbumJobsController < Admin::ApplicationController
   def create
-    ProcessPhotosWorker.perform_async(params['slug'])
-    head :created
+    if slug.blank?
+      render nothing: true, status: :unprocessable_entity
+    else
+      ProcessPhotosWorker.perform_async(slug)
+      head :created
+    end
+  end
+
+  private
+
+  def slug
+    params[:slug] || params[:album][:slug]
   end
 end
