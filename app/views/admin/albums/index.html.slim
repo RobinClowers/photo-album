@@ -33,6 +33,7 @@
                   remote: true,
                   data: { confirmation: 'true' })
               li= link_to('Create', new_admin_album_path(slug: slug))
-      .actions
+      .album
         h2 Other Actions
-        = link_to 'Trigger an error', admin_test_error_path
+        ul.album-actions
+          li= link_to 'Trigger an error', admin_test_error_path
