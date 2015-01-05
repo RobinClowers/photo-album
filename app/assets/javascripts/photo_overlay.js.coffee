@@ -6,8 +6,8 @@ loadPlusOneButton = (fancybox) ->
 plusOneButton = (id, authenticityToken) ->
   "<div data-replace-self-on-load='/photos/#{id}/plus_ones'></div>"
 
-loadMessagesContainer = ->
-  "<div class='messages'></div>"
+loadMessagesContainer = (fancybox) ->
+  fancybox.title += "<div class='messages'></div>"
 
 loadCaptionForm = (fancybox) ->
   if window.admin
@@ -35,4 +35,4 @@ $ ->
       @title = ''
       loadPlusOneButton(this)
       loadCaptionForm(this)
-      loadMessagesContainer()
+      loadMessagesContainer(this)
