@@ -23,6 +23,8 @@ class Uploader
         create(path, image, type)
       end
     end
+
+    puts "Finished!"
   end
 
   private
