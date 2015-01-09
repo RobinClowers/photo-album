@@ -87,6 +87,6 @@ class AlbumPhotos
   end
 
   def bucket
-    @bucket ||= s3.buckets['robin-photos']
+    @bucket ||= s3.buckets[Rails.Application.config.bucket_name]
   end
 end
