@@ -6,7 +6,7 @@ namespace :process do
 
     args.with_defaults(:image_directory => '')
     processor = AlbumProcessor.new(args.image_directory)
-    processor.process_images
+    processor.process_all
   end
 
   # usage rake process:album_set['~/Pictures']
