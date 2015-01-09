@@ -30,19 +30,11 @@ class AlbumCreator
     @album ||= Album.where(title: title).first_or_create!
   end
 
-  def s3
-    @s3 ||= AWS::S3.new
-  end
-
-  def bucket
-    @bucket ||= s3.buckets['robin-photos']
-  end
-
-  def keys
-    @keys ||= bucket.as_tree(prefix: prefix).children.select(&:leaf?).map(&:key)
+  def photos
+    @photos ||= AlbumPhotos.new(prefix)
   end
 
   def valid_keys
-    @valid_keys ||= keys.select { |f| f =~ /\.jpg|png\Z/i }
+    @valid_keys ||= photos.web.select { |f| f =~ /\.jpg|png\Z/i }
   end
 end
