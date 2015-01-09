@@ -25,7 +25,8 @@ module PhotoAlbum
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    config.base_photo_url = "//s3.amazonaws.com/robin-photos/"
-    config.base_secure_photo_url = "https://s3.amazonaws.com/robin-photos/"
+    config.bucket_name = "robin-photos"
+    config.base_photo_url = "//s3.amazonaws.com/#{config.bucket_name}/"
+    config.base_secure_photo_url = "https://s3.amazonaws.com/#{config.bucket_name}/"
   end
 end

@@ -12,7 +12,7 @@ class AlbumSetProcessor
     each_entry do |entry, full_path|
       ObjectSpace.garbage_collect # seems bad, hopefully there is a better way
       processor = AlbumProcessor.new(full_path)
-      processor.process_images
+      processor.process_all
     end
   end
 

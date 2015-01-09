@@ -29,7 +29,7 @@ class AlbumProcessor
   rescue ActiveRecord::RecordNotUnique
   end
 
-  def process_images
+  def process_all
     each_image do |image, basename|
       process_image(image, basename)
     end
