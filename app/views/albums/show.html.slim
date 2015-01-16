@@ -22,4 +22,11 @@
             a.fancybox rel="group" href=image.url data-fancybox-title=image.caption data-photo-id=image.id
               img src=image.thumb_url
 
+.js-overlay style='display: none;' data-fancybox-type='inline' data-fancybox-title=images.first.caption data-photo-id=images[2].id
+  .table
+    .row
+      .overlay-column.js-overlay-image
+        img.overlay-image src=images.first.url
+      .overlay-column.right-column.js-overlay-right
+
 input type='hidden' id='authenticity_token' value= form_authenticity_token

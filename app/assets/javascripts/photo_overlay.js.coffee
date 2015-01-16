@@ -29,19 +29,24 @@ captionForm = (id, caption, authenticityToken) ->
 loadComments = (fancybox) ->
   id = fancybox.element.data('photo-id')
   authenticityToken = $('#authenticity_token').val()
-  fancybox.title += comments(id)
+  rightPane = fancybox.content.find('.js-overlay-right')
+  rightPane.empty().append(comments(id))
 
 comments = (id) ->
-  "<div data-replace-self-on-load='/photos/#{id}/comments'></div>"
+  "<div class='content-box' style='width: 200px' data-replace-self-on-load='/photos/#{id}/comments'></div>"
 
 $ ->
-  $(".fancybox").fancybox
-    caption:
-      type: 'inside'
-    afterLoad: ->
-      @captionText = @title
-      @title = ''
-      loadPlusOneButton(this)
-      loadCaptionForm(this)
-      loadMessagesContainer(this)
-      loadComments(this)
+  $('.fancybox').click (event) ->
+    event.preventDefault()
+
+    $.fancybox $('.js-overlay'),
+      autoSize: true
+      caption:
+        type: 'inside'
+      afterLoad: ->
+        @captionText = @title
+        @title = ''
+        # loadPlusOneButton(this)
+        # loadCaptionForm(this)
+        # loadMessagesContainer(this)
+        loadComments(this)
