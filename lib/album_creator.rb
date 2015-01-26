@@ -1,3 +1,5 @@
+require 'album_photos'
+
 class AlbumCreator
   attr_reader :title, :prefix
 
