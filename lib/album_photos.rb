@@ -14,7 +14,7 @@ class AlbumPhotos
   end
 
   def web
-    keys
+    keys(:web)
   end
 
   def keys(type)
