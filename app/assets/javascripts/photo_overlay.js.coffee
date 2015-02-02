@@ -36,17 +36,23 @@ comments = (id) ->
   "<div class='content-box' style='width: 200px' data-replace-self-on-load='/photos/#{id}/comments'></div>"
 
 $ ->
-  $('.fancybox').click (event) ->
-    event.preventDefault()
+  overlay = new Overlay('.js-open-overlay')
+  # $('.js-open-overlay').click (event) ->
+  #   event.preventDefault()
+  #   index = $(this).data('index')
+  #
+  #   overlay.open()
 
-    $.fancybox $('.js-overlay'),
-      autoSize: true
-      caption:
-        type: 'inside'
-      afterLoad: ->
-        @captionText = @title
-        @title = ''
-        # loadPlusOneButton(this)
-        # loadCaptionForm(this)
-        # loadMessagesContainer(this)
-        loadComments(this)
+    # $.fancybox $(".js-overlay"),
+    #   autoSize: true
+    #   index: index
+    #   group: 'group'
+    #   caption:
+    #     type: 'inside'
+    #   afterLoad: ->
+    #     @captionText = @title
+    #     @title = ''
+    #     # loadPlusOneButton(this)
+    #     # loadCaptionForm(this)
+    #     # loadMessagesContainer(this)
+    #     loadComments(this)

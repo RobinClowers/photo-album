@@ -1,26 +1,16 @@
-.content-box
-  margin-left: 9px
-  padding: 3px
-  box-sizing: border-box
-  height: 100%
-  -webkit-box-sizing: border-box
-  -moz-box-sizing: border-box
+.overlay
+  position: absolute
+  z-index: 100
 
-.table
-  display: table
-  height: 100%
-
-.row
-  display: table-row
+.image-overlay
   height: 100%
 
 .overlay-image
-  width: 100%
-
-.overlay-column
-  display: table-cell
-  vertical-align: top
   height: 100%
 
-  &.right-column
-    width: 200px
+.overlay-column
+  height: 100%
+  float: left
+
+  &.narrow-column
+    width: 300px

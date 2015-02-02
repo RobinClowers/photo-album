@@ -17,16 +17,15 @@
       p.meta= album.created_at.to_s(:short)
     .album-photos
       ul.album-thumbs
-        - images.each do |image|
+        - images.each_with_index do |image, index|
           li
-            a.fancybox rel="group" href=image.url data-fancybox-title=image.caption data-photo-id=image.id
+            a.js-open-overlay data-index=index href=image.url data-fancybox-title=image.caption data-photo-id=image.id
               img src=image.thumb_url
 
-.js-overlay style='display: none;' data-fancybox-type='inline' data-fancybox-title=images.first.caption data-photo-id=images[2].id
-  .table
-    .row
-      .overlay-column.js-overlay-image
-        img.overlay-image src=images.first.url
-      .overlay-column.right-column.js-overlay-right
+              .js-overlay.image-overlay.octopress-reset group='group' style='display: none;' data-fancybox-type='inline' data-fancybox-title=image.caption data-photo-id=image.id
+                .overlay-column.js-overlay-image
+                  img.overlay-image src=image.url
+                .overlay-column.narrow-column.js-overlay-right
+                  .content-box style='width: 200px' data-replace-self-on-load='/photos/#{image.id}/comments'
 
 input type='hidden' id='authenticity_token' value= form_authenticity_token

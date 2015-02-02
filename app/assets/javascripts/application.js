@@ -15,4 +15,5 @@
 //= require jquery.fancybox-thumbs.js
 //= require jquery.tooltipster.js
 //= require run_loop
+//= require overlay
 //= require_tree .
