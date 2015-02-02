@@ -14,7 +14,7 @@
   article role="article"
     header
       h1.entry-title= album.title
-      p.meta= album.created_at.to_s(:short)
+      p.meta= album.created_at.strftime("%b %d, %Y")
     .album-photos
       ul.album-thumbs
         - images.each do |image|
