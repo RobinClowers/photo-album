@@ -9,13 +9,41 @@ class @Overlay
     event.preventDefault()
     overlayContent = $(this).find('.js-overlay').remove()
 
-
     overlay = $("<div class='overlay'></div>")
     overlay.append(overlayContent)
-    overlayContent.show()
     $('body').append(overlay)
 
-    overlay.css('left', '10px')
+    maxWidth = $(window).width() - 20
+    maxHeight = $(window).height() - 20
+
+    commentWidth = 309
+    maxPhotoWidth = 1024
+    maxPhotoHeight = 768
+    totalWidth = maxPhotoWidth + commentWidth
+
+    if totalWidth > maxWidth
+      width = maxWidth
+    else
+      width = totalWidth
+
+    if maxPhotoHeight > maxHeight
+      height = maxHeight
+    else
+      height = maxPhotoHeight
+
+    heightRatio = height / maxPhotoHeight
+    widthRatio = width / maxPhotoWidth
+
+    if heightRatio > widthRatio
+      height = maxPhotoHeight * widthRatio
+    else if widthRatio > heightRatio
+      width = (maxPhotoWidth * heightRatio) + commentWidth
+
+    margin = (maxWidth - width) / 2
+
+    overlay.css('left', margin)
     overlay.css('top', '10px')
-    overlay.width($(window).width() - 20)
-    overlay.height($(window).height() - 20)
+    overlay.width(width)
+    overlay.height(height)
+
+    overlayContent.show()
