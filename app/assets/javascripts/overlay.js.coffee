@@ -2,16 +2,23 @@ class @Overlay
   constructor: (selector, options) ->
     @selector = selector
     @options = options
-    $(@selector).click @open
-    @self = this
+    self = this
+    @overlay = $("<div class='overlay'></div>")
 
-  open: (event) ->
-    event.preventDefault()
-    overlayContent = $(this).find('.js-overlay').remove()
+    $(@selector).click (event) ->
+      event.preventDefault()
+      self.open(this)
 
-    overlay = $("<div class='overlay'></div>")
-    overlay.append(overlayContent)
-    $('body').append(overlay)
+    $(document).on 'keyup', (event) ->
+      return unless event.which == 27
+      self.close()
+
+
+  open: (target) ->
+    overlayContent = $(target).find('.js-overlay').remove()
+
+    @overlay.append(overlayContent)
+    $('body').append(@overlay)
 
     maxWidth = $(window).width() - 20
     maxHeight = $(window).height() - 20
@@ -43,11 +50,15 @@ class @Overlay
 
     top = window.scrollY + 10
 
-    overlay.css('left', margin)
-    overlay.css('top', top)
-    overlay.width(width)
-    overlay.height(height)
+    @overlay.css('left', margin)
+    @overlay.css('top', top)
+    @overlay.width(width)
+    @overlay.height(height)
 
     $('body').addClass('scroll-lock')
 
     overlayContent.show()
+
+  close: ->
+    @overlay.hide()
+    $('body').removeClass('scroll-lock')
