@@ -4,6 +4,7 @@ class @Overlay
     @options = options
     self = this
     @overlay = $("<div class='overlay'></div>")
+    $('body').append(@overlay)
 
     $(@selector).click (event) ->
       event.preventDefault()
@@ -15,10 +16,9 @@ class @Overlay
 
 
   open: (target) ->
-    overlayContent = $(target).find('.js-overlay').remove()
+    overlayContent = $(target).find('.js-overlay').clone()
 
     @overlay.append(overlayContent)
-    $('body').append(@overlay)
 
     maxWidth = $(window).width() - 20
     maxHeight = $(window).height() - 20
@@ -54,11 +54,12 @@ class @Overlay
     @overlay.css('top', top)
     @overlay.width(width)
     @overlay.height(height)
+    @overlay.show()
 
     $('body').addClass('scroll-lock')
 
     overlayContent.show()
 
   close: ->
-    @overlay.hide()
+    @overlay.empty().hide()
     $('body').removeClass('scroll-lock')
