@@ -48,4 +48,6 @@ class @Overlay
     overlay.width(width)
     overlay.height(height)
 
+    $('body').addClass('scroll-lock')
+
     overlayContent.show()
