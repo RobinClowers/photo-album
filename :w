@@ -6,6 +6,6 @@ body
       border: none
 
 .octopress-reset
-  background: none
+  // background: inherit
   border-right: none
-  border: none
+  border-bottom: none

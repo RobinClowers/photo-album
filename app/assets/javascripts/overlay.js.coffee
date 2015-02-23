@@ -3,7 +3,7 @@ class @Overlay
     @selector = selector
     @options = options
     self = this
-    @overlay = $("<div class='overlay'></div>")
+    @overlay = $("<div class='overlay octopress-reset'></div>")
     $('body').append(@overlay)
 
     $(@selector).click (event) ->
