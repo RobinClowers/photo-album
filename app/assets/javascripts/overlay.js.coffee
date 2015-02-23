@@ -41,8 +41,10 @@ class @Overlay
 
     margin = (maxWidth - width) / 2
 
+    top = window.scrollY + 10
+
     overlay.css('left', margin)
-    overlay.css('top', '10px')
+    overlay.css('top', top)
     overlay.width(width)
     overlay.height(height)
 
