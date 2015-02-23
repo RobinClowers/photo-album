@@ -4,7 +4,8 @@ class @Overlay
     @options = options
     self = this
     @overlay = $("<div class='overlay octopress-reset'></div>")
-    $('body').append(@overlay)
+    @mask = $("<div class='overlay-mask octopress-reset'></div>")
+    $('body').append(@overlay).append(@mask)
 
     $(@selector).click (event) ->
       event.preventDefault()
@@ -16,8 +17,11 @@ class @Overlay
 
 
   open: (target) ->
-    overlayContent = $(target).find('.js-overlay').clone()
+    @mask.show()
+    @mask.height($(window).height())
+    @mask.css('top', window.scrollY)
 
+    overlayContent = $(target).find('.js-overlay').clone()
     @overlay.append(overlayContent)
 
     maxWidth = $(window).width() - 20
@@ -62,4 +66,5 @@ class @Overlay
 
   close: ->
     @overlay.empty().hide()
+    @mask.hide()
     $('body').removeClass('scroll-lock')
