@@ -11,6 +11,9 @@ class @Overlay
       event.preventDefault()
       self.open(this)
 
+    @mask.click (event) ->
+      self.close()
+
     $(document).on 'keyup', (event) ->
       return unless event.which == 27
       self.close()
