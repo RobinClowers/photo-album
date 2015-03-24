@@ -19,10 +19,10 @@
       ul.album-thumbs
         - images.each_with_index do |image, index|
           li
-            a.js-open-overlay data-index=index href=image.url data-fancybox-title=image.caption data-photo-id=image.id
+            a.js-open-overlay data-index=index href=image.url data-title=image.caption data-photo-id=image.id
               img src=image.thumb_url
 
-              .js-overlay.image-overlay.octopress-reset group='group' style='display: none;' data-fancybox-type='inline' data-fancybox-title=image.caption data-photo-id=image.id
+              .js-overlay.image-overlay.octopress-reset style='display: none;'
                 .overlay-column.js-overlay-image
                   img.overlay-image src=image.url
                 .overlay-column.narrow-column.js-overlay-right
