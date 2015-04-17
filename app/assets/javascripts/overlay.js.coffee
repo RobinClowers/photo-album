@@ -34,7 +34,12 @@ class @Overlay
     @index = $(@selector).index(target)
     overlayContent = $(target).find('.js-overlay').clone()
     @overlay.append(overlayContent)
+    @setDimensions()
 
+    overlayContent.show()
+    @overlay.show()
+
+  setDimensions: ->
     maxWidth = $(window).width() - 20
     maxHeight = $(window).height() - 20
 
@@ -69,11 +74,8 @@ class @Overlay
     @overlay.css('top', top)
     @overlay.width(width)
     @overlay.height(height)
-    @overlay.show()
 
     $('body').addClass('scroll-lock')
-
-    overlayContent.show()
 
   close: ->
     @overlay.empty().hide()
