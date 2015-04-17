@@ -18,12 +18,20 @@ class @Overlay
       return unless event.which == 27
       self.close()
 
+    @overlay.on 'click', '.overlay-next', (event) ->
+      self.close()
+      self.next()
+
+    @overlay.on 'click', '.overlay-previous', (event) ->
+      self.close()
+      self.previous()
 
   open: (target) ->
     @mask.show()
     @mask.height($(window).height())
     @mask.css('top', window.scrollY)
 
+    @index = $(@selector).index(target)
     overlayContent = $(target).find('.js-overlay').clone()
     @overlay.append(overlayContent)
 
@@ -71,3 +79,11 @@ class @Overlay
     @overlay.empty().hide()
     @mask.hide()
     $('body').removeClass('scroll-lock')
+
+  next: ->
+    target = $(@selector)[@index + 1]
+    @open(target)
+
+  previous: ->
+    target = $(@selector)[@index - 1]
+    @open(target)
