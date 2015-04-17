@@ -35,9 +35,18 @@ class @Overlay
     overlayContent = $(target).find('.js-overlay').clone()
     @overlay.append(overlayContent)
     @setDimensions()
+    @setButtonVisibility()
 
     overlayContent.show()
     @overlay.show()
+
+
+  setButtonVisibility: ->
+    if @index >= $(@selector).length - 1
+      @overlay.find('.overlay-next').hide()
+
+    if @index == 0
+      @overlay.find('.overlay-previous').hide()
 
   setDimensions: ->
     maxWidth = $(window).width() - 20
