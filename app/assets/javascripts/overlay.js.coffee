@@ -73,7 +73,7 @@ class @Overlay
     if heightRatio > widthRatio
       height = maxPhotoHeight * widthRatio
     else if widthRatio > heightRatio
-      width = (maxPhotoWidth * heightRatio) + commentWidth
+      width = Math.round((maxPhotoWidth * heightRatio) + commentWidth)
 
     margin = (maxWidth - width) / 2
 
