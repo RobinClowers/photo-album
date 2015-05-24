@@ -7,34 +7,55 @@ class @OverlayDimensions
   constructor: ->
     @totalMargin = @minMargin * 2
 
-  calaculateDimensions: ->
-    maxWidth = $(window).width() - @totalMargin
-    maxHeight = $(window).height() - @totalMargin
+    @heightRatio = ->
+      @initialHeight() / @maxPhotoHeight
 
-    totalWidth = @maxPhotoWidth + @commentWidth
+    @widthRatio = ->
+      @initialWidth() / @maxPhotoWidth
 
-    if totalWidth > maxWidth
-      @width = maxWidth
+    @maxWidth = ->
+      $(window).width() - @totalMargin
+
+    @maxHeight = ->
+      $(window).height() - @totalMargin
+
+    @totalWidth = ->
+      @maxPhotoWidth + @commentWidth
+
+    @initialWidth = ->
+      if @totalWidth() > @maxWidth()
+        @maxWidth()
+      else
+        @totalWidth()
+
+    @initialHeight = ->
+      if @maxPhotoHeight > @maxHeight()
+        @maxHeight()
+      else
+        @maxPhotoHeight
+
+  width: ->
+    if @constrainWidth()
+      @initialWidth()
     else
-      @width = totalWidth
+      Math.round((@maxPhotoWidth * @heightRatio()) + @commentWidth)
 
-    if @maxPhotoHeight > maxHeight
-      @height = maxHeight
+  height: ->
+    if @constrainWidth()
+      @maxPhotoHeight * @widthRatio()
     else
-      @height = @maxPhotoHeight
+      @initialHeight()
 
-    heightRatio = @height / @maxPhotoHeight
-    widthRatio = @width / @maxPhotoWidth
-    @constrainWidth = heightRatio > widthRatio
+  constrainWidth: ->
+    @heightRatio() > @widthRatio()
 
-    if @constrainWidth
-      @height = @maxPhotoHeight * widthRatio
-    else
-      @width = Math.round((@maxPhotoWidth * heightRatio) + @commentWidth)
+  leftPaneWidth: ->
+    @width() - @commentWidth
 
-    @leftPaneWidth = @width - @commentWidth
+  margin: ->
+    margin = (@maxWidth() - @width()) / 2
+    return margin unless margin < 1
+    @minMargin
 
-    @margin = (maxWidth - @width) / 2
-    if @margin < 1 then @margin = @minMargin
-
-    @top = window.scrollY + @minMargin
+  top: ->
+    window.scrollY + @minMargin

@@ -50,18 +50,17 @@ class @Overlay
 
   setDimensions: ->
     dimensions = new OverlayDimensions()
-    dimensions.calaculateDimensions()
 
-    @overlay.css('left', dimensions.margin)
-    @overlay.css('top', dimensions.top)
-    @overlay.width(dimensions.width)
-    @overlay.height(dimensions.height)
-    @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth)
+    @overlay.css('left', dimensions.margin())
+    @overlay.css('top', dimensions.top())
+    @overlay.width(dimensions.width())
+    @overlay.height(dimensions.height())
+    @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth())
 
-    if dimensions.constrainWidth
-      @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth)
+    if dimensions.constrainWidth()
+      @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth())
     else
-      @overlay.find('.js-overlay-image').height(dimensions.height)
+      @overlay.find('.js-overlay-image').height(dimensions.height())
 
     $('body').addClass('scroll-lock')
 
