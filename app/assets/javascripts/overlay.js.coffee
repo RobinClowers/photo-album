@@ -84,6 +84,8 @@ class @Overlay
     @overlay.css('top', top)
     @overlay.width(width)
     @overlay.height(height)
+    @overlay.find('.js-overlay-image-container').width(width - commentWidth)
+
     if heightRatio > widthRatio
       @overlay.find('.js-overlay-image').width(width - commentWidth)
     else
