@@ -58,7 +58,7 @@ class @Overlay
     @overlay.height(dimensions.height)
     @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth)
 
-    if dimensions.heightRatio > dimensions.widthRatio
+    if dimensions.constrainWidth
       @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth)
     else
       @overlay.find('.js-overlay-image').height(dimensions.height)

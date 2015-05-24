@@ -18,13 +18,14 @@ class @OverlayDimensions
     else
       @height = maxPhotoHeight
 
-    @heightRatio = @height / maxPhotoHeight
-    @widthRatio = @width / maxPhotoWidth
+    heightRatio = @height / maxPhotoHeight
+    widthRatio = @width / maxPhotoWidth
+    @constrainWidth = heightRatio > widthRatio
 
-    if @heightRatio > @widthRatio
-      @height = maxPhotoHeight * @widthRatio
-    else if @widthRatio > @heightRatio
-      @width = Math.round((maxPhotoWidth * @heightRatio) + commentWidth)
+    if @constrainWidth
+      @height = maxPhotoHeight * widthRatio
+    else
+      @width = Math.round((maxPhotoWidth * heightRatio) + commentWidth)
 
     @leftPaneWidth = @width - commentWidth
 
