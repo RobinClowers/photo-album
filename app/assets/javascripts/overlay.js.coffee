@@ -76,6 +76,7 @@ class @Overlay
       width = Math.round((maxPhotoWidth * heightRatio) + commentWidth)
 
     margin = (maxWidth - width) / 2
+    if margin < 1 then margin = 20
 
     top = window.scrollY + 10
 
@@ -83,6 +84,10 @@ class @Overlay
     @overlay.css('top', top)
     @overlay.width(width)
     @overlay.height(height)
+    if heightRatio > widthRatio
+      @overlay.find('.js-overlay-image').width(width - commentWidth)
+    else
+      @overlay.find('.js-overlay-image').height(height)
 
     $('body').addClass('scroll-lock')
 
