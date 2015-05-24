@@ -2,10 +2,14 @@ class @OverlayDimensions
   commentWidth: 309
   maxPhotoWidth: 1024
   maxPhotoHeight: 768
+  minMargin: 10
+
+  constructor: ->
+    @totalMargin = @minMargin * 2
 
   calaculateDimensions: ->
-    maxWidth = $(window).width() - 20
-    maxHeight = $(window).height() - 20
+    maxWidth = $(window).width() - @totalMargin
+    maxHeight = $(window).height() - @totalMargin
 
     totalWidth = @maxPhotoWidth + @commentWidth
 
@@ -31,6 +35,6 @@ class @OverlayDimensions
     @leftPaneWidth = @width - @commentWidth
 
     @margin = (maxWidth - @width) / 2
-    if @margin < 1 then @margin = 10
+    if @margin < 1 then @margin = @minMargin
 
-    @top = window.scrollY + 10
+    @top = window.scrollY + @minMargin
