@@ -76,7 +76,7 @@ class @Overlay
       width = Math.round((maxPhotoWidth * heightRatio) + commentWidth)
 
     margin = (maxWidth - width) / 2
-    if margin < 1 then margin = 20
+    if margin < 1 then margin = 10
 
     top = window.scrollY + 10
 
