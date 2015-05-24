@@ -58,11 +58,8 @@ html
             button.square-button.active.js-login-confirm Login
           li
             button.square-button.js-login-cancel Cancel
-      - if Rails.env.development?
-        == javascript_include_tag "jquery"
-      - else
-        script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"
-      == javascript_include_tag "application"
+    == jquery_url
+    == javascript_include_tag "application"
     javascript:
       (function(){
         var twitterWidgets = document.createElement('script');
