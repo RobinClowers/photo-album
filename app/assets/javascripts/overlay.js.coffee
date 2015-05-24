@@ -49,47 +49,19 @@ class @Overlay
       @overlay.find('.overlay-previous').hide()
 
   setDimensions: ->
-    maxWidth = $(window).width() - 20
-    maxHeight = $(window).height() - 20
+    dimensions = new OverlayDimensions()
+    dimensions.calaculateDimensions()
 
-    commentWidth = 309
-    maxPhotoWidth = 1024
-    maxPhotoHeight = 768
-    totalWidth = maxPhotoWidth + commentWidth
+    @overlay.css('left', dimensions.margin)
+    @overlay.css('top', dimensions.top)
+    @overlay.width(dimensions.width)
+    @overlay.height(dimensions.height)
+    @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth)
 
-    if totalWidth > maxWidth
-      width = maxWidth
+    if dimensions.heightRatio > dimensions.widthRatio
+      @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth)
     else
-      width = totalWidth
-
-    if maxPhotoHeight > maxHeight
-      height = maxHeight
-    else
-      height = maxPhotoHeight
-
-    heightRatio = height / maxPhotoHeight
-    widthRatio = width / maxPhotoWidth
-
-    if heightRatio > widthRatio
-      height = maxPhotoHeight * widthRatio
-    else if widthRatio > heightRatio
-      width = Math.round((maxPhotoWidth * heightRatio) + commentWidth)
-
-    margin = (maxWidth - width) / 2
-    if margin < 1 then margin = 10
-
-    top = window.scrollY + 10
-
-    @overlay.css('left', margin)
-    @overlay.css('top', top)
-    @overlay.width(width)
-    @overlay.height(height)
-    @overlay.find('.js-overlay-image-container').width(width - commentWidth)
-
-    if heightRatio > widthRatio
-      @overlay.find('.js-overlay-image').width(width - commentWidth)
-    else
-      @overlay.find('.js-overlay-image').height(height)
+      @overlay.find('.js-overlay-image').height(dimensions.height)
 
     $('body').addClass('scroll-lock')
 
