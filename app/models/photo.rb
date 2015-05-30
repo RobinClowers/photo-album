@@ -47,6 +47,11 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  # this should be in a presenter
+  def alt
+    caption || "Photo in the album #{album.title}"
+  end
+
   private
   def offline?
     ENV['OFFLINE'] == 'true'
