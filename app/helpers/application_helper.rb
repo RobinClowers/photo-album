@@ -11,6 +11,7 @@ module ApplicationHelper
     if ENV['OFFLINE'] == 'true'
       '/assets/PT+Sans.css'
     else
+      'http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic'
     end
   end
 
