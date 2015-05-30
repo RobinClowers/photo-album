@@ -11,6 +11,7 @@ class Photos::CommentsController < ApplicationController
 
   def create
     comment.update_attributes(comment_params)
+    self.comment = Comment.new
     render 'index', status: :created
   end
 
