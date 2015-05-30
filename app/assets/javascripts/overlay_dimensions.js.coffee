@@ -1,5 +1,5 @@
 class @OverlayDimensions
-  commentWidth: 309
+  commentWidth: 300
   maxPhotoWidth: 1024
   maxPhotoHeight: 768
   minMargin: 10
