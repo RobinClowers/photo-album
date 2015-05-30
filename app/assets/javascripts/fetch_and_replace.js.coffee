@@ -1,4 +1,6 @@
-window.fetchAndReplace = (el, url) ->
+window.fetchAndReplace = (el, url, callback) ->
   $.get url, (html) ->
-    $(el).replaceWith(html)
+    newEl = $(html)
+    $(el).replaceWith(newEl)
+    callback(newEl) if callback
 

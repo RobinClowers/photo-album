@@ -39,7 +39,7 @@ class @Overlay
 
     overlayContent.show()
     @overlay.show()
-    overlayContent.trigger('overlay:visible')
+    overlayContent.trigger('overlay:show')
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1

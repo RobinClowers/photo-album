@@ -33,7 +33,7 @@
                 .overlay-column.narrow-column.content-box
                   .overlay-container.js-overlay-right
                     .js-overlay-top-right
-                      div data-replace-self-on-load=photo_plus_ones_path(photo_id: image)
+                      div data-replace-self-on-overlay-show=photo_plus_ones_path(photo_id: image)
                       = render 'caption_form', image: image
                       .messages
                     div data-replace-self-on-load=photo_comments_path(photo_id: image)
