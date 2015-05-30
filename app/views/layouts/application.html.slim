@@ -22,15 +22,14 @@ html
     = content_for :head
   body.no-sidebar
     header role="banner"
-      hgroup
-        h1
-          a href="/" Robin's Photos
-        h2 Pictures from around the world
+      h1
+        a href="/" Robin's Photos
+      h2 Pictures from around the world
     nav role="navigation"
       form action="http://google.com/search" method="get"
         fieldset role="search"
           input name="q" type="hidden" value="site:photos.robinclowers.com"
-          input.search name="q" placeholder="Search" results="0" type="text"
+          input.search name="q" placeholder="Search" type="text"
       ul.main-navigation.login-view
         li
           a href="/" Home
