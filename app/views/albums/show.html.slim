@@ -19,8 +19,9 @@
       ul.album-thumbs
         - images.each_with_index do |image, index|
           li
-            a.js-open-overlay data-index=index href=image.url data-title=image.caption data-photo-id=image.id
-              img src=image.thumb_url
+            .js-open-overlay data-index=index data-title=image.caption data-photo-id=image.id
+              a href=image.url
+                img src=image.thumb_url
 
               .js-overlay-content.image-overlay.octopress-reset style='display: none;'
                 .overlay-column.overlay-image-container.js-overlay-image-container
