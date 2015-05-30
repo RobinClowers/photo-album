@@ -28,9 +28,10 @@
                   button.overlay-previous
                   button.overlay-next
                 .overlay-column.narrow-column.js-overlay-right
-                  div data-replace-self-on-load=photo_plus_ones_path(photo_id: image)
-                  = render 'caption_form', image: image
-                  .messages
-                  .content-box style='width: 200px' data-replace-self-on-load=photo_comments_path(photo_id: image)
+                  .content-box
+                    div data-replace-self-on-load=photo_plus_ones_path(photo_id: image)
+                    = render 'caption_form', image: image
+                    .messages
+                    div data-replace-self-on-load=photo_comments_path(photo_id: image)
 
 input type='hidden' id='authenticity_token' value= form_authenticity_token
