@@ -8,4 +8,4 @@
   - if current_user.signed_in?
     = form_for comment, url: photo_comments_path(photo_id), remote: true do |f|
       = f.text_area :body, class: 'textarea'
-      = f.submit class: 'square-button'
+      = f.submit class: 'square-button', value: 'Comment'
