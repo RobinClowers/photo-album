@@ -1,0 +1,6 @@
+- if current_user.admin?
+  = form_for image, url: admin_photo_path(image), remote: true, data: { confirmation: true } do |f|
+    label for="caption" Add caption
+    textarea name="photo[caption]" style="width: 98%"
+      = image.caption
+    input type="submit"
