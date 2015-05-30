@@ -1,4 +1,4 @@
 $(document).on 'ajax:success', '[data-replace-self-on-ajax-success]', (event, data, status, xhr) ->
-  $(this).replaceWith(data)
-  $.fancybox.update()
-
+  newEl = $(data)
+  $(this).replaceWith(newEl)
+  newEl.trigger('replace:success')
