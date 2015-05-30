@@ -3,7 +3,7 @@ class @Overlay
     @selector = selector
     @options = options
     self = this
-    @overlay = $("<div class='overlay octopress-reset'></div>")
+    @overlay = $("<div class='overlay js-overlay octopress-reset'></div>")
     @mask = $("<div class='overlay-mask octopress-reset'></div>")
     $('body').append(@overlay).append(@mask)
 
@@ -32,14 +32,13 @@ class @Overlay
     @mask.css('top', window.scrollY)
 
     @index = $(@selector).index(target)
-    overlayContent = $(target).find('.js-overlay').clone()
+    overlayContent = $(target).find('.js-overlay-content').clone()
     @overlay.append(overlayContent)
     @setDimensions()
     @setButtonVisibility()
 
     overlayContent.show()
     @overlay.show()
-
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
