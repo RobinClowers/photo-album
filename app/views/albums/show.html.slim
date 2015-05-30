@@ -27,11 +27,12 @@
                   img.overlay-image.js-overlay-image src=image.url
                   button.overlay-previous
                   button.overlay-next
-                .overlay-column.narrow-column.js-overlay-right
-                  .content-box
-                    div data-replace-self-on-load=photo_plus_ones_path(photo_id: image)
-                    = render 'caption_form', image: image
-                    .messages
+                .overlay-column.narrow-column.content-box
+                  .overlay-container.js-overlay-right
+                    .js-overlay-top-right
+                      div data-replace-self-on-load=photo_plus_ones_path(photo_id: image)
+                      = render 'caption_form', image: image
+                      .messages
                     div data-replace-self-on-load=photo_comments_path(photo_id: image)
 
 input type='hidden' id='authenticity_token' value= form_authenticity_token
