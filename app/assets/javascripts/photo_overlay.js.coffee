@@ -12,6 +12,8 @@ setCommentPaneHeight = (el) ->
   else
     commentList.height(commentPaneHeight)
     commentList.scrollTop(commentsHeight)
+    image = overlay.find('img')
+    overlay.find('.js-overlay-image-container').height(image.height())
 
 $(document).on 'overlay:show', '.js-overlay', ->
   setCommentPaneHeight(this)
