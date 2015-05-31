@@ -3,55 +3,54 @@ class @Overlay
     @selector = selector
     @options = options
     self = this
-    @overlay = $("<div class='overlay js-overlay octopress-reset'></div>")
-    @mask = $("<div class='overlay-mask octopress-reset'></div>")
-    $('body').append(@overlay).append(@mask)
+    @dom = new OverlayDomWrapper()
+    $('body').append(@dom.el).append(@dom.mask)
 
     $(@selector).click (event) ->
       event.preventDefault()
       self.open(this)
 
-    @mask.click (event) ->
+    @dom.mask.click (event) ->
       self.close()
 
     $(document).on 'keyup', (event) ->
       return unless event.which == 27
       self.close()
 
-    @overlay.on 'click', '.overlay-next', (event) ->
+    @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
       self.close()
       self.next()
 
-    @overlay.on 'click', '.overlay-previous', (event) ->
+    @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
       self.close()
       self.previous()
 
-    @overlay.on 'click', '.js-overlay-close', (event) ->
+    @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
   open: (target) ->
-    @mask.show()
+    @dom.mask.show()
     @setMaskHeight()
-    @mask.css('top', window.scrollY)
+    @dom.mask.css('top', window.scrollY)
     @lockScroll()
     @showSpinner()
 
     @index = $(@selector).index(target)
-    overlayContent = $(target).find('.js-overlay-content').clone()
-    @overlay.append(overlayContent)
+    overlayContent = $(target).find(@dom.contentSelector).clone()
+    @dom.el.append(overlayContent)
 
-    dimensions = new OverlayDimensions(@overlay.find('.js-overlay-image'))
+    dimensions = new OverlayDimensions(@dom.image())
     dimensions.ready =>
       @setDimensions(dimensions)
       @setButtonVisibility()
 
       overlayContent.show()
-      @overlay.show()
+      @dom.el.show()
       @spinner.stop()
       overlayContent.trigger('overlay:show')
 
   setMaskHeight: ->
-    @mask.height($(document).height())
+    @dom.mask.height($(document).height())
 
   lockScroll: ->
     $('body').addClass('scroll-lock') unless window.mobileLayout()
@@ -59,36 +58,36 @@ class @Overlay
   showSpinner: ->
     @spinner = new Spinner
       color: '#fff'
-    @spinner.spin(@mask[0])
+    @spinner.spin(@dom.mask[0])
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
-      @overlay.find('.overlay-next').hide()
+      @dom.nextButton().hide()
 
     if @index == 0
-      @overlay.find('.overlay-previous').hide()
+      @dom.previousButton().hide()
 
   setDimensions: (dimensions) ->
-    @overlay.css('left', dimensions.margin())
-    @overlay.css('top', dimensions.top())
-    @overlay.width(dimensions.width())
+    @dom.el.css('left', dimensions.margin())
+    @dom.el.css('top', dimensions.top())
+    @dom.el.width(dimensions.width())
     if window.mobileLayout()
-      @overlay.find('.js-overlay-image-container').height(dimensions.height())
+      @dom.imageContainer().height(dimensions.height())
     else
-      @overlay.height(dimensions.height())
+      @dom.el.height(dimensions.height())
 
-    @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth())
-    @overlay.find('.js-overlay-caption-container').width(dimensions.leftPaneWidth())
-    @overlay.find('.js-overlay-close').css('left', dimensions.width() - 20)
+    @dom.imageContainer().width(dimensions.leftPaneWidth())
+    @dom.captionContainer().width(dimensions.leftPaneWidth())
+    @dom.closeButton().css('left', dimensions.width() - 20)
 
     if dimensions.constrainWidth()
-      @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth())
+      @dom.image().width(dimensions.leftPaneWidth())
     else
-      @overlay.find('.js-overlay-image').height(dimensions.height())
+      @dom.image().height(dimensions.height())
 
   close: ->
-    @overlay.empty().hide()
-    @mask.hide()
+    @dom.el.empty().hide()
+    @dom.mask.hide()
     $('body').removeClass('scroll-lock')
 
   next: ->
@@ -99,27 +98,12 @@ class @Overlay
     target = $(@selector)[@index - 1]
     @open(target)
 
-  commentList: ->
-    @overlay.find('.js-overlay-comments-container')
-
-  topRight: ->
-    @overlay.find('.js-overlay-top-right')
-
-  commentPaneHeight: ->
-    @overlay.find('.js-overlay-right').innerHeight() - @topRight().height()
-
-  commentsHeight: ->
-    @overlay.find('.js-overlay-comments').height()
-
-  image: ->
-    @overlay.find('.js-overlay-image')
-
   setCommentPaneHeight: =>
     @setMaskHeight()
 
     if window.mobileLayout()
-      @commentList().height(@commentsHeight())
+      @dom.commentList().height(@dom.comments().height())
     else
-      @commentList().height(@commentPaneHeight())
-      @commentList().scrollTop(@commentsHeight())
-      @overlay.find('.js-overlay-image-container').height(@image().height())
+      @dom.commentList().height(@dom.rightPane().innerHeight() - @dom.topRight().height())
+      @dom.commentList().scrollTop(@dom.comments().height())
+      @dom.imageContainer().height(@dom.image().height())
