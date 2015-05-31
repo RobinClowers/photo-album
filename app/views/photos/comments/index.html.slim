@@ -2,8 +2,9 @@
   ul.spaced-list
     - comments.each do |comment|
       li
-        p= comment.user.name
-        p= comment.body
+        p.comment
+          span.comment-name= comment.user.name
+          span.comment-body= comment.body
 
   - if current_user.signed_in?
     = form_for comment, url: photo_comments_path(photo_id), remote: true do |f|
