@@ -59,13 +59,7 @@ html
             button.square-button.js-login-cancel Cancel
     == jquery_url
     == javascript_include_tag "application"
+    = twitter_script
     javascript:
-      (function(){
-        var twitterWidgets = document.createElement('script');
-        twitterWidgets.type = 'text/javascript';
-        twitterWidgets.async = true;
-        twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-        document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-      })();
       window.signed_in = #{current_user.signed_in?}
       window.admin = #{current_user.admin?}

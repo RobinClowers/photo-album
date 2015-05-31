@@ -22,4 +22,18 @@ module ApplicationHelper
       javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js'
     end
   end
+
+  def twitter_script
+    unless ENV['OFFLINE'] == 'true'
+      <<-JAVASCRIPT
+        (function(){
+          var twitterWidgets = document.createElement('script');
+          twitterWidgets.type = 'text/javascript';
+          twitterWidgets.async = true;
+          twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+          document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+        })();
+      JAVASCRIPT
+    end
+  end
 end
