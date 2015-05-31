@@ -10,9 +10,12 @@ class Photos::CommentsController < ApplicationController
   end
 
   def create
-    comment.update_attributes(comment_params)
-    self.comment = Comment.new
-    render 'index', status: :created
+    if comment.update_attributes(comment_params)
+      self.comment = Comment.new
+      render 'index', status: :created
+    else
+      render 'index', status: :unprocessable_entity
+    end
   end
 
   def destroy

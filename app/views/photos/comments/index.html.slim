@@ -12,4 +12,7 @@
     - if current_user.signed_in?
       = form_for comment, url: photo_comments_path(photo_id), remote: true do |f|
         = f.text_area :body, class: 'textarea'
+        .message
+          - comment.errors.full_messages.each do |error|
+            p.no-margin.error= error
         = f.submit class: 'square-button', value: 'Comment'
