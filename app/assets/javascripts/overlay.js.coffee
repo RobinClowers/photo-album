@@ -115,6 +115,8 @@ class @Overlay
     @overlay.find('.js-overlay-image')
 
   setCommentPaneHeight: =>
+    @setMaskHeight()
+
     if window.mobileLayout()
       @commentList().height(@commentsHeight())
     else
