@@ -16,6 +16,4 @@
 //= require jquery.tooltipster.js
 //= require spin
 //= require run_loop
-//= require overlay
-//= require overlay_dimensions
 //= require_tree .
