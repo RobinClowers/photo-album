@@ -26,6 +26,9 @@ class @Overlay
       self.close()
       self.previous()
 
+    @overlay.on 'click', '.js-overlay-close', (event) ->
+      self.close()
+
   open: (target) ->
     @mask.show()
     @mask.height($(window).height())
@@ -57,6 +60,7 @@ class @Overlay
     @overlay.height(dimensions.height())
     @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth())
     @overlay.find('.js-overlay-caption-container').width(dimensions.leftPaneWidth())
+    @overlay.find('.js-overlay-close').css('left', dimensions.width() - 20)
 
     if dimensions.constrainWidth()
       @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth())
