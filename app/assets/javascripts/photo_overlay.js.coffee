@@ -7,8 +7,11 @@ setCommentPaneHeight = (el) ->
   commentPaneHeight = overlay.find('.js-overlay-right').innerHeight() - topRightHeight
   commentList = overlay.find('.js-overlay-comments-container')
   commentsHeight = overlay.find('.js-overlay-comments').height()
-  commentList.height(commentPaneHeight)
-  commentList.scrollTop(commentsHeight)
+  if window.mobileLayout()
+    commentList.height(commentsHeight)
+  else
+    commentList.height(commentPaneHeight)
+    commentList.scrollTop(commentsHeight)
 
 $(document).on 'overlay:show', '.js-overlay', ->
   setCommentPaneHeight(this)

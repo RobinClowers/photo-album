@@ -19,6 +19,7 @@
   height: 100%
 
 .overlay-image-container
+  position: relative
   text-align: center
 
 .overlay-column
@@ -28,6 +29,10 @@
   &.narrow-column
     width: 300px
 
+@media (max-width: $maxMobileWidth)
+  .overlay-column.narrow-column
+    width: 400px
+
 .overlay-container
   height: 100%
 
@@ -35,7 +40,7 @@
   overflow: hidden
 
 .overlay-next
-  right: 300px
+  right: 0
 
 .overlay-previous
   left: 0

@@ -31,7 +31,7 @@ class @Overlay
 
   open: (target) ->
     @mask.show()
-    @mask.height($(window).height())
+    @mask.height($(window).height()) unless window.mobileLayout()
     @mask.css('top', window.scrollY)
 
     @index = $(@selector).index(target)
@@ -57,7 +57,11 @@ class @Overlay
     @overlay.css('left', dimensions.margin())
     @overlay.css('top', dimensions.top())
     @overlay.width(dimensions.width())
-    @overlay.height(dimensions.height())
+    if window.mobileLayout()
+      @overlay.find('.js-overlay-image-container').height(dimensions.height())
+    else
+      @overlay.height(dimensions.height())
+
     @overlay.find('.js-overlay-image-container').width(dimensions.leftPaneWidth())
     @overlay.find('.js-overlay-caption-container').width(dimensions.leftPaneWidth())
     @overlay.find('.js-overlay-close').css('left', dimensions.width() - 20)
@@ -67,7 +71,7 @@ class @Overlay
     else
       @overlay.find('.js-overlay-image').height(dimensions.height())
 
-    $('body').addClass('scroll-lock')
+    $('body').addClass('scroll-lock') unless window.mobileLayout()
 
   close: ->
     @overlay.empty().hide()

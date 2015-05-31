@@ -6,6 +6,10 @@ class @OverlayDimensions
 
   constructor: ->
     @totalMargin = @minMargin * 2
+    if window.mobileLayout()
+      @commentWidth = 0
+    else
+      @commentWidth = 300
 
     @heightRatio = ->
       @initialHeight() / @maxPhotoHeight
