@@ -75,6 +75,7 @@ class @Overlay
       @dom.imageContainer().height(dimensions.height())
     else
       @dom.el.height(dimensions.height())
+      @dom.imageContainer().append(@dom.captionContainer().remove())
 
     @dom.imageContainer().width(dimensions.leftPaneWidth())
     @dom.captionContainer().width(dimensions.leftPaneWidth())
