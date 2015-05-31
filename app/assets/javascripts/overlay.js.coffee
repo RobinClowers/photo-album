@@ -38,12 +38,14 @@ class @Overlay
     overlayContent = $(target).find('.js-overlay-content').clone()
     @overlay.append(overlayContent)
 
-    @setDimensions()
-    @setButtonVisibility()
+    dimensions = new OverlayDimensions(@overlay.find('.js-overlay-image'))
+    dimensions.ready =>
+      @setDimensions(dimensions)
+      @setButtonVisibility()
 
-    overlayContent.show()
-    @overlay.show()
-    overlayContent.trigger('overlay:show')
+      overlayContent.show()
+      @overlay.show()
+      overlayContent.trigger('overlay:show')
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
@@ -52,9 +54,7 @@ class @Overlay
     if @index == 0
       @overlay.find('.overlay-previous').hide()
 
-  setDimensions: ->
-    dimensions = new OverlayDimensions(@overlay.find('.js-overlay-image'))
-
+  setDimensions: (dimensions) ->
     @overlay.css('left', dimensions.margin())
     @overlay.css('top', dimensions.top())
     @overlay.width(dimensions.width())

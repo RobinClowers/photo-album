@@ -3,10 +3,7 @@ class @OverlayDimensions
   minMargin: 10
 
   constructor: (image) ->
-    nativeImage = new Image()
-    nativeImage.src = image.attr("src")
-    @maxPhotoWidth = nativeImage.width
-    @maxPhotoHeight = nativeImage.height
+    @image = image
 
     @totalMargin = @minMargin * 2
     if window.mobileLayout()
@@ -49,6 +46,14 @@ class @OverlayDimensions
 
     @idealHeight = ->
       Math.round(@maxPhotoHeight * @totalWidthRatio())
+
+  ready: (callback) ->
+    @image.load =>
+      nativeImage = new Image()
+      nativeImage.src = @image.attr("src")
+      @maxPhotoWidth = nativeImage.width
+      @maxPhotoHeight = nativeImage.height
+      callback()
 
   width: ->
     if @constrainWidth()
