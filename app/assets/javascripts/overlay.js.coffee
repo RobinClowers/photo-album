@@ -78,7 +78,7 @@ class @Overlay
 
     @dom.imageContainer().width(dimensions.leftPaneWidth())
     @dom.captionContainer().width(dimensions.leftPaneWidth())
-    @dom.closeButton().css('left', dimensions.width() - 20)
+    @dom.closeButton().css('left', dimensions.closeButtonLeftPosition())
 
     if dimensions.constrainWidth()
       @dom.image().width(dimensions.leftPaneWidth())

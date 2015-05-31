@@ -1,6 +1,7 @@
 class @OverlayDimensions
   commentWidth: 300
   minMargin: 10
+  closeButtonOffset: 20
 
   constructor: (image) ->
     @image = image
@@ -83,3 +84,6 @@ class @OverlayDimensions
 
   top: ->
     window.scrollY + @minMargin
+
+  closeButtonLeftPosition: ->
+    @width() - @closeButtonOffset
