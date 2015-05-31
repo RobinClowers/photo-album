@@ -17,6 +17,9 @@ class @OverlayDimensions
     @widthRatio = ->
       @initialWidth() / @maxPhotoWidth
 
+    @totalWidthRatio = ->
+      @initialWidth() / (@maxPhotoWidth + @commentWidth)
+
     @maxWidth = ->
       $(window).width() - @totalMargin
 
@@ -38,20 +41,29 @@ class @OverlayDimensions
       else
         @maxPhotoHeight
 
+    @idealWidth = ->
+      Math.round((@maxPhotoWidth * @heightRatio()) + @commentWidth)
+
+    @idealHeight = ->
+      Math.round(@maxPhotoHeight * @totalWidthRatio())
+
   width: ->
     if @constrainWidth()
       @initialWidth()
     else
-      Math.round((@maxPhotoWidth * @heightRatio()) + @commentWidth)
+      @idealWidth()
 
   height: ->
-    if @constrainWidth()
-      @maxPhotoHeight * @widthRatio()
-    else
+    if @constrainHeight()
       @initialHeight()
+    else
+      @idealHeight()
 
   constrainWidth: ->
-    @heightRatio() > @widthRatio()
+    @idealWidth() > @maxWidth() || @heightRatio() > @widthRatio()
+
+  constrainHeight: ->
+    @idealHeight() > @maxHeight() || @widthRatio() > @heightRatio()
 
   leftPaneWidth: ->
     @width() - @commentWidth
