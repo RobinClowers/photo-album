@@ -29,14 +29,6 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  def path
-    if offline_dev?
-      super.titleize
-    else
-      super
-    end
-  end
-
   def base_path(secure: false)
     if offline_dev?
       ENV['OFFLINE_DEV_PATH']
