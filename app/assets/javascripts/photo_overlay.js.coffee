@@ -31,6 +31,9 @@ class @PhotoOverlay extends Overlay
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
+    @createDimensions = ->
+      new @options.dimensionsType(@dom.image())
+
   open: (target) ->
     @prepareOpen(target)
     @showSpinner()
@@ -55,9 +58,7 @@ class @PhotoOverlay extends Overlay
       @dom.previousButton().hide()
 
   setDimensions: ->
-    @dom.el.css('left', @dimensions.margin())
-    @dom.el.css('top', @dimensions.top())
-    @dom.el.width(@dimensions.width())
+    super()
     if window.mobileLayout()
       @dom.imageContainer().height(@dimensions.height())
     else
@@ -66,17 +67,11 @@ class @PhotoOverlay extends Overlay
 
     @dom.imageContainer().width(@dimensions.leftPaneWidth())
     @dom.captionContainer().width(@dimensions.leftPaneWidth())
-    @dom.closeButton().css('left', @dimensions.closeButtonLeftPosition())
 
     if @dimensions.constrainWidth()
       @dom.image().width(@dimensions.leftPaneWidth())
     else
       @dom.image().height(@dimensions.height())
-
-  close: ->
-    @dom.el.empty().hide()
-    @dom.mask.hide()
-    $('body').removeClass('scroll-lock')
 
   next: ->
     target = $(@selector)[@index + 1]

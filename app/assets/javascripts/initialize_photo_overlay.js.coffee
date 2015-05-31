@@ -1,8 +1,8 @@
 $ ->
-  window.overlay = new PhotoOverlay('.js-open-overlay')
+  window.photoOverlay = new PhotoOverlay('.js-open-overlay')
 
 $(document).on 'overlay:show', '.js-overlay', ->
-  window.overlay.setCommentPaneHeight()
+  window.photoOverlay.setCommentPaneHeight()
 
 $(document).on 'replace:success', '.js-overlay', ->
-  window.overlay.setCommentPaneHeight()
+  window.photoOverlay.setCommentPaneHeight()

@@ -9,19 +9,29 @@ class @Overlay
     @dom = new @options.domType()
     $('body').append(@dom.el).append(@dom.mask)
 
-  prepareOpen: (target) ->
-    @dom.mask.show()
-    @setMaskHeight()
-    @dom.mask.css('top', window.scrollY)
-    @lockScroll()
-    @overlayContent = $(target).find(@contentSelector).clone()
-    @dom.el.append(@overlayContent)
-    @dimensions = new @options.dimensionsType(@dom.image())
+    @createDimensions = ->
+      new @options.dimensionsType(@originalContent)
 
   open: (target) ->
     @prepareOpen(target)
     @setDimensions()
     @show()
+
+  prepareOpen: (target = document) ->
+    @dom.mask.show()
+    @setMaskHeight()
+    @dom.mask.css('top', window.scrollY)
+    @lockScroll()
+    @originalContent = $(target).find(@contentSelector)
+    @overlayContent = @originalContent.clone()
+    @dom.el.append(@overlayContent)
+    @dimensions = @createDimensions()
+
+  setDimensions: ->
+    @dom.el.css('left', @dimensions.margin())
+    @dom.el.css('top', @dimensions.top())
+    @dom.el.width(@dimensions.width())
+    @dom.closeButton().css('left', @dimensions.closeButtonLeftPosition())
 
   show: ->
     @overlayContent.show()
@@ -33,3 +43,8 @@ class @Overlay
 
   lockScroll: ->
     $('body').addClass('scroll-lock') unless window.mobileLayout()
+
+  close: ->
+    @dom.el.empty().hide()
+    @dom.mask.hide()
+    $('body').removeClass('scroll-lock')

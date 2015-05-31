@@ -3,7 +3,8 @@ class @PhotoOverlayDimensions extends OverlayDimensions
   closeButtonOffset: 20
 
   constructor: (image) ->
-    super(image)
+    super()
+    @image = image
 
     if window.mobileLayout()
       @commentWidth = 0

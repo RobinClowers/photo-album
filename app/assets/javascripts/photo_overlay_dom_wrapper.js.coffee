@@ -9,9 +9,6 @@ class @PhotoOverlayDomWrapper extends OverlayDomWrapper
   nextButton: ->
     @el.find(@nextButtonSelector)
 
-  closeButton: ->
-    @el.find(@closeButtonSelector)
-
   captionContainer: ->
     @el.find('.js-overlay-caption-container')
 
