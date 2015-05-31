@@ -31,7 +31,7 @@ class @Overlay
 
   open: (target) ->
     @mask.show()
-    @mask.height($(window).height()) unless window.mobileLayout()
+    @mask.height($(document).height())
     @mask.css('top', window.scrollY)
     @lockScroll()
     @showSpinner()
