@@ -20,7 +20,7 @@ class Photo < ActiveRecord::Base
   end
 
   def protocol(secure: false)
-    if offline?
+    if offline_dev?
       ''
     elsif secure
       'https://'
@@ -30,7 +30,7 @@ class Photo < ActiveRecord::Base
   end
 
   def path
-    if offline?
+    if offline_dev?
       super.titleize
     else
       super
@@ -38,8 +38,8 @@ class Photo < ActiveRecord::Base
   end
 
   def base_path(secure: false)
-    if offline?
-      ENV['OFFLINE_PATH']
+    if offline_dev?
+      ENV['OFFLINE_DEV_PATH']
     elsif secure
       Rails.application.config.base_secure_photo_url
     else
@@ -53,7 +53,7 @@ class Photo < ActiveRecord::Base
   end
 
   private
-  def offline?
-    ENV['OFFLINE'] == 'true'
+  def offline_dev?
+    ENV['OFFLINE_DEV'] == 'true'
   end
 end

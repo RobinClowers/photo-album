@@ -1,6 +1,6 @@
 module ApplicationHelper
   def pt_serif_url
-    if ENV['OFFLINE'] == 'true'
+    if offline_dev?
       '/assets/PT+Serif.css'
     else
       'http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic'
@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def pt_sans_url
-    if ENV['OFFLINE'] == 'true'
+    if offline_dev?
       '/assets/PT+Sans.css'
     else
       'http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic'
@@ -16,7 +16,7 @@ module ApplicationHelper
   end
 
   def jquery_url
-    if ENV['OFFLINE'] == 'true'
+    if offline_dev?
        javascript_include_tag "jquery"
     else
       javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js'
@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def twitter_script
-    unless ENV['OFFLINE'] == 'true'
+    unless offline_dev?
       <<-JAVASCRIPT
         (function(){
           var twitterWidgets = document.createElement('script');
@@ -35,5 +35,9 @@ module ApplicationHelper
         })();
       JAVASCRIPT
     end
+  end
+
+  def offline_dev?
+    ENV['OFFLINE_DEV'] == 'true'
   end
 end
