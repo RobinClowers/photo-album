@@ -33,6 +33,7 @@ class @Overlay
     @mask.show()
     @mask.height($(window).height()) unless window.mobileLayout()
     @mask.css('top', window.scrollY)
+    @lockScroll()
     @showSpinner()
 
     @index = $(@selector).index(target)
@@ -48,6 +49,9 @@ class @Overlay
       @overlay.show()
       @spinner.stop()
       overlayContent.trigger('overlay:show')
+
+  lockScroll: ->
+    $('body').addClass('scroll-lock') unless window.mobileLayout()
 
   showSpinner: ->
     @spinner = new Spinner
@@ -78,8 +82,6 @@ class @Overlay
       @overlay.find('.js-overlay-image').width(dimensions.leftPaneWidth())
     else
       @overlay.find('.js-overlay-image').height(dimensions.height())
-
-    $('body').addClass('scroll-lock') unless window.mobileLayout()
 
   close: ->
     @overlay.empty().hide()
