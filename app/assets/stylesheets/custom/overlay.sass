@@ -1,3 +1,6 @@
+$arrowSize: 60px
+$arrowSizeMobile: 30px
+
 .overlay
   position: absolute
   z-index: 100
@@ -49,7 +52,6 @@
   color: transparent
   height: 100%
   position: absolute
-  border-bottom: 60px solid transparent
   background: none
   border: none
   cursor: pointer
@@ -58,12 +60,12 @@
     opacity: 0.7
 
 .overlay-next-arrow
-  border-left: 60px solid gray
+  border-left: $arrowSize solid gray
   border-right: none
   right: 10px
 
 .overlay-previous-arrow
-  border-right: 60px solid gray
+  border-right: $arrowSize solid gray
   border-left: none
   left: 10px
 
@@ -73,8 +75,19 @@
   bottom: 50%
   width: 0
   height: 0
-  border-top: 60px solid transparent
-  border-bottom: 60px solid transparent
+  border-top: $arrowSize solid transparent
+  border-bottom: $arrowSize solid transparent
+
+@media (max-width: $maxMobileWidth)
+  .overlay-next-arrow
+    border-left: $arrowSizeMobile solid gray
+
+  .overlay-previous-arrow
+    border-right: $arrowSizeMobile solid gray
+
+  .overlay-next-arrow, .overlay-previous-arrow
+    border-top: $arrowSizeMobile solid transparent
+    border-bottom: $arrowSizeMobile solid transparent
 
 .overlay-caption-container
   position: absolute
