@@ -31,7 +31,7 @@ class @Overlay
 
   open: (target) ->
     @mask.show()
-    @mask.height($(document).height())
+    @setMaskHeight()
     @mask.css('top', window.scrollY)
     @lockScroll()
     @showSpinner()
@@ -49,6 +49,9 @@ class @Overlay
       @overlay.show()
       @spinner.stop()
       overlayContent.trigger('overlay:show')
+
+  setMaskHeight: ->
+    @mask.height($(document).height())
 
   lockScroll: ->
     $('body').addClass('scroll-lock') unless window.mobileLayout()
@@ -95,3 +98,26 @@ class @Overlay
   previous: ->
     target = $(@selector)[@index - 1]
     @open(target)
+
+  commentList: ->
+    @overlay.find('.js-overlay-comments-container')
+
+  topRight: ->
+    @overlay.find('.js-overlay-top-right')
+
+  commentPaneHeight: ->
+    @overlay.find('.js-overlay-right').innerHeight() - @topRight().height()
+
+  commentsHeight: ->
+    @overlay.find('.js-overlay-comments').height()
+
+  image: ->
+    @overlay.find('.js-overlay-image')
+
+  setCommentPaneHeight: =>
+    if window.mobileLayout()
+      @commentList().height(@commentsHeight())
+    else
+      @commentList().height(@commentPaneHeight())
+      @commentList().scrollTop(@commentsHeight())
+      @overlay.find('.js-overlay-image-container').height(@image().height())
