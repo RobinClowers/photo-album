@@ -14,6 +14,7 @@
 //= require jquery.fancybox.js
 //= require jquery.fancybox-thumbs.js
 //= require jquery.tooltipster.js
+//= require spin
 //= require run_loop
 //= require overlay
 //= require overlay_dimensions

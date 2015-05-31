@@ -33,6 +33,7 @@ class @Overlay
     @mask.show()
     @mask.height($(window).height()) unless window.mobileLayout()
     @mask.css('top', window.scrollY)
+    @showSpinner()
 
     @index = $(@selector).index(target)
     overlayContent = $(target).find('.js-overlay-content').clone()
@@ -45,7 +46,13 @@ class @Overlay
 
       overlayContent.show()
       @overlay.show()
+      @spinner.stop()
       overlayContent.trigger('overlay:show')
+
+  showSpinner: ->
+    @spinner = new Spinner
+      color: '#fff'
+    @spinner.spin(@mask[0])
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
