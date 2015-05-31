@@ -19,7 +19,6 @@ class @Overlay
 
   prepareOpen: (target = document) ->
     @dom.mask.show()
-    @dom.mask.css('top', window.scrollY)
     @lockScroll()
     @originalContent = $(target).find(@contentSelector)
     @overlayContent = @originalContent.clone()
