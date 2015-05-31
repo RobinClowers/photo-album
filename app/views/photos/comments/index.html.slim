@@ -3,9 +3,9 @@
     ul.spaced-list
       - comments.each do |comment|
         li
-          p.comment
+          .comment
             img.comment-photo src=comment.user.profile_photo_url
-            span.comment-text
+            p.comment-text
               span.comment-name= comment.user.name
               span.comment-body= comment.body
 
