@@ -11,8 +11,6 @@
 // about supported directives.
 //
 //= require jquery_ujs
-//= require jquery.fancybox.js
-//= require jquery.fancybox-thumbs.js
 //= require jquery.tooltipster.js
 //= require spin
 //= require run_loop
