@@ -3,8 +3,10 @@
     - comments.each do |comment|
       li
         p.comment
-          span.comment-name= comment.user.name
-          span.comment-body= comment.body
+          img.comment-photo src=comment.user.profile_photo_url
+          span.comment-text
+            span.comment-name= comment.user.name
+            span.comment-body= comment.body
 
   - if current_user.signed_in?
     = form_for comment, url: photo_comments_path(photo_id), remote: true do |f|
