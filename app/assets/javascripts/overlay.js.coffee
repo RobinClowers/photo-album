@@ -37,6 +37,7 @@ class @Overlay
     @index = $(@selector).index(target)
     overlayContent = $(target).find('.js-overlay-content').clone()
     @overlay.append(overlayContent)
+
     @setDimensions()
     @setButtonVisibility()
 
@@ -52,7 +53,7 @@ class @Overlay
       @overlay.find('.overlay-previous').hide()
 
   setDimensions: ->
-    dimensions = new OverlayDimensions()
+    dimensions = new OverlayDimensions(@overlay.find('.js-overlay-image'))
 
     @overlay.css('left', dimensions.margin())
     @overlay.css('top', dimensions.top())

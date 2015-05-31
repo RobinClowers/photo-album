@@ -1,10 +1,13 @@
 class @OverlayDimensions
   commentWidth: 300
-  maxPhotoWidth: 1024
-  maxPhotoHeight: 768
   minMargin: 10
 
-  constructor: ->
+  constructor: (image) ->
+    nativeImage = new Image()
+    nativeImage.src = image.attr("src")
+    @maxPhotoWidth = nativeImage.width
+    @maxPhotoHeight = nativeImage.height
+
     @totalMargin = @minMargin * 2
     if window.mobileLayout()
       @commentWidth = 0
