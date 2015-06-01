@@ -14,7 +14,7 @@ class @PhotoOverlay extends Overlay
       self.open(this)
 
     $('body').on 'keyup', (event) ->
-      return if self.isFormElement(event.target)
+      return if window.isFormElement(event.target)
       switch event.which
         when 37 then self.previous()
         when 39 then self.next()
@@ -25,8 +25,6 @@ class @PhotoOverlay extends Overlay
     @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
       self.previous()
 
-    @isFormElement = (element) ->
-      element.type || $(element).is('[contenteditable]')
     @createDimensions = ->
       new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 

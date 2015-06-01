@@ -19,7 +19,7 @@ class @Overlay
       self.close()
 
     $('body').on 'keyup', (event) ->
-      return if self.isFormElement(event.target)
+      return if window.isFormElement(event.target)
       return unless event.which == 27
       self.close()
 
