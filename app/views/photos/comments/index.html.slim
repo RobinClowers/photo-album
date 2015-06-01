@@ -1,0 +1,18 @@
+.js-overlay-comments-container.scroll-box.padding-bottom data-replace-self-on-ajax-success=true
+  .js-overlay-comments
+    ul.spaced-list
+      - comments.each do |comment|
+        li
+          .comment
+            img.comment-photo src=comment.user.profile_photo_url
+            p.comment-text
+              span.comment-name= comment.user.name
+              span.comment-body= comment.body
+
+    - if current_user.signed_in?
+      = form_for comment, url: photo_comments_path(photo_id), remote: true do |f|
+        = f.text_area :body, class: 'textarea'
+        .message
+          - comment.errors.full_messages.each do |error|
+            p.no-margin.error= error
+        = f.submit class: 'square-button', value: 'Comment'

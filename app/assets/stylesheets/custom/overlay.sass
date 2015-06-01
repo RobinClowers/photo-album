@@ -1,0 +1,123 @@
+$arrowSize: 40px
+$arrowSizeMobile: 20px
+
+.overlay
+  position: absolute
+  z-index: $overlay-z-index
+  background: white
+
+.overlay-mask
+  display: none
+  position: absolute
+  top: 0
+  left: 0
+  z-index: $overlay-mask-z-index
+  width: 100%
+  height: 100%
+  background: #333
+  filter: alpha(opacity=80)
+  opacity: 0.8
+
+.image-overlay
+  height: 100%
+
+.overlay-image-container
+  position: relative
+  text-align: center
+
+.overlay-column
+  height: 100%
+  float: left
+
+  &.narrow-column
+    width: 300px
+
+@media (max-width: $maxMobileWidth)
+  .overlay-column.narrow-column
+    width: 100%
+
+.overlay-container
+  height: 100%
+
+.scroll-lock
+  overflow: hidden
+
+.overlay-next
+  right: 0
+
+.overlay-previous
+  left: 0
+
+.overlay-next, .overlay-previous
+  width: 80px
+  color: transparent
+  height: 100%
+  position: absolute
+  background: none
+  border: none
+  cursor: pointer
+  z-index: $overlay-button-z-index
+
+  &:hover .overlay-next-arrow, &:hover .overlay-previous-arrow
+    opacity: 0.7
+
+.overlay-next-arrow
+  border-left: $arrowSize solid gray
+  border-right: none
+  right: 10px
+
+.overlay-previous-arrow
+  border-right: $arrowSize solid gray
+  border-left: none
+  left: 10px
+
+.overlay-next-arrow, .overlay-previous-arrow
+  position: absolute
+  opacity: 0.5
+  bottom: 50%
+  width: 0
+  height: 0
+  border-top: $arrowSize solid transparent
+  border-bottom: $arrowSize solid transparent
+
+@media (max-width: $maxMobileWidth)
+  .overlay-next-arrow
+    border-left: $arrowSizeMobile solid gray
+
+  .overlay-previous-arrow
+    border-right: $arrowSizeMobile solid gray
+
+  .overlay-next-arrow, .overlay-previous-arrow
+    border-top: $arrowSizeMobile solid transparent
+    border-bottom: $arrowSizeMobile solid transparent
+
+.overlay-caption-container
+  position: absolute
+  bottom: 0
+
+.overlay-caption
+  background: white
+  opacity: 0.5
+
+@media (max-width: $maxMobileWidth)
+  .overlay-caption-container
+    text-align: center
+    float: left
+    position: inherit
+
+  .overlay-caption
+    opacity: 1
+
+.overlay-close
+  background: black
+  border-radius: 20px
+  color: white
+  cursor: pointer
+  font-size: 30px
+  line-height: 30px
+  position: absolute
+  text-align: center
+  top: -10px
+  height: 30px
+  width: 30px
+  z-index: $overlay-close-button-z-index

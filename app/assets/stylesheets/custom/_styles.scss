@@ -9,14 +9,6 @@ ul.album-thumbs {
   }
 }
 
-#fancybox-loading {
-  border-radius: 8px;
-  border: none;
-  div {
-    border: none;
-  }
-}
-
 .album-list {
   li {
     width: 100px;
@@ -34,13 +26,16 @@ ul.album-thumbs {
 }
 
 .square-button {
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 4px;
   border: black solid 1px;
   background-color: white;
   color: black;
   &:hover {
     box-shadow: 2px 2px 2px grey;
+  }
+  &.large {
+    font-size: 1em;
   }
 }
 
@@ -53,4 +48,24 @@ ul.album-thumbs {
 
 .hidden {
   display: none;
+}
+
+.margin-bottom {
+  margin-bottom: 9px;
+}
+
+.padding {
+  padding: 9px;
+}
+
+.padding-bottom {
+  padding-bottom: 9px;
+}
+
+.no-margin {
+  margin: 0
+}
+
+.error {
+  color: red;
 }

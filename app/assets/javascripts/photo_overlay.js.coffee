@@ -1,30 +1,88 @@
-loadPlusOneButton = (fancybox) ->
-  id = fancybox.element.data('photo-id')
-  authenticityToken = $('#authenticity_token').val()
-  fancybox.title += plusOneButton(id, authenticityToken)
+class @PhotoOverlay extends Overlay
+  constructor: (selector, options) ->
+    @selector = selector
+    defaults =
+      domType: PhotoOverlayDomWrapper
+      dimensionsType: PhotoOverlayDimensions
+    @options = options || {}
+    @options = $.extend(defaults, @options)
+    super(@options.domType.prototype.contentSelector, @options)
+    self = this
 
-plusOneButton = (id, authenticityToken) ->
-  "<div data-replace-self-on-load='/photos/#{id}/plus_ones'></div>"
+    $(@selector).click (event) ->
+      event.preventDefault()
+      self.open(this)
 
-loadMessagesContainer = (fancybox) ->
-  fancybox.title += "<div class='messages'></div>"
+    @dom.mask.click (event) ->
+      self.close()
 
-loadCaptionForm = (fancybox) ->
-  if window.admin
-    id = fancybox.element.data('photo-id')
-    authenticityToken = $('#authenticity_token').val()
-    fancybox.title += captionForm(id, fancybox.captionText, authenticityToken)
-  else
-    fancybox.title += "<div>#{fancybox.captionText}</div>"
+    $(document).on 'keyup', (event) ->
+      return unless event.which == 27
+      self.close()
 
-captionForm = (id, caption, authenticityToken) ->
-  "<form method='post' action='/admin/photos/#{id}' data-remote data-confirmation>
-    <input type='hidden' name='_method' value='patch'></input>
-    <input type='hidden' name='authenticity_token' value='#{authenticityToken}'></input>
-    <label for='caption'>Add caption</label>
-    <textarea name='photo[caption]' style='width: 98%'>#{caption}</textarea>
-    <input type='submit'>
-  </form>"
+    @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
+      self.close()
+      self.next()
+
+    @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
+      self.close()
+      self.previous()
+
+    @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
+      self.close()
+
+    @createDimensions = ->
+      new @options.dimensionsType(@dom.image())
+
+  open: (target) ->
+    @prepareOpen(target)
+    @showSpinner()
+    @index = $(@selector).index(target)
+
+    @dimensions.ready =>
+      @setDimensions(@dimensions)
+      @setButtonVisibility()
+      @spinner.stop()
+      @show()
+
+  showSpinner: ->
+    @spinner = new Spinner
+      color: '#fff'
+    @spinner.spin(@dom.mask[0])
+
+  setButtonVisibility: ->
+    if @index >= $(@selector).length - 1
+      @dom.nextButton().hide()
+
+    if @index == 0
+      @dom.previousButton().hide()
+
+  setDimensions: ->
+    super()
+    if window.mobileLayout()
+      @dom.imageContainer().height(@dimensions.height())
+    else
+      @dom.el.height(@dimensions.height())
+      @dom.imageContainer().append(@dom.captionContainer().remove())
+
+    @dom.imageContainer().width(@dimensions.leftPaneWidth())
+    @dom.captionContainer().width(@dimensions.leftPaneWidth())
+
+    if @dimensions.constrainWidth()
+      @dom.image().width(@dimensions.leftPaneWidth())
+    else
+      @dom.image().height(@dimensions.height())
+
+  next: ->
+    target = $(@selector)[@index + 1]
+    @open(target)
+
+  previous: ->
+    target = $(@selector)[@index - 1]
+    @open(target)
+
+  setCommentPaneHeight: =>
+    @setMaskHeight()
 
 $ ->
   $(".fancybox").fancybox
@@ -35,4 +93,4 @@ $ ->
       @title = ''
       loadPlusOneButton(this)
       loadCaptionForm(this)
-      loadMessagesContainer(this)
+      loadMessagesContainer()

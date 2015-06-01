@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     true
   end
 
+  def profile_photo_url
+    "https://graph.facebook.com/v2.3/#{uid}/picture"
+  end
+
   class NullUser < User
     def admin?
       false

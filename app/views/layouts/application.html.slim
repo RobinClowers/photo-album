@@ -16,21 +16,20 @@ html
     meta content="Hxg_i311K6d-q0_vSMeQoH63c_kzbTmHaI9iUgw93MY" name="google-site-verification"
     link href="/favicon.png" rel="icon"
     /! Fonts from Google"s Web font directory at http://google.com/webfonts
-    link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
-    link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css"
+    link href=pt_serif_url rel="stylesheet" type="text/css"
+    link href=pt_sans_url rel="stylesheet" type="text/css"
     meta property="og:site_name" content="Robin's Photos"
     = content_for :head
   body.no-sidebar
     header role="banner"
-      hgroup
-        h1
-          a href="/" Robin's Photos
-        h2 Pictures from around the world
+      h1
+        a href="/" Robin's Photos
+      h2 Pictures from around the world
     nav role="navigation"
       form action="http://google.com/search" method="get"
         fieldset role="search"
           input name="q" type="hidden" value="site:photos.robinclowers.com"
-          input.search name="q" placeholder="Search" results="0" type="text"
+          input.search name="q" placeholder="Search" type="text"
       ul.main-navigation.login-view
         li
           a href="/" Home
@@ -51,25 +50,16 @@ html
     footer role="contentinfo"
       p
         | Copyright &copy; #{Time.current.year} - Robin Clowers
-      #js-login-prompt.hidden
+      .js-login-prompt.hidden.padding
         p You need to be logged in to do that. Log in with Facebook now?
         ul.horizontal-list
           li
             button.square-button.active.js-login-confirm Login
           li
             button.square-button.js-login-cancel Cancel
-      - if Rails.env.development?
-        == javascript_include_tag "jquery"
-      - else
-        script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"
-      == javascript_include_tag "application"
+    == jquery_url
+    == javascript_include_tag "application"
+    = twitter_script
     javascript:
-      (function(){
-        var twitterWidgets = document.createElement('script');
-        twitterWidgets.type = 'text/javascript';
-        twitterWidgets.async = true;
-        twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
-        document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-      })();
       window.signed_in = #{current_user.signed_in?}
       window.admin = #{current_user.admin?}

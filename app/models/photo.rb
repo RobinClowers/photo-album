@@ -4,18 +4,48 @@ class Photo < ActiveRecord::Base
   default_scope -> { order(:filename) }
 
   def thumb_url
-    File.join(Rails.application.config.base_photo_url, path, 'thumbs', filename)
+    File.join(protocol,base_path, path, 'thumbs', filename)
   end
 
   def url
-    File.join(Rails.application.config.base_photo_url, path, filename)
+    insecure_url
   end
 
   def insecure_url
-    File.join("http://", Rails.application.config.base_photo_url, path, filename)
+    File.join(protocol, base_path, path, filename)
   end
 
   def secure_url
-    File.join(Rails.application.config.base_secure_photo_url, path, filename)
+    File.join(protocol(secure: true), base_path(secure: true), path, filename)
+  end
+
+  def protocol(secure: false)
+    if offline_dev?
+      ''
+    elsif secure
+      'https://'
+    else
+      'http://'
+    end
+  end
+
+  def base_path(secure: false)
+    if offline_dev?
+      ENV['OFFLINE_DEV_PATH']
+    elsif secure
+      Rails.application.config.base_secure_photo_url
+    else
+      Rails.application.config.base_photo_url
+    end
+  end
+
+  # this should be in a presenter
+  def alt
+    caption || "Photo in the album #{album.title}"
+  end
+
+  private
+  def offline_dev?
+    ENV['OFFLINE_DEV'] == 'true'
   end
 end

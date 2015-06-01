@@ -29,7 +29,7 @@ class PlusOneForm
   end
 
   def button_css_class
-    existing_plus_one ? 'square-button active' : 'square-button'
+    existing_plus_one ? 'square-button large active' : 'square-button large'
   end
 
   def form_url

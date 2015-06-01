@@ -1,11 +1,11 @@
 $(document).on 'ajax:error', (event, xhr, status, error) ->
   if xhr.status == 401
-    $.fancybox.open
-      href: '#js-login-prompt'
-      scrolling: 'visible' # for button outlines and shadows
+    window.photoOverlay.close()
+    window.overlay = new Overlay('.js-login-prompt')
+    window.overlay.open()
 
-$('.js-login-confirm').click ->
+$(document).on 'click', '.js-login-confirm', ->
   window.location = '/auth/facebook'
 
-$('.js-login-cancel').click ->
-  $.fancybox.close()
+$(document).on 'click', '.js-login-cancel', ->
+  window.overlay.close()
