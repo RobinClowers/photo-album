@@ -6,6 +6,7 @@ set :repo_url, 'git@github.com:RobinClowers/photo-album.git'
 set :puma_role, :web
 set :assets_roles, [:web]
 set :sidekiq_role, :utility
+set :conditionally_migrate, true
 
 set :default_env, {
   'PATH' => '/opt/rubies/ruby-2.2.2/bin:$PATH',
