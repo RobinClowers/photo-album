@@ -14,6 +14,7 @@ class @Overlay
 
   open: (target) ->
     @prepareOpen(target)
+    @appendContent
     @setDimensions()
     @show()
 
@@ -22,8 +23,11 @@ class @Overlay
     @lockScroll()
     @originalContent = $(target).find(@contentSelector)
     @overlayContent = @originalContent.clone()
-    @dom.el.append(@overlayContent)
     @dimensions = @createDimensions()
+
+  appendContent: ->
+    @clear()
+    @dom.el.append(@overlayContent)
 
   setDimensions: ->
     @dom.el.css('left', @dimensions.margin())
@@ -43,7 +47,10 @@ class @Overlay
   lockScroll: ->
     $('body').addClass('scroll-lock') unless window.mobileLayout()
 
-  close: ->
+  clear: ->
     @dom.el.empty().hide()
+
+  close: ->
+    @clear()
     @dom.mask.hide()
     $('body').removeClass('scroll-lock')

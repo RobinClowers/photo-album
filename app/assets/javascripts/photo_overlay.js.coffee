@@ -21,18 +21,16 @@ class @PhotoOverlay extends Overlay
       self.close()
 
     @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
-      self.close()
       self.next()
 
     @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
-      self.close()
       self.previous()
 
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
     @createDimensions = ->
-      new @options.dimensionsType(@dom.image())
+      new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 
   open: (target) ->
     @prepareOpen(target)
@@ -40,6 +38,7 @@ class @PhotoOverlay extends Overlay
     @index = $(@selector).index(target)
 
     @dimensions.ready =>
+      @appendContent()
       @setDimensions(@dimensions)
       @setButtonVisibility()
       @spinner.stop()
