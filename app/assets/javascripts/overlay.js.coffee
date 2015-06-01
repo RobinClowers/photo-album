@@ -29,6 +29,7 @@ class @Overlay
     @dom.el.css('left', @dimensions.margin())
     @dom.el.css('top', @dimensions.top())
     @dom.el.width(@dimensions.width())
+    @dom.mask.height('100%')
     @dom.closeButton().css('left', @dimensions.closeButtonLeftPosition())
 
   show: ->
