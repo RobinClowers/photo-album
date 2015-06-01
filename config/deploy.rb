@@ -8,7 +8,7 @@ set :assets_roles, [:web]
 set :sidekiq_role, :utility
 
 set :default_env, {
-  'PATH' => '/opt/rubies/ruby-2.1.2/bin:$PATH',
+  'PATH' => '/opt/rubies/ruby-2.2.2/bin:$PATH',
 }
 
 # Default branch is :master
