@@ -83,3 +83,10 @@ class @PhotoOverlay extends Overlay
 
   setCommentPaneHeight: =>
     @setMaskHeight()
+
+    if window.mobileLayout()
+      @dom.commentList().height(@dom.comments().height())
+    else
+      @dom.commentList().height(@dom.rightPane().innerHeight() - @dom.topRight().height())
+      @dom.commentList().scrollTop(@dom.comments().height())
+      @dom.imageContainer().height(@dom.image().height())
