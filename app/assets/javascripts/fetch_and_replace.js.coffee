@@ -3,4 +3,3 @@ window.fetchAndReplace = (el, url, callback) ->
     newEl = $(html)
     $(el).replaceWith(newEl)
     callback(newEl) if callback
-
