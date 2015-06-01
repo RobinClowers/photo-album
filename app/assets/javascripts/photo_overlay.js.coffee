@@ -83,14 +83,3 @@ class @PhotoOverlay extends Overlay
 
   setCommentPaneHeight: =>
     @setMaskHeight()
-
-$ ->
-  $(".fancybox").fancybox
-    caption:
-      type: 'inside'
-    afterLoad: ->
-      @captionText = @title
-      @title = ''
-      loadPlusOneButton(this)
-      loadCaptionForm(this)
-      loadMessagesContainer()
