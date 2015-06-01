@@ -76,8 +76,5 @@ class @PhotoOverlayDimensions extends OverlayDimensions
   leftPaneWidth: ->
     @width() - @commentWidth
 
-  top: ->
-    window.scrollY + @minMargin
-
   closeButtonLeftPosition: ->
     @width() - @closeButtonOffset
