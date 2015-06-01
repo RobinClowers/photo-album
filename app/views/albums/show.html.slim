@@ -32,12 +32,12 @@
                     .overlay-previous-arrow
                   button.overlay-next.js-overlay-next
                     .overlay-next-arrow
-                .overlay-caption-container.js-overlay-caption-container
-                  .overlay-caption= image.caption
                 .overlay-column.narrow-column.content-box
                   .overlay-container.js-overlay-right
                     .js-overlay-top-right
                       div data-replace-self-on-overlay-show=photo_plus_ones_path(photo_id: image)
+                      .overlay-caption-container.js-overlay-caption-container
+                        .overlay-caption= image.caption
                       = render 'caption_form', image: image
                       .messages
                     div data-replace-self-on-overlay-show=photo_comments_path(photo_id: image)
