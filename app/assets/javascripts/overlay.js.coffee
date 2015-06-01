@@ -15,7 +15,7 @@ class @Overlay
 
   open: (target) ->
     @prepareOpen(target)
-    @appendContent
+    @appendContent()
     @setDimensions()
     @show()
 

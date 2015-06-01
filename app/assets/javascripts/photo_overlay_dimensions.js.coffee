@@ -1,6 +1,5 @@
 class @PhotoOverlayDimensions extends OverlayDimensions
   commentWidth: 300
-  closeButtonOffset: 20
 
   constructor: (image) ->
     super()

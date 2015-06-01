@@ -1,4 +1,5 @@
 class @OverlayDimensions
+  closeButtonOffset: 20
   minMargin: 10
 
   constructor: (overlayContent) ->
