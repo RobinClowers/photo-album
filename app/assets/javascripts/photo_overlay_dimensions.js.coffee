@@ -76,11 +76,6 @@ class @PhotoOverlayDimensions extends OverlayDimensions
   leftPaneWidth: ->
     @width() - @commentWidth
 
-  margin: ->
-    margin = (@maxWidth() - @width()) / 2
-    return margin unless margin < 1
-    @minMargin
-
   top: ->
     window.scrollY + @minMargin
 
