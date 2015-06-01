@@ -16,9 +16,12 @@ class @PhotoOverlay extends Overlay
     @dom.mask.click (event) ->
       self.close()
 
-    $(document).on 'keyup', (event) ->
-      return unless event.which == 27
-      self.close()
+    $('body').on 'keyup', (event) ->
+      return if self.isFormElement(event.target)
+      switch event.which
+        when 27 then self.close()
+        when 37 then self.previous()
+        when 39 then self.next()
 
     @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
       self.next()
@@ -29,6 +32,8 @@ class @PhotoOverlay extends Overlay
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
+    @isFormElement = (element) ->
+      element.type || $(element).is('[contenteditable]')
     @createDimensions = ->
       new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 
@@ -80,10 +85,12 @@ class @PhotoOverlay extends Overlay
 
   next: ->
     target = $(@selector)[@index + 1]
+    return unless target
     @open(target)
 
   previous: ->
     target = $(@selector)[@index - 1]
+    return unless target
     @open(target)
 
   setCommentPaneHeight: =>
