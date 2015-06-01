@@ -20,7 +20,7 @@ class @OverlayDimensions
     @minMargin
 
   top: ->
-    ($(window).height() - @height()) / 2
+    window.scrollY + ($(window).height() - @height()) / 2
 
   closeButtonLeftPosition: ->
     @width() - @closeButtonOffset
