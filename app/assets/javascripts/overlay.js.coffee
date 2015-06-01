@@ -7,11 +7,24 @@ class @Overlay
       dimensionsType: OverlayDimensions
     @options = $.extend(defaults, @options)
     @isOpen = false
+    self = this
+
     @dom = new @options.domType()
     $('body').append(@dom.el).append(@dom.mask)
 
     @createDimensions = ->
       new @options.dimensionsType(@originalContent)
+
+    @dom.mask.click (event) ->
+      self.close()
+
+    $('body').on 'keyup', (event) ->
+      return if self.isFormElement(event.target)
+      return unless event.which == 27
+      self.close()
+
+    @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
+      self.close()
 
   open: (target) ->
     @prepareOpen(target)

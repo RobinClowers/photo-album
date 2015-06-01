@@ -13,13 +13,9 @@ class @PhotoOverlay extends Overlay
       event.preventDefault()
       self.open(this)
 
-    @dom.mask.click (event) ->
-      self.close()
-
     $('body').on 'keyup', (event) ->
       return if self.isFormElement(event.target)
       switch event.which
-        when 27 then self.close()
         when 37 then self.previous()
         when 39 then self.next()
 
@@ -28,9 +24,6 @@ class @PhotoOverlay extends Overlay
 
     @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
       self.previous()
-
-    @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
-      self.close()
 
     @isFormElement = (element) ->
       element.type || $(element).is('[contenteditable]')
