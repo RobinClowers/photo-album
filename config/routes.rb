@@ -1,6 +1,6 @@
 require 'sidekiq/web'
 
-PhotoAlbum::Application.routes.draw do
+Rails.application.routes.draw do
   root 'albums#index'
   get '/albums', to: redirect('/')
 
