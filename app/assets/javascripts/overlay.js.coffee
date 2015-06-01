@@ -28,6 +28,7 @@ class @Overlay
 
   appendContent: ->
     @clear()
+    @dom.el.append(@dom.closeButton)
     @dom.el.append(@overlayContent)
 
   setDimensions: ->
@@ -35,7 +36,7 @@ class @Overlay
     @dom.el.css('top', @dimensions.top())
     @dom.el.width(@dimensions.width())
     @dom.mask.height('100%')
-    @dom.closeButton().css('left', @dimensions.closeButtonLeftPosition())
+    @dom.closeButton.css('left', @dimensions.closeButtonLeftPosition())
 
   show: ->
     @overlayContent.show()
@@ -50,10 +51,11 @@ class @Overlay
     $('body').addClass('scroll-lock') unless window.mobileLayout()
 
   clear: ->
-    @dom.el.empty().hide()
+    @dom.el.empty()
 
   close: ->
     @clear()
+    @dom.el.hide()
     @dom.mask.hide()
     $('body').removeClass('scroll-lock')
     @isOpen = false

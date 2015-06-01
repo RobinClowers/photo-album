@@ -4,6 +4,4 @@ class @OverlayDomWrapper
   constructor: ->
     @el = $("<div class='overlay js-overlay octopress-reset'></div>")
     @mask = $("<div class='overlay-mask octopress-reset'></div>")
-
-  closeButton: ->
-    @el.find(@closeButtonSelector)
+    @closeButton = $("<div class='overlay-close js-overlay-close octopress-reset'>&#x00D7</div>")
