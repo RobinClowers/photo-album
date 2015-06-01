@@ -30,3 +30,5 @@ class @PhotoOverlayDomWrapper extends OverlayDomWrapper
   comments: ->
     @el.find('.js-overlay-comments')
 
+  spinnerBox: ->
+    @el.find('.js-overlay-spinner-container')

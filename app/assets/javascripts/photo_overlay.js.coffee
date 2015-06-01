@@ -33,8 +33,8 @@ class @PhotoOverlay extends Overlay
       new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 
   open: (target) ->
-    @prepareOpen(target)
     @showSpinner()
+    @prepareOpen(target)
     @index = $(@selector).index(target)
 
     @dimensions.ready =>
@@ -45,9 +45,15 @@ class @PhotoOverlay extends Overlay
       @show()
 
   showSpinner: ->
-    @spinner = new Spinner
-      color: '#fff'
-    @spinner.spin(@dom.mask[0])
+    if @isOpen
+      @dom.spinnerBox().show()
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin(@dom.spinnerBox()[0])
+    else
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin(@dom.mask[0])
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1

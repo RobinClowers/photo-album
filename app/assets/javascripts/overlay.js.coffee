@@ -6,6 +6,7 @@ class @Overlay
       domType: OverlayDomWrapper
       dimensionsType: OverlayDimensions
     @options = $.extend(defaults, @options)
+    @isOpen = false
     @dom = new @options.domType()
     $('body').append(@dom.el).append(@dom.mask)
 
@@ -39,6 +40,7 @@ class @Overlay
   show: ->
     @overlayContent.show()
     @dom.el.show()
+    @isOpen = true
     @overlayContent.trigger('overlay:show')
 
   setMaskHeight: ->
@@ -54,3 +56,4 @@ class @Overlay
     @clear()
     @dom.mask.hide()
     $('body').removeClass('scroll-lock')
+    @isOpen = false
