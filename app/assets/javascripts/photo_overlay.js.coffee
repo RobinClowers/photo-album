@@ -21,34 +21,39 @@ class @PhotoOverlay extends Overlay
       self.close()
 
     @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
-      self.close()
       self.next()
 
     @dom.el.on 'click', @dom.previousButtonSelector, (event) ->
-      self.close()
       self.previous()
 
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
     @createDimensions = ->
-      new @options.dimensionsType(@dom.image())
+      new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 
   open: (target) ->
-    @prepareOpen(target)
     @showSpinner()
+    @prepareOpen(target)
     @index = $(@selector).index(target)
 
     @dimensions.ready =>
+      @appendContent()
       @setDimensions(@dimensions)
       @setButtonVisibility()
       @spinner.stop()
       @show()
 
   showSpinner: ->
-    @spinner = new Spinner
-      color: '#fff'
-    @spinner.spin(@dom.mask[0])
+    if @isOpen
+      @dom.spinnerBox().show()
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin(@dom.spinnerBox()[0])
+    else
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin(@dom.mask[0])
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
