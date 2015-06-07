@@ -66,7 +66,6 @@ class @PhotoOverlay extends Overlay
       @dom.el.height(@dimensions.height())
 
     @dom.imageContainer().width(@dimensions.leftPaneWidth())
-    @dom.captionContainer().width(@dimensions.leftPaneWidth())
 
     if @dimensions.constrainWidth()
       @dom.image().width(@dimensions.leftPaneWidth())
