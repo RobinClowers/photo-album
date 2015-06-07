@@ -33,11 +33,18 @@ class @Overlay
     @show()
 
   prepareOpen: (target = document) ->
+    @updateUrl(target)
     @dom.mask.show()
     @lockScroll()
     @originalContent = $(target).find(@contentSelector)
     @overlayContent = @originalContent.clone()
     @dimensions = @createDimensions()
+
+  updateUrl: (target) ->
+    return unless history && history.pushState
+    url = $(target).data('url')
+    return unless url
+    history.pushState({}, document.title, url)
 
   appendContent: ->
     @clear()

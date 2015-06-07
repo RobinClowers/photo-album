@@ -19,7 +19,7 @@
       ul.album-thumbs
         - images.each_with_index do |image, index|
           li
-            .js-open-overlay
+            .js-open-overlay data-url=image.overlay_url
               a href=image.url
                 img src=image.thumb_url alt=image.alt
 
