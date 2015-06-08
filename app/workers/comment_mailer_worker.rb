@@ -3,8 +3,14 @@ class CommentMailerWorker
 
   def perform(photo_id, comment_id)
     comment = Comment.find(comment_id)
-    UsersWhoCommentedOnPhotoQuery.execute(photo_id).each do |recipient|
+    users_to_email(photo_id, comment).each do |recipient|
       CommentMailer.created(recipient, comment).deliver_now
     end
+  end
+
+  def users_to_email(photo_id, comment)
+    UsersWhoCommentedOnPhotoQuery
+      .execute(photo_id)
+      .reject { |recipient| comment.user == recipient }
   end
 end
