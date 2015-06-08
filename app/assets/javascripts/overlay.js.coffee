@@ -26,6 +26,10 @@ class @Overlay
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
+  openSelectedItem: ->
+    target = $(".js-open-overlay[data-url='#{window.location.pathname}']")
+    @open(target) if target.length > 0
+
   open: (target) ->
     @prepareOpen(target)
     @appendContent()

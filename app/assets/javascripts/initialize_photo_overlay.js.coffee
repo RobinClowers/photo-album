@@ -1,5 +1,6 @@
 $ ->
   window.photoOverlay = new PhotoOverlay('.js-open-overlay')
+  photoOverlay.openSelectedItem()
 
 $(document).on 'overlay:show', '.js-overlay', ->
   window.photoOverlay.setCommentPaneHeight()
