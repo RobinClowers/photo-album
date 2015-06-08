@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.1.10'
+gem 'rails', '~> 4.2.1'
 
 # Use postgres as the database for Active Record
 gem 'pg'
@@ -45,8 +45,6 @@ group :development, :test do
   gem 'pry'
   gem 'pry-byebug'
   gem 'better_errors'
-  gem 'sprockets_better_errors', git: 'git@github.com:RobinClowers/sprockets_better_errors.git',
-    branch: 'update-for-rails-4-1'
   gem 'binding_of_caller'
 end
 
