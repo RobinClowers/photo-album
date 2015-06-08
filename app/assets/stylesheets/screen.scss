@@ -4,10 +4,16 @@
 
 @import "custom/variables";
 @import "custom/colors";
-@import "custom/fonts";
 @import "custom/layout";
-@import "base";
-@import "partials";
+@import "base/utilities";
+@import "base/solarized";
+@import "base/theme";
+@import "base/typography";
+@import "base/layout";
+@import "partials/header";
+@import "partials/navigation";
+@import "partials/blog";
+@import "partials/footer";
 @import "custom/styles";
 @import "custom/scroll_box";
 @import "custom/horizontal_list";
