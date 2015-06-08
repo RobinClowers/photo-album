@@ -84,8 +84,14 @@ class @Overlay
     @dom.el.empty()
 
   close: ->
+    @resetUrl()
     @clear()
     @dom.el.hide()
     @dom.mask.hide()
     $('body').removeClass('scroll-lock')
     @isOpen = false
+
+  resetUrl: ->
+    baseUrl = $(document).find('[data-base-url]').data('base-url')
+    return unless baseUrl
+    history.pushState({}, document.title, baseUrl)
