@@ -11,6 +11,7 @@ class Photos::CommentsController < ApplicationController
 
   def create
     if comment.update_attributes(comment_params)
+      CommentMailerWorker.perform_async(photo_id, comment.id)
       self.comment = Comment.new
       render 'index', status: :created
     else
