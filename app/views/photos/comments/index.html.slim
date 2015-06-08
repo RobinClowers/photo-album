@@ -14,7 +14,7 @@
         = f.text_area :body, class: 'textarea'
         .message
           - comment.errors.full_messages.each do |error|
-            p.no-margin.error= error
+            p.no-margin.error.small-text= error
         = f.submit class: 'square-button', value: 'Comment'
     - else
       p.small-text
