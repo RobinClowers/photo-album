@@ -26,6 +26,16 @@ class @Overlay
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
       self.close()
 
+    $(window).on 'popstate', (event) ->
+      window.photoOverlay.openSelectedItem()
+
+  openSelectedItem: ->
+    target = $(".js-open-overlay[data-url='#{window.location.pathname}']")
+    if target.length > 0
+      @open(target)
+    else
+      @close()
+
   open: (target) ->
     @prepareOpen(target)
     @appendContent()
@@ -33,11 +43,18 @@ class @Overlay
     @show()
 
   prepareOpen: (target = document) ->
+    @updateUrl(target)
     @dom.mask.show()
     @lockScroll()
     @originalContent = $(target).find(@contentSelector)
     @overlayContent = @originalContent.clone()
     @dimensions = @createDimensions()
+
+  updateUrl: (target) ->
+    url = $(target).data('url')
+    return unless history && history.pushState && url
+    return if url == location.pathname
+    history.pushState({}, document.title, url)
 
   appendContent: ->
     @clear()

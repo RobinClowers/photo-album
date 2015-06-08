@@ -39,9 +39,14 @@ class Photo < ActiveRecord::Base
     end
   end
 
-  # this should be in a presenter
+  # these methods should be in a presenter
   def alt
     caption || "Photo in the album #{album.title}"
+  end
+
+  def overlay_url
+    # this should be generated using path helpers if possible
+    File.join('/', 'albums', path, filename)
   end
 
   private
