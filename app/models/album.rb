@@ -9,6 +9,8 @@ class Album < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
+  validates :cover_photo, presence: true, cover_photo: true
+
   def self.new_from_slug(slug)
     title = slug.titleize.gsub('And', '&')
     new(slug: slug, title: title)
@@ -23,7 +25,7 @@ class Album < ActiveRecord::Base
   end
 
   def update_cover_photo!(filename)
-    update_attributes!(cover_photo: Photo.find_by_filename!(filename))
+    update_attributes!(cover_photo: photos.find_by_filename(filename))
   end
 
   def cover_photo_filename

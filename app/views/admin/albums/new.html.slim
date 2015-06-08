@@ -8,6 +8,8 @@
 
     section
       .new-album
+        - new_album.errors.full_messages.each do |error|
+          p.no-margin.error.small-text= error
         = form_for new_album, url: admin_albums_path do |f|
           ul.form-fields
             li= f.hidden_field :slug
