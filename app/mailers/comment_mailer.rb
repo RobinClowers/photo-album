@@ -4,6 +4,8 @@ class CommentMailer < ActionMailer::Base
   def created(recipient, comment)
     @recipient = recipient
     @comment = comment
+    @photo = @comment.photo
+    @album = @photo.album
     mail(
       to: @recipient.email,
       subject: "#{@comment.user.name} also commented on a photo you commented on",

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   delete "/signout" => "sessions#destroy", :as => :signout
 
   resources :albums, only: [:show]
-  get 'albums/:id/:photo', to: 'albums#show'
+  get 'albums/:id/:photo', to: 'albums#show', as: :photo
 
   resources :photos do
     resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'

@@ -5,5 +5,5 @@ html
   body
     h1= "#{@comment.user.name} said:"
     p= @comment.body
-    a href=@comment.photo.url
+    a href= photo_url(@album, @photo.filename)
       |See this comment on the web

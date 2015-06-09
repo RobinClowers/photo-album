@@ -23,6 +23,9 @@ module PhotoAlbum
     config.bucket_name = "robin-photos"
     config.base_photo_url = "//s3.amazonaws.com/#{config.bucket_name}/"
     config.base_secure_photo_url = "https://s3.amazonaws.com/#{config.bucket_name}/"
+    config.action_mailer.default_url_options = {
+      host: 'photos.robinclowers.com'
+    }
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
