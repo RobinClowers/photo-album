@@ -1,3 +1,12 @@
+GIT
+  remote: git@github.com:RobinClowers/capistrano-sidekiq.git
+  revision: e4317ea379f1c32b4da2a4336f0e29e0dadd1889
+  branch: allow-different-queue-per-role
+  specs:
+    capistrano-sidekiq (0.5.3)
+      capistrano
+      sidekiq
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -64,9 +73,6 @@ GEM
     capistrano-rails (1.1.1)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
-    capistrano-sidekiq (0.3.8)
-      capistrano
-      sidekiq
     capistrano3-puma (0.5.1)
       capistrano (~> 3.0)
       puma (>= 2.6)
@@ -279,7 +285,7 @@ DEPENDENCIES
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1.1)
-  capistrano-sidekiq (~> 0.3.8)
+  capistrano-sidekiq!
   capistrano3-puma (~> 0.5.1)
   coffee-rails (~> 4.0.0)
   compass-rails
