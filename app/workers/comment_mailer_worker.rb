@@ -1,5 +1,6 @@
 class CommentMailerWorker
   include Sidekiq::Worker
+  sidekiq_options queue: :web
 
   def perform(photo_id, comment_id)
     comment = Comment.find(comment_id)
