@@ -8,11 +8,9 @@ development:
 
 test:
   adapter: postgresql
-  encoding: unicode
-  database: photo_album_test
-  pool: 5
-  username: photo_album
-  password: asdfasdf
+  database: travis_ci_test
+  username: postgres
+  adapter: postgresql
 
 vagrant:
   adapter: postgresql
