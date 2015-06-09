@@ -5,3 +5,5 @@ html
   body
     h1= "#{@comment.user.name} said:"
     p= @comment.body
+    a href=@comment.photo.url
+      |See this comment on the web
