@@ -9,8 +9,6 @@ class Album < ActiveRecord::Base
 
   default_scope -> { order(created_at: :desc) }
 
-  validates :cover_photo, presence: true, cover_photo: true
-
   def self.new_from_slug(slug)
     title = slug.titleize.gsub('And', '&')
     new(slug: slug, title: title)
