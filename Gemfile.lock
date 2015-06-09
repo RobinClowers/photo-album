@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:RobinClowers/capistrano-sidekiq.git
+  remote: https://github.com/RobinClowers/capistrano-sidekiq.git
   revision: e4317ea379f1c32b4da2a4336f0e29e0dadd1889
   branch: allow-different-queue-per-role
   specs:
