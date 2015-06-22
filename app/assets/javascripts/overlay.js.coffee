@@ -45,6 +45,7 @@ class @Overlay
   prepareOpen: (target = document) ->
     @updateUrl(target)
     @dom.mask.show()
+    @setMaskHeight()
     @lockScroll()
     @originalContent = $(target).find(@contentSelector)
     @overlayContent = @originalContent.clone()

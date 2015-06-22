@@ -49,7 +49,7 @@ class @PhotoOverlay extends Overlay
     else
       @spinner = new Spinner
         color: '#fff'
-      @spinner.spin(@dom.mask[0])
+      @spinner.spin($('.center')[0])
 
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
