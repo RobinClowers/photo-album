@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActionController::UnknownFormat, with: :render_404
 
   def render_404
-    render '404', status: :not_found
+    render '404', status: :not_found, formats: [:html]
   end
 
   def current_user
