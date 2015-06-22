@@ -38,7 +38,6 @@
                       .overlay-caption-container.js-overlay-caption-container
                         .overlay-caption= image.caption
                       = render 'caption_form', image: image
-                      .messages
                     div data-replace-self-on-overlay-show=photo_comments_path(photo_id: image)
 
 input type='hidden' id='authenticity_token' value= form_authenticity_token
