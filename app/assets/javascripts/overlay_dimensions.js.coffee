@@ -21,6 +21,7 @@ class @OverlayDimensions
     @minMargin
 
   top: ->
+    return window.scrollY + 10 if window.mobileLayout()
     window.scrollY + ($(window).height() - @height()) / 2
 
   closeButtonLeftPosition: ->
