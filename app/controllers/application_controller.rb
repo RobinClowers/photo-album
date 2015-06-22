@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionView::MissingTemplate, with: :render_404
-  rescue_from ActionController::UnknownFormat, :with => :render_404
+  rescue_from ActionController::UnknownFormat, with: :render_404
 
   def render_404
     render '404', status: :not_found
