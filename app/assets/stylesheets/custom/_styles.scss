@@ -70,6 +70,17 @@ ul.album-thumbs {
   color: red;
 }
 
+.messages .notice {
+  padding: 3px;
+  background-color: #90EE90;
+}
+
+.messages .error {
+  padding: 3px;
+  background-color: #FF6060;
+  color: black;
+}
+
 .small-text {
   font-size: 0.8em
 }
