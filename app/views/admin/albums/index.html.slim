@@ -6,7 +6,7 @@
     header
       h1 Administration
 
-    section
+    section data-confirmation=true
       .messages
         - flash.each do |name, msg|
           = content_tag :div, msg, class: name
@@ -17,21 +17,19 @@
           .album
             = album.title
             ul.album-actions
-              li= link_to('Publish',
+              li= link_to 'Publish',
                   admin_publish_album_jobs_path(slug: album.slug),
                   method: :post,
-                  remote: true,
-                  data: { confirmation: 'true' })
+                  remote: true
         h2 Potential Albums
         - potential_albums.each do |slug|
           .album
             = slug
             ul.album-actions
-              li= link_to('Process',
+              li= link_to 'Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
-                  remote: true,
-                  data: { confirmation: 'true' })
+                  remote: true
               li= link_to('Create', new_admin_album_path(slug: slug))
       .album
         h2 Other Actions
@@ -40,14 +38,13 @@
           li
             = form_tag admin_process_album_jobs_path,
               method: :post,
-              remote: true,
-              data: { confirmation: 'true' }
+              remote: true
               = select 'album', 'slug', albums_options
               button type='submit' Process additional photos
           li
             = form_tag admin_album_path('id-placeholder'),
               method: :patch,
               remote: true,
-              data: { confirmation: 'true', replace_placeholder_on_submit: 'id-placeholder' }
+              data: { replace_placeholder_on_submit: 'id-placeholder' }
               = select 'album', 'title', albums_titles, {}, { class: 'id-placeholder' }
               button type='submit' Add additional photos
