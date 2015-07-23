@@ -11,7 +11,7 @@ namespace :album do
     require "album_creator"
 
     creator = AlbumCreator.new(args.title)
-    creator.insert_all_photos_from_s3
+    creator.insert_all_photos
 
     next unless args.cover_photo_filename
     creator.update_cover_photo!(args.cover_photo_filename)

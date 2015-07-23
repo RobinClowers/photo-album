@@ -6,6 +6,7 @@ class Albums
   private
 
   def top_level_branches
+    return [] if Rails.application.config.offline_dev
     bucket.as_tree.children.select(&:branch?)
   end
 
