@@ -41,7 +41,7 @@ class AlbumPhotos
   rescue AWS::S3::Errors::RequestTimeout
     puts "Request timeout, retrying..."
     retry
-  rescue Errno::ENOENT error
+  rescue Errno::ENOENT => error
     raise unless error.errno == 2
     puts "#{name} does not exist, skipping"
   end
