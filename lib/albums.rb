@@ -1,13 +1,21 @@
 class Albums
   def names
-    top_level_branches.map(&:prefix).map { |prefix| prefix.gsub('/', '') }
+    if Rails.application.config.offline_dev
+      local_folders
+    else
+      top_level_branches
+    end
   end
 
   private
 
   def top_level_branches
-    return [] if Rails.application.config.offline_dev
-    bucket.as_tree.children.select(&:branch?)
+    bucket.as_tree.children.select(&:branch?).map(&:prefix)
+      .map { |prefix| prefix.gsub('/', '') }
+  end
+
+  def local_folders
+    Pathname.new("public/photos/").children.map(&:basename)
   end
 
   def s3
