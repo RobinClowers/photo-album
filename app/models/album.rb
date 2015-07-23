@@ -26,8 +26,12 @@ class Album < ActiveRecord::Base
     update_attributes!(cover_photo: photos.find_by_filename(filename))
   end
 
+  def cover_photo
+    return NilPhoto.instance unless attributes[:cover_photo_id]
+    super
+  end
+
   def cover_photo_filename
-    return '' unless cover_photo
     cover_photo.filename
   end
 
