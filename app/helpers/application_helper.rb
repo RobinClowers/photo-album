@@ -38,6 +38,6 @@ module ApplicationHelper
   end
 
   def offline_dev?
-    ENV['OFFLINE_DEV'] == 'true'
+    Rails.application.config.offline_dev
   end
 end
