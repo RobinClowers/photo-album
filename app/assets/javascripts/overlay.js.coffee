@@ -55,6 +55,7 @@ class @Overlay
     url = $(target).data('url')
     return unless history && history.pushState && url
     return if url == location.pathname
+    @urlChanged = true
     history.pushState({}, document.title, url)
 
   appendContent: ->
@@ -93,6 +94,7 @@ class @Overlay
     @isOpen = false
 
   resetUrl: ->
+    return unless @urlChanged
     baseUrl = $(document).find('[data-base-url]').data('base-url')
     return unless baseUrl
     history.pushState({}, document.title, baseUrl)
