@@ -27,7 +27,7 @@ class Album < ActiveRecord::Base
   end
 
   def cover_photo
-    return NilPhoto.instance unless attributes[:cover_photo_id]
+    return NilPhoto.instance unless attributes["cover_photo_id"]
     super
   end
 
