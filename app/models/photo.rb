@@ -20,7 +20,7 @@ class Photo < ActiveRecord::Base
   end
 
   def protocol(secure: false)
-    if offline_dev?
+    if Rails.application.config.offline_dev
       ''
     elsif secure
       'https://'
@@ -30,7 +30,7 @@ class Photo < ActiveRecord::Base
   end
 
   def base_path(secure: false)
-    if offline_dev?
+    if Rails.application.config.offline_dev
       ENV['OFFLINE_DEV_PATH']
     elsif secure
       Rails.application.config.base_secure_photo_url
@@ -47,10 +47,5 @@ class Photo < ActiveRecord::Base
   def overlay_url
     # this should be generated using path helpers if possible
     File.join('/', 'albums', path, filename)
-  end
-
-  private
-  def offline_dev?
-    ENV['OFFLINE_DEV'] == 'true'
   end
 end

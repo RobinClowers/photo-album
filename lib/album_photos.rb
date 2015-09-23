@@ -18,7 +18,7 @@ class AlbumPhotos
   end
 
   def keys(type)
-    leaf_nodes(type).map(&:key).map { |key| Pathname.new(key).basename.to_s }
+    leaf_nodes(type).map { |pathname| pathname.basename.to_s }
   end
 
   def create(name, image_path, type: :web)
@@ -69,7 +69,7 @@ class AlbumPhotos
 
   def leaf_nodes(type)
     tree = bucket.as_tree(prefix: prefix(type))
-    tree.children.select(&:leaf?)
+    tree.children.select(&:leaf?).map { |key| Pathname.new(key) }
   end
 
   def key(type, name)

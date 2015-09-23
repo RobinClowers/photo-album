@@ -21,7 +21,7 @@ class Admin::AlbumsController < Admin::ApplicationController
   end
 
   def update
-    album_creator.insert_all_photos_from_s3
+    album_creator.insert_all_photos
     render nothing: true, status: :ok
   end
 
@@ -33,7 +33,7 @@ class Admin::AlbumsController < Admin::ApplicationController
 
   def create_album
     return unless new_album.update_attributes(album_attributes)
-    album_creator.insert_all_photos_from_s3
+    album_creator.insert_all_photos
     album_creator.update_cover_photo!(cover_photo_filename)
   end
 

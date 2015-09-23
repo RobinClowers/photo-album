@@ -8,7 +8,7 @@ class AlbumCreator
     @prefix = title.to_url
   end
 
-  def insert_all_photos_from_s3
+  def insert_all_photos
     @added_images_count = 0
     filenames = valid_keys.map { |key| key.gsub("#{prefix}/", '') }
     puts "attempting to import #{valid_keys.count} images"
@@ -33,7 +33,8 @@ class AlbumCreator
   end
 
   def photos
-    @photos ||= AlbumPhotos.new(prefix)
+    @photos ||= Rails.application.config.offline_dev ?
+      LocalAlbumPhotos.new(prefix) : AlbumPhotos.new(prefix)
   end
 
   def valid_keys
