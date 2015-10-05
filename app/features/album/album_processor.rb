@@ -1,15 +1,26 @@
 require "RMagick"
 
 class AlbumProcessor
-  attr_reader :directory, :web_dir, :thumbs_dir
+  attr_reader :directory
+  VERSIONS = {
+    web: -> (image) { image.resize_to_fit(1024, 1024) },
+    thumbs: -> (image) { image.resize_to_fill(75, 75) },
+}
 
   def initialize(dir)
     @directory = File.realpath(File.expand_path(dir))
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
-    @web_dir = File.join(directory, 'web')
-    @thumbs_dir = File.join(directory, 'thumbs')
-    guard_dir @web_dir
-    guard_dir @thumbs_dir
+    VERSIONS.keys.each do |version|
+      guard_dir version_base_path(version)
+    end
+  end
+
+  def version_path(version, filename)
+    File.join(directory, version.to_s, filename)
+  end
+
+  def version_base_path(version)
+    File.join(directory, version.to_s)
   end
 
   def insert_all_photos
@@ -42,8 +53,9 @@ class AlbumProcessor
 
   def process_image(image, basename)
     auto_orient_image!(image)
-    create_thumbnail_image(image, basename)
-    create_web_image(image, basename)
+    VERSIONS.keys.each do |version|
+      create_version(version, image, basename)
+    end
   end
 
   def auto_orient_images!
@@ -52,17 +64,10 @@ class AlbumProcessor
     end
   end
 
-  def create_web_images
-    guard_dir @web_dir
+  def create_versions(version)
+    guard_dir version_base_path(version)
     each_image do |image, basename|
-      create_web_image(image, basename)
-    end
-  end
-
-  def create_thumbnail_images
-    guard_dir @thumbs_dir
-    each_image do |image, basename|
-      create_thumbnail_image(image)
+      create_version(version, image)
     end
   end
 
@@ -73,20 +78,12 @@ class AlbumProcessor
     end
   end
 
-  def create_thumbnail_image(image, basename)
-    path = File.join(@thumbs_dir, basename)
+  def create_version(version, image, filename)
+    path = version_path(version, filename)
     return if File.exists?(path)
-    thumb = image.resize_to_fill(75, 75)
-    puts "writing thumb version for #{image.filename}"
-    thumb.write(path)
-  end
-
-  def create_web_image(image, basename)
-    path = File.join(@web_dir, basename)
-    return if File.exists?(path)
-    web = image.resize_to_fit(1024, 1024)
-    puts "writing web version for #{image.filename}"
-    web.write(path)
+    resized_image = VERSIONS[version].call(image)
+    puts "writing #{version} version for #{image.filename}"
+    resized_image.write(path)
   end
 
   def each_image
