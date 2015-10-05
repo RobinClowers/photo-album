@@ -12,12 +12,13 @@ describe AlbumProcessor do
   let(:image) { double(:image).as_null_object }
   subject(:processor) { AlbumProcessor.new(base_path) }
 
+  def mock_image
+    allow(Magick::ImageList).to receive(:new) { image }
+    allow(image).to receive(:resize_to_fit) { image }
+    allow(image).to receive(:resize_to_fill) { image }
+  end
+
   describe "#process_all" do
-    def mock_image
-      allow(Magick::ImageList).to receive(:new) { image }
-      allow(image).to receive(:resize_to_fit) { image }
-      allow(image).to receive(:resize_to_fill) { image }
-    end
 
     it "create the versions on disk" do
       processor.process_all
@@ -43,11 +44,27 @@ describe AlbumProcessor do
       expect(image).to have_received(:resize_to_fill).with(320, 320).once
       expect(image).to have_received(:resize_to_fill).with(75, 75).once
     end
+  end
 
-    after do
-      FileUtils.remove_dir web_path
-      FileUtils.remove_dir small_path
-      FileUtils.remove_dir thumb_path
+  describe "#create_versions" do
+    it "skips processed photos" do
+      processor.create_versions(:web)
+      mock_image
+      processor.create_versions(:web)
+      expect(image).not_to have_received(:resize_to_fit)
     end
+
+    it "does not skip processed photos when force is true" do
+      processor.create_versions(:web)
+      mock_image
+      processor.create_versions(:web, force: true)
+      expect(image).to have_received(:resize_to_fit)
+    end
+  end
+
+  after do
+    FileUtils.remove_dir web_path
+    FileUtils.remove_dir small_path
+    FileUtils.remove_dir thumb_path
   end
 end

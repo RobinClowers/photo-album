@@ -48,10 +48,10 @@ class AlbumProcessor
     end
   end
 
-  def create_versions(version)
+  def create_versions(version, force: false)
     guard_dir version_base_path(version)
-    each_image do |image, basename|
-      create_version(version, image, basename)
+    each_image(force: force) do |image, basename|
+      create_version(version, image, basename, force: force)
     end
   end
 
@@ -62,9 +62,9 @@ class AlbumProcessor
     end
   end
 
-  def create_version(version, image, basename)
+  def create_version(version, image, basename, force: false)
     path = version_path(version, basename)
-    return if File.exists?(path)
+    return if File.exists?(path) && !force
     resized_image = VERSIONS[version].call(image)
     puts "writing #{version} version for #{image.filename}"
     resized_image.write(path)
@@ -78,7 +78,11 @@ class AlbumProcessor
     @image_list ||= ImageList.new(directory, VERSIONS.keys)
   end
 
-  def each_image
-    image_list.each_image { |*args| yield *args }
+  def each_image(force: false)
+    if force
+      image_list.each_image { |*args| yield *args }
+    else
+      image_list.each_unprocessed_image { |*args| yield *args }
+    end
   end
 end
