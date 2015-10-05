@@ -24,23 +24,6 @@ class AlbumProcessor
     File.join(directory, version.to_s)
   end
 
-  def insert_all_photos
-    @added_images_count = 0
-    path = Pathname.new(directory).basename.to_s
-    puts "attempting to import #{all_images.count} images"
-    all_images.each do |basename|
-      insert_photo(path, basename)
-    end
-    puts "imported #{@added_images_count} images"
-  end
-
-  def insert_photo(path, basename)
-    album = Album.where(title: path).first_or_create
-    Photo.create!(path: path.to_url, filename: basename, album: album)
-    @added_images_count += 1
-  rescue ActiveRecord::RecordNotUnique
-  end
-
   def process_all
     each_image do |image, basename|
       process_image(image, basename)
