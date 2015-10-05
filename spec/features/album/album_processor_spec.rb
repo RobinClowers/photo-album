@@ -31,15 +31,16 @@ describe AlbumProcessor do
       processor.create_versions(:thumbs)
       mock_image
       processor.process_all
-      expect(image).to have_received(:resize_to_fit).with(320, 320).once
-      expect(image).not_to have_received(:resize_to_fill)
+      expect(image).to have_received(:resize_to_fill).with(320, 320).once
+      expect(image).not_to have_received(:resize_to_fill).with(75, 75)
+      expect(image).not_to have_received(:resize_to_fit)
     end
 
     it "resizes images for versions" do
       mock_image
       processor.process_all
       expect(image).to have_received(:resize_to_fit).with(1024, 1024).once
-      expect(image).to have_received(:resize_to_fit).with(320, 320).once
+      expect(image).to have_received(:resize_to_fill).with(320, 320).once
       expect(image).to have_received(:resize_to_fill).with(75, 75).once
     end
 
