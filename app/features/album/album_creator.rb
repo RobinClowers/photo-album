@@ -10,9 +10,8 @@ class AlbumCreator
 
   def insert_all_photos
     @added_images_count = 0
-    filenames = valid_keys.map { |key| key.gsub("#{prefix}/", '') }
     puts "attempting to import #{valid_keys.count} images"
-    filenames.each do |filename|
+    valid_keys.each do |filename|
       insert_photo(filename)
     end
     puts "imported #{@added_images_count} images"
