@@ -18,8 +18,15 @@ class AlbumCreator
   end
 
   def insert_photo(filename)
-    Photo.create!(path: prefix, filename: filename, album: album)
+    versions = versions_for(filename)
+    Photo.create!(path: prefix, filename: filename, album: album, versions: versions)
   rescue ActiveRecord::RecordNotUnique
+  end
+
+  def versions_for(filename)
+    AlbumProcessor::VERSIONS.keys.select do |version|
+      photos.keys(version).include?(filename)
+    end
   end
 
   def update_cover_photo!(cover_photo_filename)
