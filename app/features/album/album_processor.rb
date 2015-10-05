@@ -16,8 +16,8 @@ class AlbumProcessor
     end
   end
 
-  def version_path(version, filename)
-    File.join(directory, version.to_s, filename)
+  def version_path(version, basename)
+    File.join(directory, version.to_s, basename)
   end
 
   def version_base_path(version)
@@ -28,15 +28,15 @@ class AlbumProcessor
     @added_images_count = 0
     path = Pathname.new(directory).basename.to_s
     puts "attempting to import #{all_images.count} images"
-    all_images.each do |filename|
-      insert_photo(path, filename)
+    all_images.each do |basename|
+      insert_photo(path, basename)
     end
     puts "imported #{@added_images_count} images"
   end
 
-  def insert_photo(path, filename)
+  def insert_photo(path, basename)
     album = Album.where(title: path).first_or_create
-    Photo.create!(path: path.to_url, filename: filename, album: album)
+    Photo.create!(path: path.to_url, filename: basename, album: album)
     @added_images_count += 1
   rescue ActiveRecord::RecordNotUnique
   end
@@ -60,7 +60,7 @@ class AlbumProcessor
   end
 
   def auto_orient_images!
-    each_image do |image, filename|
+    each_image do |image, basename|
       auto_orient_image!(image)
     end
   end
@@ -79,8 +79,8 @@ class AlbumProcessor
     end
   end
 
-  def create_version(version, image, filename)
-    path = version_path(version, filename)
+  def create_version(version, image, basename)
+    path = version_path(version, basename)
     return if File.exists?(path)
     resized_image = VERSIONS[version].call(image)
     puts "writing #{version} version for #{image.filename}"
@@ -88,9 +88,9 @@ class AlbumProcessor
   end
 
   def each_image
-    unprocessed_images.each do |filename|
-      image = Magick::ImageList.new(File.join(directory, filename))
-      yield image, filename
+    unprocessed_images.each do |basename|
+      image = Magick::ImageList.new(File.join(directory, basename))
+      yield image, basename
     end
   end
 
