@@ -70,38 +70,15 @@ class AlbumProcessor
     resized_image.write(path)
   end
 
-  def each_image
-    unprocessed_images.each do |basename|
-      image = Magick::ImageList.new(File.join(directory, basename))
-      yield image, basename
-    end
-  end
-
   def guard_dir(name)
     Dir.mkdir(name) unless Dir.exists?(name)
   end
 
-  def unprocessed_images
-    @unprocessed_images ||= all_images - processed_images
+  def image_list
+    @image_list ||= ImageList.new(directory, VERSIONS.keys)
   end
 
-  def processed_images
-    @processed_images ||= VERSIONS.keys.map { |version| exisiting_version_images(version) }.inject(:&)
-  end
-
-  def exisiting_version_images(version)
-    valid_images(File.join(directory, version.to_s))
-  end
-
-  def exisiting_thumbnail_images
-    @exisiting_thumbnail_images ||= valid_images(File.join(directory, 'thumbs'))
-  end
-
-  def all_images
-    @image_names ||= valid_images(directory)
-  end
-
-  def valid_images(directory)
-    Dir.entries(directory).select { |f| f =~ /\.jpg|png\Z/i }
+  def each_image
+    image_list.each_image { |*args| yield *args }
   end
 end
