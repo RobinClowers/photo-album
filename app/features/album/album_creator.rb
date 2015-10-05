@@ -9,17 +9,16 @@ class AlbumCreator
   end
 
   def insert_all_photos
-    @added_images_count = 0
+    added_images_count = 0
     puts "attempting to import #{valid_keys.count} images"
     valid_keys.each do |filename|
-      insert_photo(filename)
+      added_images_count += 1 if insert_photo(filename)
     end
-    puts "imported #{@added_images_count} images"
+    puts "imported #{added_images_count} images"
   end
 
   def insert_photo(filename)
     Photo.create!(path: prefix, filename: filename, album: album)
-    @added_images_count += 1
   rescue ActiveRecord::RecordNotUnique
   end
 
