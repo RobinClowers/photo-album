@@ -68,7 +68,7 @@ class AlbumProcessor
   def create_versions(version)
     guard_dir version_base_path(version)
     each_image do |image, basename|
-      create_version(version, image)
+      create_version(version, image, basename)
     end
   end
 
@@ -103,11 +103,11 @@ class AlbumProcessor
   end
 
   def processed_images
-    @processed_images ||= exisiting_web_images & exisiting_thumbnail_images
+    @processed_images ||= VERSIONS.keys.map { |version| exisiting_version_images(version) }.inject(:&)
   end
 
-  def exisiting_web_images
-    @exisiting_web_images ||= valid_images(File.join(directory, 'web'))
+  def exisiting_version_images(version)
+    valid_images(File.join(directory, version.to_s))
   end
 
   def exisiting_thumbnail_images

@@ -27,9 +27,11 @@ describe AlbumProcessor do
     end
 
     it "skips processed photos" do
-      allow(File).to receive(:exists?) { true }
+      processor.create_versions(:web)
+      processor.create_versions(:thumbs)
+      mock_image
       processor.process_all
-      expect(image).not_to have_received(:resize_to_fit)
+      expect(image).to have_received(:resize_to_fit).with(320, 320).once
       expect(image).not_to have_received(:resize_to_fill)
     end
 
