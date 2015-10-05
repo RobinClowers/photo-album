@@ -20,7 +20,11 @@
 //$sidebar-pad-wide: 20px;
 //$sidebar-width-wide: 300px;
 
-.album-thumbs img {
+.album-thumbs .small {
+  width: 320px;
+}
+
+.album-thumbs .thumb {
   width: 75px;
   height: 75px;
 }

@@ -3,8 +3,20 @@ class Photo < ActiveRecord::Base
 
   default_scope -> { order(:filename) }
 
+  def has_version?(version)
+    versions.include? version.to_s
+  end
+
+  def version_url(version)
+    File.join(protocol, base_path, path, version.to_s, filename)
+  end
+
   def thumb_url
-    File.join(protocol,base_path, path, 'thumbs', filename)
+    version_url(:thumbs)
+  end
+
+  def small_url
+    version_url(:small)
   end
 
   def url

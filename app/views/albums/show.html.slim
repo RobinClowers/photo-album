@@ -21,7 +21,10 @@
           li
             .js-open-overlay data-url=image.overlay_url
               a href=image.url
-                img src=image.thumb_url alt=image.alt
+              - if image.has_version?(:small)
+                img.small src=image.small_url alt=image.alt
+              - else
+                img.thumb src=image.thumb_url alt=image.alt
 
               .js-overlay-content.image-overlay style='display: none;'
                 .overlay-column.overlay-image-container.js-overlay-image-container
