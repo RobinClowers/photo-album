@@ -4,7 +4,7 @@ class AlbumProcessor
   attr_reader :directory
   VERSIONS = {
     web: -> (image) { image.resize_to_fit(1024, 1024) },
-    small: -> (image) { image.resize_to_fill(320, 320) },
+    small: -> (image) { image.resize_to_fill(240, 240) },
     thumbs: -> (image) { image.resize_to_fill(75, 75) },
 }
 

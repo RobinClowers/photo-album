@@ -71,7 +71,7 @@ describe AlbumProcessor do
 
     it "small resizes to fill" do
       versions[:small].call(image)
-      expect(image).to have_received(:resize_to_fill).with(320, 320)
+      expect(image).to have_received(:resize_to_fill).with(240, 240)
     end
 
     it "thumbs resizes to fill" do
