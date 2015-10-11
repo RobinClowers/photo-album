@@ -40,9 +40,10 @@ class @Overlay
     else
       @close()
 
-  open: (target) ->
+  open: (target = $(document)) ->
+    target = $(target)
     @showSpinner()
-    @prepareOpen($(target))
+    @prepareOpen(target)
     @appendContent()
     @setDimensions()
     @show()
@@ -58,7 +59,7 @@ class @Overlay
   hideSpinner: ->
     @spinner.stop()
 
-  prepareOpen: (target = $(document)) ->
+  prepareOpen: (target) ->
     @closed = false
     @updateUrl(target)
     @dom.mask.show()
