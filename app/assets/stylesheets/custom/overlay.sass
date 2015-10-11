@@ -1,14 +1,15 @@
 $arrowSize: 40px
 $arrowSizeMobile: 20px
+$transition: 0.5s ease-out
 
 .overlay
   position: absolute
   z-index: $overlay-z-index
   background: white
-  -webkit-transition: 1s ease-in-out
-  -moz-transition: 1s ease-in-out
-  -o-transition: 1s ease-in-out
-  transition: 1s ease-in-out
+  -webkit-transition: $transition
+  -moz-transition: $transition
+  -o-transition: $transition
+  transition: $transition
 
 
 .overlay-mask
@@ -25,6 +26,7 @@ $arrowSizeMobile: 20px
 
 .image-overlay
   height: 100%
+  overflow: hidden
 
 .overlay-image-container
   position: relative
@@ -40,9 +42,6 @@ $arrowSizeMobile: 20px
 @media (max-width: $maxMobileWidth)
   .overlay-column.narrow-column
     width: 100%
-
-.overlay-container
-  height: 100%
 
 .scroll-lock
   overflow: hidden
@@ -111,10 +110,10 @@ $arrowSizeMobile: 20px
   height: 30px
   width: 30px
   z-index: $overlay-close-button-z-index
-  -webkit-transition: 1s ease-in-out
-  -moz-transition: 1s ease-in-out
-  -o-transition: 1s ease-in-out
-  transition: 1s ease-in-out
+  -webkit-transition: $transition
+  -moz-transition: $transition
+  -o-transition: $transition
+  transition: $transition
 
 .center
   z-index: 10000
