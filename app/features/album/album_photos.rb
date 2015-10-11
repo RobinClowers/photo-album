@@ -69,7 +69,7 @@ class AlbumPhotos
 
   def leaf_nodes(type)
     tree = bucket.as_tree(prefix: prefix(type))
-    tree.children.select(&:leaf?).map { |key| Pathname.new(key) }
+    tree.children.select(&:leaf?).map { |node| Pathname.new(node.key) }
   end
 
   def key(type, name)
