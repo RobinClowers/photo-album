@@ -37,7 +37,7 @@ class @PhotoOverlay extends Overlay
       @appendContent()
       @setDimensions(@dimensions)
       @setButtonVisibility()
-      @spinner.stop()
+      @hideSpinner()
       @show()
 
   setButtonVisibility: ->

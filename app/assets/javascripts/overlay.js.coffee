@@ -23,6 +23,7 @@ class @Overlay
     $('body').on 'keyup', (event) ->
       return if window.isFormElement(event.target)
       return unless event.which == ESC_KEY_CODE
+      self.hideSpinner()
       self.close()
 
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
@@ -44,7 +45,7 @@ class @Overlay
     @appendContent()
     @setDimensions()
     @show()
-    @spinner.stop()
+    @hideSpinner()
 
   showSpinner: ->
     if @isOpen
@@ -56,6 +57,9 @@ class @Overlay
       @spinner = new Spinner
         color: '#fff'
       @spinner.spin($('.center')[0])
+
+  hideSpinner: ->
+    @spinner.stop()
 
   prepareOpen: (target = document) ->
     @updateUrl(target)
