@@ -17,7 +17,7 @@
       p.meta= album.created_at.strftime("%b %d, %Y")
     .album-photos
       ul.album-thumbs data-base-url=album_path(album)
-        - images.each_with_index do |image, index|
+        - images.each do |image|
           li
             .js-open-overlay[
               data-id=image.id
