@@ -45,6 +45,17 @@ class @PhotoOverlay extends Overlay
       @hideSpinner()
       @show()
 
+  loadContent: (target) ->
+    id = target.data("id")
+    $(Template.render(PHOTO_OVERLAY_TEMPLATE,
+      photo_url: target.data("src") || ""
+      photo_alt: target.data("alt") || ""
+      photo_caption: target.data("caption") || ""
+      caption_form_path: admin_edit_photo_path(photo_id: id)
+      photo_plus_ones_path: photo_plus_ones_path(photo_id: id)
+      photo_comments_path: photo_comments_path(photo_id: id)
+    ))
+
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
       @dom.nextButton().hide()
