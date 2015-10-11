@@ -40,17 +40,6 @@ class @PhotoOverlay extends Overlay
       @spinner.stop()
       @show()
 
-  showSpinner: ->
-    if @isOpen
-      @dom.spinnerBox().show()
-      @spinner = new Spinner
-        color: '#fff'
-      @spinner.spin(@dom.spinnerBox()[0])
-    else
-      @spinner = new Spinner
-        color: '#fff'
-      @spinner.spin($('.center')[0])
-
   setButtonVisibility: ->
     if @index >= $(@selector).length - 1
       @dom.nextButton().hide()
