@@ -40,7 +40,7 @@ class @Overlay
 
   open: (target) ->
     @showSpinner()
-    @prepareOpen(target)
+    @prepareOpen($(target))
     @appendContent()
     @setDimensions()
     @show()
@@ -60,18 +60,21 @@ class @Overlay
   hideSpinner: ->
     @spinner.stop()
 
-  prepareOpen: (target = document) ->
+  prepareOpen: (target = $(document)) ->
     @closed = false
     @updateUrl(target)
     @dom.mask.show()
     @setMaskHeight()
     @lockScroll()
-    @originalContent = $(target).find(@contentSelector)
+    @originalContent = @loadContent(target)
     @overlayContent = @originalContent.clone()
     @dimensions = @createDimensions()
 
+  loadContent: (target) ->
+    target.find(@contentSelector)
+
   updateUrl: (target) ->
-    url = $(target).data('url')
+    url = target.data('url')
     return unless history && history.pushState && url
     return if url == location.pathname
     @urlChanged = true

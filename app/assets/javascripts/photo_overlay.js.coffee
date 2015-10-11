@@ -32,6 +32,7 @@ class @PhotoOverlay extends Overlay
       new @options.dimensionsType(@overlayContent.find('.js-overlay-image'))
 
   open: (target) ->
+    target = $(target)
     @showSpinner()
     @prepareOpen(target)
     @index = $(@selector).index(target)
