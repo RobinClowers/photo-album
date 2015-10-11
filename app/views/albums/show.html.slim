@@ -32,21 +32,4 @@
               - else
                 img.thumb src=image.thumb_url alt=image.alt
 
-              .js-overlay-content.image-overlay style='display: none;'
-                .overlay-column.overlay-image-container.js-overlay-image-container
-                  .spinner-box.js-overlay-spinner-container
-                  img.overlay-image.js-overlay-image src=image.url alt=image.alt
-                  button.overlay-previous.js-overlay-previous
-                    .overlay-previous-arrow
-                  button.overlay-next.js-overlay-next
-                    .overlay-next-arrow
-                .overlay-column.narrow-column.content-box
-                  .overlay-column.js-overlay-right
-                    .js-overlay-top-right
-                      div data-replace-self-on-overlay-show=photo_plus_ones_path(photo_id: image)
-                      .overlay-caption-container.js-overlay-caption-container
-                        .overlay-caption= image.caption
-                      = render 'caption_form', image: image
-                    div data-replace-self-on-overlay-show=photo_comments_path(photo_id: image)
-
 input type='hidden' id='authenticity_token' value= form_authenticity_token
