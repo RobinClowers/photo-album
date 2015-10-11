@@ -11,6 +11,9 @@ class @Overlay
     @isOpen = false
     self = this
 
+    @spinner = new Spinner
+      color: '#fff'
+
     @dom = new @options.domType()
     $('body').append(@dom.el).append(@dom.mask)
 
@@ -49,12 +52,8 @@ class @Overlay
   showSpinner: ->
     if @isOpen
       @dom.spinnerBox().show()
-      @spinner = new Spinner
-        color: '#fff'
       @spinner.spin(@dom.spinnerBox()[0])
     else
-      @spinner = new Spinner
-        color: '#fff'
       @spinner.spin($('.center')[0])
 
   hideSpinner: ->
