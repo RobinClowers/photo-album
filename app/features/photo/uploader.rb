@@ -1,26 +1,25 @@
 require 'album_photos'
 
 class Uploader
-  attr_accessor :path, :title
-
-  def initialize(path, title: nil)
-    @path = File.realpath(File.expand_path(path))
-    @title = title || Pathname.new(path).basename.to_s.to_url
+  def initialize(title)
+    @title = title
   end
 
-  def upload(name, type=:web)
-    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
-    create(path, name, type)
+  def upload(base_path, name, type=:web)
+    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
+    base_path = realpath(base_path)
+    create(base_path, name, type)
   end
 
-  def upload_all(type=:web)
-    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
+  def upload_all(base_path, type=:web)
+    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
+    base_path = realpath(base_path)
     existing_photos = photos.keys(type)
     puts_skipped_photos existing_photos
 
-    valid_images(path).each do |image|
-      unless existing_photos.include?(image)
-        create(path, image, type)
+    valid_images(base_path).each do |filename|
+      unless existing_photos.include?(filename)
+        create(base_path, filename, type)
       end
     end
 
@@ -29,18 +28,22 @@ class Uploader
 
   private
 
+  def realpath(path)
+    File.realpath(File.expand_path(path))
+  end
+
   def puts_skipped_photos(existing_photos)
     return unless existing_photos.count > 0
     puts "Skipping #{existing_photos.count} photos: "
     puts existing_photos
   end
 
-  def create(path, name, type)
-    photos.create(name, File.join(path, name), type: type)
+  def create(base_path, name, type)
+    photos.create(name, File.join(base_path, name), type: type)
   end
 
   def photos
-    @photos ||= AlbumPhotos.new(title)
+    @photos ||= AlbumPhotos.new(@title)
   end
 
   def valid_images(path)

@@ -3,7 +3,7 @@ namespace :album do
   task :upload, [:path] => :environment do |t, args|
     require 'uploader'
 
-    Uploader.new(args.path).upload_all(:original)
+    Uploader.new.upload_all(args.path, :original)
   end
 
   desc "Create an album from photos on s3"

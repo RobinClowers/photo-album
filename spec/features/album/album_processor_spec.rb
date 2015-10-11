@@ -2,6 +2,7 @@ require "spec_helper"
 
 describe AlbumProcessor do
   let(:base_path) { Rails.root.join("spec", "fixtures", "files", "photos") }
+  let(:filename) { "P1120375.JPG" }
   let(:web_path) { base_path.join("web") }
   let(:small_path) { base_path.join("small") }
   let(:thumbs_path) { base_path.join("thumbs") }
@@ -17,6 +18,7 @@ describe AlbumProcessor do
 
   def mock_image
     stub_const("AlbumProcessor::VERSIONS", versions)
+    stub_const("Photo::VALID_VERSIONS", versions.keys)
     allow(Magick::ImageList).to receive(:new) { image }
     allow(image).to receive(:resize_to_fit) { image }
     allow(image).to receive(:resize_to_fill) { image }
@@ -42,6 +44,52 @@ describe AlbumProcessor do
       processor.process_all
       expect(web_proc).to have_received(:call).with(image).once
       expect(small_proc).to have_received(:call).with(image).once
+    end
+  end
+
+  describe "#process all versions" do
+    it "create the versions on disk" do
+      processor.process(filename)
+      expect(File.exists?(web_version_path)).to be true
+      expect(File.exists?(small_version_path)).to be true
+      expect(File.exists?(thumbs_version_path)).to be true
+    end
+
+    it "skips processed photos" do
+      processor.create_versions(:web)
+      mock_image
+      processor.process(filename)
+      expect(small_proc).to have_received(:call).with(image).once
+    end
+
+    it "resizes images for versions" do
+      mock_image
+      processor.process(filename)
+      expect(web_proc).to have_received(:call).with(image).once
+      expect(small_proc).to have_received(:call).with(image).once
+    end
+  end
+
+  describe "#process a single version" do
+    it "create the versions on disk" do
+      processor.process(filename, versions: [:web])
+      expect(File.exists?(web_version_path)).to be true
+      expect(File.exists?(small_version_path)).not_to be
+      expect(File.exists?(thumbs_version_path)).not_to be
+    end
+
+    it "skips processed photos" do
+      processor.create_versions(:web)
+      mock_image
+      processor.process(filename, versions: [:web])
+      expect(web_proc).not_to have_received(:call)
+    end
+
+    it "resizes images for versions" do
+      mock_image
+      processor.process(filename, versions: [:web])
+      expect(web_proc).to have_received(:call).with(image).once
+      expect(small_proc).not_to have_received(:call)
     end
   end
 

@@ -30,16 +30,21 @@ class AlbumProcessor
     end
   end
 
-  def process(basename)
+  def process(basename, versions: :all)
     image = Magick::ImageList.new(File.join(directory, basename))
-    process_image(image, basename)
+    process_image(image, basename, versions: versions)
   end
 
-  def process_image(image, basename)
+  def process_image(image, basename, versions: :all)
     auto_orient_image!(image)
-    VERSIONS.keys.each do |version|
+    versions_to_process(versions).each do |version|
       create_version(version, image, basename)
     end
+  end
+
+  def versions_to_process(versions)
+    return Photo::VALID_VERSIONS if versions == :all
+    versions
   end
 
   def auto_orient_images!
@@ -65,6 +70,7 @@ class AlbumProcessor
   def create_version(version, image, basename, force: false)
     path = version_path(version, basename)
     return if File.exists?(path) && !force
+    raise "No #{version.to_s} version configured" unless VERSIONS[version]
     resized_image = VERSIONS[version].call(image)
     puts "writing #{version} version for #{image.filename}"
     resized_image.write(path)
