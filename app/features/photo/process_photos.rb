@@ -21,6 +21,7 @@ class ProcessPhotos
       processor.process(Pathname.new(filename).basename, versions: versions)
       versions.each do |version|
         uploader.upload(path_for(version), filename, version)
+        album.photos.find_by_filename(filename).has_version!(version)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end
@@ -58,5 +59,9 @@ class ProcessPhotos
 
   def uploader
     @uploader ||= Uploader.new(title)
+  end
+
+  def album
+    @album ||= Album.find_by_slug(title.to_url)
   end
 end

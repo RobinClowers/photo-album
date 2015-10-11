@@ -10,6 +10,11 @@ class Photo < ActiveRecord::Base
     versions.include? version.to_s
   end
 
+  def has_version!(version)
+    versions << version
+    save!
+  end
+
   def version_url(version)
     File.join(protocol, base_path, path, version.to_s, filename)
   end
