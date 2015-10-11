@@ -34,6 +34,6 @@ class ImageList
   end
 
   def valid_images(path)
-    Dir.entries(path).select { |f| f =~ /\.jpg|png\Z/i }
+    Dir.entries(path).select { |f| f =~ Photo::VALID_FILENAME_REGEX }
   end
 end
