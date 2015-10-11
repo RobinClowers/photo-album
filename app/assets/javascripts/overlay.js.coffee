@@ -1,3 +1,5 @@
+ESC_KEY_CODE = 27
+
 class @Overlay
   constructor: (contentSelector, options) ->
     @contentSelector = contentSelector
@@ -20,7 +22,7 @@ class @Overlay
 
     $('body').on 'keyup', (event) ->
       return if window.isFormElement(event.target)
-      return unless event.which == 27
+      return unless event.which == ESC_KEY_CODE
       self.close()
 
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
@@ -37,12 +39,29 @@ class @Overlay
       @close()
 
   open: (target) ->
+    @showSpinner()
     @prepareOpen(target)
     @appendContent()
     @setDimensions()
     @show()
+    @hideSpinner()
+
+  showSpinner: ->
+    if @isOpen
+      @dom.spinnerBox().show()
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin(@dom.spinnerBox()[0])
+    else
+      @spinner = new Spinner
+        color: '#fff'
+      @spinner.spin($('.center')[0])
+
+  hideSpinner: ->
+    @spinner.stop()
 
   prepareOpen: (target = document) ->
+    @closed = false
     @updateUrl(target)
     @dom.mask.show()
     @setMaskHeight()
@@ -86,6 +105,8 @@ class @Overlay
     @dom.el.empty()
 
   close: ->
+    @closed = true
+    @hideSpinner()
     @resetUrl()
     @clear()
     @dom.el.hide()
