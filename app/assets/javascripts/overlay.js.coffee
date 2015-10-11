@@ -62,6 +62,7 @@ class @Overlay
     @spinner.stop()
 
   prepareOpen: (target = document) ->
+    @closed = false
     @updateUrl(target)
     @dom.mask.show()
     @setMaskHeight()
@@ -105,6 +106,7 @@ class @Overlay
     @dom.el.empty()
 
   close: ->
+    @closed = true
     @resetUrl()
     @clear()
     @dom.el.hide()

@@ -34,6 +34,7 @@ class @PhotoOverlay extends Overlay
     @index = $(@selector).index(target)
 
     @dimensions.ready =>
+      return if @closed
       @appendContent()
       @setDimensions(@dimensions)
       @setButtonVisibility()
