@@ -4,6 +4,6 @@ class ProcessPhotosWorker
 
   def perform(title, versions=:all)
     require 'process_photos'
-    ProcessPhotos.new(title).process(versions)
+    ProcessPhotos.new(title).process(versions.map(&:to_sym))
   end
 end
