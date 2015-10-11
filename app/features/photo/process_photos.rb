@@ -18,7 +18,7 @@ class ProcessPhotos
     to_process.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
-      processor.process(filename, versions: versions)
+      processor.process(Pathname.new(filename).basename, versions: versions)
       versions.each do |version|
         uploader.upload(path_for(version), filename, version)
       end
