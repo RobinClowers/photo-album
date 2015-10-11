@@ -2,7 +2,7 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def create
     if Photo::VALID_VERSIONS.include?(version)
       Album.pluck(:slug).each do |slug|
-        ProcessPhotosWorker.perform_async(slug, versions: [version])
+        ProcessPhotosWorker.perform_async(slug, [version])
       end
       head :created
     else
