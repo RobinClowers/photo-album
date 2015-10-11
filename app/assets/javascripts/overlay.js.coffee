@@ -1,8 +1,7 @@
 ESC_KEY_CODE = 27
 
 class @Overlay
-  constructor: (contentSelector, options) ->
-    @contentSelector = contentSelector
+  constructor: (options) ->
     @options = options || {}
     defaults =
       domType: OverlayDomWrapper
@@ -71,7 +70,7 @@ class @Overlay
     @dimensions = @createDimensions()
 
   loadContent: (target) ->
-    target.find(@contentSelector)
+    target.find(@options.contentSelector)
 
   updateUrl: (target) ->
     url = target.data('url')

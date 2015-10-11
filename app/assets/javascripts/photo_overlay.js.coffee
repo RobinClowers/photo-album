@@ -9,7 +9,7 @@ class @PhotoOverlay extends Overlay
       dimensionsType: PhotoOverlayDimensions
     @options = options || {}
     @options = $.extend(defaults, @options)
-    super(@options.domType.prototype.contentSelector, @options)
+    super(@options)
     self = this
 
     $(@selector).click (event) ->
