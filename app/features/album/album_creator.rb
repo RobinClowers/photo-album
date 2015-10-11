@@ -9,19 +9,24 @@ class AlbumCreator
   end
 
   def insert_all_photos
-    @added_images_count = 0
-    filenames = valid_keys.map { |key| key.gsub("#{prefix}/", '') }
+    added_images_count = 0
     puts "attempting to import #{valid_keys.count} images"
-    filenames.each do |filename|
-      insert_photo(filename)
+    valid_keys.each do |filename|
+      added_images_count += 1 if insert_photo(filename)
     end
-    puts "imported #{@added_images_count} images"
+    puts "imported #{added_images_count} images"
   end
 
   def insert_photo(filename)
-    Photo.create!(path: prefix, filename: filename, album: album)
-    @added_images_count += 1
+    versions = versions_for(filename)
+    Photo.create!(path: prefix, filename: filename, album: album, versions: versions)
   rescue ActiveRecord::RecordNotUnique
+  end
+
+  def versions_for(filename)
+    AlbumProcessor::VERSIONS.keys.select do |version|
+      photos.keys(version).include?(filename)
+    end
   end
 
   def update_cover_photo!(cover_photo_filename)

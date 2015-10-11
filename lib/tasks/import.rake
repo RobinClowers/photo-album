@@ -10,7 +10,7 @@ namespace :import do
   task :photos, [:path] => :environment do |t, args|
     require "album_processor"
 
-    AlbumProcessor.new(args.path).insert_all_photos
+    AlbumCreator.new(args.path).insert_all_photos
   end
 end
 
