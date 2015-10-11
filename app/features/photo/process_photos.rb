@@ -14,17 +14,22 @@ class ProcessPhotos
     @paths = {}
   end
 
-  def process
+  def process(versions = :all)
     to_process.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
       processor.process(filename)
-      Photo::VALID_VERSIONS.each do |version|
+      versions_to_process(versions).each do |version|
         uploader.upload(path_for(version), filename, version)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end
     FileUtils.rm_rf(tmp_dir)
+  end
+
+  def versions_to_process(versions)
+    return Photo::VALID_VERSIONS if versions == :all
+    versions
   end
 
   def path_for(version)

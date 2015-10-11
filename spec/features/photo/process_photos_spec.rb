@@ -21,7 +21,7 @@ describe ProcessPhotos do
     allow(album_photos).to receive(:download_original).with(filename, tmp_dir)
   end
 
-  describe "#process" do
+  describe "#process(:all)" do
     before do
       processor.process
     end
@@ -34,6 +34,25 @@ describe ProcessPhotos do
       expect(uploader).to have_received(:upload).with(File.join(tmp_dir, "web"), filename, :web)
       expect(uploader).to have_received(:upload).with(File.join(tmp_dir, "small"), filename, :small)
       expect(uploader).to have_received(:upload).with(File.join(tmp_dir, "thumbs"), filename, :thumbs)
+    end
+
+    it "cleans up after itself" do
+      expect(FileUtils).to have_received(:rm).with(File.join(tmp_dir, filename))
+      expect(FileUtils).to have_received(:rm_rf).with(tmp_dir)
+    end
+  end
+
+  describe "#process([:version])" do
+    before do
+      processor.process([:web])
+    end
+
+    it "processes all photos" do
+      expect(album_processor).to have_received(:process).once.with(filename)
+    end
+
+    it "uploads the specified version" do
+      expect(uploader).to have_received(:upload).with(File.join(tmp_dir, "web"), filename, :web)
     end
 
     it "cleans up after itself" do
