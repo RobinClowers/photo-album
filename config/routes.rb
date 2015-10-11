@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :albums, only: [:show]
   get 'albums/:id/:photo', to: 'albums#show', as: :photo
 
-  resources :photos do
+  resources :photos, only: [] do
     resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
     resources :comments, only: [:index, :create, :destroy], controller: 'photos/comments'
   end
