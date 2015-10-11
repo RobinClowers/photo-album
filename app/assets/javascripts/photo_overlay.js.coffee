@@ -1,3 +1,6 @@
+LEFT_ARROW_KEY_CODE = 37
+RIGHT_ARROW_KEY_CODE = 39
+
 class @PhotoOverlay extends Overlay
   constructor: (selector, options) ->
     @selector = selector
@@ -16,8 +19,8 @@ class @PhotoOverlay extends Overlay
     $('body').on 'keyup', (event) ->
       return if window.isFormElement(event.target)
       switch event.which
-        when 37 then self.previous()
-        when 39 then self.next()
+        when LEFT_ARROW_KEY_CODE then self.previous()
+        when RIGHT_ARROW_KEY_CODE then self.next()
 
     @dom.el.on 'click', @dom.nextButtonSelector, (event) ->
       self.next()
