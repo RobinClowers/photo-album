@@ -23,7 +23,6 @@ class @Overlay
     $('body').on 'keyup', (event) ->
       return if window.isFormElement(event.target)
       return unless event.which == ESC_KEY_CODE
-      self.hideSpinner()
       self.close()
 
     @dom.el.on 'click', @dom.closeButtonSelector, (event) ->
@@ -107,6 +106,7 @@ class @Overlay
 
   close: ->
     @closed = true
+    @hideSpinner()
     @resetUrl()
     @clear()
     @dom.el.hide()
