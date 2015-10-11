@@ -1,5 +1,4 @@
 class @OverlayDimensions
-  closeButtonOffset: 20
   minMargin: 10
 
   constructor: (overlayContent) ->
@@ -23,6 +22,3 @@ class @OverlayDimensions
   top: ->
     return window.scrollY + 10 if window.mobileLayout()
     window.scrollY + ($(window).height() - @height()) / 2
-
-  closeButtonLeftPosition: ->
-    @width() - @closeButtonOffset

@@ -87,7 +87,6 @@ class @Overlay
     @dom.el.css('left', @dimensions.margin())
     @dom.el.css('top', @dimensions.top())
     @dom.el.width(@dimensions.width())
-    @dom.closeButton.css('left', @dimensions.closeButtonLeftPosition())
     @setMaskHeight()
 
   show: ->
