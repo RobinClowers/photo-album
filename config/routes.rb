@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resources :albums, only: [:new, :create, :update]
     resources :process_album_jobs, only: [:create]
     resources :publish_album_jobs, only: [:create]
-    resources :photos, only: [:update]
+    resources :photos, only: [:edit, :update]
   end
 
   mount Sidekiq::Web, at: "/sidekiq", constraints: AdminConstraint.new

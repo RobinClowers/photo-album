@@ -9,6 +9,10 @@ class Admin::PhotosController < Admin::ApplicationController
     end
   end
 
+  def edit
+    render 'edit', layout: false
+  end
+
   private
 
   def photo_attributes
