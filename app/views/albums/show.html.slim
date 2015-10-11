@@ -19,7 +19,13 @@
       ul.album-thumbs data-base-url=album_path(album)
         - images.each_with_index do |image, index|
           li
-            .js-open-overlay data-url=image.overlay_url
+            .js-open-overlay[
+              data-id=image.id
+              data-url=image.overlay_url
+              data-src=image.url
+              data-caption=image.caption
+              data-alt=image.alt
+            ]
               a href=image.url
               - if image.has_version?(:small)
                 img.small src=image.small_url alt=image.alt
