@@ -47,7 +47,7 @@ describe AlbumProcessor do
     end
   end
 
-  describe "#process" do
+  describe "#process all versions" do
     it "create the versions on disk" do
       processor.process(filename)
       expect(File.exists?(web_version_path)).to be true
@@ -67,6 +67,29 @@ describe AlbumProcessor do
       processor.process(filename)
       expect(web_proc).to have_received(:call).with(image).once
       expect(small_proc).to have_received(:call).with(image).once
+    end
+  end
+
+  describe "#process a single version" do
+    it "create the versions on disk" do
+      processor.process(filename, versions: [:web])
+      expect(File.exists?(web_version_path)).to be true
+      expect(File.exists?(small_version_path)).not_to be
+      expect(File.exists?(thumbs_version_path)).not_to be
+    end
+
+    it "skips processed photos" do
+      processor.create_versions(:web)
+      mock_image
+      processor.process(filename, versions: [:web])
+      expect(web_proc).not_to have_received(:call)
+    end
+
+    it "resizes images for versions" do
+      mock_image
+      processor.process(filename, versions: [:web])
+      expect(web_proc).to have_received(:call).with(image).once
+      expect(small_proc).not_to have_received(:call)
     end
   end
 
