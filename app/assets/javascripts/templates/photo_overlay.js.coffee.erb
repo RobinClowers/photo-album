@@ -1,0 +1,25 @@
+window.PHOTO_OVERLAY_TEMPLATE = '<%= '
+  <div class="js-overlay-content image-overlay">
+    <div class="overlay-column overlay-image-container js-overlay-image-container">
+      <div class="spinner-box js-overlay-spinner-container"></div>
+      <img class="overlay-image js-overlay-image" src="{photo_url}" alt="{photo_alt}" />
+      <button class="overlay-previous js-overlay-previous">
+        <div class="overlay-previous-arrow"></div>
+      </button><button class="overlay-next js-overlay-next">
+        <div class="overlay-next-arrow"></div>
+      </button>
+    </div>
+    <div class="overlay-column narrow-column content-box">
+      <div class="overlay-column js-overlay-right">
+        <div class="js-overlay-top-right">
+          <div data-replace-self-on-overlay-show="{photo_plus_ones_path}"></div>
+          <div class="overlay-caption-container js-overlay-caption-container">
+            <div class="overlay-caption">{photo_caption}</div>
+          </div>
+          <div data-replace-self-on-overlay-show="{caption_form_path}" data-replace-if="admin"></div>
+        </div>
+        <div data-replace-self-on-overlay-show="{photo_comments_path}"></div>
+      </div>
+    </div>
+  </div>
+'.strip.gsub(/>\s+</, "><") %>'

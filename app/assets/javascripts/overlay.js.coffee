@@ -1,8 +1,7 @@
 ESC_KEY_CODE = 27
 
 class @Overlay
-  constructor: (contentSelector, options) ->
-    @contentSelector = contentSelector
+  constructor: (options) ->
     @options = options || {}
     defaults =
       domType: OverlayDomWrapper
@@ -43,7 +42,7 @@ class @Overlay
 
   open: (target) ->
     @showSpinner()
-    @prepareOpen(target)
+    @prepareOpen($(target))
     @appendContent()
     @setDimensions()
     @show()
@@ -59,18 +58,21 @@ class @Overlay
   hideSpinner: ->
     @spinner.stop()
 
-  prepareOpen: (target = document) ->
+  prepareOpen: (target = $(document)) ->
     @closed = false
     @updateUrl(target)
     @dom.mask.show()
     @setMaskHeight()
     @lockScroll()
-    @originalContent = $(target).find(@contentSelector)
+    @originalContent = @loadContent(target)
     @overlayContent = @originalContent.clone()
     @dimensions = @createDimensions()
 
+  loadContent: (target) ->
+    target.find(@options.contentSelector)
+
   updateUrl: (target) ->
-    url = $(target).data('url')
+    url = target.data('url')
     return unless history && history.pushState && url
     return if url == location.pathname
     @urlChanged = true

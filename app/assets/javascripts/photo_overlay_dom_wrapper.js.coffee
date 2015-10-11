@@ -1,7 +1,6 @@
 class @PhotoOverlayDomWrapper extends OverlayDomWrapper
   nextButtonSelector: '.js-overlay-next'
   previousButtonSelector: '.js-overlay-previous'
-  contentSelector: '.js-overlay-content'
 
   previousButton: ->
     @el.find(@previousButtonSelector)
