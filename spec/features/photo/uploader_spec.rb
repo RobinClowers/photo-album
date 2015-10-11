@@ -4,37 +4,39 @@ describe Uploader do
   let(:path) { "spec/fixtures/files/photos/" }
   let(:full_path) { File.expand_path(path) }
   let(:filename) { "P1120375.JPG" }
+  let(:filepath) { File.join(path, filename) }
+  let(:title) { "New Album" }
   let(:album_photos) { double(:album_photos, keys: [], create: nil) }
-  subject(:uploader) { Uploader.new(path) }
+  subject(:uploader) { Uploader.new(title) }
 
   before do
-    allow(AlbumPhotos).to receive(:new) { album_photos }
+    allow(AlbumPhotos).to receive(:new).with(title) { album_photos }
   end
 
   describe "#upload" do
     it "uploads the file" do
-      uploader.upload(filename, :web)
+      uploader.upload(path, filename, :web)
       expect(album_photos).to have_received(:create)
         .with(filename, File.join(full_path, filename), type: :web)
     end
 
     it "raises for invalid types" do
       expect {
-        uploader.upload(filename, :foo)
+        uploader.upload(path, filename, :foo)
       }.to raise_error
     end
   end
 
   describe "#upload_all" do
     it "uploads all files" do
-      uploader.upload_all(:web)
+      uploader.upload_all(path, :web)
       expect(album_photos).to have_received(:create).once
         .with(filename, File.join(full_path, filename), type: :web)
     end
 
     it "skips existing_photos" do
       allow(album_photos).to receive(:keys).with(:web) { [filename] }
-      uploader.upload_all(:web)
+      uploader.upload_all(path, :web)
       expect(album_photos).not_to have_received(:create)
     end
 

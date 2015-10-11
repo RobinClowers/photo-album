@@ -11,6 +11,7 @@ class ProcessPhotos
     original = album_photos.original
     processed = album_photos.keys(:web)
     @to_process = original - processed
+    @paths = {}
   end
 
   def process
@@ -18,11 +19,16 @@ class ProcessPhotos
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
       processor.process(filename)
-      thumbs_uploader.upload(filename, :thumbs)
-      web_uploader.upload(filename, :web)
+      Photo::VALID_VERSIONS.each do |version|
+        uploader.upload(path_for(version), filename, version)
+      end
       FileUtils.rm(File.join(tmp_dir, filename))
     end
     FileUtils.rm_rf(tmp_dir)
+  end
+
+  def path_for(version)
+    @paths[version] ||= File.join(tmp_dir, version.to_s)
   end
 
   def tmp_dir
@@ -37,11 +43,7 @@ class ProcessPhotos
     @processor ||= AlbumProcessor.new(tmp_dir)
   end
 
-  def thumbs_uploader
-    @thumbs_uploader ||= Uploader.new("#{tmp_dir}/thumbs", title: title)
-  end
-
-  def web_uploader
-    @web_uploader ||= Uploader.new("#{tmp_dir}/web", title: title)
+  def uploader
+    @uploader ||= Uploader.new(title)
   end
 end
