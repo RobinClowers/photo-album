@@ -3,6 +3,8 @@ class Photo < ActiveRecord::Base
 
   default_scope -> { order(:filename) }
 
+  VALID_VERSIONS = [:web, :small, :thumbs]
+
   def has_version?(version)
     versions.include? version.to_s
   end

@@ -9,12 +9,12 @@ class Uploader
   end
 
   def upload(name, type=:web)
-    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
+    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
     create(path, name, type)
   end
 
   def upload_all(type=:web)
-    raise 'invalid type' unless [:web, :thumbs, :original].include? type.to_sym
+    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
     existing_photos = photos.keys(type)
     puts_skipped_photos existing_photos
 
