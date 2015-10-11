@@ -8,18 +8,18 @@ class ProcessPhotos
 
   def initialize(title)
     @title = title
-    original = album_photos.original
-    processed = album_photos.keys(:web)
-    @to_process = original - processed
     @paths = {}
   end
 
   def process(versions = :all)
+    versions = versions_to_process(versions)
+    original = album_photos.original
+    to_process = original - processed(versions)
     to_process.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
       processor.process(filename)
-      versions_to_process(versions).each do |version|
+      versions.each do |version|
         uploader.upload(path_for(version), filename, version)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
@@ -30,6 +30,14 @@ class ProcessPhotos
   def versions_to_process(versions)
     return Photo::VALID_VERSIONS if versions == :all
     versions
+  end
+
+  def processed(versions)
+    @processed ||= versions.map { |version| exisiting_version_images(version) }.inject(:&)
+  end
+
+  def exisiting_version_images(version)
+    album_photos.keys(version)
   end
 
   def path_for(version)
