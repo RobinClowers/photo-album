@@ -18,7 +18,7 @@ class ProcessPhotos
     processing_images(to_process, versions)
   end
 
-  def process_images(images, versions = :all)
+  def process_images(images, versions = :all, force: false)
     versions = versions_to_process(versions)
     images.each do |filename|
       puts "processing #{filename}"

@@ -68,4 +68,6 @@
               = select_tag 'version', options_for_select(versions)
               = select 'album', 'title', albums_titles
               = text_area_tag 'photo_filenames'
+              = label_tag 'force', 'Force:'
+              = check_box_tag 'force', '1'
               button type='submit' Process version for specific, comma seperated photos in this album

@@ -35,4 +35,8 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def photo_filenames
     @photo_filenames ||= params[:photo_filenames].strip.split(",").map(&:strip)
   end
+
+  def force
+    @force ||= params[:force].present?
+  end
 end
