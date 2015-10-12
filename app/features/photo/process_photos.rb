@@ -4,18 +4,23 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
-  attr_accessor :title, :to_process
+  attr_accessor :title
 
   def initialize(title)
     @title = title
     @paths = {}
   end
 
-  def process(versions = :all)
+  def process_album(versions = :all)
     versions = versions_to_process(versions)
     original = album_photos.original
     to_process = original - processed(versions)
-    to_process.each do |filename|
+    processing_images(to_process, versions)
+  end
+
+  def process_images(images, versions = :all, force: false)
+    versions = versions_to_process(versions)
+    images.each do |filename|
       puts "processing #{filename}"
       album_photos.download_original(filename, tmp_dir)
       processor.process(Pathname.new(filename).basename, versions: versions)

@@ -30,15 +30,15 @@ class AlbumProcessor
     end
   end
 
-  def process(basename, versions: :all)
+  def process(basename, versions: :all, force: false)
     image = Magick::ImageList.new(File.join(directory, basename))
-    process_image(image, basename, versions: versions)
+    process_image(image, basename, versions: versions, force: force)
   end
 
-  def process_image(image, basename, versions: :all)
+  def process_image(image, basename, versions: :all, force: false)
     auto_orient_image!(image)
     versions_to_process(versions).each do |version|
-      create_version(version, image, basename)
+      create_version(version, image, basename, force: force)
     end
   end
 

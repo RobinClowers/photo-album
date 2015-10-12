@@ -2,8 +2,11 @@ class ProcessPhotosWorker
   include Sidekiq::Worker
   sidekiq_options queue: :utility
 
-  def perform(title, versions=:all)
-    require 'process_photos'
-    ProcessPhotos.new(title).process(versions.map(&:to_sym))
+  def perform(album_title, photo_filenames, versions=:all, force=:force)
+    ProcessPhotos.new(album_title).process_images(
+      photo_filenames,
+      versions.map(&:to_sym),
+      force: force.present?
+    )
   end
 end
