@@ -59,14 +59,14 @@
               method: :post,
               remote: true
               = select_tag 'version', options_for_select(versions)
-              = select 'album', 'title', albums_titles
+              = select_tag 'album', options_for_select(albums_options)
               button type='submit' Process version for this album
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
               remote: true
               = select_tag 'version', options_for_select(versions)
-              = select 'album', 'title', albums_titles
+              = select_tag 'album', options_for_select(albums_options)
               = text_area_tag 'photo_filenames'
               = label_tag 'force', 'Force:'
               = check_box_tag 'force', '1'
