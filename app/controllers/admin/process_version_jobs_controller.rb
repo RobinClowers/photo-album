@@ -1,8 +1,12 @@
 class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def create
     if Photo::VALID_VERSIONS.include?(version)
-      Album.pluck(:slug).each do |slug|
-        ProcessPhotosWorker.perform_async(slug, [version])
+      if album
+        process_album(album)
+      else
+        Album.pluck(:slug).each do |slug|
+          process_album(slug)
+        end
       end
       head :created
     else
@@ -12,7 +16,15 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
 
   private
 
+  def process_album(slug)
+    ProcessAlbumWorker.perform_async(slug, [version])
+  end
+
   def version
     @version ||= params[:version].to_sym
+  end
+
+  def album
+    @album ||= params[:album]
   end
 end
