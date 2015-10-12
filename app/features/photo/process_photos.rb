@@ -15,7 +15,7 @@ class ProcessPhotos
     versions = versions_to_process(versions)
     original = album_photos.original
     to_process = original - processed(versions)
-    processing_images(to_process, versions)
+    process_images(to_process, versions)
   end
 
   def process_images(images, versions = :all, force: false)

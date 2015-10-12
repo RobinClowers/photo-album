@@ -17,17 +17,18 @@ describe ProcessPhotos do
     allow(FileUtils).to receive(:rm_rf)
     allow(album_processor).to receive(:process)
     allow(album_photos).to receive(:original) { [filename] }
-    allow(album_photos).to receive(:keys).with(:web) { [] }
+    allow(album_photos).to receive(:keys) { [] }
     allow(album_photos).to receive(:download_original).with(filename, tmp_dir)
   end
 
   describe "#process(:all)" do
     before do
-      processor.process
+      processor.process_album
     end
 
     it "processes all photos" do
-      expect(album_processor).to have_received(:process).once.with(filename)
+      expect(album_processor).to have_received(:process).once
+        .with(Pathname.new(filename), versions: Photo::VALID_VERSIONS)
     end
 
     it "uploads all versions" do
@@ -44,11 +45,12 @@ describe ProcessPhotos do
 
   describe "#process([:version])" do
     before do
-      processor.process([:web])
+      processor.process_album([:web])
     end
 
     it "processes all photos" do
-      expect(album_processor).to have_received(:process).once.with(filename)
+      expect(album_processor).to have_received(:process).once
+        .with(Pathname.new(filename), versions: [:web])
     end
 
     it "uploads the specified version" do
