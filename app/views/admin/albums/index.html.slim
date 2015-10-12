@@ -61,3 +61,11 @@
               = select_tag 'version', options_for_select(versions)
               = select 'album', 'title', albums_titles
               button type='submit' Process version for this album
+          li
+            = form_tag admin_process_version_jobs_path,
+              method: :post,
+              remote: true
+              = select_tag 'version', options_for_select(versions)
+              = select 'album', 'title', albums_titles
+              = text_area_tag 'photo_filenames'
+              button type='submit' Process version for specific, comma seperated photos in this album

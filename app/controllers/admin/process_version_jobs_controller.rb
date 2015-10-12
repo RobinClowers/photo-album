@@ -2,7 +2,11 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def create
     if Photo::VALID_VERSIONS.include?(version)
       if album
-        process_album(album)
+        if photo_filenames
+          ProcessPhotosWorker.perform_async(album, photo_filenames, [version])
+        else
+          process_album(album)
+        end
       else
         Album.pluck(:slug).each do |slug|
           process_album(slug)
@@ -26,5 +30,9 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
 
   def album
     @album ||= params[:album]
+  end
+
+  def photo_filenames
+    @photo_filenames ||= params[:photo_filenames].strip.split(",").map(&:strip)
   end
 end
