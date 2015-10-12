@@ -46,7 +46,7 @@
               method: :patch,
               remote: true,
               data: { replace_placeholder_on_submit: 'id-placeholder' }
-              = select 'album', 'title', albums_titles, {}, { class: 'id-placeholder' }
+              = select 'album', 'title', album_titles, {}, { class: 'id-placeholder' }
               button type='submit' Add additional photos
           li
             = form_tag admin_process_version_jobs_path,
