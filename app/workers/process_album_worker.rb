@@ -1,4 +1,4 @@
-class ProcessPhotosWorker
+class ProcessAlbumWorker
   include Sidekiq::Worker
   sidekiq_options queue: :utility
 

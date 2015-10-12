@@ -31,6 +31,6 @@ namespace :album do
 
   desc "Queue processing of photos for a given album"
   task :queued_process, [:title] => :environment do |t, args|
-    ProcessPhotosWorker.perform_async(args.title)
+    ProcessAlbumWorker.perform_async(args.title)
   end
 end

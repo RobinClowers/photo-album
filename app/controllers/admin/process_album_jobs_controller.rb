@@ -3,7 +3,7 @@ class Admin::ProcessAlbumJobsController < Admin::ApplicationController
     if slug.blank?
       render nothing: true, status: :unprocessable_entity
     else
-      ProcessPhotosWorker.perform_async(slug)
+      ProcessAlbumWorker.perform_async(slug)
       head :created
     end
   end
