@@ -1,25 +1,33 @@
 class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def create
-    if Photo::VALID_VERSIONS.include?(version)
-      if album
-        if photo_filenames
-          reject_request and return unless album_contains_all_photos
-          ProcessPhotosWorker.perform_async(album, photo_filenames, [version])
-        else
-          process_album(album)
-        end
-      else
-        Album.pluck(:slug).each do |slug|
-          process_album(slug)
-        end
-      end
-      head :created
+    reject_request and return unless Photo::VALID_VERSIONS.include?(version)
+
+    if album
+      reject_request and return unless process_single_album
     else
-      reject_request
+      process_all_albums
     end
+
+    head :created
   end
 
   private
+
+  def process_single_album
+    if photo_filenames
+      return false unless album_contains_all_photos
+      ProcessPhotosWorker.perform_async(album, photo_filenames, [version])
+    else
+      process_album(album)
+    end
+    true
+  end
+
+  def process_all_albums
+    Album.pluck(:slug).each do |slug|
+      process_album(slug)
+    end
+  end
 
   def reject_request
     render nothing: true, status: :unprocessable_entity
