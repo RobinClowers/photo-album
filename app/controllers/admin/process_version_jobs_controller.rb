@@ -51,7 +51,7 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   end
 
   def photo_filenames
-    @photo_filenames ||= params[:photo_filenames].strip.split(",").map(&:strip)
+    @photo_filenames ||= (params[:photo_filenames] || "").strip.split(",").map(&:strip).presence
   end
 
   def force
