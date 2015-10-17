@@ -119,4 +119,4 @@ class @Overlay
     return unless @urlChanged
     baseUrl = $(document).find('[data-base-url]').data('base-url')
     return unless baseUrl
-    history.pushState({}, document.title, baseUrl)
+    history.replaceState({}, document.title, baseUrl)
