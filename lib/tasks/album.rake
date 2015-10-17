@@ -26,7 +26,7 @@ namespace :album do
   task :process, [:title] => :environment do |t, args|
     require 'process_photos'
 
-    ProcessPhotos.new(args.title).process
+    ProcessPhotos.new(args.title).process_album
   end
 
   desc "Queue processing of photos for a given album"
