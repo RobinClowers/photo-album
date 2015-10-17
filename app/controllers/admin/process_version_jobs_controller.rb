@@ -16,7 +16,7 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def process_single_album
     if photo_filenames
       return false unless album_contains_all_photos
-      ProcessPhotosWorker.perform_async(album, photo_filenames, [version])
+      ProcessPhotosWorker.perform_async(album, photo_filenames, [version], force)
     else
       process_album(album)
     end
