@@ -24,7 +24,7 @@ end
 # usage rake auto_orient['~/Pictures/Hawaii']
 desc "orients images based on their exif rotation data"
 task :auto_orient, :image_directory do |t, args|
-  require "album_processor"
+  require_relative "../../app/features/album/album_processor"
 
   args.with_defaults(:image_directory => '')
   processor = AlbumProcessor.new(args.image_directory)
