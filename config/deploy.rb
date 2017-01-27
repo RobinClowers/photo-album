@@ -11,7 +11,7 @@ set :sidekiq_utility_queue, :utility
 set :conditionally_migrate, true
 
 set :default_env, {
-  'PATH' => '/opt/rubies/ruby-2.2.2/bin:$PATH',
+  'PATH' => '/opt/rubies/ruby-2.3.3/bin:$PATH',
 }
 
 # Default branch is :master
