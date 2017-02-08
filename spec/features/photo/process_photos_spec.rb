@@ -28,7 +28,7 @@ describe ProcessPhotos do
 
     it "processes all photos" do
       expect(album_processor).to have_received(:process).once
-        .with(Pathname.new(filename), versions: Photo::VALID_VERSIONS)
+        .with(Pathname.new(filename), versions: Photo::VALID_VERSIONS_TO_PROCESS)
     end
 
     it "uploads all versions" do

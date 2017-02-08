@@ -19,6 +19,7 @@ describe AlbumProcessor do
   def mock_image
     stub_const("AlbumProcessor::VERSIONS", versions)
     stub_const("Photo::VALID_VERSIONS", versions.keys)
+    stub_const("Photo::VALID_VERSIONS_TO_PROCESS", versions.keys)
     allow(Magick::ImageList).to receive(:new) { image }
     allow(image).to receive(:resize_to_fit) { image }
     allow(image).to receive(:resize_to_fill) { image }

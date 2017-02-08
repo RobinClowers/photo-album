@@ -43,7 +43,7 @@ class AlbumProcessor
   end
 
   def versions_to_process(versions)
-    return Photo::VALID_VERSIONS - [:original] if versions == :all
+    return Photo::VALID_VERSIONS_TO_PROCESS if versions == :all
     versions
   end
 
