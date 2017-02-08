@@ -3,7 +3,8 @@ class Photo < ActiveRecord::Base
 
   default_scope -> { order(:filename) }
 
-  VALID_VERSIONS = [:web, :small, :thumbs]
+  VALID_VERSIONS = [:web, :small, :thumbs, :original]
+  VALID_VERSIONS_TO_PROCESS = VALID_VERSIONS - [:original]
   VALID_FILENAME_REGEX = /\.jpg|png\Z/i
 
   def has_version?(version)

@@ -3,6 +3,6 @@ class ProcessAlbumWorker
   sidekiq_options queue: :utility
 
   def perform(title, versions=:all)
-    ProcessPhotos.new(title).process_album(versions.map(&:to_sym))
+    ProcessPhotos.new(title).process_album(versions)
   end
 end
