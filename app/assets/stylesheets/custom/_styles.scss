@@ -3,7 +3,16 @@
 
 ul.album-thumbs {
   list-style-type: none;
-  width: 992px;
+  width: 248px;
+  @media (min-width: 600px) {
+    width: 496px;
+  }
+  @media (min-width: 800px) {
+    width: 744px;
+  }
+  @media (min-width: 1200px) {
+    width: 992px;
+  }
   margin: 0 auto;
   li {
     display: inline-block;
