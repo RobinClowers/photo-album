@@ -49,6 +49,11 @@ class Album < ActiveRecord::Base
   end
 
   def cover_photo_thumb_url
-    cover_photo.thumb_url if cover_photo
+    return unless cover_photo
+    if cover_photo.has_version?(:small)
+      cover_photo.small_url
+    else
+      cover_photo.thumb_url
+    end
   end
 end

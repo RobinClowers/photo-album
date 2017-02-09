@@ -3,26 +3,37 @@
 
 ul.album-thumbs {
   list-style-type: none;
+  width: 248px;
+  @media (min-width: 600px) {
+    width: 496px;
+  }
+  @media (min-width: 800px) {
+    width: 744px;
+  }
+  @media (min-width: 1200px) {
+    width: 992px;
+  }
+  margin: 0 auto;
   li {
     display: inline-block;
-    margin-right: 4px;
+    padding-right: 8px;
   }
 }
 
 .album-list {
   li {
-    width: 100px;
-    text-align: center;
     vertical-align: top;
     display: inline-block;
-    padding-right: 8px;
-    @media only screen and (min-width: 768px) {
-      padding-right: 55px;
-    }
+    width: 240px;
     a {
       text-decoration: none;
     }
   }
+}
+
+.album-title {
+  margin-bottom: 8px;
+  text-align: center;
 }
 
 .square-button {

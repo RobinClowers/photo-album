@@ -10,10 +10,10 @@
 
 .album-list
   article
-    ul
+    ul.album-thumbs
       - albums.each do |album|
         li
           a href=album_path(album)
             img src=album.cover_photo_thumb_url
-            p= album.title
+            p.album-title= album.title
 
