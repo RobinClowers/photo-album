@@ -77,7 +77,10 @@ class @Overlay
     return unless history && history.pushState && url
     return if url == location.pathname
     @urlChanged = true
-    history.pushState({}, document.title, url)
+    if url.indexOf(location.pathname) == 0
+      history.pushState({}, document.title, url)
+    else
+      history.replaceState({}, document.title, url)
 
   appendContent: ->
     @clear()
