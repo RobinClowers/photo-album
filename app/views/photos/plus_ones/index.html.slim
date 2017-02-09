@@ -1,6 +1,6 @@
 .margin-bottom data-replace-self-on-ajax-success=true
   - if plus_one.count > 0
-    span.pull-right.tooltip data-tooltip-position='left' title=plus_one.names
+    span.pull-right.tooltip style='margin-right: 28px' data-tooltip-position='left' title=plus_one.names
       | #{pluralize(plus_one.count, 'person')} +1'd this.
   = form_for plus_one, url: plus_one.form_url, remote: true, method: plus_one.form_method,
     html: { class: '' } do |f|
