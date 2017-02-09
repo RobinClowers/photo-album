@@ -3,6 +3,7 @@
 
 ul.album-thumbs {
   list-style-type: none;
+  text-align: center;
   li {
     display: inline-block;
     margin-right: 4px;
@@ -11,18 +12,21 @@ ul.album-thumbs {
 
 .album-list {
   li {
-    width: 100px;
     text-align: center;
     vertical-align: top;
     display: inline-block;
     padding-right: 8px;
     @media only screen and (min-width: 768px) {
-      padding-right: 55px;
+      padding-right: 24px;
     }
     a {
       text-decoration: none;
     }
   }
+}
+
+.album-title {
+  margin-bottom: 8px;
 }
 
 .square-button {
