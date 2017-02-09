@@ -3,10 +3,11 @@
 
 ul.album-thumbs {
   list-style-type: none;
-  width: 976px;
+  width: 992px;
   margin: 0 auto;
   li {
     display: inline-block;
+    padding-right: 8px;
   }
 }
 
@@ -15,8 +16,6 @@ ul.album-thumbs {
     vertical-align: top;
     display: inline-block;
     width: 240px;
-    @media only screen and (min-width: 768px) {
-    }
     a {
       text-decoration: none;
     }
