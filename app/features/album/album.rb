@@ -1,4 +1,4 @@
-class Album < ActiveRecord::Base
+class Album < ApplicationRecord
   has_many :photos, inverse_of: :album
   belongs_to :cover_photo, class_name: 'Photo'
 

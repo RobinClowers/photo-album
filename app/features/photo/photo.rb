@@ -1,4 +1,4 @@
-class Photo < ActiveRecord::Base
+class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos
 
   default_scope -> { order(:filename) }
