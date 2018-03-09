@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.4'
+gem 'rails', '~> 4.2.10'
 
 # Use postgres as the database for Active Record
 gem 'pg'
@@ -35,7 +35,7 @@ gem 'sinatra', require: false # for sidekiq
 gem 'exception_notification'
 
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 3.7.1'
   gem 'pry'
   gem 'pry-byebug'
   gem 'better_errors'
