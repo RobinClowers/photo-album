@@ -1,5 +1,5 @@
-# config valid only for Capistrano 3.4
-lock '3.4.0'
+# config valid only for Capistrano 3.10.1
+lock '3.10.1'
 
 set :application, 'photo-album'
 set :repo_url, 'git@github.com:RobinClowers/photo-album.git'
@@ -19,9 +19,6 @@ ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/srv/photo_album'
-
-# Default value for :scm is :git
-# set :scm, :git
 
 # Default value for :format is :pretty
 # set :format, :pretty

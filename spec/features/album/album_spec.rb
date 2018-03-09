@@ -6,7 +6,7 @@ describe Album do
 
     it "generates a slug before saving" do
       Album.create!(title: 'Test Album', cover_photo: photo, photos: [photo])
-      Album.last.slug.should eq 'test-album'
+      expect(Album.last.slug).to eq 'test-album'
     end
 
     it "with a duplicate slug raises" do

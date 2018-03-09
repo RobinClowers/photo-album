@@ -11,5 +11,5 @@ capybara-*.html
 /public/system/*
 /coverage/
 /spec/tmp/*
-**.orig
+*.orig
 /public/photos

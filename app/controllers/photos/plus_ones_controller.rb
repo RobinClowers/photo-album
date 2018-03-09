@@ -1,5 +1,5 @@
 class Photos::PlusOnesController < ApplicationController
-  before_filter :require_signed_in, except: :index
+  before_action :require_signed_in, except: :index
   layout false
 
   expose(:plus_one) { PlusOneForm.new(params.merge(current_user: current_user, router: self)) }

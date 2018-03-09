@@ -1,5 +1,5 @@
 class Photos::CommentsController < ApplicationController
-  before_filter :require_signed_in, except: :index
+  before_action :require_signed_in, except: :index
   layout false
 
   expose(:comment) { Comment.new }
