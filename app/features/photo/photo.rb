@@ -1,5 +1,5 @@
 class Photo < ApplicationRecord
-  belongs_to :album, inverse_of: :photos
+  belongs_to :album, inverse_of: :photos, optional: true
 
   default_scope -> { order(:filename) }
 
