@@ -50,7 +50,7 @@ end
 gem 'bcrypt-ruby', '~> 3.1.1'
 
 # Use Omiauth for social sign in
-gem 'omniauth', '~>1.2.2'
+gem 'omniauth', '~> 1.8.1'
 gem 'omniauth-facebook', '~> 4.0.0'
 
 # Use Capistrano for deployment
