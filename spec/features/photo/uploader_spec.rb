@@ -23,7 +23,7 @@ describe Uploader do
     it "raises for invalid types" do
       expect {
         uploader.upload(path, filename, :foo)
-      }.to raise_error
+      }.to raise_error 'invalid type'
     end
   end
 
@@ -42,8 +42,8 @@ describe Uploader do
 
     it "raises for invalid types" do
       expect {
-        uploader.upload_all(:foo)
-      }.to raise_error
+        uploader.upload_all(path, :foo)
+      }.to raise_error 'invalid type'
     end
   end
 end
