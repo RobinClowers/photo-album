@@ -3,7 +3,7 @@ module ApplicationHelper
     if offline_dev?
       '/assets/PT+Serif.css'
     else
-      'http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic'
+      '//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic'
     end
   end
 
@@ -11,7 +11,7 @@ module ApplicationHelper
     if offline_dev?
       '/assets/PT+Sans.css'
     else
-      'http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic'
+      '//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic'
     end
   end
 
@@ -19,7 +19,7 @@ module ApplicationHelper
     if offline_dev?
        javascript_include_tag "jquery"
     else
-      javascript_include_tag 'http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js'
+      javascript_include_tag '//ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js'
     end
   end
 
@@ -30,7 +30,7 @@ module ApplicationHelper
           var twitterWidgets = document.createElement('script');
           twitterWidgets.type = 'text/javascript';
           twitterWidgets.async = true;
-          twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+          twitterWidgets.src = '//platform.twitter.com/widgets.js';
           document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
         })();
       JAVASCRIPT
