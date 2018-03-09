@@ -3,35 +3,35 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 4.2.10'
+gem 'rails', '~> 5.1.5'
 
 # Use postgres as the database for Active Record
-gem 'pg'
+gem 'pg', '~> 1.0.0'
 
 # Use slim for templates
-gem 'slim-rails'
+gem 'slim-rails', '~> 3.1.3'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.2.2'
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3.1'
 
-gem 'sass-rails', '~> 4.0.3'
-gem 'compass-rails'
-gem 'decent_exposure'
+gem 'sass-rails', '~> 5.0.7'
+gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git'
+gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
 gem 'stringex'
-gem 'modernizr-rails'
-gem 'dotenv', '~> 0.11.1'
-gem 'dotenv-rails'
-gem 'dotenv-deployment'
+gem 'modernizr-rails', '~> 2.7.1'
+gem 'dotenv', '~> 1.0.2'
+gem 'dotenv-rails', '~> 1.0.2'
+gem 'dotenv-deployment', '~> 0.3.0'
 gem 'aws-sdk'
 gem 'sidekiq'
-gem 'sinatra', require: false # for sidekiq
+gem 'sinatra', '~> 2.0.1', require: false # for sidekiq
 gem 'exception_notification'
 
 group :development, :test do
@@ -61,4 +61,4 @@ gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role'
 
 # Use Puma server
-gem 'puma', '~> 2.8.1'
+gem 'puma', '~> 3.11.3'
