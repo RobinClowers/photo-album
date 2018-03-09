@@ -27,9 +27,9 @@
               data-alt=image.alt
             ]
               a href=image.url
-              - if image.has_version?(:small)
-                img.small src=image.small_url alt=image.alt
-              - else
-                img.thumb src=image.thumb_url alt=image.alt
+                - if image.has_version?(:small)
+                  img.small src=image.small_url alt=image.alt
+                - else
+                  img.thumb src=image.thumb_url alt=image.alt
 
 input type='hidden' id='authenticity_token' value= form_authenticity_token
