@@ -31,5 +31,11 @@ module PhotoAlbum
     }
 
     Slim::Engine.options[:pretty] = false
+
+    # Load defaults from config/*.env in config
+    Dotenv.load *Dir.glob(Rails.root.join("*.env"), File::FNM_DOTMATCH)
+
+    # Override any existing variables if an environment-specific file exists
+    Dotenv.overload *Dir.glob(Rails.root.join(".env.#{Rails.env}"), File::FNM_DOTMATCH)
   end
 end
