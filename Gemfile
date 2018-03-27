@@ -4,6 +4,8 @@ ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.5'
+# fix security vulnerabilty: https://github.com/rails/rails-html-sanitizer/commit/f3ba1a839a35f2ba7f941c15e239a1cb379d56ae
+gem 'rails-html-sanitizer', '~> 1.0.4'
 
 # Use postgres as the database for Active Record
 gem 'pg', '~> 1.0.0'
