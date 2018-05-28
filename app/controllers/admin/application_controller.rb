@@ -12,4 +12,8 @@ class Admin::ApplicationController < ApplicationController
       redirect_to root_path
     end
   end
+
+  def google_access_token_hash
+    session[:google_access_token_hash]
+  end
 end

@@ -32,4 +32,8 @@ class ApplicationController < ActionController::Base
     return if request.path =~ /auth\/\w*\/callback/
     session[:return_url] = request.path
   end
+
+  def return_path
+    session[:return_url] || root_path
+  end
 end

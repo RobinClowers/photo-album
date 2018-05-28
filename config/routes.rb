@@ -22,6 +22,11 @@ Rails.application.routes.draw do
     resources :process_version_jobs, only: [:create]
     resources :publish_album_jobs, only: [:create]
     resources :photos, only: [:edit, :update]
+    resources :google_photos_albums, only: [:index]
+
+    # Google Photos oauth
+    get "/google_photos_authorizations/new" => "google_photos_authorizations#new"
+    get "/google_photos_authorizations/callback" => "google_photos_authorizations#create"
   end
 
   mount Sidekiq::Web, at: "/sidekiq", constraints: AdminConstraint.new

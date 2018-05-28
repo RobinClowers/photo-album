@@ -33,6 +33,8 @@ gem 'aws-sdk'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.1', require: false # for sidekiq
 gem 'exception_notification'
+gem 'http', '~> 3.3.0'
+gem 'oauth2', '~> 1.4.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
