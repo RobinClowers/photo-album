@@ -1,0 +1,14 @@
+- content_for :title do
+  | Robin's Photos - Google Photos Albums
+
+.admin
+  article role="article"
+    header
+      h1 Google Photos Albums
+
+    section
+      - albums["albums"].each do |album|
+        ul.album-list
+          li
+            img src=album["coverPhotoBaseUrl"]
+            h3= album["title"]

@@ -5,7 +5,7 @@ class GoogleImporter
     response = HTTP
       .auth(auth_header(token_hash))
       .get("https://photoslibrary.googleapis.com/v1/albums")
-    response.body.to_s
+    JSON.parse(response.body.to_s)
   end
 
   private
