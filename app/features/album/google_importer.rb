@@ -5,7 +5,11 @@ class GoogleImporter
     response = HTTP
       .auth(auth_header(token_hash))
       .get("https://photoslibrary.googleapis.com/v1/albums")
-    JSON.parse(response.body.to_s)
+    if response.status == 401
+      raise GoogleAuthenticationError.new("Failed to fetch albums", response)
+    else
+      JSON.parse(response.body.to_s)["albums"]
+    end
   end
 
   private

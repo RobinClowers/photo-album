@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     resources :google_photos_albums, only: [:index]
 
     # Google Photos oauth
-    get "/google_photos_authorizations/new" => "google_photos_authorizations#new"
+    get "/google_photos_authorizations/new" => "google_photos_authorizations#new", as: :new_google_photos_authorization
     get "/google_photos_authorizations/callback" => "google_photos_authorizations#create"
   end
 
