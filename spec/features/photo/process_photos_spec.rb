@@ -5,9 +5,9 @@ describe ProcessPhotos do
   let(:uploader) { double(:uploader, upload: nil) }
   let(:album_processor) { double(:album_processor) }
   let(:filename) { "P1120375.JPG" }
-  let(:title) { "Album" }
-  let(:tmp_dir) { "tmp/photo_processing/#{title}" }
-  subject(:processor) { ProcessPhotos.new(title) }
+  let(:slug) { "test-album" }
+  let(:tmp_dir) { "tmp/photo_processing/#{slug}" }
+  subject(:processor) { ProcessPhotos.new(slug) }
 
   before do
     allow(AlbumPhotos).to receive(:new) { album_photos }

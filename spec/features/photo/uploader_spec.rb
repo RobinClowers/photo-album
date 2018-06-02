@@ -5,12 +5,12 @@ describe Uploader do
   let(:full_path) { File.expand_path(path) }
   let(:filename) { "P1120375.JPG" }
   let(:filepath) { File.join(path, filename) }
-  let(:title) { "New Album" }
+  let(:slug) { AlbumSlug.new("new-album") }
   let(:album_photos) { double(:album_photos, keys: [], create: nil) }
-  subject(:uploader) { Uploader.new(title) }
+  subject(:uploader) { Uploader.new(slug) }
 
   before do
-    allow(AlbumPhotos).to receive(:new).with(title) { album_photos }
+    allow(AlbumPhotos).to receive(:new).with(slug) { album_photos }
   end
 
   describe "#upload" do

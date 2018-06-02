@@ -1,8 +1,8 @@
 class AlbumPhotos
-  attr_accessor :title
+  attr_accessor :slug
 
-  def initialize(title)
-    @title = title
+  def initialize(slug)
+    @slug = slug
   end
 
   def original
@@ -79,7 +79,7 @@ class AlbumPhotos
   end
 
   def prefix(type)
-    [title.to_url, subfolder(type)].compact.join('/')
+    [slug, subfolder(type)].compact.join('/')
   end
 
   def subfolder(type)

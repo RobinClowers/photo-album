@@ -4,10 +4,10 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
-  attr_accessor :title
+  attr_accessor :slug
 
-  def initialize(title)
-    @title = title
+  def initialize(slug)
+    @slug = AlbumSlug.new(slug)
     @paths = {}
   end
 
@@ -26,7 +26,7 @@ class ProcessPhotos
       processor.process(Pathname.new(filename).basename, versions: versions)
       versions.each do |version|
         uploader.upload(path_for(version), filename, version)
-        AppendPhotoVersionWorker.perform_async(title.to_url, filename, version)
+        AppendPhotoVersionWorker.perform_async(slug, filename, version)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end
@@ -51,11 +51,11 @@ class ProcessPhotos
   end
 
   def tmp_dir
-    @tmp_dir ||= "tmp/photo_processing/#{title}"
+    @tmp_dir ||= "tmp/photo_processing/#{slug}"
   end
 
   def album_photos
-    @album_photos ||= AlbumPhotos.new(title)
+    @album_photos ||= AlbumPhotos.new(slug)
   end
 
   def processor
@@ -63,6 +63,6 @@ class ProcessPhotos
   end
 
   def uploader
-    @uploader ||= Uploader.new(title)
+    @uploader ||= Uploader.new(slug)
   end
 end

@@ -1,11 +1,11 @@
 require 'album_photos'
 
 class AlbumCreator
-  attr_reader :title, :prefix
+  attr_reader :title, :slug
 
   def initialize(title)
     @title = title
-    @prefix = title.to_url
+    @slug = AlbumSlug.new(title)
   end
 
   def insert_all_photos
@@ -19,7 +19,7 @@ class AlbumCreator
 
   def insert_photo(filename)
     versions = versions_for(filename)
-    Photo.create!(path: prefix, filename: filename, album: album, versions: versions)
+    Photo.create!(path: slug, filename: filename, album: album, versions: versions)
   rescue ActiveRecord::RecordNotUnique
   end
 
@@ -39,7 +39,7 @@ class AlbumCreator
 
   def photos
     @photos ||= Rails.application.config.offline_dev ?
-      LocalAlbumPhotos.new(prefix) : AlbumPhotos.new(prefix)
+      LocalAlbumPhotos.new(slug) : AlbumPhotos.new(slug)
   end
 
   def valid_keys

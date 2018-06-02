@@ -1,8 +1,8 @@
 require 'album_photos'
 
 class Uploader
-  def initialize(title)
-    @title = title
+  def initialize(slug)
+    @slug = AlbumSlug.new(slug)
   end
 
   def upload(base_path, name, type=:web)
@@ -43,7 +43,7 @@ class Uploader
   end
 
   def photos
-    @photos ||= AlbumPhotos.new(@title)
+    @photos ||= AlbumPhotos.new(@slug)
   end
 
   def valid_images(path)
