@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     resources :process_version_jobs, only: [:create]
     resources :publish_album_jobs, only: [:create]
     resources :photos, only: [:edit, :update]
-    resources :google_photos_albums, only: [:index]
+    resources :google_photos_albums, only: [:index, :create]
 
     # Google Photos oauth
     get "/google_photos_authorizations/new" => "google_photos_authorizations#new", as: :new_google_photos_authorization

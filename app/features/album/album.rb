@@ -9,6 +9,8 @@ class Album < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
+  attr_accessor :google_id
+
   def self.new_from_slug(slug)
     slug = ::AlbumSlug.new(slug)
     new(slug: slug.to_s, title: slug.to_title)
