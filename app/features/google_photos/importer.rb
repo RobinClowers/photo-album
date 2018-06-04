@@ -1,0 +1,2 @@
+class GooglePhotos::Importer
+end

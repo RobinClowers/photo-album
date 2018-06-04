@@ -7,7 +7,7 @@
       h1 Google Photos Albums
 
     section
-      - albums["albums"].each do |album|
+      - albums.each do |album|
         ul.album-list
           li
             img src=album["coverPhotoBaseUrl"]
