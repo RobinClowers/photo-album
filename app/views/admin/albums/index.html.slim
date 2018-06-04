@@ -16,7 +16,7 @@
         - unpublished_albums.each do |album|
           .album
             = album.title
-            ul.album-actions
+            ul.plain-list
               li= link_to 'Publish',
                   admin_publish_album_jobs_path(slug: album.slug),
                   method: :post,
@@ -25,7 +25,7 @@
         - potential_albums.each do |slug|
           .album
             = slug
-            ul.album-actions
+            ul.plain-list
               li= link_to 'Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
@@ -33,7 +33,8 @@
               li= link_to('Create', new_admin_album_path(slug: slug))
       .album
         h2 Other Actions
-        ul.album-actions
+        ul.plain-list
+          li= link_to "Import Google Albums", admin_google_photos_albums_path
           li= link_to 'Trigger an error', admin_test_error_path
           li
             = form_tag admin_process_album_jobs_path,
