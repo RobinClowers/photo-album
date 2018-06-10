@@ -6,9 +6,8 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
 
   def create
     if google_id
-      google_importer = GooglePhotos::Importer.new
-      google_importer.import(google_access_token_hash, google_id)
-      redirect_to admin_root_path, notice: "Album imported successfully"
+      ImportGoogleAlbumWorker.perform_async(google_access_token_hash, google_id)
+      redirect_to admin_root_path, notice: "Album imported queued"
     else
       redirect_to admin_google_photos_albums_path, notice: "missing google album ID"
     end
