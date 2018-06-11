@@ -31,7 +31,7 @@ gem 'modernizr-rails', '~> 2.7.1'
 gem 'dotenv-rails', '~> 2.2.1'
 gem 'aws-sdk'
 gem 'sidekiq'
-gem 'sinatra', '~> 2.0.1', require: false # for sidekiq
+gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
 gem 'exception_notification'
 gem 'http', '~> 3.3.0'
 gem 'oauth2', '~> 1.4.0'
