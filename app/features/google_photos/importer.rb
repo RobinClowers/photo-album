@@ -8,6 +8,7 @@ class GooglePhotos::Importer
     uploader = ::Uploader.new(slug)
     tmp_dir = processor.tmp_dir
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
+    Album.find_or_create_by!(title: album["title"], slug: slug.to_s)
 
     items.each do |item|
       filename = "#{item["id"]}.jpg"
