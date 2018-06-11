@@ -33,6 +33,8 @@ gem 'aws-sdk'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.1', require: false # for sidekiq
 gem 'exception_notification'
+gem 'http', '~> 3.3.0'
+gem 'oauth2', '~> 1.4.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
@@ -59,7 +61,7 @@ gem 'capistrano', '~> 3.10.1'
 gem 'capistrano3-puma', '~> 3.1.1'
 gem 'capistrano-bundler', '~> 1.3.0'
 gem 'capistrano-rails', '~> 1.3.1'
-gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role'
+gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role-v1.0.2'
 
 # Use Puma server
 gem 'puma', '~> 3.11.3'

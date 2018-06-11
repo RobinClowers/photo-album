@@ -9,13 +9,15 @@ class Album < ApplicationRecord
 
   default_scope -> { order(created_at: :desc) }
 
+  attr_accessor :google_id
+
   def self.new_from_slug(slug)
-    title = slug.titleize.gsub('And', '&')
-    new(slug: slug, title: title)
+    slug = ::AlbumSlug.new(slug)
+    new(slug: slug.to_s, title: slug.to_title)
   end
 
   def generate_slug
-    self.slug = title.to_url
+    self.slug = ::AlbumSlug.new(title) unless self.slug
   end
 
   def to_param

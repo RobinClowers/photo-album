@@ -3,8 +3,8 @@ namespace :album do
   task :upload, [:path] => :environment do |t, args|
     require 'uploader'
 
-    title = Pathname.new(args.path).basename.to_s.to_url
-    Uploader.new(title).upload_all(args.path, :original)
+    slug = AlbumSlug.new(Pathname.new(args.path).basename.to_s)
+    Uploader.new(slug).upload_all(args.path, :original)
   end
 
   desc "Create an album from photos on s3"

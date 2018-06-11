@@ -1,0 +1,17 @@
+- content_for :title do
+  | Robin's Photos - Google Photos Albums
+
+.admin
+  article role="article"
+    header
+      h1 Google Photos Albums
+
+    section
+      - albums.each do |album|
+        ul.album-list
+          li
+            img src=album["coverPhotoBaseUrl"]
+            h3= album["title"]
+            = form_for new_album, url: admin_google_photos_albums_path do |f|
+              = f.hidden_field :id, value: album["id"]
+              = f.submit("Import")

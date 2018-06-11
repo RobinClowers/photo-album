@@ -1,6 +1,6 @@
 class LocalAlbumPhotos < AlbumPhotos
-  def initialize(title)
-    super(title)
+  def initialize(slug)
+    super(slug)
   end
 
   def leaf_nodes(type)

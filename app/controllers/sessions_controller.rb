@@ -25,8 +25,4 @@ class SessionsController < ApplicationController
   def existing_user
     @user ||= User.where(provider: auth["provider"], uid: auth["uid"]).first
   end
-
-  def return_path
-    session[:return_url] || root_path
-  end
 end
