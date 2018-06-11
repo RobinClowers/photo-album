@@ -14,6 +14,7 @@ class GooglePhotos::Importer
       full_path = File.join(tmp_dir, filename)
       download_item(item, full_path) unless File.exists?(full_path)
       uploader.upload(tmp_dir, filename, :original)
+      create_photo(item, slug)
     end
     processor.process_album
     FileUtils.rm_rf(tmp_dir)
@@ -33,7 +34,24 @@ class GooglePhotos::Importer
     else
       raise "Error downloading image, #{response.body}"
     end
+  end
 
+  def create_photo(media_item, slug)
+    data = media_item["mediaMetadata"]
+    CreatePhotoWorker.perform_async({
+      "filename" => media_item["id"],
+      "path" => slug,
+      "mime" => media_item["mimeType"],
+      "google_id" => media_item["id"],
+      "taken_at" => data["creationTime"],
+      "width" => data["width"],
+      "height" => data["height"],
+      "camera_make" => data["cameraMake"],
+      "camera_model" => data["cameraModel"],
+      "focal_length" => data["focalLength"],
+      "aperture_f_number" => data["apertureFNumber"],
+      "iso_equivalent" => data["isoEquivalent"]
+    })
   end
 
   def api
