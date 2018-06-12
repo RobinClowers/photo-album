@@ -11,11 +11,15 @@ class ProcessPhotos
     @paths = {}
   end
 
-  def process_album(versions = :all)
+  def process_album(versions = :all, force: false)
     versions = versions_to_process(versions)
     original = album_photos.original
-    to_process = original - processed(versions)
-    process_images(to_process, versions)
+    if force
+      process_images(original, versions, force: force)
+    else
+      to_process = original - processed(versions)
+      process_images(to_process, versions, force: force)
+    end
   end
 
   def process_images(images, versions = :all, force: false)
@@ -25,7 +29,7 @@ class ProcessPhotos
       album_photos.download_original(filename, tmp_dir)
       processor.process(Pathname.new(filename).basename, versions: versions)
       versions.each do |version|
-        uploader.upload(path_for(version), filename, version)
+        uploader.upload(path_for(version), filename, version, overwrite: force)
         AppendPhotoVersionWorker.perform_async(slug, filename, version)
       end
       FileUtils.rm(File.join(tmp_dir, filename))

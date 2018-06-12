@@ -21,10 +21,19 @@ class AlbumPhotos
     leaf_nodes(type).map { |pathname| pathname.basename.to_s }
   end
 
-  def create(name, image_path, type: :web)
+  def create(name, image_path, type: :web, overwrite: false)
     raise 'invalid type' unless (Photo::VALID_VERSIONS + [:original]).include? type.to_sym
     key_to_create = key(type, name)
-    puts "creating #{key_to_create} from #{image_path}"
+    if bucket.objects[key_to_create].exists?
+      if overwrite
+        puts "overwriting #{key_to_create}"
+      else
+        puts "object already exists at #{key_to_create}"
+        return
+      end
+    else
+      puts "creating #{key_to_create}"
+    end
     bucket.objects.create(key_to_create, file: image_path)
   rescue Errno::EPIPE
     puts "Broken pipe, retrying..."

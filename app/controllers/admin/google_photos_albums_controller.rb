@@ -6,7 +6,7 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
 
   def create
     if google_id
-      ImportGoogleAlbumWorker.perform_async(google_access_token_hash, google_id)
+      ImportGoogleAlbumWorker.perform_async(google_access_token_hash, google_id, force)
       redirect_to admin_root_path, notice: "Album imported queued"
     else
       redirect_to admin_google_photos_albums_path, notice: "missing google album ID"
@@ -17,5 +17,9 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
 
   def google_id
     @google_id ||= params.require(:album)[:id]
+  end
+
+  def force
+    !!params["force"]
   end
 end

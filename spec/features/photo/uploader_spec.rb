@@ -17,7 +17,13 @@ describe Uploader do
     it "uploads the file" do
       uploader.upload(path, filename, :web)
       expect(album_photos).to have_received(:create)
-        .with(filename, File.join(full_path, filename), type: :web)
+        .with(filename, File.join(full_path, filename), type: :web, overwrite: false)
+    end
+
+    it "passes down the overwrite flag" do
+      uploader.upload(path, filename, :web, overwrite: true)
+      expect(album_photos).to have_received(:create)
+        .with(filename, File.join(full_path, filename), type: :web, overwrite: true)
     end
 
     it "raises for invalid types" do
@@ -31,13 +37,25 @@ describe Uploader do
     it "uploads all files" do
       uploader.upload_all(path, :web)
       expect(album_photos).to have_received(:create).once
-        .with(filename, File.join(full_path, filename), type: :web)
+        .with(filename, File.join(full_path, filename), type: :web, overwrite: false)
+    end
+
+    it "passes down the overwrite flag" do
+      uploader.upload_all(path, :web, overwrite: true)
+      expect(album_photos).to have_received(:create).once
+        .with(filename, File.join(full_path, filename), type: :web, overwrite: true)
     end
 
     it "skips existing_photos" do
       allow(album_photos).to receive(:keys).with(:web) { [filename] }
       uploader.upload_all(path, :web)
       expect(album_photos).not_to have_received(:create)
+    end
+
+    it "doesn't skip existing_photos when overwrite is true" do
+      allow(album_photos).to receive(:keys).with(:web) { [filename] }
+      uploader.upload_all(path, :web, overwrite: true)
+      expect(album_photos).to have_received(:create)
     end
 
     it "raises for invalid types" do
