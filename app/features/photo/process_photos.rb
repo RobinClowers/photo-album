@@ -24,15 +24,16 @@ class ProcessPhotos
 
   def process_images(images, versions = :all, force: false)
     versions = versions_to_process(versions)
-    images.each do |filename|
-      puts "processing #{filename}"
-      album_photos.download_original(filename, tmp_dir)
-      processor.process(Pathname.new(filename).basename, versions: versions)
+    images.each do |path|
+      puts "processing #{path}"
+      album_photos.download_original(path, tmp_dir)
+      filename = Pathname.new(path).basename
+      processor.process(filename, versions: versions, force: force)
       versions.each do |version|
-        uploader.upload(path_for(version), filename, version, overwrite: force)
-        AppendPhotoVersionWorker.perform_async(slug, filename, version)
+        uploader.upload(path_for(version), path, version, overwrite: force)
+        AppendPhotoVersionWorker.perform_async(slug, path, version)
       end
-      FileUtils.rm(File.join(tmp_dir, filename))
+      FileUtils.rm(File.join(tmp_dir, path))
     end
     FileUtils.rm_rf(tmp_dir)
   end

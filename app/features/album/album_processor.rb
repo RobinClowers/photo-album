@@ -73,10 +73,11 @@ class AlbumProcessor
     raise "No #{version.to_s} version configured" unless VERSIONS[version]
     resized_image = VERSIONS[version].call(image)
     puts "writing #{version} version for #{image.filename}"
-    if resized_image.mime_type == "image/jpeg"
-      resized_image.interlace = RMagick::JPEGInterlace
+    resized_image.write(path) do |i|
+      if resized_image.mime_type == "image/jpeg"
+        i.interlace = ::Magick::PlaneInterlace
+      end
     end
-    resized_image.write(path)
   end
 
   def guard_dir(name)
