@@ -10,3 +10,8 @@ end
 Sidekiq.configure_client do |config|
   config.redis = redis_config
 end
+
+if Rails.env.test?
+  require "sidekiq/testing"
+  Sidekiq::Testing.fake!
+end

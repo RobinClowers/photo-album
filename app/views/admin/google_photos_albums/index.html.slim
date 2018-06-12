@@ -14,4 +14,8 @@
             h3= album["title"]
             = form_for new_album, url: admin_google_photos_albums_path do |f|
               = f.hidden_field :id, value: album["id"]
-              = f.submit("Import")
+              ol
+                li
+                  = check_box_tag :force, "1"
+                  = label_tag :force, "Force"
+                li= f.submit("Import")

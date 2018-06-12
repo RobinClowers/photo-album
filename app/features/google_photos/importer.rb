@@ -1,5 +1,5 @@
 class GooglePhotos::Importer
-  def import(token_hash, google_album_id)
+  def import(token_hash, google_album_id, force: false)
     album = api.get_album(token_hash, google_album_id)
     items = api.search_media_items(token_hash, {album_id: google_album_id})
 
@@ -14,10 +14,10 @@ class GooglePhotos::Importer
       filename = "#{item["id"]}.jpg"
       full_path = File.join(tmp_dir, filename)
       download_item(item, full_path) unless File.exists?(full_path)
-      uploader.upload(tmp_dir, filename, :original)
+      uploader.upload(tmp_dir, filename, :original, overwrite: force)
       create_photo(item, album, filename)
     end
-    processor.process_album
+    processor.process_album(force: force)
     FileUtils.rm_rf(tmp_dir)
   end
 

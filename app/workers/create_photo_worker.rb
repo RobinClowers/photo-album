@@ -3,6 +3,9 @@ class CreatePhotoWorker
   sidekiq_options queue: :web
 
   def perform(args = {})
+    if Photo.where(filename: args.fetch("filename")).first
+      Rails.logger.info("Photo #{args.fetch("filename")} exists") && return
+    end
     Photo.create!(
       filename: args.fetch("filename"),
       path: args.fetch("path"),
