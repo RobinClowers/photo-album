@@ -1,7 +1,7 @@
 module ApplicationHelper
   def pt_serif_url
     if offline_dev?
-      '/assets/PT+Serif.css'
+      '/assets/PT-Serif.css'
     else
       '//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic'
     end
@@ -9,7 +9,7 @@ module ApplicationHelper
 
   def pt_sans_url
     if offline_dev?
-      '/assets/PT+Sans.css'
+      '/assets/PT-Sans.css'
     else
       '//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic'
     end
