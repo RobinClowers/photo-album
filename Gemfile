@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2.1'
 # fix security vulnerabilty: https://github.com/rails/rails-html-sanitizer/commit/f3ba1a839a35f2ba7f941c15e239a1cb379d56ae
 gem 'rails-html-sanitizer', '~> 1.0.4'
 
@@ -28,7 +28,7 @@ gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
 gem 'stringex'
 gem 'modernizr-rails', '~> 2.7.1'
-gem 'dotenv-rails', '~> 2.2.1'
+gem 'dotenv-rails', '~> 2.5.0'
 gem 'aws-sdk'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
@@ -51,6 +51,9 @@ end
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.1'
+
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.3.2', require: false
 
 # Use Omiauth for social sign in
 gem 'omniauth', '~> 1.8.1'
