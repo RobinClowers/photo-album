@@ -52,6 +52,9 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.1'
 
+# Reduces boot times through caching; required in config/boot.rb
+gem 'bootsnap', '>= 1.3.2', require: false
+
 # Use Omiauth for social sign in
 gem 'omniauth', '~> 1.8.1'
 gem 'omniauth-facebook', '~> 4.0.0'
