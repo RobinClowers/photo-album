@@ -23,20 +23,6 @@ module ApplicationHelper
     end
   end
 
-  def twitter_script
-    unless offline_dev?
-      <<-JAVASCRIPT
-        (function(){
-          var twitterWidgets = document.createElement('script');
-          twitterWidgets.type = 'text/javascript';
-          twitterWidgets.async = true;
-          twitterWidgets.src = '//platform.twitter.com/widgets.js';
-          document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
-        })();
-      JAVASCRIPT
-    end
-  end
-
   def offline_dev?
     Rails.application.config.offline_dev
   end

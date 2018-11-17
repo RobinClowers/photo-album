@@ -77,7 +77,6 @@ html
     .center
     == jquery_url
     == javascript_include_tag "application"
-    = twitter_script
     javascript:
       window.signed_in = #{current_user.signed_in?}
       window.admin = #{current_user.admin?}
