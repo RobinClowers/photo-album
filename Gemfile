@@ -7,6 +7,7 @@ gem 'rails', '~> 5.2.1'
 # fix security vulnerabilty: https://github.com/rails/rails-html-sanitizer/commit/f3ba1a839a35f2ba7f941c15e239a1cb379d56ae
 gem 'rails-html-sanitizer', '~> 1.0.4'
 gem 'responders', '~> 2.4.0'
+gem 'rack-cors', '~> 1.0.2'
 
 # Use postgres as the database for Active Record
 gem 'pg', '~> 1.0.0'
