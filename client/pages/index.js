@@ -1,4 +1,7 @@
 import fetch from 'isomorphic-unfetch'
+import Layout from 'components/Layout'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
 
 export default class extends React.Component {
   static async getInitialProps({ req }) {
@@ -15,8 +18,10 @@ export default class extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Robin's Photos 2.0</h1>
+      <Layout>
+        <Typography variant="h1">
+          Robin's Photos 2.0
+        </Typography>
         <ul className="album-list">
           {this.props.albums.map(album => (
             <li className="album">
@@ -25,7 +30,7 @@ export default class extends React.Component {
             </li>
           ))}
         </ul>
-      </div>
+      </Layout>
     )
   }
 }
