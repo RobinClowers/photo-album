@@ -21,14 +21,7 @@ export default class extends React.Component {
         <Typography variant="h1">
           Robin's Photos 2.0
         </Typography>
-        <ul className="album-list">
-          {this.props.albums.map(album => (
-            <li className="album">
-              <h3>{album.title}</h3>
-              <img src={album.cover_photo_thumb_url} />
-            </li>
-          ))}
-        </ul>
+        <AlbumGrid albums={this.props.albums} />
       </Layout>
     )
   }
