@@ -18,7 +18,7 @@ export default class extends React.Component {
   render() {
     return (
       <Layout>
-        <Typography variant="h1">
+        <Typography variant="display3">
           Robin's Photos 2.0
         </Typography>
         <AlbumGrid albums={this.props.albums} />

@@ -5,6 +5,9 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  },
   palette: {
     primary: {
       main: '#3949ab',
