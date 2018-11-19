@@ -10,6 +10,9 @@ class Album < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   attr_accessor :google_id
+  attribute :cover_photo_insecure_url, :string
+  attribute :cover_photo_secure_url, :string
+  attribute :cover_photo_thumb_url, :string
 
   def self.new_from_slug(slug)
     slug = ::AlbumSlug.new(slug)
