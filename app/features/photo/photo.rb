@@ -37,7 +37,7 @@ class Photo < ApplicationRecord
   end
 
   def secure_url
-    File.join(protocol(secure: true), base_path(secure: true), path, filename)
+    File.join(protocol(secure: true), base_path, path, filename)
   end
 
   def protocol(secure: false)
