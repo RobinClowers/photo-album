@@ -7,7 +7,7 @@ class AlbumsController < ApplicationController
   expose(:images) { album.photos.to_a }
 
   def index
-    respond_with albums
+    respond_with albums.as_json(include: :cover_photo)
   end
 
   def show

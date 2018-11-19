@@ -1,6 +1,8 @@
 class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
 
+  attribute :url
+
   default_scope -> { order(:filename) }
 
   VALID_VERSIONS = [:web, :small, :thumbs, :original]
