@@ -2,7 +2,7 @@ import Head from 'next/head'
 import { createMuiTheme } from '@material-ui/core/styles';
 import orange from '@material-ui/core/colors/orange';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import AppBar from 'components/AppBar'
 
 const theme = createMuiTheme({
   typography: {
@@ -27,6 +27,7 @@ const Layout = ({children}) => (
       />
     </Head>
     <CssBaseline />
+      <AppBar />
       {children}
     <CssBaseline />
   </React.Fragment>
