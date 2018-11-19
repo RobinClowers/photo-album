@@ -4,15 +4,15 @@ import Typography from '@material-ui/core/Typography'
 import AlbumGrid from 'components/AlbumGrid'
 
 export default class extends React.Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps(_context) {
     const res = await fetch('http://localhost:5000/', {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
     })
-    const json = await res.json()
-    return { albums: json }
+    const albums = await res.json()
+    return { albums }
   }
 
   render() {
