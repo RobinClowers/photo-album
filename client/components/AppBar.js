@@ -85,50 +85,8 @@ const styles = theme => ({
 })
 
 class PrimarySearchAppBar extends React.Component {
-  state = {
-    anchorEl: null,
-    mobileMoreAnchorEl: null,
-  }
-
-  handleProfileMenuOpen = event => {
-    this.setState({ anchorEl: event.currentTarget })
-  }
-
-  handleMenuClose = () => {
-    this.setState({ anchorEl: null })
-    this.handleMobileMenuClose()
-  }
-
-  handleMobileMenuOpen = event => {
-    this.setState({ mobileMoreAnchorEl: event.currentTarget })
-  }
-
-  handleMobileMenuClose = () => {
-    this.setState({ mobileMoreAnchorEl: null })
-  }
-
   render() {
-    const { anchorEl, mobileMoreAnchorEl } = this.state
     const { classes } = this.props
-    const isMenuOpen = Boolean(anchorEl)
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
-
-    const renderMobileMenu = (
-      <Menu
-        anchorEl={mobileMoreAnchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMobileMenuOpen}
-        onClose={this.handleMobileMenuClose}
-      >
-        <MenuItem onClick={this.handleProfileMenuOpen}>
-          <IconButton color="inherit">
-            <Icon>account_circle</Icon>
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      </Menu>
-    )
 
     return (
       <div className={classes.root}>
@@ -153,33 +111,36 @@ class PrimarySearchAppBar extends React.Component {
               />
             </div>
             <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <PopupState variant="popover" popupId="demo-popup-popover">
-                {popupState => (
-                  <React.Fragment>
-                    <IconButton
-                      aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                      aria-haspopup="true"
-                      onClick={this.handleProfileMenuOpen}
-                      color="inherit"
-                      {...bindTrigger(popupState)}>
-                      <Icon>account_circle</Icon>
+            <PopupState variant="popover" popupId="demo-popup-popover">
+              {popupState => (
+                <React.Fragment>
+                  <div className={classes.sectionDesktop}>
+                      <IconButton
+                        aria-owns={popupState ? 'material-appbar' : undefined}
+                        aria-haspopup="true"
+                        color="inherit"
+                        {...bindTrigger(popupState)}>
+                        <Icon>account_circle</Icon>
+                      </IconButton>
+                      <Popover {...bindPopover(popupState)}>
+                        <div style={{padding: 20}}>
+                          <Typography variant="body2">User Person</Typography>
+                          <MenuItem>Sign Out</MenuItem>
+                        </div>
+                      </Popover>
+                  </div>
+                  <div className={classes.sectionMobile}>
+                    <IconButton aria-haspopup="true"
+                      {...bindTrigger(popupState)}
+                      color="inherit">
+                      <Icon>more</Icon>
                     </IconButton>
-                    <Popover {...bindPopover(popupState)}>
-                      <Typography variant="body2">User Person</Typography>
-                    </Popover>
-                  </React.Fragment>
-                )}
-              </PopupState>
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
-                <Icon>more</Icon>
-              </IconButton>
-            </div>
+                  </div>
+                </React.Fragment>
+              )}
+            </PopupState>
           </Toolbar>
         </AppBar>
-        {renderMobileMenu}
       </div>
     )
   }
