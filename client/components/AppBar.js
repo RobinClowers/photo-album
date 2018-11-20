@@ -85,6 +85,19 @@ const styles = theme => ({
 })
 
 class PrimarySearchAppBar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      query: '',
+    }
+  }
+
+  searchKeyDown = (e) => {
+    if (e.which === 13) {
+      window.location = `https://www.google.com/search?q=site%3Aphotos.robinclowers.com&q=${e.target.value}`
+    }
+  }
+
   render() {
     const { user, classes } = this.props
 
@@ -102,13 +115,22 @@ class PrimarySearchAppBar extends React.Component {
               <div className={classes.searchIcon}>
                 <Icon>search</Icon>
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-              />
+              <form action="http://google.com/search" method="get">
+                <InputBase
+                  name="q"
+                  type="hidden"
+                  value="site:photos.robinclowers.com"
+                />
+                <InputBase
+                  name="q"
+                  placeholder="Search"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  onKeyDown={this.searchKeyDown}
+                />
+              </form>
             </div>
             <div className={classes.grow} />
             <PopupState variant="popover" popupId="demo-popup-popover">
