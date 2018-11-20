@@ -6,6 +6,8 @@ import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
 import InputBase from '@material-ui/core/InputBase'
 import Badge from '@material-ui/core/Badge'
+import Popover from '@material-ui/core/Popover'
+import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state/index'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
@@ -111,19 +113,6 @@ class PrimarySearchAppBar extends React.Component {
     const isMenuOpen = Boolean(anchorEl)
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
 
-    const renderMenu = (
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        open={isMenuOpen}
-        onClose={this.handleMenuClose}
-      >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
-      </Menu>
-    )
-
     const renderMobileMenu = (
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -132,22 +121,6 @@ class PrimarySearchAppBar extends React.Component {
         open={isMobileMenuOpen}
         onClose={this.handleMobileMenuClose}
       >
-        <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
-              <Icon>mail</Icon>
-            </Badge>
-          </IconButton>
-          <p>Messages</p>
-        </MenuItem>
-        <MenuItem>
-          <IconButton color="inherit">
-            <Badge badgeContent={11} color="secondary">
-              <Icon>notifications</Icon>
-            </Badge>
-          </IconButton>
-          <p>Notifications</p>
-        </MenuItem>
         <MenuItem onClick={this.handleProfileMenuOpen}>
           <IconButton color="inherit">
             <Icon>account_circle</Icon>
@@ -181,24 +154,23 @@ class PrimarySearchAppBar extends React.Component {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  <Icon>mail</Icon>
-                </Badge>
-              </IconButton>
-              <IconButton color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                  <Icon>notifications</Icon>
-                </Badge>
-              </IconButton>
-              <IconButton
-                aria-owns={isMenuOpen ? 'material-appbar' : undefined}
-                aria-haspopup="true"
-                onClick={this.handleProfileMenuOpen}
-                color="inherit"
-              >
-                <Icon>account_circle</Icon>
-              </IconButton>
+              <PopupState variant="popover" popupId="demo-popup-popover">
+                {popupState => (
+                  <React.Fragment>
+                    <IconButton
+                      aria-owns={isMenuOpen ? 'material-appbar' : undefined}
+                      aria-haspopup="true"
+                      onClick={this.handleProfileMenuOpen}
+                      color="inherit"
+                      {...bindTrigger(popupState)}>
+                      <Icon>account_circle</Icon>
+                    </IconButton>
+                    <Popover {...bindPopover(popupState)}>
+                      <Typography variant="body2">User Person</Typography>
+                    </Popover>
+                  </React.Fragment>
+                )}
+              </PopupState>
             </div>
             <div className={classes.sectionMobile}>
               <IconButton aria-haspopup="true" onClick={this.handleMobileMenuOpen} color="inherit">
@@ -207,7 +179,6 @@ class PrimarySearchAppBar extends React.Component {
             </div>
           </Toolbar>
         </AppBar>
-        {renderMenu}
         {renderMobileMenu}
       </div>
     )
