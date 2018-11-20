@@ -15,7 +15,10 @@ class AlbumsController < ApplicationController
 
   def show
     redirect_to redirect.to if redirect
-    respond_with album
+    render json: {
+      user: current_user,
+      album: album.as_json(include: :photos),
+    }
   end
 
   private

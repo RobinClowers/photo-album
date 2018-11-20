@@ -1,6 +1,5 @@
 import fetch from 'isomorphic-unfetch'
 import Layout from 'components/Layout'
-import Typography from '@material-ui/core/Typography'
 import AlbumGrid from 'components/AlbumGrid'
 
 export default class extends React.Component {
