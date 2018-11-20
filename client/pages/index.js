@@ -1,11 +1,10 @@
 import fetch from 'isomorphic-unfetch'
 import Layout from 'components/Layout'
-import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import AlbumGrid from 'components/AlbumGrid'
 
 export default class extends React.Component {
   static async getInitialProps({ req }) {
-    const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
     const res = await fetch('http://localhost:5000/', {
       headers: {
         'Content-Type': 'application/json',
