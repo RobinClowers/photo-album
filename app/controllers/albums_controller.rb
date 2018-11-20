@@ -1,5 +1,5 @@
 class AlbumsController < ApplicationController
-  respond_to :html, :json
+  respond_to :json
 
   expose(:albums) { AlbumsQuery.new(current_user).active }
   expose(:album) { album_relation.find_by_slug!(slug) }
@@ -7,7 +7,10 @@ class AlbumsController < ApplicationController
   expose(:images) { album.photos.to_a }
 
   def index
-    respond_with albums.as_json(include: :cover_photo)
+    render json: {
+      user: current_user,
+      albums: albums.as_json(include: :cover_photo),
+    }
   end
 
   def show

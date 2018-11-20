@@ -15,7 +15,7 @@ const theme = createMuiTheme({
     secondary: orange,
   },
 })
-const Layout = ({children}) => (
+const Layout = ({user, children}) => (
   <React.Fragment>
     <Head>
       <title>Robin's Photos</title>
@@ -27,7 +27,7 @@ const Layout = ({children}) => (
       />
     </Head>
     <CssBaseline />
-      <AppBar />
+      <AppBar user={user} />
       {children}
     <CssBaseline />
   </React.Fragment>

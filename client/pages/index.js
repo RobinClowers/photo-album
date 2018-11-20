@@ -11,13 +11,13 @@ export default class extends React.Component {
         'Accept': 'application/json',
       },
     })
-    const albums = await res.json()
-    return { albums }
+    return await res.json()
   }
 
   render() {
+    const { user, albums } = this.props
     return (
-      <Layout>
+      <Layout user={user}>
         <AlbumGrid albums={this.props.albums} />
       </Layout>
     )

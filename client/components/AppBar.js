@@ -86,7 +86,7 @@ const styles = theme => ({
 
 class PrimarySearchAppBar extends React.Component {
   render() {
-    const { classes } = this.props
+    const { user, classes } = this.props
 
     return (
       <div className={classes.root}>
@@ -124,8 +124,16 @@ class PrimarySearchAppBar extends React.Component {
                       </IconButton>
                       <Popover {...bindPopover(popupState)}>
                         <div style={{padding: 20}}>
-                          <Typography variant="body2">User Person</Typography>
-                          <MenuItem>Sign Out</MenuItem>
+                          {user && user.id &&
+                            <React.Fragment>
+                              <Typography variant="h6">a{user.name}</Typography>
+                              <MenuItem>Sign Out</MenuItem>
+                            </React.Fragment>}
+                          {!user || !user.id &&
+                            <React.Fragment>
+                              <Typography variant="h6">Welcome</Typography>
+                              <MenuItem>Sign in with Facebook</MenuItem>
+                            </React.Fragment>}
                         </div>
                       </Popover>
                   </div>
@@ -147,6 +155,7 @@ class PrimarySearchAppBar extends React.Component {
 }
 
 PrimarySearchAppBar.propTypes = {
+  user: PropTypes.object,
   classes: PropTypes.object.isRequired,
 }
 
