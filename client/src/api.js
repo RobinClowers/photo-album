@@ -1,5 +1,5 @@
 const scheme = 'http'
-const host = 'localhost:5000'
+const host = process.env.API_HOST || 'localhost:5000'
 
 export const getAlbums = async slug => await getJson('/')
 
