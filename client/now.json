@@ -1,6 +1,7 @@
 {
   "version": 2,
   "name": "photo-album",
+  "alias": "photos-beta.robinclowers.com",
   "builds": [
     { "src": "next.config.js", "use": "@now/next" }
   ]
