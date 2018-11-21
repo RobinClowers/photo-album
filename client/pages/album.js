@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import { getAlbum } from 'client/src/api'
 
 const styles = theme => ({
   paper: {
@@ -30,13 +31,7 @@ class Album extends React.Component {
   static async getInitialProps({ query }) {
     if (!query.slug) return { error: true }
 
-    const res = await fetch(`http://localhost:5000/albums/${query.slug}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    })
-    return await res.json()
+    return await getAlbum(query.slug)
   }
 
   render() {
