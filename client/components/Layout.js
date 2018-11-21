@@ -1,5 +1,5 @@
 import CssBaseline from '@material-ui/core/CssBaseline';
-import AppBar from 'components/AppBar'
+import AppBar from 'client/components/AppBar'
 
 const Layout = ({user, children}) => (
   <CssBaseline>

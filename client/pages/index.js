@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-unfetch'
-import Layout from 'components/Layout'
-import AlbumGrid from 'components/AlbumGrid'
+import Layout from 'client/components/Layout'
+import AlbumGrid from 'client/components/AlbumGrid'
 
 export default class extends React.Component {
   static async getInitialProps(_context) {
