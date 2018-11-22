@@ -31,18 +31,18 @@ class Photo < ApplicationRecord
   end
 
   def url
-    insecure_url
+    secure_url
   end
 
   def insecure_url
-    File.join(protocol, base_path, path, filename)
+    File.join(protocol(secure: false), base_path, path, filename)
   end
 
   def secure_url
-    File.join(protocol(secure: true), base_path, path, filename)
+    File.join(protocol, base_path, path, filename)
   end
 
-  def protocol(secure: false)
+  def protocol(secure: true)
     if Rails.application.config.offline_dev
       ''
     elsif secure
