@@ -2,6 +2,12 @@
   "version": 2,
   "name": "photo-album",
   "alias": "photos-beta.robinclowers.com",
+  "routes": [
+    {
+      "src": "/albums/(?<slug>[^/]*)",
+      "dest": "/album?slug=$slug"
+    }
+  ],
   "builds": [
     {
       "src": "next.config.js",
