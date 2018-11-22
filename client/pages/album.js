@@ -51,7 +51,7 @@ class Album extends React.Component {
             {album.photos.map(photo => (
               <Grid item key={photo.id}>
                 <Paper className={classes.paper}>
-                  <img src={photo.url} className={classes.image} />
+                  <img src={photo.secure_url} className={classes.image} />
                 </Paper>
               </Grid>
             ))}

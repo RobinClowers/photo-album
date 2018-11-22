@@ -115,7 +115,7 @@ class PrimarySearchAppBar extends React.Component {
               <div className={classes.searchIcon}>
                 <Icon>search</Icon>
               </div>
-              <form action="http://google.com/search" method="get">
+              <form action="https://google.com/search" method="get">
                 <InputBase
                   name="q"
                   type="hidden"
