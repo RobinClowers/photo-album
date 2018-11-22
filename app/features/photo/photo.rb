@@ -44,7 +44,7 @@ class Photo < ApplicationRecord
 
   def protocol(secure: true)
     if Rails.application.config.offline_dev
-      ''
+      'http://'
     elsif secure
       'https://'
     else
@@ -54,7 +54,7 @@ class Photo < ApplicationRecord
 
   def base_path(secure: false)
     if Rails.application.config.offline_dev
-      ENV['OFFLINE_DEV_PATH']
+      "localhost:5000/#{ENV['OFFLINE_DEV_PATH']}"
     elsif secure
       Rails.application.config.base_secure_photo_url
     else
