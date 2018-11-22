@@ -96,6 +96,7 @@ Rails.application.configure do
   config.middleware.insert_before 0, Rack::Cors do
     allow do
       origins"photos.robinclowers.com"
+      origins"photos-beta.robinclowers.com"
       resource "*", headers: :any, methods: :any
     end
   end
