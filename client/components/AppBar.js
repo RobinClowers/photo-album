@@ -13,9 +13,6 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import CircularProgress from '@material-ui/core/CircularProgress'
-import { bindRouterStateChange, unbindRouterStateChange }
-  from 'client/src/routerStateChange'
 
 const styles = theme => ({
   root: {
@@ -88,21 +85,6 @@ const styles = theme => ({
 })
 
 class PrimarySearchAppBar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      appLoading: false,
-    }
-  }
-
-  componentDidMount() {
-    bindRouterStateChange(this, loading => this.setState({appLoading: loading}))
-  }
-
-  componentWillUnmount() {
-    unbindRouterStateChange(this)
-  }
-
   searchKeyDown = (e) => {
     if (e.which === 13) {
       window.location = `https://www.google.com/search?q=site%3Aphotos.robinclowers.com&q=${e.target.value}`
@@ -111,7 +93,6 @@ class PrimarySearchAppBar extends React.Component {
 
   render() {
     const { user, classes } = this.props
-    const { appLoading } = this.state
 
     return (
       <div className={classes.root}>
@@ -148,9 +129,6 @@ class PrimarySearchAppBar extends React.Component {
             <PopupState variant="popover" popupId="demo-popup-popover">
               {popupState => (
                 <React.Fragment>
-                {appLoading && <div>
-                    <CircularProgress color="secondary" />
-                  </div>}
                   <div className={classes.sectionDesktop}>
                       <IconButton
                         aria-owns={popupState ? 'material-appbar' : undefined}
