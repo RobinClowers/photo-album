@@ -5,6 +5,9 @@ export const getAlbums = async slug => await getJson('/')
 
 export const getAlbum = async slug => await getJson(`/albums/${slug}`)
 
+export const getPhoto = async (slug, filename) =>
+  await getJson(`/albums/${slug}/photos/${filename}`)
+
 const getJson = async path => {
   const response = await fetch(`${scheme}://${host}${path}`, {
     headers: {

@@ -7,6 +7,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { getAlbum } from 'client/src/api'
+import { Link } from 'client/routes'
 
 const styles = theme => ({
   paper: {
@@ -49,11 +50,16 @@ class Album extends React.Component {
           </Typography>
           <Grid justify='center' container spacing={24}>
             {album.photos.map(photo => (
-              <Grid item key={photo.id}>
-                <Paper className={classes.paper}>
-                  <img src={photo.url} className={classes.image} />
-                </Paper>
-              </Grid>
+              <Link
+                route='photo'
+                params={{slug: album.slug, filename: photo.filename}}
+                key={photo.id}>
+                <Grid item>
+                  <Paper className={classes.paper}>
+                    <img src={photo.url} className={classes.image} />
+                  </Paper>
+                </Grid>
+              </Link>
             ))}
           </Grid>
         </div>

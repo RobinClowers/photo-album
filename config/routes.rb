@@ -7,8 +7,9 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create"
   delete "/signout" => "sessions#destroy", :as => :signout
 
-  resources :albums, only: [:show]
-  get 'albums/:id/:photo', to: 'albums#show', as: :photo
+  resources :albums, only: [:show] do
+    resources :photos, only: [:show], controller: 'albums/photos'
+  end
 
   resources :photos, only: [] do
     resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
