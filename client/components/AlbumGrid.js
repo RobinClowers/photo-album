@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   paper: {
+    cursor: 'pointer',
     textAlign: 'center',
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',

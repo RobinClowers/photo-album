@@ -11,6 +11,7 @@ import { Link } from 'client/routes'
 
 const styles = theme => ({
   paper: {
+    cursor: 'pointer',
     height: 240,
     textAlign: 'center',
     color: theme.palette.text.secondary,
