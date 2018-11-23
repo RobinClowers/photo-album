@@ -1,11 +1,18 @@
-import CssBaseline from '@material-ui/core/CssBaseline';
+import React from 'react'
 import AppBar from 'client/components/AppBar'
 
-const Layout = ({user, children}) => (
-  <CssBaseline>
-    <AppBar user={user} />
-    {children}
-  </CssBaseline>
-)
+
+class Layout extends React.Component {
+  render() {
+    const {user, children} = this.props
+
+    return (
+      <React.Fragment>
+        <AppBar user={user} />
+        {children}
+      </React.Fragment>
+    )
+  }
+}
 
 export default Layout
