@@ -11,7 +11,7 @@ export default class extends React.Component {
   render() {
     const { user, albums } = this.props
     return (
-      <Layout user={user}>
+      <Layout user={user} pageContext={this.props.pageContext}>
         <AlbumGrid albums={this.props.albums} />
       </Layout>
     )

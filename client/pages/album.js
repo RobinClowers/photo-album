@@ -42,7 +42,7 @@ class Album extends React.Component {
     }
 
     return (
-      <Layout user={user}>
+      <Layout user={user} pageContext={this.props.pageContext}>
         <div style={{padding: 20}} >
           <Typography className={classes.title} variant="h2" color="inherit" noWrap>
             {album.title}
