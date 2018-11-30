@@ -18,7 +18,7 @@ const styles = theme => ({
     margin: 0,
   },
   image: {
-    width: 320,
+    width: 240,
     height: 240,
   },
 })
@@ -31,7 +31,7 @@ function AlbumGrid({ classes, albums }) {
           <Link route='album' params={{slug: album.slug}} key={album.id}>
             <Grid item>
               <Paper className={classes.paper}>
-                <img src={album.cover_photo.url} className={classes.image} />
+                <img src={album.cover_photo.small_url} className={classes.image} />
                 <h3 className={classes.title}>{album.title}</h3>
               </Paper>
             </Grid>

@@ -2,6 +2,7 @@ class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
 
   attribute :url
+  attribute :small_url
 
   default_scope -> { order(:filename) }
 

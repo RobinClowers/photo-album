@@ -1,7 +1,6 @@
 import Error from 'next/error'
 import fetch from 'isomorphic-unfetch'
 import Layout from 'client/components/Layout'
-import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
@@ -10,9 +9,8 @@ import { getAlbum } from 'client/src/api'
 import { Link } from 'client/routes'
 
 const styles = theme => ({
-  paper: {
+  gridItem: {
     cursor: 'pointer',
-    height: 240,
     textAlign: 'center',
     color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
@@ -24,7 +22,7 @@ const styles = theme => ({
     textAlign: 'center',
   },
   image: {
-    width: 320,
+    width: 240,
     height: 240,
   },
 })
@@ -49,16 +47,16 @@ class Album extends React.Component {
           <Typography className={classes.title} variant="h2" color="inherit" noWrap>
             {album.title}
           </Typography>
-          <Grid justify='center' container spacing={24}>
+          <Grid justify='center' container spacing={8}>
             {album.photos.map(photo => (
               <Link
                 route='photo'
                 params={{slug: album.slug, filename: photo.filename}}
                 key={photo.id}>
                 <Grid item>
-                  <Paper className={classes.paper}>
-                    <img src={photo.url} className={classes.image} />
-                  </Paper>
+                  <div className={classes.gridItem}>
+                    <img src={photo.small_url} className={classes.image} />
+                  </div>
                 </Grid>
               </Link>
             ))}
