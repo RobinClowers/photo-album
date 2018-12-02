@@ -21,12 +21,17 @@ const styles = theme => ({
   },
 })
 
+const ceiling = (num, ceiling) => (num > ceiling) ? ceiling : num
+
+const byRatio = (initial, ratio) => Math.round(initial * ratio)
+
 class Photo extends React.Component {
   constructor(props) {
     super(props)
     this.image = React.createRef()
     this.state = {
-      windowHeight: undefined,
+      maxWidth: undefined,
+      maxHeight: undefined,
     }
   }
 
@@ -47,28 +52,50 @@ class Photo extends React.Component {
 
   imageLoaded = _event => {
     this.setState({
-      windowHeight: global.innerHeight,
+      maxWidth: global.innerWidth,
+      maxHeight: global.innerHeight - headerHeight - captionHeight,
     })
+  }
+
+  calculateImageDimensions() {
+    const { maxWidth } = this.state
+    const imageElement = this.image.current
+    if (!maxWidth || !imageElement) return undefined
+
+    if (this.heightRatio() > this.widthRatio()) {
+      return {
+        width: byRatio(imageElement.width, this.widthRatio()),
+        height: byRatio(imageElement.height, this.widthRatio()),
+      }
+    }
+    return {
+      width: byRatio(imageElement.width, this.heightRatio()),
+      height: byRatio(imageElement.height, this.heightRatio()),
+    }
+  }
+
+  heightRatio() {
+    return ceiling(this.state.maxHeight / this.image.current.height, 1)
+  }
+
+  widthRatio() {
+    return ceiling(this.state.maxWidth / this.image.current.width, 1)
   }
 
   render() {
     const { classes, user, photo, error } = this.props
-    const { windowHeight } = this.state
 
     if (error) {
       return <Error statusCode={500} />
     }
-
-    const height = windowHeight ?
-      windowHeight - headerHeight - captionHeight : 'auto'
 
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <div className={classes.container}>
           <img
             style={{
-              height,
-              display: windowHeight ? 'block' : 'none',
+              display: this.state.maxHeight ? 'block' : 'none',
+              ...this.calculateImageDimensions(),
             }}
             ref={this.image}
             onLoad={this.imageLoaded}
