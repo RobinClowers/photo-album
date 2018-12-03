@@ -1,3 +1,5 @@
+import fetch from 'isomorphic-unfetch'
+
 const scheme = process.env.API_SCHEME || 'http'
 const host = process.env.API_HOST || 'localhost:5000'
 

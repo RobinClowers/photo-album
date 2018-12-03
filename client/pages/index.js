@@ -1,4 +1,3 @@
-import fetch from 'isomorphic-unfetch'
 import Layout from 'client/components/Layout'
 import AlbumGrid from 'client/components/AlbumGrid'
 import { getAlbums } from 'client/src/api'

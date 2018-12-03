@@ -1,5 +1,4 @@
 import Error from 'next/error'
-import fetch from 'isomorphic-unfetch'
 import Layout from 'client/components/Layout'
 import Grid from '@material-ui/core/Grid'
 import { withStyles } from '@material-ui/core/styles'
