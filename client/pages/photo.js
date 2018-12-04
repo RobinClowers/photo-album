@@ -75,6 +75,12 @@ class Photo extends React.Component {
     }
   }
 
+  componentDidUpdate({ photo }) {
+    if (this.props.photo !== photo) {
+      this.setState({ imageWidth: undefined, imageHeight: undefined })
+    }
+  }
+
   imageLoaded = _event => {
     this.setState({
       imageWidth: this.image.current.width,
