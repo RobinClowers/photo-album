@@ -1,8 +1,11 @@
 import Error from 'next/error'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
+import IconButton from '@material-ui/core/IconButton'
+import Icon from '@material-ui/core/Icon'
 import Layout from 'client/components/Layout'
 import { getPhoto } from 'client/src/api'
+import { Link } from 'client/routes'
 import debounce from 'lodash/debounce'
 
 const headerHeight = 64
@@ -11,6 +14,7 @@ const captionHeight = 20
 const styles = theme => ({
   container: {
     textAlign: 'center',
+    position: 'relative',
   },
   caption: {
     marginTop: 4,
@@ -19,6 +23,17 @@ const styles = theme => ({
     position: 'relative',
     left: '50%',
     transform: 'translateX(-50%)',
+  },
+  previousButton: {
+    position: 'absolute',
+    top: '50%',
+    left: 0,
+    zIndex: 2,
+  },
+  nextButton: {
+    position: 'absolute',
+    top: '50%',
+    right: 0,
   },
 })
 
@@ -92,7 +107,15 @@ class Photo extends React.Component {
   }
 
   render() {
-    const { classes, user, photo, error } = this.props
+    const {
+      classes,
+      user,
+      photo,
+      album,
+      next_photo_filename,
+      previous_photo_filename,
+      error
+    } = this.props
 
     if (error) {
       return <Error statusCode={500} />
@@ -101,6 +124,15 @@ class Photo extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <div className={classes.container}>
+          {previous_photo_filename &&
+            <Link
+              route='photo'
+              params={{slug: album.slug, filename: previous_photo_filename}}>
+              <IconButton className={classes.previousButton} aria-label="next">
+                <Icon>arrow_left</Icon>
+              </IconButton>
+            </Link>
+          }
           <img
             style={{
               display: this.state.imageWidth ? 'block' : 'none',
@@ -113,6 +145,15 @@ class Photo extends React.Component {
           <Typography className={classes.caption} variant="caption" color="inherit">
             {photo.caption}
           </Typography>
+          {next_photo_filename &&
+            <Link
+              route='photo'
+              params={{slug: album.slug, filename: next_photo_filename}}>
+              <IconButton className={classes.nextButton} aria-label="next">
+                <Icon>arrow_right</Icon>
+              </IconButton>
+            </Link>
+          }
         </div>
       </Layout>
     )
