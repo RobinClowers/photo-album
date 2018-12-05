@@ -9,7 +9,7 @@ class AlbumsController < ApplicationController
   def index
     render json: {
       user: current_user,
-      albums: albums.as_json(include: :cover_photo),
+      albums: albums.includes(:cover_photo).as_json(include: :cover_photo),
     }
   end
 
