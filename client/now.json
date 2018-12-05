@@ -9,7 +9,7 @@
     },
     {
       "src": "/albums/(?<slug>[^/]*)/(?<filename>[^/]*)",
-      "dest": "/album?slug=$slug&filename=$filename"
+      "dest": "/photo?slug=$slug&filename=$filename"
     }
   ],
   "builds": [
