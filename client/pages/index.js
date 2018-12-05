@@ -3,8 +3,8 @@ import AlbumGrid from 'client/components/AlbumGrid'
 import { getAlbums } from 'client/src/api'
 
 export default class extends React.Component {
-  static async getInitialProps(_context) {
-    return await getAlbums()
+  static async getInitialProps({ req }) {
+    return await getAlbums(req)
   }
 
   render() {

@@ -23,12 +23,11 @@ const styles = theme => ({
 })
 
 class Photo extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ req, query }) {
     if (!query.slug) return { error: true }
     if (!query.filename) return { error: true }
 
-    const res = await getPhoto(query.slug, query.filename)
-    return res
+    return await getPhoto(query.slug, query.filename, req)
   }
 
   render() {

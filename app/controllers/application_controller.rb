@@ -34,6 +34,6 @@ class ApplicationController < ActionController::Base
   end
 
   def return_path
-    session[:return_url] || root_path
+    ENV.fetch("FRONT_END_ROOT") { "http://localhost:3000" }
   end
 end

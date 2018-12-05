@@ -14,6 +14,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 
+const facebookSignInUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/auth/facebook/`
+
 const styles = theme => ({
   root: {
     width: '100%',
@@ -141,13 +143,17 @@ class PrimarySearchAppBar extends React.Component {
                         <div style={{padding: 20}}>
                           {user && user.id &&
                             <React.Fragment>
-                              <Typography variant="h6">a{user.name}</Typography>
+                              <Typography variant="h6">{user.name}</Typography>
                               <MenuItem>Sign Out</MenuItem>
                             </React.Fragment>}
                           {!user || !user.id &&
                             <React.Fragment>
                               <Typography variant="h6">Welcome</Typography>
-                              <MenuItem>Sign in with Facebook</MenuItem>
+                              <MenuItem>
+                                <a href={facebookSignInUrl}>
+                                  Sign in with Facebook
+                                </a>
+                              </MenuItem>
                             </React.Fragment>}
                         </div>
                       </Popover>

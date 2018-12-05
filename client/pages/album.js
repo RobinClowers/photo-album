@@ -27,10 +27,10 @@ const styles = theme => ({
 })
 
 class Album extends React.Component {
-  static async getInitialProps({ query }) {
+  static async getInitialProps({ req, query }) {
     if (!query.slug) return { error: true }
 
-    return await getAlbum(query.slug)
+    return await getAlbum(query.slug, req)
   }
 
   render() {
