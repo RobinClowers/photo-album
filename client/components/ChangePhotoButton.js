@@ -1,7 +1,6 @@
 import { withStyles } from '@material-ui/core/styles'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Icon from '@material-ui/core/Icon'
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import { Link } from 'client/routes'
 
 const button = theme => ({
@@ -37,7 +36,7 @@ const styles = theme => ({
         duration: theme.transitions.duration.shortest,
       }
     ),
-    backgroundColor: fade(theme.palette.action.active, theme.palette.action.hoverOpacity),
+    backgroundColor: theme.palette.action.hover,
     // Reset on touch devices, it doesn't add specificity
     '@media (hover: none)': {
       backgroundColor: 'transparent',
