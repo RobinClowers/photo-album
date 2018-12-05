@@ -36,7 +36,7 @@ const styles = theme => ({
         duration: theme.transitions.duration.shortest,
       }
     ),
-    backgroundColor: theme.palette.action.hover,
+    backgroundColor: 'rgba(66,66,66,0.54)',
     // Reset on touch devices, it doesn't add specificity
     '@media (hover: none)': {
       backgroundColor: 'transparent',

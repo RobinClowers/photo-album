@@ -12,9 +12,6 @@ const theme = createMuiTheme({
   palette: {
     primary: blue,
     secondary: orange,
-    action: {
-      hover: 'rgba(66,66,66,0.54)',
-    },
   },
   typography: {
     useNextVariants: true
