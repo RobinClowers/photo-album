@@ -17,6 +17,7 @@ import { signOut } from 'client/src/api'
 
 const facebookSignInUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/auth/facebook/`
 const facebookSignOutUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/signout`
+const adminLink = `${process.env.API_SCHEME}://${process.env.API_HOST}/admin`
 
 const styles = theme => ({
   root: {
@@ -152,6 +153,10 @@ class PrimarySearchAppBar extends React.Component {
                           {user && user.id &&
                             <React.Fragment>
                               <Typography variant="h6">{user.name}</Typography>
+                              {user.admin &&
+                                <MenuItem>
+                                  <a href={adminLink}>Admin</a>
+                                </MenuItem>}
                               <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </React.Fragment>}
                           {!user || !user.id &&

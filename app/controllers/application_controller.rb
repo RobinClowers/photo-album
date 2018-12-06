@@ -35,8 +35,13 @@ class ApplicationController < ActionController::Base
   end
 
   def return_path
+    home_url
+  end
+
+  def home_url
     ENV.fetch("FRONT_END_ROOT") { "http://localhost:3000" }
   end
+  helper_method :home_url
 
   def set_csrf_header
     if protect_against_forgery?
