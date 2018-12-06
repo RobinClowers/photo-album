@@ -18,6 +18,7 @@ class MyDocument extends Document {
           />
           {/* PWA primary color */}
           <meta name="theme-color" content={pageContext.theme.palette.primary.main} />
+          <meta name="google-site-verification" content="Hxg_i311K6d-q0_vSMeQoH63c_kzbTmHaI9iUgw93MY" />
           {/* Material-UI styles */}
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
