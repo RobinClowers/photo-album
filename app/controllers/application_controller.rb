@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :store_return_url
+  after_action :set_csrf_header
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionView::MissingTemplate, with: :render_404
@@ -35,5 +36,11 @@ class ApplicationController < ActionController::Base
 
   def return_path
     ENV.fetch("FRONT_END_ROOT") { "http://localhost:3000" }
+  end
+
+  def set_csrf_header
+    if protect_against_forgery?
+      headers['X-CSRF-Token'] = form_authenticity_token
+    end
   end
 end

@@ -13,6 +13,8 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    // Make the CSRF token available on window
+    window.csrfToken = this.props.pageProps.csrfToken
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentNode) {

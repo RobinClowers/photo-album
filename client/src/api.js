@@ -20,5 +20,20 @@ const getJson = async (path, request = {}) => {
       'Accept': 'application/json',
     },
   })
-  return response.json()
+  const data = await response.json()
+  return { ...data, csrfToken: response.headers.get('x-csrf-token') }
+}
+
+export const signOut = async (request = {}) => {
+  const response = await fetch(`${scheme}://${host}/signout`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+  })
+
+  return response.status === 200
 }

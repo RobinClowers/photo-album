@@ -13,8 +13,10 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
+import { signOut } from 'client/src/api'
 
 const facebookSignInUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/auth/facebook/`
+const facebookSignOutUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/signout`
 
 const styles = theme => ({
   root: {
@@ -93,6 +95,12 @@ class PrimarySearchAppBar extends React.Component {
     }
   }
 
+  signOut = async _event => {
+    if (await signOut()) {
+      window.location.reload()
+    }
+  }
+
   render() {
     const { user, classes } = this.props
 
@@ -144,7 +152,7 @@ class PrimarySearchAppBar extends React.Component {
                           {user && user.id &&
                             <React.Fragment>
                               <Typography variant="h6">{user.name}</Typography>
-                              <MenuItem>Sign Out</MenuItem>
+                              <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </React.Fragment>}
                           {!user || !user.id &&
                             <React.Fragment>
