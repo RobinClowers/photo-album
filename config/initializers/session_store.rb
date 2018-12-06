@@ -2,4 +2,4 @@
 
 Rails.application.config.session_store :cookie_store,
   key: '_photo-album_session',
-  domain: ENV.fetch("COOKIE_DOMAIN") { "localhost" }
+  domain: ENV.fetch("COOKIE_DOMAIN")

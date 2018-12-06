@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def home_url
-    ENV.fetch("FRONT_END_ROOT") { "http://localhost:3000" }
+    ENV.fetch("FRONT_END_ROOT")
   end
   helper_method :home_url
 
