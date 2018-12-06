@@ -7,7 +7,7 @@
     "dev": "NODE_ENV=development API_HOST=localhost:5000 API_SCHEME=http node server.js",
     "build": "next build",
     "start": "NODE_ENV=development node server.js",
-    "staging-deploy": "now -b API_HOST=photos-app-staging.robinclowers.com -b API_SCHEME=http",
+    "staging-deploy": "now -b API_HOST=photos-app-staging.robinclowers.com -b API_SCHEME=https",
     "prod-deploy": "now -b API_HOST=photos-app.robinclowers.com -b API_SCHEME=https"
   },
   "keywords": [],
