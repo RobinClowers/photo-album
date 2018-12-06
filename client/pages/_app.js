@@ -6,6 +6,16 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import JssProvider from 'react-jss/lib/JssProvider'
 import getPageContext from 'src/getPageContext'
 
+const removeFacebookLoginHash = () => {
+  if (window.location.hash && window.location.hash == '#_=_') {
+    if (history.replaceState) {
+      history.replaceState(null, null, window.location.href.split('#')[0])
+    } else {
+      window.location.hash = ''
+    }
+  }
+}
+
 class MyApp extends App {
   constructor(props) {
     super(props)
@@ -13,6 +23,7 @@ class MyApp extends App {
   }
 
   componentDidMount() {
+    removeFacebookLoginHash()
     // Make the CSRF token available on window
     window.csrfToken = this.props.pageProps.csrfToken
     // Remove the server-side injected CSS.
