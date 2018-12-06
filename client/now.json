@@ -1,7 +1,7 @@
 {
   "version": 2,
   "name": "photo-album",
-  "alias": "photos-beta.robinclowers.com",
+  "alias": "photos-staging.robinclowers.com",
   "routes": [
     {
       "src": "/albums/(?<slug>[^/]*)",
