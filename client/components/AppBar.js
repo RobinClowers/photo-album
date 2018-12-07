@@ -13,10 +13,10 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
+import SignInLink from 'client/components/SignInLink'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
-const facebookSignInUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/auth/facebook/`
 const facebookSignOutUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/signout`
 const adminLink = `${process.env.API_SCHEME}://${process.env.API_HOST}/admin`
 
@@ -171,9 +171,9 @@ class PrimarySearchAppBar extends React.Component {
                             <React.Fragment>
                               <Typography variant="h6">Welcome</Typography>
                               <MenuItem>
-                                <a className={classes.menuLink} href={facebookSignInUrl}>
-                                  Sign in with Facebook
-                                </a>
+                                <SignInLink
+                                  className={classes.menuLink}
+                                  linkText="Sign in with Facebook" />
                               </MenuItem>
                             </React.Fragment>}
                         </div>

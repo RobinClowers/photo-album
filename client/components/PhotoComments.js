@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import CardContent from '@material-ui/core/CardContent'
 import AddComment from 'client/components/AddComment'
+import SignInLink from 'client/components/SignInLink'
 
 const styles = theme => ({
   commentContainer: {
@@ -106,7 +107,17 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
       </li>
     ))}
     <li className={classes.commentListItem}>
-      <AddComment photo_id={photo.id} handleCommentAdded={props.handleCommentAdded} />
+      {user.id ?
+        <AddComment photo_id={photo.id} handleCommentAdded={props.handleCommentAdded} />
+        :
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography variant="body2">
+              <SignInLink linkText="Sign in" additionalText="to leave a comment" />
+            </Typography>
+          </CardContent>
+        </Card>
+      }
     </li>
   </ul>
   </div>
