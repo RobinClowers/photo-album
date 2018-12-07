@@ -27,6 +27,28 @@ class Photo extends React.Component {
     return await getPhoto(query.slug, query.filename, req)
   }
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      showSignInPopper: false,
+      signInPopperEl: undefined,
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('click', this.handleClick, true)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('click', this.handleClick, true)
+  }
+
+  handleClick = event => {
+    if (this.state.showSignInPopper) {
+      this.setState({ showSignInPopper: false, signInPopperEl: undefined })
+    }
+  }
+
   handleCommentAdded = () => {
     const { album, photo } = this.props
     this.refresh()
@@ -39,7 +61,11 @@ class Photo extends React.Component {
     Router.replaceRoute('photo', { slug: album.slug, filename: photo.filename })
   }
 
-  handleFavorite = async _event => {
+  handleFavorite = async event => {
+    if (!this.props.user.id) {
+      this.setState({ showSignInPopper: true, signInPopperEl: event.currentTarget })
+      return
+    }
     const photo_id = this.props.photo.id
     const { current_user_favorite } = this.props.photo.favorites
     if (current_user_favorite) {
@@ -90,6 +116,8 @@ class Photo extends React.Component {
             photo={photo}
             user={user}
             handleCommentAdded={this.handleCommentAdded}
+            showSignInPopper={this.state.showSignInPopper}
+            signInPopperEl={this.state.signInPopperEl}
             handleFavorite={this.handleFavorite} />
         </div>
       </Layout>

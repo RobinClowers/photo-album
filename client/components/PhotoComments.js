@@ -4,6 +4,9 @@ import Card from '@material-ui/core/Card'
 import IconButton from '@material-ui/core/IconButton'
 import Icon from '@material-ui/core/Icon'
 import CardContent from '@material-ui/core/CardContent'
+import Popper from '@material-ui/core/Popper'
+import Paper from '@material-ui/core/Paper'
+import Fade from '@material-ui/core/Fade'
 import AddComment from 'client/components/AddComment'
 import SignInLink from 'client/components/SignInLink'
 
@@ -83,6 +86,23 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         <IconButton aria-label="Favorite" onClick={props.handleFavorite}>
           <Icon>favorite</Icon>
         </IconButton>
+        <Popper
+          id={props.showSignInPopper ? 'sign-in-popper' : undefined}
+          open={props.showSignInPopper}
+          anchorEl={props.signInPopperEl}
+          transition>
+          {({ TransitionProps }) => (
+            <Fade {...TransitionProps} timeout={350}>
+              <Card>
+                <CardContent>
+                  <Typography variant="body2">
+                    <SignInLink linkText="Sign in" additionalText="to add a favorite" />
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Fade>
+          )}
+        </Popper>
       </div>
     </div>
   <ul className={classes.commentList}>
