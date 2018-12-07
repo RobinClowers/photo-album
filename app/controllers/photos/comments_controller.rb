@@ -12,10 +12,9 @@ class Photos::CommentsController < ApplicationController
   def create
     if comment.update_attributes(comment_params)
       CommentMailerWorker.perform_async(photo_id, comment.id)
-      self.comment = Comment.new
-      render 'index', status: :created
+      render json: { comment: comment }, status: :created
     else
-      render 'index', status: :unprocessable_entity
+      render json: { errors: comment.errors.full_messages }, status: :unprocessable_entity
     end
   end
 

@@ -6,6 +6,7 @@ import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
 import PhotoComments from 'client/components/PhotoComments'
 import { getPhoto } from 'client/src/api'
+import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
 const headerHeight = 64
@@ -29,6 +30,11 @@ class Photo extends React.Component {
     if (!query.filename) return { error: true }
 
     return await getPhoto(query.slug, query.filename, req)
+  }
+
+  handleCommentAdded = () => {
+    const { album, photo } = this.props
+    Router.replaceRoute('photo', { slug: album.slug, filename: photo.filename })
   }
 
   render() {
@@ -70,7 +76,11 @@ class Photo extends React.Component {
           <Typography className={classes.caption} variant="caption" color="inherit">
             {photo.caption}
           </Typography>
-          <PhotoComments comments={comments} />
+          <PhotoComments
+            comments={comments}
+            photo={photo}
+            user={user}
+            handleCommentAdded={this.handleCommentAdded} />
         </div>
       </Layout>
     )

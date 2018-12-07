@@ -2,6 +2,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import AddComment from 'client/components/AddComment'
 
 const styles = theme => ({
   commentContainer: {
@@ -42,7 +43,7 @@ const styles = theme => ({
   },
 })
 
-const PhotoComments = ({ comments, classes }) => (
+const PhotoComments = ({ comments, photo, user, handleCommentAdded, classes }) => (
   <ul className={classes.commentContainer}>
     {comments.map(comment => (
       <li className={classes.commentListItem} key={comment.id}>
@@ -64,6 +65,9 @@ const PhotoComments = ({ comments, classes }) => (
         </Card>
       </li>
     ))}
+    <li className={classes.commentListItem}>
+      <AddComment photo_id={photo.id} handleCommentAdded={handleCommentAdded} />
+    </li>
   </ul>
 )
 

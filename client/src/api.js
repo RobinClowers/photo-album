@@ -37,3 +37,16 @@ export const signOut = async (request = {}) => {
 
   return response.status === 200
 }
+
+export const postComment = async (photo_id, comment) => {
+  return await fetch(`${scheme}://${host}/photos/${photo_id}/comments`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify({ comment }),
+  })
+}
