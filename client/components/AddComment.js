@@ -33,7 +33,7 @@ class AddComment extends React.Component {
     }
   }
 
-  handleSubmit = async event => {
+  handleSubmit = async _event => {
     const response = await postComment(this.props.photo_id, {
       body: this.state.comment,
     })
@@ -43,6 +43,12 @@ class AddComment extends React.Component {
     } else {
       const body = await response.json()
       this.setState({ ...this.state, errors: body.errors })
+    }
+  }
+
+  handleKeyPress = async event => {
+    if (event.which == 13 && event.shiftKey) {
+      this.handleSubmit(event)
     }
   }
 
@@ -59,6 +65,7 @@ class AddComment extends React.Component {
             rowsMax="4"
             value={this.state.comment}
             onChange={this.handleChange('comment')}
+            onKeyPress={this.handleKeyPress}
             className={classes.textField}
             margin="normal"
             variant="outlined" />
