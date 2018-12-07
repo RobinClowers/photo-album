@@ -10,17 +10,12 @@ import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
 const headerHeight = 64
-const captionHeight = 20
+const minMetaHeight = 48
+const metaMargin = 8
 
 const styles = theme => ({
-  container: {
-    textAlign: 'center',
-  },
   photoContainer: {
     position: 'relative',
-  },
-  caption: {
-    marginTop: 4,
   },
 })
 
@@ -55,7 +50,7 @@ class Photo extends React.Component {
 
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
-        <div className={classes.container}>
+        <div>
           <div className={classes.photoContainer}>
             {previous_photo_filename &&
               <ChangePhotoButton
@@ -65,7 +60,7 @@ class Photo extends React.Component {
             }
             <FullScreenPhoto
               photo_url={photo.url}
-              topOffset={headerHeight + captionHeight} />
+              topOffset={headerHeight + minMetaHeight + metaMargin} />
             {next_photo_filename &&
               <ChangePhotoButton
                 variant="next"
@@ -73,9 +68,6 @@ class Photo extends React.Component {
                 photoFilename={next_photo_filename} />
             }
           </div>
-          <Typography className={classes.caption} variant="caption" color="inherit">
-            {photo.caption}
-          </Typography>
           <PhotoComments
             comments={comments}
             photo={photo}

@@ -2,10 +2,16 @@ class Albums::PhotosController < ApplicationController
   expose(:album) { Album.find_by_slug(params[:album_id]) }
   expose(:photo) { album.photos.find_by_filename(filename) }
   expose(:comments) { Comment.where(photo: photo).includes(:user) }
+  expose(:plus_ones) { PlusOne.where(photo: photo).includes(:user) }
 
   def show
     render json: {
-      photo: photo,
+      photo: photo.as_json().merge({
+        favorites: {
+          count: plus_ones.count,
+          names: plus_ones_names,
+        },
+      }),
       next_photo_filename: next_photo_filename,
       previous_photo_filename: previous_photo_filename,
       album: album,
@@ -22,6 +28,17 @@ class Albums::PhotosController < ApplicationController
 
   def photo_ids
     @photo_ids = album.photo_ids
+  end
+
+  MAX_PLUS_ONE_NAMES = 6
+  def plus_ones_names
+    users = plus_ones.map(&:user)
+    result = users.take(MAX_PLUS_ONE_NAMES).map(&:name).join(', ')
+    if users.length <= MAX_PLUS_ONE_NAMES
+      result
+    else
+      "#{result} and #{users.length - MAX_PLUS_ONE_NAMES} more people"
+    end
   end
 
   def next_photo_filename

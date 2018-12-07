@@ -1,5 +1,6 @@
 class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
+  # has_many :plus_ones, inverse_of: :plus_ones
 
   attribute :url
   attribute :small_url
