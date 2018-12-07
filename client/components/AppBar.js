@@ -14,6 +14,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 import { signOut } from 'client/src/api'
+import { Link } from 'client/routes'
 
 const facebookSignInUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/auth/facebook/`
 const facebookSignOutUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/signout`
@@ -31,6 +32,7 @@ const styles = theme => ({
     marginRight: 20,
   },
   title: {
+    cursor: 'pointer',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -112,9 +114,11 @@ class PrimarySearchAppBar extends React.Component {
             <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
               <Icon>menu</Icon>
             </IconButton>
-            <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Robin&#700;s Photos
-            </Typography>
+            <Link route='index'>
+              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                Robin&#700;s Photos
+              </Typography>
+            </Link>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <Icon>search</Icon>
