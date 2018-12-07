@@ -1,4 +1,5 @@
 import Error from 'next/error'
+import Swipe from 'react-easy-swipe'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Layout from 'client/components/Layout'
@@ -75,6 +76,16 @@ class Photo extends React.Component {
     }
   }
 
+  handleSwipeLeft = (pos, event) => {
+    const { album, next_photo_filename } = this.props
+    Router.pushRoute('photo', { slug: album.slug, filename: next_photo_filename })
+  }
+
+  handleSwipeRight = (pos, event) => {
+    const { album, previous_photo_filename } = this.props
+    Router.pushRoute('photo', { slug: album.slug, filename: previous_photo_filename })
+  }
+
   render() {
     const {
       classes,
@@ -94,7 +105,10 @@ class Photo extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <div>
-          <div className={classes.photoContainer}>
+          <Swipe
+            onSwipeLeft={this.handleSwipeLeft}
+            onSwipeRight={this.handleSwipeRight}
+            className={classes.photoContainer}>
             {previous_photo_filename &&
               <ChangePhotoButton
                 variant="previous"
@@ -110,7 +124,7 @@ class Photo extends React.Component {
                 albumSlug={album.slug}
                 photoFilename={next_photo_filename} />
             }
-          </div>
+          </Swipe>
           <PhotoComments
             comments={comments}
             photo={photo}
