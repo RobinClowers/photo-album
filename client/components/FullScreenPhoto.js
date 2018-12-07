@@ -28,10 +28,7 @@ class FullScreenPhoto extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener(
-      'resize',
-      debounce(() => this.forceUpdate(), 20, false),
-      false)
+    window.addEventListener('resize', this.handleResize, false)
 
     const element = this.image.current
     if (element && element.complete) {
@@ -39,11 +36,17 @@ class FullScreenPhoto extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
   componentDidUpdate({ photo_url }) {
     if (this.props.photo_url !== photo_url) {
       this.setState({ imageWidth: undefined, imageHeight: undefined })
     }
   }
+
+  handleResize = debounce(() => this.forceUpdate(), 20, false)
 
   imageLoaded = _event => {
     this.setState({
