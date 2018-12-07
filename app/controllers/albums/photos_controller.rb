@@ -1,7 +1,7 @@
 class Albums::PhotosController < ApplicationController
   expose(:album) { Album.find_by_slug(params[:album_id]) }
   expose(:photo) { album.photos.find_by_filename(filename) }
-  expose(:comments) { Comment.where(photo: photo) }
+  expose(:comments) { Comment.where(photo: photo).includes(:user) }
 
   def show
     render json: {
