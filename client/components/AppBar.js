@@ -24,6 +24,10 @@ const styles = theme => ({
   root: {
     width: '100%',
   },
+  link: {
+    color: 'inherit',
+    textDecoration: 'none',
+  },
   grow: {
     flexGrow: 1,
   },
@@ -159,7 +163,7 @@ class PrimarySearchAppBar extends React.Component {
                               <Typography variant="h6">{user.name}</Typography>
                               {user.admin &&
                                 <MenuItem>
-                                  <a href={adminLink}>Admin</a>
+                                  <a className={classes.link} href={adminLink}>Admin</a>
                                 </MenuItem>}
                               <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </React.Fragment>}
