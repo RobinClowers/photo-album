@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Layout from 'client/components/Layout'
 import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
+import PhotoComments from 'client/components/PhotoComments'
 import { getPhoto } from 'client/src/api'
 import debounce from 'lodash/debounce'
 
@@ -36,6 +37,7 @@ class Photo extends React.Component {
       user,
       photo,
       album,
+      comments,
       next_photo_filename,
       previous_photo_filename,
       error
@@ -68,6 +70,7 @@ class Photo extends React.Component {
           <Typography className={classes.caption} variant="caption" color="inherit">
             {photo.caption}
           </Typography>
+          <PhotoComments comments={comments} />
         </div>
       </Layout>
     )

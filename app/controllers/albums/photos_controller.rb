@@ -1,6 +1,7 @@
 class Albums::PhotosController < ApplicationController
   expose(:album) { Album.find_by_slug(params[:album_id]) }
   expose(:photo) { album.photos.find_by_filename(filename) }
+  expose(:comments) { Comment.where(photo: photo) }
 
   def show
     render json: {
@@ -9,6 +10,7 @@ class Albums::PhotosController < ApplicationController
       previous_photo_filename: previous_photo_filename,
       album: album,
       user: current_user,
+      comments: comments,
     }
   end
 
