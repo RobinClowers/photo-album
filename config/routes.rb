@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   resources :photos, only: [] do
-    resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
+    resources :plus_ones, only: [:create, :destroy], controller: 'photos/plus_ones'
     resources :comments, only: [:index, :create, :destroy], controller: 'photos/comments'
   end
   namespace :admin do

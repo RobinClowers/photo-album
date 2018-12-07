@@ -5,7 +5,7 @@ import Layout from 'client/components/Layout'
 import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
 import PhotoComments from 'client/components/PhotoComments'
-import { getPhoto } from 'client/src/api'
+import { getPhoto, createFavorite, deleteFavorite } from 'client/src/api'
 import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
@@ -29,7 +29,24 @@ class Photo extends React.Component {
 
   handleCommentAdded = () => {
     const { album, photo } = this.props
+    this.refresh()
+  }
+
+  refreshOnSuccess = result => result.ok && this.refresh()
+
+  refresh = () => {
+    const { album, photo } = this.props
     Router.replaceRoute('photo', { slug: album.slug, filename: photo.filename })
+  }
+
+  handleFavorite = async _event => {
+    const photo_id = this.props.photo.id
+    const { current_user_favorite } = this.props.photo.favorites
+    if (current_user_favorite) {
+      this.refreshOnSuccess(await deleteFavorite(photo_id, current_user_favorite.id))
+    } else {
+      this.refreshOnSuccess(await await createFavorite(photo_id))
+    }
   }
 
   render() {
@@ -72,7 +89,8 @@ class Photo extends React.Component {
             comments={comments}
             photo={photo}
             user={user}
-            handleCommentAdded={this.handleCommentAdded} />
+            handleCommentAdded={this.handleCommentAdded}
+            handleFavorite={this.handleFavorite} />
         </div>
       </Layout>
     )

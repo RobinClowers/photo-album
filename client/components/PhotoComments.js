@@ -69,7 +69,7 @@ const styles = theme => ({
   },
 })
 
-const PhotoComments = ({ comments, photo, user, handleCommentAdded, classes }) => (
+const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
   <div className={classes.commentContainer}>
     <div className={classes.meta}>
       <Typography className={classes.caption} variant="caption">
@@ -79,7 +79,7 @@ const PhotoComments = ({ comments, photo, user, handleCommentAdded, classes }) =
         <Typography variant="body2" className={classes.favoriteCount}>
           {photo.favorites.count}
         </Typography>
-        <IconButton>
+        <IconButton aria-label="Favorite" onClick={props.handleFavorite}>
           <Icon>favorite</Icon>
         </IconButton>
       </div>
@@ -106,7 +106,7 @@ const PhotoComments = ({ comments, photo, user, handleCommentAdded, classes }) =
       </li>
     ))}
     <li className={classes.commentListItem}>
-      <AddComment photo_id={photo.id} handleCommentAdded={handleCommentAdded} />
+      <AddComment photo_id={photo.id} handleCommentAdded={props.handleCommentAdded} />
     </li>
   </ul>
   </div>

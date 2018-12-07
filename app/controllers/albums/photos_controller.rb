@@ -10,6 +10,7 @@ class Albums::PhotosController < ApplicationController
         favorites: {
           count: plus_ones.count,
           names: plus_ones_names,
+          current_user_favorite: plus_ones.where(user: current_user).first,
         },
       }),
       next_photo_filename: next_photo_filename,

@@ -1,19 +1,25 @@
 class Photos::PlusOnesController < ApplicationController
   before_action :require_signed_in, except: :index
-  layout false
-
-  expose(:plus_one) { PlusOneForm.new(params.merge(current_user: current_user, router: self)) }
-
-  def index
-  end
 
   def create
-    plus_one.save
-    render 'index', status: :created
+    if plus_one.save
+      render json: { ok: true }, status: :created
+    else
+      render json: { errors: ["Something went wrong"] }, status: :unprocessable_entity
+    end
   end
 
   def destroy
-    plus_one.destroy
-    render 'index', status: :ok
+    if plus_one.destroy
+      render json: { ok: true }, status: :ok
+    else
+      render json: { errors: ["Something went wrong"] }, status: :unprocessable_entity
+    end
+  end
+
+  private
+
+  def plus_one
+    PlusOne.find_or_create_by({ photo_id: params[:photo_id], user_id: current_user.id })
   end
 end

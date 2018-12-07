@@ -50,3 +50,27 @@ export const postComment = async (photo_id, comment) => {
     body: JSON.stringify({ comment }),
   })
 }
+
+export const createFavorite = async (photo_id) => {
+  return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+  })
+}
+
+export const deleteFavorite = async (photo_id, plus_one_id) => {
+  return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones/${plus_one_id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+  })
+}
