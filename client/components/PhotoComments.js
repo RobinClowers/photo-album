@@ -37,10 +37,11 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 1.5, // match button
   },
   heartContainer: {
+    marginLeft: theme.spacing.unit,
   },
   favoriteCount: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit,
     display: 'inline',
   },
   commentList: {
