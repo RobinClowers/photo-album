@@ -67,13 +67,6 @@ html
     footer role="contentinfo"
       p
         | Copyright &copy; #{Time.current.year} - Robin Clowers
-      .js-login-prompt.hidden.padding
-        p You need to be logged in to do that. Log in with Facebook now?
-        ul.horizontal-list
-          li
-            button.square-button.active.js-login-confirm Login
-          li
-            button.square-button.js-login-cancel Cancel
     .center
     == jquery_url
     == javascript_include_tag "application"

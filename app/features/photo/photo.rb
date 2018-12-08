@@ -68,9 +68,4 @@ class Photo < ApplicationRecord
   def alt
     caption || "Photo in the album #{album.title}"
   end
-
-  def overlay_url
-    # this should be generated using path helpers if possible
-    File.join('/', 'albums', path, filename)
-  end
 end
