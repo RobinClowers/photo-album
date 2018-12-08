@@ -149,35 +149,35 @@ class PrimarySearchAppBar extends React.Component {
               {popupState => (
                 <React.Fragment>
                   <div className={classes.sectionDesktop}>
-                      <IconButton
-                        aria-owns={popupState ? 'material-appbar' : undefined}
-                        aria-haspopup="true"
-                        color="inherit"
-                        {...bindTrigger(popupState)}>
-                        <Icon>account_circle</Icon>
-                      </IconButton>
-                      <Popover {...bindPopover(popupState)}>
-                        <div style={{padding: 20}}>
-                          {user && user.id &&
-                            <React.Fragment>
-                              <Typography variant="h6">{user.name}</Typography>
-                              {user.admin &&
-                                <MenuItem>
-                                  <a className={classes.menuLink} href={adminLink}>Admin</a>
-                                </MenuItem>}
-                              <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
-                            </React.Fragment>}
-                          {!user || !user.id &&
-                            <React.Fragment>
-                              <Typography variant="h6">Welcome</Typography>
+                    <IconButton
+                      aria-owns={popupState ? 'material-appbar' : undefined}
+                      aria-haspopup="true"
+                      color="inherit"
+                      {...bindTrigger(popupState)}>
+                      <Icon>account_circle</Icon>
+                    </IconButton>
+                    <Popover {...bindPopover(popupState)}>
+                      <div style={{padding: 20}}>
+                        {user && user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">{user.name}</Typography>
+                            {user.admin &&
                               <MenuItem>
-                                <SignInLink
-                                  className={classes.menuLink}
-                                  linkText="Sign in with Facebook" />
-                              </MenuItem>
-                            </React.Fragment>}
-                        </div>
-                      </Popover>
+                                <a className={classes.menuLink} href={adminLink}>Admin</a>
+                              </MenuItem>}
+                            <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
+                          </React.Fragment>}
+                        {!user || !user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">Welcome</Typography>
+                            <MenuItem>
+                              <SignInLink
+                                className={classes.menuLink}
+                                linkText="Sign in with Facebook" />
+                            </MenuItem>
+                          </React.Fragment>}
+                      </div>
+                    </Popover>
                   </div>
                   <div className={classes.sectionMobile}>
                     <IconButton aria-haspopup="true"
