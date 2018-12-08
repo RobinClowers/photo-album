@@ -8,7 +8,7 @@ import Popper from '@material-ui/core/Popper'
 import Paper from '@material-ui/core/Paper'
 import Fade from '@material-ui/core/Fade'
 import AddComment from 'client/components/AddComment'
-import SignInLink from 'client/components/SignInLink'
+import { facebookSignInUrl } from 'client/src/urls'
 
 const styles = theme => ({
   commentContainer: {
@@ -96,7 +96,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
               <Card>
                 <CardContent>
                   <Typography variant="body2">
-                    <SignInLink linkText="Sign in" additionalText="to add a favorite" />
+                    <a href={facebookSignInUrl}>Sign in</a> to add a favorite
                   </Typography>
                 </CardContent>
               </Card>
@@ -133,7 +133,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="body2">
-              <SignInLink linkText="Sign in" additionalText="to leave a comment" />
+              <a href={facebookSignInUrl}>Sign in</a> to leave a comment
             </Typography>
           </CardContent>
         </Card>

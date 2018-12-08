@@ -13,20 +13,13 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import SignInLink from 'client/components/SignInLink'
+import { facebookSignInUrl, adminUrl } from 'client/src/urls'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
-
-const facebookSignOutUrl = `${process.env.API_SCHEME}://${process.env.API_HOST}/signout`
-const adminLink = `${process.env.API_SCHEME}://${process.env.API_HOST}/admin`
 
 const styles = theme => ({
   root: {
     width: '100%',
-  },
-  menuLink: {
-    color: 'inherit',
-    textDecoration: 'none',
   },
   grow: {
     flexGrow: 1,
@@ -162,18 +155,16 @@ class PrimarySearchAppBar extends React.Component {
                           <React.Fragment>
                             <Typography variant="h6">{user.name}</Typography>
                             {user.admin &&
-                              <MenuItem>
-                                <a className={classes.menuLink} href={adminLink}>Admin</a>
+                              <MenuItem component="a" href={adminUrl}>
+                                Admin
                               </MenuItem>}
-                            <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
+                            <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
                           </React.Fragment>}
                         {!user || !user.id &&
                           <React.Fragment>
                             <Typography variant="h6">Welcome</Typography>
-                            <MenuItem>
-                              <SignInLink
-                                className={classes.menuLink}
-                                linkText="Sign in with Facebook" />
+                            <MenuItem component="a" href={facebookSignInUrl}>
+                              Sign in with Facebook
                             </MenuItem>
                           </React.Fragment>}
                       </div>
