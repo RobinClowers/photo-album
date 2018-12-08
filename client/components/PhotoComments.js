@@ -7,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent'
 import Popper from '@material-ui/core/Popper'
 import Paper from '@material-ui/core/Paper'
 import Fade from '@material-ui/core/Fade'
+import Caption from 'client/components/Caption'
 import AddComment from 'client/components/AddComment'
 import { facebookSignInUrl } from 'client/src/urls'
 
@@ -35,6 +36,7 @@ const styles = theme => ({
   },
   caption: {
     paddingTop: theme.spacing.unit * 1.5, // match button
+    position: 'relative',
   },
   heartContainer: {
     marginLeft: theme.spacing.unit,
@@ -77,9 +79,11 @@ const styles = theme => ({
 const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
   <div className={classes.commentContainer}>
     <div className={classes.meta}>
-      <Typography className={classes.caption} variant="caption">
-        {photo.caption}
-      </Typography>
+      <Caption
+        photo_id={photo.id}
+        caption={photo.caption}
+        user={user}
+        handleCaptionUpdated={props.handleCaptionUpdated} />
       <div className={classes.heartContainer}>
         <Typography variant="body2" className={classes.favoriteCount}>
           {photo.favorites.count}

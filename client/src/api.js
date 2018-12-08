@@ -74,3 +74,16 @@ export const deleteFavorite = async (photo_id, plus_one_id) => {
     },
   })
 }
+
+export const updatePhoto = async (photo_id, photo) => {
+  return await fetch(`${scheme}://${host}/admin/photos/${photo_id}`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify(photo),
+  })
+}

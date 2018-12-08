@@ -1,3 +1,4 @@
+import React from 'react'
 import Error from 'next/error'
 import Swipe from 'react-easy-swipe'
 import { withStyles } from '@material-ui/core/styles'
@@ -31,8 +32,10 @@ class Photo extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      editCaption: false,
       showSignInPopper: false,
       signInPopperEl: undefined,
+      caption: props.caption,
     }
   }
 
@@ -74,6 +77,11 @@ class Photo extends React.Component {
     } else {
       this.refreshOnSuccess(await await createFavorite(photo_id))
     }
+  }
+
+  handleCaptionUpdated = _event => {
+    const { album, photo } = this.props
+    Router.pushRoute('photo', { slug: album.slug, filename: photo.filename })
   }
 
   handleSwipeLeft = (pos, event) => {
@@ -130,6 +138,7 @@ class Photo extends React.Component {
             photo={photo}
             user={user}
             handleCommentAdded={this.handleCommentAdded}
+            handleCaptionUpdated={this.handleCaptionUpdated}
             showSignInPopper={this.state.showSignInPopper}
             signInPopperEl={this.state.signInPopperEl}
             handleFavorite={this.handleFavorite} />

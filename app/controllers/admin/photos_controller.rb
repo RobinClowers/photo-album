@@ -5,12 +5,8 @@ class Admin::PhotosController < Admin::ApplicationController
     if photo.update_attributes(photo_attributes)
       head :ok
     else
-      render json: photo.errors, status: :unprocessable_entity
+      render json: { errors: photo.errors.full_messages }, status: :unprocessable_entity
     end
-  end
-
-  def edit
-    render 'edit', layout: false
   end
 
   private
