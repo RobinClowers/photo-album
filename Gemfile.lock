@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/Compass/compass-rails.git
-  revision: 17414438f601d695225ba9c55f259d2ec557942c
-  specs:
-    compass-rails (3.0.2)
-      compass (~> 1.0.0)
-      sass-rails (< 5.1)
-      sprockets (< 4.0)
-
-GIT
   remote: https://github.com/RobinClowers/capistrano-sidekiq.git
   revision: 82dcdce166322a6868b6f023ba2905dd911ffd58
   branch: allow-different-queue-per-role-v1.0.2
@@ -99,7 +90,6 @@ GEM
       capistrano (~> 3.7)
       capistrano-bundler
       puma (~> 3.4)
-    chunky_png (1.3.10)
     coderay (1.1.0)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -109,18 +99,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     columnize (0.3.6)
-    compass (1.0.3)
-      chunky_png (~> 1.2)
-      compass-core (~> 1.0.2)
-      compass-import-once (~> 1.0.5)
-      rb-fsevent (>= 0.9.3)
-      rb-inotify (>= 0.9)
-      sass (>= 3.3.13, < 3.5)
-    compass-core (1.0.3)
-      multi_json (~> 1.0)
-      sass (>= 3.3.0, < 3.5)
-    compass-import-once (1.0.5)
-      sass (>= 3.2, < 3.5)
     concurrent-ruby (1.1.3)
     connection_pool (2.2.2)
     crass (1.0.4)
@@ -344,7 +322,6 @@ DEPENDENCIES
   capistrano-sidekiq!
   capistrano3-puma (~> 3.1.1)
   coffee-rails (~> 4.2.2)
-  compass-rails!
   decent_exposure (~> 3.0.2)
   dotenv-rails (~> 2.5.0)
   exception_notification

@@ -25,7 +25,6 @@ gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails', '~> 4.3.1'
 
 gem 'sass-rails', '~> 5.0.7'
-gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git'
 gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
 gem 'stringex'
