@@ -1,7 +1,6 @@
 {
   "version": 2,
   "name": "photo-album",
-  "alias": "photos-staging.robinclowers.com",
   "routes": [
     {
       "src": "/albums/(?<slug>[^/]*)",
