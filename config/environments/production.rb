@@ -95,8 +95,7 @@ Rails.application.configure do
   # CORS settings
   config.middleware.insert_before 0, Rack::Cors do
     allow do
-      origins"photos.robinclowers.com"
-      origins"photos-staging.robinclowers.com"
+      origins ENV.fetch("FRONT_END_DOMAIN")
       resource "*", headers: :any, methods: :any, credentials: true
     end
   end
