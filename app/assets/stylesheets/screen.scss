@@ -2,18 +2,45 @@
 @include global-reset;
 @include reset-html5;
 
-@import "custom/colors";
-@import "custom/layout";
-@import "base/utilities";
-@import "base/solarized";
-@import "base/theme";
-@import "base/typography";
-@import "base/layout";
-@import "partials/header";
-@import "partials/navigation";
-@import "partials/blog";
-@import "partials/footer";
-@import "custom/styles";
-@import "custom/horizontal_list";
-@import "custom/textarea";
-@import "custom/spaced_list";
+.simple-list {
+  li {
+    vertical-align: top;
+    display: inline-block;
+    width: 240px;
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+.plain-list {
+  list-style: none;
+  margin-left: 10px;
+}
+
+.no-margin {
+  margin: 0
+}
+
+.error {
+  color: red;
+}
+
+.messages .notice {
+  padding: 3px;
+  background-color: #90EE90;
+}
+
+.messages .error {
+  padding: 3px;
+  background-color: #FF6060;
+  color: black;
+}
+
+.small-text {
+  font-size: 0.8em
+}
+
+.form-fields {
+  list-style: none;
+}
