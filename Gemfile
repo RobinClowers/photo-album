@@ -29,7 +29,6 @@ gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
 # For #to_url method
 gem 'stringex'
-gem 'modernizr-rails', '~> 2.7.1'
 gem 'dotenv-rails', '~> 2.5.0'
 gem 'aws-sdk'
 gem 'sidekiq'

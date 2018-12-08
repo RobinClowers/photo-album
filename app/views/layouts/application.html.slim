@@ -7,7 +7,6 @@ html
     meta charset="utf-8"
     title= content_for?(:title) ? content_for(:title) : "Robin's Photos"
     == stylesheet_link_tag    "application", media: "all"
-    == javascript_include_tag "modernizr"
     == csrf_meta_tags
     meta content="Robin Clowers" name="author"
     meta content="True" name="HandheldFriendly"
@@ -31,10 +30,6 @@ html
     meta content="#da532c" name="msapplication-TileColor"
     meta content="/mstile-144x144.png" name="msapplication-TileImage"
     meta content="#ffffff" name="theme-color"
-
-    /! Fonts from Google"s Web font directory at http://google.com/webfonts
-    link href=pt_serif_url rel="stylesheet" type="text/css"
-    link href=pt_sans_url rel="stylesheet" type="text/css"
     meta property="og:site_name" content="Robin's Photos"
     = content_for :head
   body.no-sidebar
