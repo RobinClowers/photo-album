@@ -70,18 +70,6 @@ const styles = theme => ({
       width: 200,
     },
   },
-  sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
 })
 
 class PrimarySearchAppBar extends React.Component {
@@ -133,44 +121,35 @@ class PrimarySearchAppBar extends React.Component {
             <div className={classes.grow} />
             <PopupState variant="popover" popupId="demo-popup-popover">
               {popupState => (
-                <React.Fragment>
-                  <div className={classes.sectionDesktop}>
-                    <IconButton
-                      aria-owns={popupState ? 'material-appbar' : undefined}
-                      aria-haspopup="true"
-                      color="inherit"
-                      {...bindTrigger(popupState)}>
-                      <Icon>account_circle</Icon>
-                    </IconButton>
-                    <Popover {...bindPopover(popupState)}>
-                      <div style={{padding: 20}}>
-                        {user && user.id &&
-                          <React.Fragment>
-                            <Typography variant="h6">{user.name}</Typography>
-                            {user.admin &&
-                              <MenuItem component="a" href={adminUrl}>
-                                Admin
-                              </MenuItem>}
-                            <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
-                          </React.Fragment>}
-                        {!user || !user.id &&
-                          <React.Fragment>
-                            <Typography variant="h6">Welcome</Typography>
-                            <MenuItem component="a" href={facebookSignInUrl}>
-                              Sign in with Facebook
-                            </MenuItem>
-                          </React.Fragment>}
-                      </div>
-                    </Popover>
-                  </div>
-                  <div className={classes.sectionMobile}>
-                    <IconButton aria-haspopup="true"
-                      {...bindTrigger(popupState)}
-                      color="inherit">
-                      <Icon>more</Icon>
-                    </IconButton>
-                  </div>
-                </React.Fragment>
+                <div>
+                  <IconButton
+                    aria-owns={popupState ? 'material-appbar' : undefined}
+                    aria-haspopup="true"
+                    color="inherit"
+                    {...bindTrigger(popupState)}>
+                    <Icon>account_circle</Icon>
+                  </IconButton>
+                  <Popover {...bindPopover(popupState)}>
+                    <div style={{padding: 20}}>
+                      {user && user.id &&
+                        <React.Fragment>
+                          <Typography variant="h6">{user.name}</Typography>
+                          {user.admin &&
+                            <MenuItem component="a" href={adminUrl}>
+                              Admin
+                            </MenuItem>}
+                          <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
+                        </React.Fragment>}
+                      {!user || !user.id &&
+                        <React.Fragment>
+                          <Typography variant="h6">Welcome</Typography>
+                          <MenuItem component="a" href={facebookSignInUrl}>
+                            Sign in with Facebook
+                          </MenuItem>
+                        </React.Fragment>}
+                    </div>
+                  </Popover>
+                </div>
               )}
             </PopupState>
           </Toolbar>
