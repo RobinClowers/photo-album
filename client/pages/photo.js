@@ -2,8 +2,8 @@ import React from 'react'
 import Error from 'next/error'
 import Swipe from 'react-easy-swipe'
 import { withStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
 import Layout from 'client/components/Layout'
+import BackToAlbumLink from 'client/components/BackToAlbumLink'
 import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
 import PhotoComments from 'client/components/PhotoComments'
@@ -12,6 +12,7 @@ import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
 const headerHeight = 64
+const backLinkHeight = 56
 const minMetaHeight = 48
 const metaMargin = 8
 
@@ -112,37 +113,36 @@ class Photo extends React.Component {
 
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
-        <div>
-          <Swipe
-            onSwipeLeft={this.handleSwipeLeft}
-            onSwipeRight={this.handleSwipeRight}
-            className={classes.photoContainer}>
-            {previous_photo_filename &&
-              <ChangePhotoButton
-                variant="previous"
-                albumSlug={album.slug}
-                photoFilename={previous_photo_filename} />
-            }
-            <FullScreenPhoto
-              photo_url={photo.url}
-              topOffset={headerHeight + minMetaHeight + metaMargin} />
-            {next_photo_filename &&
-              <ChangePhotoButton
-                variant="next"
-                albumSlug={album.slug}
-                photoFilename={next_photo_filename} />
-            }
-          </Swipe>
-          <PhotoComments
-            comments={comments}
-            photo={photo}
-            user={user}
-            handleCommentAdded={this.handleCommentAdded}
-            handleCaptionUpdated={this.handleCaptionUpdated}
-            showSignInPopper={this.state.showSignInPopper}
-            signInPopperEl={this.state.signInPopperEl}
-            handleFavorite={this.handleFavorite} />
-        </div>
+        <BackToAlbumLink url={`/albums/${album.slug}`} />
+        <Swipe
+          onSwipeLeft={this.handleSwipeLeft}
+          onSwipeRight={this.handleSwipeRight}
+          className={classes.photoContainer}>
+          {previous_photo_filename &&
+            <ChangePhotoButton
+              variant="previous"
+              albumSlug={album.slug}
+              photoFilename={previous_photo_filename} />
+          }
+          <FullScreenPhoto
+            photo_url={photo.url}
+            topOffset={headerHeight + backLinkHeight + minMetaHeight + metaMargin} />
+          {next_photo_filename &&
+            <ChangePhotoButton
+              variant="next"
+              albumSlug={album.slug}
+              photoFilename={next_photo_filename} />
+          }
+        </Swipe>
+        <PhotoComments
+          comments={comments}
+          photo={photo}
+          user={user}
+          handleCommentAdded={this.handleCommentAdded}
+          handleCaptionUpdated={this.handleCaptionUpdated}
+          showSignInPopper={this.state.showSignInPopper}
+          signInPopperEl={this.state.signInPopperEl}
+          handleFavorite={this.handleFavorite} />
       </Layout>
     )
   }
