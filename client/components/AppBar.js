@@ -24,10 +24,6 @@ const styles = theme => ({
   grow: {
     flexGrow: 1,
   },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
-  },
   title: {
     cursor: 'pointer',
     display: 'none',
@@ -108,9 +104,6 @@ class PrimarySearchAppBar extends React.Component {
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-              <Icon>menu</Icon>
-            </IconButton>
             <Link route='index'>
               <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                 Robin&#700;s Photos
