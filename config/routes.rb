@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :photos, only: [] do
     resources :plus_ones, only: [:create, :destroy], controller: 'photos/plus_ones'
-    resources :comments, only: [:index, :create, :destroy], controller: 'photos/comments'
+    resources :comments, only: [:create, :destroy], controller: 'photos/comments'
   end
   namespace :admin do
     root 'albums#index'

@@ -2,12 +2,8 @@ class Photos::CommentsController < ApplicationController
   before_action :require_signed_in, except: :index
   layout false
 
-  expose(:comment) { Comment.new }
-  expose(:comments) { Comment.where(photo_id: photo_id) }
+  expose(:comment) { Comment.find_or_initialize_by(id: photo_id, user_id: current_user.id) }
   expose(:photo_id) { params[:photo_id] }
-
-  def index
-  end
 
   def create
     if comment.update_attributes(comment_params)
@@ -19,8 +15,12 @@ class Photos::CommentsController < ApplicationController
   end
 
   def destroy
-    comment.destroy
-    render 'index', status: :ok
+    if comment.persisted?
+      comment.destroy!
+      render json: { ok: true }, status: :ok
+    else
+      render json: { errors: ["You are not authorized"] }, status: :forbidden
+    end
   end
 
   private
