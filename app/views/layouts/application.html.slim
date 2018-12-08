@@ -40,13 +40,8 @@ html
   body.no-sidebar
     header role="banner"
       h1
-        a href="/" Robin's Photos
-      h2 Pictures from around the world
+        a href="/" Robin's Photos Admin
     nav role="navigation"
-      form action="http://google.com/search" method="get"
-        fieldset role="search"
-          input name="q" type="hidden" value="site:photos.robinclowers.com"
-          input.search name="q" placeholder="Search" type="text"
       ul.main-navigation.login-view
         li
             a href="#{home_url}" Home
@@ -64,12 +59,6 @@ html
     #main
       #content.main-background
         == yield
-    footer role="contentinfo"
-      p
-        | Copyright &copy; #{Time.current.year} - Robin Clowers
     .center
     == jquery_url
     == javascript_include_tag "application"
-    javascript:
-      window.signed_in = #{current_user.signed_in?}
-      window.admin = #{current_user.admin?}
