@@ -7,7 +7,6 @@ html
     meta charset="utf-8"
     title= content_for?(:title) ? content_for(:title) : "Robin's Photos"
     == stylesheet_link_tag    "application", media: "all"
-    == javascript_include_tag "modernizr"
     == csrf_meta_tags
     meta content="Robin Clowers" name="author"
     meta content="True" name="HandheldFriendly"
@@ -31,25 +30,16 @@ html
     meta content="#da532c" name="msapplication-TileColor"
     meta content="/mstile-144x144.png" name="msapplication-TileImage"
     meta content="#ffffff" name="theme-color"
-
-    /! Fonts from Google"s Web font directory at http://google.com/webfonts
-    link href=pt_serif_url rel="stylesheet" type="text/css"
-    link href=pt_sans_url rel="stylesheet" type="text/css"
     meta property="og:site_name" content="Robin's Photos"
     = content_for :head
   body.no-sidebar
     header role="banner"
       h1
-        a href="/" Robin's Photos
-      h2 Pictures from around the world
+        a href="/" Robin's Photos Admin
     nav role="navigation"
-      form action="http://google.com/search" method="get"
-        fieldset role="search"
-          input name="q" type="hidden" value="site:photos.robinclowers.com"
-          input.search name="q" placeholder="Search" type="text"
       ul.main-navigation.login-view
         li
-          a href="/" Home
+            a href="#{home_url}" Home
         - if current_user.admin?
           li
             = link_to "Admin", admin_root_path
@@ -64,19 +54,6 @@ html
     #main
       #content.main-background
         == yield
-    footer role="contentinfo"
-      p
-        | Copyright &copy; #{Time.current.year} - Robin Clowers
-      .js-login-prompt.hidden.padding
-        p You need to be logged in to do that. Log in with Facebook now?
-        ul.horizontal-list
-          li
-            button.square-button.active.js-login-confirm Login
-          li
-            button.square-button.js-login-cancel Cancel
     .center
     == jquery_url
     == javascript_include_tag "application"
-    javascript:
-      window.signed_in = #{current_user.signed_in?}
-      window.admin = #{current_user.admin?}

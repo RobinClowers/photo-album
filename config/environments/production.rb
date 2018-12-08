@@ -91,4 +91,13 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # CORS settings
+  config.middleware.insert_before 0, Rack::Cors do
+    allow do
+      origins ENV.fetch("FRONT_END_DOMAIN")
+      resource "*", headers: :any, methods: :any, credentials: true
+    end
+  end
+
 end

@@ -7,12 +7,13 @@ Rails.application.routes.draw do
   get "/auth/:provider/callback" => "sessions#create"
   delete "/signout" => "sessions#destroy", :as => :signout
 
-  resources :albums, only: [:show]
-  get 'albums/:id/:photo', to: 'albums#show', as: :photo
+  resources :albums, only: [:show] do
+    resources :photos, only: [:show], controller: 'albums/photos'
+  end
 
   resources :photos, only: [] do
-    resources :plus_ones, only: [:index, :create, :destroy], controller: 'photos/plus_ones'
-    resources :comments, only: [:index, :create, :destroy], controller: 'photos/comments'
+    resources :plus_ones, only: [:create, :destroy], controller: 'photos/plus_ones'
+    resources :comments, only: [:create, :destroy], controller: 'photos/comments'
   end
   namespace :admin do
     root 'albums#index'
@@ -21,7 +22,7 @@ Rails.application.routes.draw do
     resources :process_album_jobs, only: [:create]
     resources :process_version_jobs, only: [:create]
     resources :publish_album_jobs, only: [:create]
-    resources :photos, only: [:edit, :update]
+    resources :photos, only: [:update]
     resources :google_photos_albums, only: [:index, :create]
 
     # Google Photos oauth

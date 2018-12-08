@@ -7,6 +7,18 @@ class NilPhoto < Photo
     ''
   end
 
+  def path
+    ''
+  end
+
+  def version_url(version)
+    ''
+  end
+
+  def filename
+    ''
+  end
+
   def insecure_url
     ''
   end

@@ -6,6 +6,8 @@ ruby '2.3.3'
 gem 'rails', '~> 5.2.1'
 # fix security vulnerabilty: https://github.com/rails/rails-html-sanitizer/commit/f3ba1a839a35f2ba7f941c15e239a1cb379d56ae
 gem 'rails-html-sanitizer', '~> 1.0.4'
+gem 'responders', '~> 2.4.0'
+gem 'rack-cors', '~> 1.0.2'
 
 # Use postgres as the database for Active Record
 gem 'pg', '~> 1.0.0'
@@ -23,11 +25,10 @@ gem 'coffee-rails', '~> 4.2.2'
 gem 'jquery-rails', '~> 4.3.1'
 
 gem 'sass-rails', '~> 5.0.7'
-gem 'compass-rails', git: 'https://github.com/Compass/compass-rails.git'
 gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
+# For #to_url method
 gem 'stringex'
-gem 'modernizr-rails', '~> 2.7.1'
 gem 'dotenv-rails', '~> 2.5.0'
 gem 'aws-sdk'
 gem 'sidekiq'

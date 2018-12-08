@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :create
+  respond_to :json, :html
 
   def create
     session[:user_id] = user.id
@@ -9,7 +10,10 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to return_path
+    respond_to do |format|
+      format.html { redirect_to return_path }
+      format.json { render json: { ok: true } }
+    end
   end
 
   private

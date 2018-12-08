@@ -1,0 +1,32 @@
+{
+  "name": "client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=development API_HOST=localhost:5000 API_SCHEME=http node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=development node server.js",
+    "staging-deploy": "now -b API_HOST=photos-app-staging.robinclowers.com -b API_SCHEME=https",
+    "staging-alias": "now alias photos-staging.robinclowers.com",
+    "prod-deploy": "now -b API_HOST=photos-app.robinclowers.com -b API_SCHEME=https",
+    "prod-alias": "now alias photos.robinclowers.com"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "isomorphic-unfetch": "^3.0.0",
+    "jss": "^9.8.7",
+    "lodash": "^4.17.11",
+    "material-ui-popup-state": "^1.0.1",
+    "next": "^7.0.2",
+    "next-routes": "^1.4.2",
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-easy-swipe": "^0.0.17",
+    "react-jss": "^8.6.1"
+  }
+}
