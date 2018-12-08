@@ -3,7 +3,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_action :store_return_url
   after_action :set_csrf_header
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
@@ -27,15 +26,8 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: :unauthorized unless current_user.signed_in?
   end
 
-  def store_return_url
-    return if current_user.signed_in?
-    return if request.xhr?
-    return if request.path =~ /auth\/\w*\/callback/
-    session[:return_url] = request.path
-  end
-
   def return_path
-    home_url
+    request.env["omniauth.origin"] || home_url
   end
 
   def home_url
