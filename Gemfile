@@ -33,7 +33,7 @@ gem 'dotenv-rails', '~> 2.5.0'
 gem 'aws-sdk'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
-gem 'exception_notification'
+gem 'exception_notification', '~> 4.3.0'
 gem 'http', '~> 3.3.0'
 gem 'oauth2', '~> 1.4.0'
 
