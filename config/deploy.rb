@@ -32,7 +32,7 @@ set :deploy_to, '/srv/photo_album'
 # Default value for :linked_files is []
 # set :linked_files, %w{config/database.yml}
 
-set :linked_dirs, %w{log tmp}
+set :linked_dirs, %w{log tmp/cache tmp/sockets tmp/pids}
 set :linked_files, %w{.env}
 
 # Default value for default_env is {}
