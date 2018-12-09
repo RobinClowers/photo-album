@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     root 'albums#index'
-    get 'error' => 'albums#error', as: 'test_error'
+    post 'error' => 'albums#error', as: 'test_error'
     resources :albums, only: [:new, :create, :update]
     resources :process_album_jobs, only: [:create]
     resources :process_version_jobs, only: [:create]

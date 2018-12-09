@@ -32,7 +32,7 @@
         h2 Other Actions
         ul.plain-list
           li= link_to "Import Google Albums", admin_google_photos_albums_path
-          li= link_to 'Trigger an error', admin_test_error_path
+          li= link_to "Trigger an error", admin_test_error_path, method: :post
           li
             = form_tag admin_process_album_jobs_path,
               method: :post,
