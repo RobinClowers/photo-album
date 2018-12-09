@@ -1,5 +1,2 @@
-require 'dotenv'
-Dotenv.load
-
-server 'root@107.170.241.16', roles: [:web, :app, :db, :sidekiq_web]
-server "deploy@#{ENV['UTILITY1_HOSTNAME']}", roles: [:app, :sidekiq_utility]
+server "deploy@web1.robinclowers.com", roles: [:web, :app, :db, :sidekiq_web]
+server "deploy@utility1.robinclowers.com", roles: [:app, :sidekiq_utility]
