@@ -1,21 +1,20 @@
 class GooglePhotos::Importer
   def import(token_hash, google_album_id, force: false)
-    album = api.get_album(token_hash, google_album_id)
+    album_data = api.get_album(token_hash, google_album_id)
     items = api.search_media_items(token_hash, {album_id: google_album_id})
 
-    slug = ::AlbumSlug.new(album["title"])
+    slug = ::AlbumSlug.new(album_data["title"])
     processor = ::ProcessPhotos.new(slug)
     uploader = ::Uploader.new(slug)
     tmp_dir = processor.tmp_dir
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
-    album = Album.find_or_create_by!(title: album["title"], slug: slug.to_s)
+    album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
 
     items.each do |item|
-      filename = "#{item["id"]}.jpg"
-      full_path = File.join(tmp_dir, filename)
+      full_path = File.join(tmp_dir, item["filename"])
       download_item(item, full_path) unless File.exists?(full_path)
-      uploader.upload(tmp_dir, filename, :original, overwrite: force)
-      create_photo(item, album, filename)
+      uploader.upload(tmp_dir, item["filename"], :original, overwrite: force)
+      create_photo(item, album, album_data["coverPhotoMediaItemId"])
     end
     processor.process_album(force: force)
     FileUtils.rm_rf(tmp_dir)
@@ -37,13 +36,15 @@ class GooglePhotos::Importer
     end
   end
 
-  def create_photo(media_item, album, filename)
+  def create_photo(media_item, album, cover_photo_id)
+    filename = media_item["filename"]
     if Photo.where(filename: filename).first
-      Rails.logger.info("Photo #{args.fetch("filename")} exists")
+      Rails.logger.info("Photo #{filename} exists")
       return
     end
     meta = media_item["mediaMetadata"]
-    Photo.create!(
+    raise unless album.id
+    photo = Photo.create!(
       filename: filename,
       path: album.slug,
       album_id: album.id,
@@ -59,6 +60,11 @@ class GooglePhotos::Importer
       aperture_f_number: meta["apertureFNumber"],
       iso_equivalent: meta["isoEquivalent"],
     )
+    if cover_photo_id && photo.google_id == cover_photo_id
+      Rails.logger.info("Setting cover photo #{photo.filename}")
+      album.update_attributes!(cover_photo: photo)
+    end
+    photo
   end
 
   def api
