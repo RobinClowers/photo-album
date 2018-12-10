@@ -23,6 +23,8 @@ class ProcessPhotos
   end
 
   def process_images(images, versions = :all, force: false)
+    album = Album.includes(:photos).find_by_slug(slug.to_s)
+    raise "Album not found with slug: #{slug}" unless album
     versions = versions_to_process(versions)
     images.each do |path|
       puts "processing #{path}"
@@ -31,7 +33,7 @@ class ProcessPhotos
       processor.process(filename, versions: versions, force: force)
       versions.each do |version|
         uploader.upload(path_for(version), path, version, overwrite: force)
-        AppendPhotoVersionWorker.perform_async(slug, filename, version)
+        album.photos.find_by_filename(filename.to_s).has_version!(version)
       end
       FileUtils.rm(File.join(tmp_dir, path))
     end

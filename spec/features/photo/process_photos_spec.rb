@@ -19,6 +19,8 @@ describe ProcessPhotos do
     allow(album_photos).to receive(:original) { [filename] }
     allow(album_photos).to receive(:keys) { [] }
     allow(album_photos).to receive(:download_original).with(filename, tmp_dir)
+    album = Album.create!(slug: slug)
+    Photo.create!(filename: filename, album: album)
   end
 
   describe "#process(:all)" do
