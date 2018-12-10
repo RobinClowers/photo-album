@@ -38,22 +38,27 @@ class GooglePhotos::Importer
   end
 
   def create_photo(media_item, album, filename)
-    data = media_item["mediaMetadata"]
-    CreatePhotoWorker.perform_async({
-      "filename" => filename,
-      "album_id" => album.id,
-      "path" => album.slug,
-      "mime" => media_item["mimeType"],
-      "google_id" => media_item["id"],
-      "taken_at" => data["creationTime"],
-      "width" => data["width"],
-      "height" => data["height"],
-      "camera_make" => data["cameraMake"],
-      "camera_model" => data["cameraModel"],
-      "focal_length" => data["focalLength"],
-      "aperture_f_number" => data["apertureFNumber"],
-      "iso_equivalent" => data["isoEquivalent"]
-    })
+    if Photo.where(filename: filename).first
+      Rails.logger.info("Photo #{args.fetch("filename")} exists")
+      return
+    end
+    meta = media_item["mediaMetadata"]
+    Photo.create!(
+      filename: filename,
+      path: album.slug,
+      album_id: album.id,
+      caption: meta["description"],
+      mime: media_item["mimeType"],
+      google_id: media_item["id"],
+      taken_at: meta["creationTime"],
+      width: meta["width"],
+      height: meta["height"],
+      camera_make: meta["cameraMake"],
+      camera_model: meta["cameraModel"],
+      focal_length: meta["focalLength"],
+      aperture_f_number: meta["apertureFNumber"],
+      iso_equivalent: meta["isoEquivalent"],
+    )
   end
 
   def api
