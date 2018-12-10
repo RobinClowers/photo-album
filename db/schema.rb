@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180611080117) do
+ActiveRecord::Schema.define(version: 2018_12_10_214036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20180611080117) do
     t.datetime "updated_at"
     t.index ["photo_id"], name: "index_comments_on_photo_id"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "photo_versions", force: :cascade do |t|
+    t.string "size"
+    t.string "mime_type"
+    t.integer "width"
+    t.integer "height"
+    t.bigint "photo_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["photo_id"], name: "index_photo_versions_on_photo_id"
   end
 
   create_table "photos", id: :serial, force: :cascade do |t|
@@ -87,4 +98,5 @@ ActiveRecord::Schema.define(version: 20180611080117) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "photo_versions", "photos"
 end
