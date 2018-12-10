@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_10_214036) do
+ActiveRecord::Schema.define(version: 2018_12_10_222006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 2018_12_10_214036) do
     t.integer "album_id"
     t.text "caption"
     t.string "versions", default: [], null: false, array: true
-    t.string "mime"
+    t.string "mime_type"
     t.string "google_id"
     t.datetime "taken_at"
     t.integer "width"
