@@ -1,4 +1,4 @@
-require "RMagick"
+require "rmagick"
 
 class AlbumProcessor
   attr_reader :directory
