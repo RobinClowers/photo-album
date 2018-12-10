@@ -31,7 +31,7 @@ class ProcessPhotos
       processor.process(filename, versions: versions, force: force)
       versions.each do |version|
         uploader.upload(path_for(version), path, version, overwrite: force)
-        AppendPhotoVersionWorker.perform_async(slug, path, version)
+        AppendPhotoVersionWorker.perform_async(slug, filename, version)
       end
       FileUtils.rm(File.join(tmp_dir, path))
     end
