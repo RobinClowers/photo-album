@@ -4,10 +4,11 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
-  attr_accessor :slug
+  attr_accessor :album
 
   def initialize(slug)
-    @slug = AlbumSlug.new(slug)
+    @album = Album.includes(:photos).find_by_slug(slug.to_s)
+    raise "Album not found with slug: #{album.slug}" unless @album
     @paths = {}
   end
 
@@ -23,8 +24,6 @@ class ProcessPhotos
   end
 
   def process_images(images, versions = :all, force: false)
-    album = Album.includes(:photos).find_by_slug(slug.to_s)
-    raise "Album not found with slug: #{slug}" unless album
     versions = versions_to_process(versions)
     images.each do |path|
       puts "processing #{path}"
@@ -58,11 +57,11 @@ class ProcessPhotos
   end
 
   def tmp_dir
-    @tmp_dir ||= "tmp/photo_processing/#{slug}"
+    @tmp_dir ||= "tmp/photo_processing/#{album.slug}"
   end
 
   def album_photos
-    @album_photos ||= AlbumPhotos.new(slug)
+    @album_photos ||= AlbumPhotos.new(album.slug)
   end
 
   def processor
@@ -70,6 +69,6 @@ class ProcessPhotos
   end
 
   def uploader
-    @uploader ||= Uploader.new(slug)
+    @uploader ||= Uploader.new(album.slug)
   end
 end

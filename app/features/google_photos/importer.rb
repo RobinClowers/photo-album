@@ -4,11 +4,11 @@ class GooglePhotos::Importer
     items = api.search_media_items(token_hash, {album_id: google_album_id})
 
     slug = ::AlbumSlug.new(album_data["title"])
+    album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
     processor = ::ProcessPhotos.new(slug)
     uploader = ::Uploader.new(slug)
     tmp_dir = processor.tmp_dir
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
-    album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
 
     items.each do |item|
       full_path = File.join(tmp_dir, item["filename"])

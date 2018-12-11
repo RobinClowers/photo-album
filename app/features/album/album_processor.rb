@@ -6,7 +6,7 @@ class AlbumProcessor
     web: -> (image) { image.resize_to_fit(1024, 1024) },
     small: -> (image) { image.resize_to_fill(240, 240) },
     thumbs: -> (image) { image.resize_to_fill(75, 75) },
-}
+  }
 
   def initialize(dir)
     @directory = File.realpath(File.expand_path(dir))
