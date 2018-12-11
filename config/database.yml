@@ -1,10 +1,14 @@
-development:
+shared: &shared
+  host: <%= ENV.fetch("DATABASE_HOST") %>
   adapter: postgresql
   encoding: unicode
-  database: photo_album_development
   pool: 5
   username: photo_album
   password: asdfasdf
+
+development:
+  <<: *shared
+  database: photo_album_development
 
 test:
   adapter: postgresql
@@ -13,17 +17,9 @@ test:
   adapter: postgresql
 
 vagrant:
-  adapter: postgresql
-  encoding: unicode
+  <<: *shared
   database: photo_album_vagrant
-  pool: 5
-  username: photo_album
-  password: asdfasdf
 
 production:
-  adapter: postgresql
-  encoding: unicode
+  <<: *shared
   database: photo_album_production
-  pool: 5
-  username: photo_album
-  password: asdfasdf
