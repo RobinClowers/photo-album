@@ -23,9 +23,9 @@ class AlbumCreator
   end
 
   def insert_photo(filename)
-    Photo.create!(path: slug, filename: filename, album: album)
+    Photo.create!(path: slug.to_s, filename: filename, album: album)
   rescue ActiveRecord::RecordNotUnique
-    Photo.where(path: slug, filename: filename).first
+    Photo.where(path: slug.to_s, filename: filename).first
   end
 
   def add_versions(photo)
