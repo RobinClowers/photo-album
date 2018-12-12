@@ -1,9 +1,9 @@
+dist: xenial
 language: ruby
 cache: bundler
-addons:
-  postgresql: "9.3"
 
 services:
+  - postgresql
   - redis-server
 
 before_script:
