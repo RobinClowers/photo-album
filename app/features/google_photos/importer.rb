@@ -13,7 +13,7 @@ class GooglePhotos::Importer
     items.each do |item|
       full_path = File.join(tmp_dir, item["filename"])
       download_item(item, full_path) unless File.exists?(full_path)
-      uploader.upload(tmp_dir, item["filename"], :original, overwrite: force)
+      uploader.upload(tmp_dir, item["filename"], PhotoSize.original, overwrite: force)
       create_photo(item, album, album_data["coverPhotoMediaItemId"])
     end
     processor.process_album(force: force)

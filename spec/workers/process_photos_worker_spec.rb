@@ -14,13 +14,13 @@ describe ProcessPhotosWorker do
     it "processes all versions and doesn't force by default" do
       worker.perform(album_title, photo_filenames)
       expect(processor).to have_received(:process_images).
-        with(photo_filenames, [:all], force: false)
+        with(photo_filenames, PhotoSize.all, force: false)
     end
 
     it "passes down versions and the force flag" do
-      worker.perform(album_title, photo_filenames, ['small'], true)
+      worker.perform(album_title, photo_filenames, ['tablet'], true)
       expect(processor).to have_received(:process_images).
-        with(photo_filenames, [:small], force: true)
+        with(photo_filenames, [PhotoSize.tablet], force: true)
     end
   end
 end

@@ -1,14 +1,15 @@
 class Admin::ProcessVersionJobsController < Admin::ApplicationController
   def create
-    reject_request and return unless Photo::VALID_VERSIONS.include?(version)
-
     if album_slug
-      reject_request and return unless process_single_album
+      if process_single_album
+        head :created
+      else
+        render nothing: true, status: :unprocessable_entity
+      end
     else
       process_all_albums
+      head :created
     end
-
-    head :created
   end
 
   private
@@ -27,10 +28,6 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
     Album.pluck(:slug).each do |slug|
       process_album(slug)
     end
-  end
-
-  def reject_request
-    render nothing: true, status: :unprocessable_entity
   end
 
   def album_contains_all_photos

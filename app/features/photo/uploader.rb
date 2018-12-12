@@ -5,23 +5,21 @@ class Uploader
     @slug = AlbumSlug.new(slug)
   end
 
-  def upload(base_path, name, type=:web, overwrite: false)
-    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
+  def upload(base_path, name, size, overwrite: false)
     base_path = realpath(base_path)
-    create(base_path, name, type, overwrite)
+    create(base_path, name, size, overwrite)
   end
 
-  def upload_all(base_path, type=:web, overwrite: false)
-    raise 'invalid type' unless Photo::VALID_VERSIONS.include? type.to_sym
+  def upload_all(base_path, size, overwrite: false)
     base_path = realpath(base_path)
     unless overwrite
-      existing_photos = photos.keys(type)
+      existing_photos = photos.keys(size)
       puts_skipped_photos existing_photos
     end
 
     valid_images(base_path).each do |filename|
       if overwrite || !existing_photos.include?(filename)
-        create(base_path, filename, type, overwrite)
+        create(base_path, filename, size, overwrite)
       end
     end
 
@@ -40,8 +38,8 @@ class Uploader
     puts existing_photos
   end
 
-  def create(base_path, name, type, overwrite)
-    photos.create(name, File.join(base_path, name), type: type, overwrite: overwrite)
+  def create(base_path, name, size, overwrite)
+    photos.create(name, File.join(base_path, name), size, overwrite: overwrite)
   end
 
   def photos

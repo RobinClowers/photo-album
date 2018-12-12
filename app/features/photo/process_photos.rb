@@ -12,48 +12,41 @@ class ProcessPhotos
     @paths = {}
   end
 
-  def process_album(versions = :all, force: false)
-    versions = versions_to_process(versions)
+  def process_album(sizes = PhotoSize.all, force: false)
     original = album_photos.original
     if force
-      process_images(original, versions, force: force)
+      process_images(original, sizes, force: force)
     else
-      to_process = original - processed(versions)
-      process_images(to_process, versions, force: force)
+      to_process = original - processed(sizes)
+      process_images(to_process, sizes, force: force)
     end
   end
 
-  def process_images(images, versions = :all, force: false)
-    versions = versions_to_process(versions)
+  def process_images(images, sizes = PhotoSize.all, force: false)
     images.each do |path|
       puts "processing #{path}"
       album_photos.download_original(path, tmp_dir)
       filename = Pathname.new(path).basename
-      processor.process(filename, versions: versions, force: force)
-      versions.each do |version|
-        uploader.upload(path_for(version), path, version, overwrite: force)
-        album.photos.find_by_filename(filename.to_s).has_version!(version)
+      processor.process(filename, sizes: sizes, force: force)
+      sizes.each do |size|
+        uploader.upload(path_for(size), path, size, overwrite: force)
+        album.photos.find_by_filename(filename.to_s).has_size!(size)
       end
       FileUtils.rm(File.join(tmp_dir, path))
     end
     FileUtils.rm_rf(tmp_dir)
   end
 
-  def versions_to_process(versions)
-    return Photo::VALID_VERSIONS_TO_PROCESS if versions == :all
-    versions
+  def processed(sizes)
+    @processed ||= sizes.map { |size| exisiting_version_images(size) }.inject(:&)
   end
 
-  def processed(versions)
-    @processed ||= versions.map { |version| exisiting_version_images(version) }.inject(:&)
+  def exisiting_version_images(size)
+    album_photos.keys(size)
   end
 
-  def exisiting_version_images(version)
-    album_photos.keys(version)
-  end
-
-  def path_for(version)
-    @paths[version] ||= File.join(tmp_dir, version.to_s)
+  def path_for(size)
+    @paths[size.name] ||= File.join(tmp_dir, size.name)
   end
 
   def tmp_dir

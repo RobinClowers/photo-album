@@ -12,7 +12,6 @@ class Album < ApplicationRecord
   attr_accessor :google_id
   attribute :cover_photo_insecure_url, :string
   attribute :cover_photo_secure_url, :string
-  attribute :cover_photo_thumb_url, :string
 
   def self.new_from_slug(slug)
     slug = ::AlbumSlug.new(slug)
@@ -51,14 +50,5 @@ class Album < ApplicationRecord
 
   def cover_photo_secure_url
     cover_photo.secure_url if cover_photo
-  end
-
-  def cover_photo_thumb_url
-    return unless cover_photo
-    if cover_photo.has_version?(:small)
-      cover_photo.small_url
-    else
-      cover_photo.thumb_url
-    end
   end
 end

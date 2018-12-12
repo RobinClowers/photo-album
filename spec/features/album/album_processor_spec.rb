@@ -3,135 +3,110 @@ require "spec_helper"
 describe AlbumProcessor do
   let(:base_path) { Rails.root.join("spec", "fixtures", "files", "photos") }
   let(:filename) { "P1120375.JPG" }
-  let(:web_path) { base_path.join("web") }
-  let(:small_path) { base_path.join("small") }
-  let(:thumbs_path) { base_path.join("thumbs") }
+  let(:processed_filename) { "P1120375.jpg" }
   let!(:originals) { Dir.entries(base_path).select { |f| f =~ /\.jpg|png\Z/i } }
-  let(:web_version_path) { web_path.join(originals.first) }
-  let(:small_version_path) { small_path.join(originals.first) }
-  let(:thumbs_version_path) { thumbs_path.join(originals.first) }
+  let(:mobile_photo) { PhotoSize.mobile.photo_path(base_path, processed_filename) }
+  let(:tablet_photo) { PhotoSize.tablet.photo_path(base_path, processed_filename) }
   let(:image) { double(:image).as_null_object }
-  let(:web_proc) { double(:web_proc, call: image) }
-  let(:small_proc) { double(:web_proc, call: image) }
-  let(:versions) { { web: web_proc, small: small_proc } }
+  let(:mobile_geometry) { PhotoSize.mobile.geometry_string }
+  let(:tablet_geometry) { PhotoSize.tablet.geometry_string }
   subject(:processor) { AlbumProcessor.new(base_path) }
 
+  before do
+    allow(PhotoSize).to receive(:all) { [PhotoSize.mobile, PhotoSize.tablet] }
+  end
+
   def mock_image
-    stub_const("AlbumProcessor::VERSIONS", versions)
-    stub_const("Photo::VALID_VERSIONS", versions.keys)
-    stub_const("Photo::VALID_VERSIONS_TO_PROCESS", versions.keys)
     allow(Magick::ImageList).to receive(:new) { image }
-    allow(image).to receive(:resize_to_fit) { image }
-    allow(image).to receive(:resize_to_fill) { image }
+    allow(image).to receive(:change_geometry) { image }
   end
 
   describe "#process_all" do
     it "create the versions on disk" do
       processor.process_all
-      expect(File.exists?(web_version_path)).to be true
-      expect(File.exists?(small_version_path)).to be true
-      expect(File.exists?(thumbs_version_path)).to be true
+      expect(File.exists?(mobile_photo)).to be true
+      expect(File.exists?(tablet_photo)).to be true
     end
 
     it "skips processed photos" do
-      processor.create_versions(:web)
+      processor.create_versions(PhotoSize.mobile)
       mock_image
       processor.process_all
-      expect(small_proc).to have_received(:call).with(image).once
+      expect(image).not_to have_received(:change_geometry).with(mobile_geometry)
+      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
     end
 
     it "resizes images for versions" do
       mock_image
       processor.process_all
-      expect(web_proc).to have_received(:call).with(image).once
-      expect(small_proc).to have_received(:call).with(image).once
+      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
+      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
     end
   end
 
   describe "#process all versions" do
     it "create the versions on disk" do
       processor.process(filename)
-      expect(File.exists?(web_version_path)).to be true
-      expect(File.exists?(small_version_path)).to be true
-      expect(File.exists?(thumbs_version_path)).to be true
+      expect(File.exists?(mobile_photo)).to be true
+      expect(File.exists?(tablet_photo)).to be true
     end
 
     it "skips processed photos" do
-      processor.create_versions(:web)
+      processor.create_versions(PhotoSize.mobile)
       mock_image
       processor.process(filename)
-      expect(small_proc).to have_received(:call).with(image).once
+      expect(image).not_to have_received(:change_geometry).with(mobile_geometry)
+      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
     end
 
     it "resizes images for versions" do
       mock_image
       processor.process(filename)
-      expect(web_proc).to have_received(:call).with(image).once
-      expect(small_proc).to have_received(:call).with(image).once
+      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
+      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
     end
   end
 
   describe "#process a single version" do
     it "create the versions on disk" do
-      processor.process(filename, versions: [:web])
-      expect(File.exists?(web_version_path)).to be true
-      expect(File.exists?(small_version_path)).not_to be
-      expect(File.exists?(thumbs_version_path)).not_to be
+      processor.process(filename, sizes: [PhotoSize.mobile])
+      expect(File.exists?(mobile_photo)).to be true
+      expect(File.exists?(tablet_photo)).not_to be
     end
 
     it "skips processed photos" do
-      processor.create_versions(:web)
+      processor.create_versions(PhotoSize.mobile)
       mock_image
-      processor.process(filename, versions: [:web])
-      expect(web_proc).not_to have_received(:call)
+      processor.process(filename, sizes: [PhotoSize.mobile])
+      expect(image).not_to have_received(:change_geometry)
     end
 
     it "resizes images for versions" do
       mock_image
-      processor.process(filename, versions: [:web])
-      expect(web_proc).to have_received(:call).with(image).once
-      expect(small_proc).not_to have_received(:call)
+      processor.process(filename, sizes: [PhotoSize.mobile])
+      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
+      expect(image).not_to have_received(:change_geometry).with(tablet_geometry)
     end
   end
 
   describe "#create_versions" do
     it "skips processed photos" do
-      processor.create_versions(:web)
+      processor.create_versions(PhotoSize.mobile)
       mock_image
-      processor.create_versions(:web)
-      expect(web_proc).not_to have_received(:call)
+      processor.create_versions(PhotoSize.mobile)
+      expect(image).not_to have_received(:change_geometry)
     end
 
     it "does not skip processed photos when force is true" do
-      processor.create_versions(:web)
+      processor.create_versions(PhotoSize.mobile)
       mock_image
-      processor.create_versions(:web, force: true)
-      expect(web_proc).to have_received(:call).with(image)
-    end
-  end
-
-  describe "::VERSIONS" do
-    subject(:versions) { AlbumProcessor::VERSIONS }
-
-    it "web resizes to fit" do
-      versions[:web].call(image)
-      expect(image).to have_received(:resize_to_fit).with(1024, 1024)
-    end
-
-    it "small resizes to fill" do
-      versions[:small].call(image)
-      expect(image).to have_received(:resize_to_fill).with(240, 240)
-    end
-
-    it "thumbs resizes to fill" do
-      versions[:thumbs].call(image)
-      expect(image).to have_received(:resize_to_fill).with(75, 75)
+      processor.create_versions(PhotoSize.mobile, force: true)
+      expect(image).to have_received(:change_geometry).with(mobile_geometry)
     end
   end
 
   after do
-    FileUtils.remove_dir web_path if File.exists? web_path
-    FileUtils.remove_dir small_path if File.exists? small_path
-    FileUtils.remove_dir thumbs_path if File.exists? thumbs_path
+    FileUtils.remove_dir(PhotoSize.mobile.full_path(base_path), true)
+    FileUtils.remove_dir(PhotoSize.tablet.full_path(base_path), true)
   end
 end
