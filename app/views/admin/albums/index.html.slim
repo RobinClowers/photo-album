@@ -26,6 +26,7 @@
               li= link_to 'Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
+                  data: { confirm: "Process #{slug}?" },
                   remote: true
               li= link_to('Create', new_admin_album_path(slug: slug))
       .album
@@ -36,6 +37,7 @@
           li
             = form_tag admin_process_album_jobs_path,
               method: :post,
+              data: { confirm: "Process additional photos for selected album?" },
               remote: true
               = select 'album', 'slug', albums_options
               button type='submit' Process additional photos
@@ -43,18 +45,23 @@
             = form_tag admin_album_path('id-placeholder'),
               method: :patch,
               remote: true,
-              data: { replace_placeholder_on_submit: 'id-placeholder' }
+              data: { \
+                confirm: "Add additional photo for selected album?",
+                replace_placeholder_on_submit: 'id-placeholder',
+              }
               = select 'album', 'title', album_titles, {}, { class: 'id-placeholder' }
               button type='submit' Add additional photos
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for ALL albums?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
               button type='submit' Process version for all albums
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for selected album?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
               = select_tag 'album_slug', options_for_select(albums_options)
@@ -62,6 +69,7 @@
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for specified filenames?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
               = select_tag 'album_slug', options_for_select(albums_options)
