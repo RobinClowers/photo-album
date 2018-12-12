@@ -35,6 +35,13 @@
           li= link_to "Import Google Albums", admin_google_photos_albums_path
           li= link_to "Trigger an error", admin_test_error_path, method: :post
           li
+            = button_to "Process all version for all albums", admin_process_all_albums_jobs_path,
+              method: :post,
+              remote: true,
+              data: { \
+                confirm: "Are you sure you want to process all versions for ALL albums?",
+              }
+          li
             = form_tag admin_process_album_jobs_path,
               method: :post,
               data: { confirm: "Process additional photos for selected album?" },

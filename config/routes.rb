@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     root 'albums#index'
     post 'error' => 'albums#error', as: 'test_error'
     resources :albums, only: [:new, :create, :update]
+    resources :process_all_albums_jobs, only: [:create]
     resources :process_album_jobs, only: [:create]
     resources :process_version_jobs, only: [:create]
     resources :publish_album_jobs, only: [:create]
