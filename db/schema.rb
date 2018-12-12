@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_191325) do
+ActiveRecord::Schema.define(version: 2018_12_12_201116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 2018_12_12_191325) do
     t.decimal "aperture_f_number"
     t.integer "iso_equivalent"
     t.string "exposure_time"
+    t.string "lat"
+    t.string "lon"
     t.index ["album_id"], name: "index_photos_on_album_id"
     t.index ["path", "filename"], name: "index_photos_on_path_and_filename", unique: true
   end
