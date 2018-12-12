@@ -3,6 +3,7 @@ require "spec_helper"
 describe AlbumProcessor do
   let(:base_path) { Rails.root.join("spec", "fixtures", "files", "photos") }
   let(:filename) { "P1120375.JPG" }
+  let(:other_filename) { "P1080205.JPG" }
   let(:processed_filename) { "P1120375.jpg" }
   let!(:originals) { Dir.entries(base_path).select { |f| f =~ /\.jpg|png\Z/i } }
   let(:mobile_photo) { PhotoSize.mobile.photo_path(base_path, processed_filename) }
@@ -78,7 +79,7 @@ describe AlbumProcessor do
       processor.create_versions(PhotoSize.mobile)
       mock_image
       processor.create_versions(PhotoSize.mobile, force: true)
-      expect(image).to have_received(:change_geometry).with(mobile_geometry)
+      expect(image).to have_received(:change_geometry).with(mobile_geometry).twice
     end
   end
 
