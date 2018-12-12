@@ -1,63 +1,55 @@
 class AlbumPhotos
-  attr_accessor :slug
+  attr_accessor :slug, :logger
 
   def initialize(slug)
     @slug = slug
+    @logger = Rails.logger
   end
 
   def original
-    keys(:original)
+    keys(PhotoSize.original)
   end
 
-  def thumbs
-    keys(:thumbs)
+  def keys(size)
+    leaf_nodes(size.name).map { |pathname| pathname.basename.to_s }
   end
 
-  def web
-    keys(:web)
-  end
-
-  def keys(type)
-    leaf_nodes(type).map { |pathname| pathname.basename.to_s }
-  end
-
-  def create(name, image_path, type: :web, overwrite: false)
-    raise 'invalid type' unless (Photo::VALID_VERSIONS + [:original]).include? type.to_sym
-    key_to_create = key(type, name)
+  def create(name, image_path, size, overwrite: false)
+    key_to_create = key(size.name, name)
     if bucket.objects[key_to_create].exists?
       if overwrite
-        puts "overwriting #{key_to_create}"
+        logger.info("overwriting #{key_to_create}")
       else
-        puts "object already exists at #{key_to_create}"
+        logger.info("object already exists at #{key_to_create}")
         return
       end
     else
-      puts "creating #{key_to_create}"
+      logger.info("creating #{key_to_create}")
     end
     bucket.objects.create(key_to_create, file: image_path)
   rescue Errno::EPIPE
-    puts "Broken pipe, retrying..."
+    logger.info("Broken pipe, retrying...")
     retry
   rescue Net::OpenTimeout
-    puts "Open timeout, retrying..."
+    logger.info("Open timeout, retrying...")
     retry
   rescue Errno::ECONNRESET
-    puts "Connection reset, retrying..."
+    logger.info("Connection reset, retrying...")
     retry
   rescue SocketError
-    puts "Socket erorr, retrying..."
+    logger.info("Socket erorr, retrying...")
     retry
   rescue AWS::S3::Errors::RequestTimeout
-    puts "Request timeout, retrying..."
+    logger.info("Request timeout, retrying...")
     retry
   rescue Errno::ENOENT => error
     raise unless error.errno == 2
-    puts "#{name} does not exist, skipping"
+    logger.info("#{name} does not exist, skipping")
   end
 
   def download_original(filename, target_dir)
     FileUtils.mkdir_p(target_dir)
-    download(key(:original, filename), target_dir)
+    download(key(PhotoSize.original.name, filename), target_dir)
   end
 
   private
@@ -67,7 +59,7 @@ class AlbumPhotos
     filepath = "#{target_dir}/#{filename}"
     return if File.exist? filepath
 
-    puts "writing to #{filepath}"
+    logger.info("writing to #{filepath}")
 
     File.open(filepath, 'wb') do |file|
       bucket.objects[key].read do |chunk|
@@ -76,24 +68,19 @@ class AlbumPhotos
     end
   end
 
-  def leaf_nodes(type)
-    tree = bucket.as_tree(prefix: prefix(type))
+  def leaf_nodes(size_name)
+    tree = bucket.as_tree(prefix: prefix(size_name))
     tree.children.select(&:leaf?)
       .select { |node| node.key =~ Photo::VALID_FILENAME_REGEX }
       .map { |node| Pathname.new(node.key) }
   end
 
-  def key(type, name)
-    [prefix(type), name].join('/')
+  def key(size_name, name)
+    [prefix(size_name), name].join('/')
   end
 
-  def prefix(type)
-    [slug, subfolder(type)].compact.join('/')
-  end
-
-  def subfolder(type)
-    return nil if type == :web
-    type
+  def prefix(size_name)
+    [slug, size_name].compact.join('/')
   end
 
   def s3

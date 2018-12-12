@@ -6,32 +6,4 @@ namespace :album do
     slug = AlbumSlug.new(Pathname.new(args.path).basename.to_s)
     Uploader.new(slug).upload_all(args.path, :original)
   end
-
-  desc "Create an album from photos on s3"
-  task :create, [:title, :cover_photo_filename] => :environment do |t, args|
-    require "album_creator"
-
-    creator = AlbumCreator.new(args.title)
-    creator.insert_all_photos
-
-    next unless args.cover_photo_filename
-    creator.update_cover_photo!(args.cover_photo_filename)
-  end
-
-  desc "Sets the cover photo for an album"
-  task :update_cover_photo, [:title, :filename] => :environment do |t, args|
-    Album.find_by_title!(args.title).update_cover_photo!(args.filename)
-  end
-
-  desc "Process photos for a given album"
-  task :process, [:title] => :environment do |t, args|
-    require 'process_photos'
-
-    ProcessPhotos.new(args.title).process_album
-  end
-
-  desc "Queue processing of photos for a given album"
-  task :queued_process, [:title] => :environment do |t, args|
-    ProcessAlbumWorker.perform_async(args.title)
-  end
 end

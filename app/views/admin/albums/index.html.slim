@@ -26,6 +26,7 @@
               li= link_to 'Process',
                   admin_process_album_jobs_path(slug: slug),
                   method: :post,
+                  data: { confirm: "Process #{slug}?" },
                   remote: true
               li= link_to('Create', new_admin_album_path(slug: slug))
       .album
@@ -34,8 +35,16 @@
           li= link_to "Import Google Albums", admin_google_photos_albums_path
           li= link_to "Trigger an error", admin_test_error_path, method: :post
           li
+            = button_to "Process all version for all albums", admin_process_all_albums_jobs_path,
+              method: :post,
+              remote: true,
+              data: { \
+                confirm: "Are you sure you want to process all versions for ALL albums?",
+              }
+          li
             = form_tag admin_process_album_jobs_path,
               method: :post,
+              data: { confirm: "Process additional photos for selected album?" },
               remote: true
               = select 'album', 'slug', albums_options
               button type='submit' Process additional photos
@@ -43,28 +52,34 @@
             = form_tag admin_album_path('id-placeholder'),
               method: :patch,
               remote: true,
-              data: { replace_placeholder_on_submit: 'id-placeholder' }
+              data: { \
+                confirm: "Add additional photo for selected album?",
+                replace_placeholder_on_submit: 'id-placeholder',
+              }
               = select 'album', 'title', album_titles, {}, { class: 'id-placeholder' }
               button type='submit' Add additional photos
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for ALL albums?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
               button type='submit' Process version for all albums
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for selected album?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
-              = select_tag 'album', options_for_select(albums_options)
+              = select_tag 'album_slug', options_for_select(albums_options)
               button type='submit' Process version for this album
           li
             = form_tag admin_process_version_jobs_path,
               method: :post,
+              data: { confirm: "Process selected version for specified filenames?" },
               remote: true
               = select_tag 'version', options_for_select(versions)
-              = select_tag 'album', options_for_select(albums_options)
+              = select_tag 'album_slug', options_for_select(albums_options)
               = text_area_tag 'photo_filenames'
               = label_tag 'force', 'Force:'
               = check_box_tag 'force', '1'

@@ -14,7 +14,7 @@ class ImageList
   end
 
   def each_unprocessed_image
-    each_image(unprocessed_images) { |*args| yield *args }
+    each_image(unprocessed_images) { |*args| yield(*args) }
   end
 
   def unprocessed_images
@@ -26,7 +26,7 @@ class ImageList
   end
 
   def exisiting_version_images(version)
-    valid_images(File.join(path, version.to_s))
+    valid_images(File.join(path, version.name))
   end
 
   def all_images
@@ -34,6 +34,7 @@ class ImageList
   end
 
   def valid_images(path)
+    return [] unless Dir.exists?(path)
     Dir.entries(path).select { |f| f =~ Photo::VALID_FILENAME_REGEX }
   end
 end

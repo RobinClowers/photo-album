@@ -1,31 +1,43 @@
 require 'album_photos'
 
 class AlbumCreator
-  attr_reader :title, :slug
+  attr_reader :title, :slug, :logger
 
   def initialize(title)
     @title = title
     @slug = AlbumSlug.new(title)
+    @logger = Rails.logger
   end
 
   def insert_all_photos
     added_images_count = 0
-    puts "attempting to import #{valid_keys.count} images"
+    logger.info("attempting to import #{valid_keys.count} images")
     valid_keys.each do |filename|
-      added_images_count += 1 if insert_photo(filename)
+      added_images_count += 1 if create_photo(filename)
     end
-    puts "imported #{added_images_count} images"
+    logger.info("imported #{added_images_count} images")
+  end
+
+  def create_photo(filename)
+    photo = insert_photo(filename)
+    add_versions(photo)
   end
 
   def insert_photo(filename)
-    versions = versions_for(filename)
-    Photo.create!(path: slug, filename: filename, album: album, versions: versions)
+    Photo.create!(path: slug.to_s, filename: filename, album: album)
   rescue ActiveRecord::RecordNotUnique
+    Photo.where(path: slug.to_s, filename: filename).first
   end
 
-  def versions_for(filename)
-    AlbumProcessor::VERSIONS.keys.select do |version|
-      photos.keys(version).include?(filename)
+  def add_versions(photo)
+    sizes_for(photo.filename).each do |size|
+      photo.has_size!(size)
+    end
+  end
+
+  def sizes_for(filename)
+    PhotoSize.all.select do |size|
+      photos.keys(size).include?(filename)
     end
   end
 
@@ -43,6 +55,6 @@ class AlbumCreator
   end
 
   def valid_keys
-    @valid_keys ||= photos.web.select { |f| f =~ /\.jpg|png\Z/i }
+    @valid_keys ||= photos.original.select { |f| f =~ /\.jpg|png\Z/i }
   end
 end

@@ -1,35 +1,36 @@
 class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
-  # has_many :plus_ones, inverse_of: :plus_ones
+  has_many :photo_versions, inverse_of: :photo
 
   attribute :url
   attribute :small_url
 
   default_scope -> { order(:filename) }
 
-  VALID_VERSIONS = [:web, :small, :thumbs, :original]
-  VALID_VERSIONS_TO_PROCESS = VALID_VERSIONS - [:original]
   VALID_FILENAME_REGEX = /\.jpg|png\Z/i
 
   def has_version?(version)
-    versions.include? version.to_s
+    photo_versions.where(name: version.name).any?
   end
 
-  def has_version!(version)
-    versions << version
-    save!
+  def has_size!(size)
+    photo_versions << PhotoVersion.new(size: size.name)
   end
 
   def version_url(version)
+    File.join(protocol, base_path, path, version.name, filename)
+  end
+
+  def legacy_version_url(version)
     File.join(protocol, base_path, path, version.to_s, filename)
   end
 
   def thumb_url
-    version_url(:thumbs)
+    legacy_version_url(:thumbs)
   end
 
   def small_url
-    version_url(:small)
+    legacy_version_url(:small)
   end
 
   def url

@@ -6,7 +6,7 @@ class Admin::AlbumsController < Admin::ApplicationController
   expose(:unpublished_albums) { Album.unpublished }
   expose(:new_album) { Album.new_from_slug(slug) }
   expose(:albums_options) { Album.pluck(:title, :slug) }
-  expose(:versions) { Photo::VALID_VERSIONS }
+  expose(:versions) { PhotoSize.all.map { |size| size.name } }
   expose(:album_titles) { Album.pluck(:title) }
 
   def index; end
