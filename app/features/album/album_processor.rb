@@ -70,9 +70,9 @@ class AlbumProcessor
 
   def each_image(force: false)
     if force
-      image_list.each_image { |*args| yield *args }
+      image_list.each_image { |*args| yield(*args) }
     else
-      image_list.each_unprocessed_image { |*args| yield *args }
+      image_list.each_unprocessed_image { |*args| yield(*args) }
     end
   end
 end

@@ -14,7 +14,7 @@ class ImageList
   end
 
   def each_unprocessed_image
-    each_image(unprocessed_images) { |*args| yield *args }
+    each_image(unprocessed_images) { |*args| yield(*args) }
   end
 
   def unprocessed_images
