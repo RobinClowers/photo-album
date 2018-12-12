@@ -13,6 +13,7 @@ class AlbumProcessor
   def process(basename, sizes: PhotoSize.all, force: false)
     image = Magick::ImageList.new(File.join(directory, basename))
     process_image(image, basename, sizes: sizes, force: force)
+    yield(image) if block_given?
   end
 
   def create_versions(size, force: false)
