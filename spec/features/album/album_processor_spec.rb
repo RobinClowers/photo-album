@@ -21,29 +21,6 @@ describe AlbumProcessor do
     allow(image).to receive(:change_geometry) { image }
   end
 
-  describe "#process_all" do
-    it "create the versions on disk" do
-      processor.process_all
-      expect(File.exists?(mobile_photo)).to be true
-      expect(File.exists?(tablet_photo)).to be true
-    end
-
-    it "skips processed photos" do
-      processor.create_versions(PhotoSize.mobile)
-      mock_image
-      processor.process_all
-      expect(image).not_to have_received(:change_geometry).with(mobile_geometry)
-      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
-    end
-
-    it "resizes images for versions" do
-      mock_image
-      processor.process_all
-      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
-      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
-    end
-  end
-
   describe "#process all versions" do
     it "create the versions on disk" do
       processor.process(filename)

@@ -9,33 +9,23 @@ class AlbumProcessor
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
   end
 
-  def process_all
-    each_image do |image, basename|
-      process_image(image, basename)
-    end
-  end
-
   def process(basename, sizes: PhotoSize.all, force: false)
     image = Magick::ImageList.new(File.join(directory, basename))
     process_image(image, basename, sizes: sizes, force: force)
   end
 
-  def process_image(image, basename, sizes: PhotoSize.all, force: false)
-    auto_orient_image!(image)
-    sizes.each do |size|
+  def create_versions(size, force: false)
+    guard_dir(size)
+    each_image(force: force) do |image, basename|
       create_version(size, image, basename, force: force)
     end
   end
 
-  def auto_orient_images!
-    each_image do |image, basename|
-      auto_orient_image!(image)
-    end
-  end
+  private
 
-  def create_versions(size, force: false)
-    guard_dir(size)
-    each_image(force: force) do |image, basename|
+  def process_image(image, basename, sizes: PhotoSize.all, force: false)
+    auto_orient_image!(image)
+    sizes.each do |size|
       create_version(size, image, basename, force: force)
     end
   end
