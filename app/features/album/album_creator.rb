@@ -1,20 +1,21 @@
 require 'album_photos'
 
 class AlbumCreator
-  attr_reader :title, :slug
+  attr_reader :title, :slug, :logger
 
   def initialize(title)
     @title = title
     @slug = AlbumSlug.new(title)
+    @logger = Rails.logger
   end
 
   def insert_all_photos
     added_images_count = 0
-    puts "attempting to import #{valid_keys.count} images"
+    logger.info("attempting to import #{valid_keys.count} images")
     valid_keys.each do |filename|
       added_images_count += 1 if create_photo(filename)
     end
-    puts "imported #{added_images_count} images"
+    logger.info("imported #{added_images_count} images")
   end
 
   def create_photo(filename)

@@ -1,8 +1,11 @@
 require 'album_photos'
 
 class Uploader
+  attr_reader :slug, :logger
+
   def initialize(slug)
     @slug = AlbumSlug.new(slug)
+    @logger = Rails.logger
   end
 
   def upload(base_path, name, size, overwrite: false)
@@ -14,7 +17,7 @@ class Uploader
     base_path = realpath(base_path)
     unless overwrite
       existing_photos = photos.keys(size)
-      puts_skipped_photos existing_photos
+      log_skipped_photos(existing_photos)
     end
 
     valid_images(base_path).each do |filename|
@@ -23,7 +26,7 @@ class Uploader
       end
     end
 
-    puts "Finished!"
+    logger.info("Finished!")
   end
 
   private
@@ -32,10 +35,10 @@ class Uploader
     File.realpath(File.expand_path(path))
   end
 
-  def puts_skipped_photos(existing_photos)
+  def log_skipped_photos(existing_photos)
     return unless existing_photos.count > 0
-    puts "Skipping #{existing_photos.count} photos: "
-    puts existing_photos
+    logger.info("Skipping #{existing_photos.count} photos: ")
+    logger.info(existing_photos)
   end
 
   def create(base_path, name, size, overwrite)
@@ -43,7 +46,7 @@ class Uploader
   end
 
   def photos
-    @photos ||= AlbumPhotos.new(@slug)
+    @photos ||= AlbumPhotos.new(slug)
   end
 
   def valid_images(path)

@@ -4,9 +4,10 @@ require "uploader"
 require 'fileutils'
 
 class ProcessPhotos
-  attr_accessor :album
+  attr_accessor :album, :logger
 
   def initialize(slug)
+    @logger = Rails.logger
     @album = Album.includes(:photos).find_by_slug(slug.to_s)
     raise "Album not found with slug: #{album.slug}" unless @album
     @paths = {}
@@ -24,7 +25,7 @@ class ProcessPhotos
 
   def process_images(images, sizes = PhotoSize.all, force: false)
     images.each do |path|
-      puts "processing #{path}"
+      logger.info("processing #{path}")
       album_photos.download_original(path, tmp_dir)
       filename = Pathname.new(path).basename
       processor.process(filename, sizes: sizes, force: force)

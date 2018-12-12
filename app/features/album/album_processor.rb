@@ -2,10 +2,11 @@ require "rmagick"
 require "fileutils"
 
 class AlbumProcessor
-  attr_reader :directory
+  attr_reader :directory, :logger
 
   def initialize(dir)
     @directory = File.realpath(File.expand_path(dir))
+    @logger = Rails.logger
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
   end
 
@@ -32,7 +33,7 @@ class AlbumProcessor
 
   def auto_orient_image!(image)
     if image.auto_orient!
-      puts "rotating #{image.filename}"
+      logger.info("rotating #{image.filename}")
       image.write image.filename
     end
   end
@@ -44,7 +45,7 @@ class AlbumProcessor
     resized_image = image.change_geometry(size.geometry_string) { |height, width|
       image.resize(height, width)
     }
-    puts "writing #{size.name} size for #{image.filename}"
+    logger.info("writing #{size.name} size for #{image.filename}")
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end

@@ -1,8 +1,9 @@
 class AlbumPhotos
-  attr_accessor :slug
+  attr_accessor :slug, :logger
 
   def initialize(slug)
     @slug = slug
+    @logger = Rails.logger
   end
 
   def original
@@ -17,33 +18,33 @@ class AlbumPhotos
     key_to_create = key(size.name, name)
     if bucket.objects[key_to_create].exists?
       if overwrite
-        puts "overwriting #{key_to_create}"
+        logger.info("overwriting #{key_to_create}")
       else
-        puts "object already exists at #{key_to_create}"
+        logger.info("object already exists at #{key_to_create}")
         return
       end
     else
-      puts "creating #{key_to_create}"
+      logger.info("creating #{key_to_create}")
     end
     bucket.objects.create(key_to_create, file: image_path)
   rescue Errno::EPIPE
-    puts "Broken pipe, retrying..."
+    logger.info("Broken pipe, retrying...")
     retry
   rescue Net::OpenTimeout
-    puts "Open timeout, retrying..."
+    logger.info("Open timeout, retrying...")
     retry
   rescue Errno::ECONNRESET
-    puts "Connection reset, retrying..."
+    logger.info("Connection reset, retrying...")
     retry
   rescue SocketError
-    puts "Socket erorr, retrying..."
+    logger.info("Socket erorr, retrying...")
     retry
   rescue AWS::S3::Errors::RequestTimeout
-    puts "Request timeout, retrying..."
+    logger.info("Request timeout, retrying...")
     retry
   rescue Errno::ENOENT => error
     raise unless error.errno == 2
-    puts "#{name} does not exist, skipping"
+    logger.info("#{name} does not exist, skipping")
   end
 
   def download_original(filename, target_dir)
@@ -58,7 +59,7 @@ class AlbumPhotos
     filepath = "#{target_dir}/#{filename}"
     return if File.exist? filepath
 
-    puts "writing to #{filepath}"
+    logger.info("writing to #{filepath}")
 
     File.open(filepath, 'wb') do |file|
       bucket.objects[key].read do |chunk|
