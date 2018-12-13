@@ -22,16 +22,6 @@ describe AlbumCreator do
       expect(Photo.first.album).to eq album
     end
 
-    it "inserts all valid photos" do
-      allow(photos).to receive(:original) { ["1.png"] }
-      allow(photos).to receive(:keys).with(PhotoSize.mobile) { ["1.png"] }
-      allow(photos).to receive(:keys).with(PhotoSize.tablet) { ["2.png"] }
-      allow(photos).to receive(:keys).with(PhotoSize.laptop) { ["1.png", "2.png"] }
-      Album.create(title: title)
-      creator.insert_all_photos
-      expect(Photo.first.photo_versions.map(&:size)).to eq ["mobile", "laptop"]
-    end
-
     it "creates the album when it doesn't exist" do
       allow(photos).to receive(:original) { ["1.png"] }
       creator.insert_all_photos
