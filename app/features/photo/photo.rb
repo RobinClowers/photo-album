@@ -14,7 +14,7 @@ class Photo < ApplicationRecord
   end
 
   def has_size!(size)
-    photo_versions << PhotoVersion.new(size: size.name)
+    photo_versions << PhotoVersion.new(size: size.name, mime_type: "image/jpeg")
   end
 
   def version_url(version)
