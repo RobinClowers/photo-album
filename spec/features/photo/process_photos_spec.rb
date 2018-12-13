@@ -33,6 +33,7 @@ describe ProcessPhotos do
     allow(ExifReader).to receive(:extract_photo_model_data) { exif_data }
     allow(FileUtils).to receive(:rm)
     allow(FileUtils).to receive(:rm_rf)
+    allow(File).to receive(:exists?) { true }
     allow(album_processor).to receive(:process) { |&block| block.call(image) }
     allow(album_photos).to receive(:original) { [filename] }
     allow(album_photos).to receive(:keys) { [] }
@@ -96,6 +97,11 @@ describe ProcessPhotos do
         .with(File.join(tmp_dir, "mobile"), filename, mobile_size , overwrite: false)
     end
 
+    it "writes the version to the database" do
+      expect(photo.reload.photo_versions.first).not_to be_nil
+      expect(photo.reload.photo_versions.first.size).to eq(mobile_size.name)
+    end
+
     it "cleans up after itself" do
       expect(FileUtils).to have_received(:rm).with(File.join(tmp_dir, filename))
       expect(FileUtils).to have_received(:rm_rf).with(tmp_dir)
@@ -118,6 +124,21 @@ describe ProcessPhotos do
 
     it "cleans up after itself" do
       expect(FileUtils).to have_received(:rm_rf).with(tmp_dir)
+    end
+  end
+
+  describe "#process([:version]) when original is too small for given version" do
+    before do
+      allow(File).to receive(:exists?) { false }
+      processor.process_album([mobile_size])
+    end
+
+    it "doesn't upload the version" do
+      expect(uploader).not_to have_received(:upload)
+    end
+
+    it "doesn't write the version to the database" do
+      expect(photo.reload.photo_versions).to be_empty
     end
   end
 

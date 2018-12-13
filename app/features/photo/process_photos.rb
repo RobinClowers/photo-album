@@ -34,6 +34,7 @@ class ProcessPhotos
         photo.update_attributes!(exif_data)
       end
       sizes.each do |size|
+        next unless File.exists?(File.join(path_for(size), path))
         uploader.upload(path_for(size), path, size, overwrite: force)
         photo.has_size!(size)
       end

@@ -6,15 +6,17 @@ describe AlbumProcessor do
   let(:other_filename) { "P1080205.JPG" }
   let(:processed_filename) { "P1120375.jpg" }
   let!(:originals) { Dir.entries(base_path).select { |f| f =~ /\.jpg|png\Z/i } }
-  let(:mobile_photo) { PhotoSize.mobile.photo_path(base_path, processed_filename) }
-  let(:tablet_photo) { PhotoSize.tablet.photo_path(base_path, processed_filename) }
+  let(:little_photo) { little_size.photo_path(base_path, processed_filename) }
+  let(:tiny_photo) { tiny_size.photo_path(base_path, processed_filename) }
   let(:image) { double(:image).as_null_object }
-  let(:mobile_geometry) { PhotoSize.mobile.geometry_string }
-  let(:tablet_geometry) { PhotoSize.tablet.geometry_string }
+  let(:tiny_geometry) { tiny_size.geometry_string }
+  let(:little_geometry) { little_size.geometry_string }
+  let(:little_size) { PhotoSize.new("little", 10, 10) }
+  let(:tiny_size) { PhotoSize.new("tiny", 5, 5) }
   subject(:processor) { AlbumProcessor.new(base_path) }
 
   before do
-    allow(PhotoSize).to receive(:all) { [PhotoSize.mobile, PhotoSize.tablet] }
+    allow(PhotoSize).to receive(:all) { [little_size, tiny_size] }
   end
 
   def mock_image
@@ -25,66 +27,92 @@ describe AlbumProcessor do
   describe "#process all versions" do
     it "create the versions on disk" do
       processor.process(filename)
-      expect(File.exists?(mobile_photo)).to be true
-      expect(File.exists?(tablet_photo)).to be true
+      expect(File.exists?(tiny_photo)).to be true
+      expect(File.exists?(little_photo)).to be true
     end
 
     it "skips processed photos" do
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(tiny_size)
       mock_image
       processor.process(filename)
-      expect(image).not_to have_received(:change_geometry).with(mobile_geometry)
-      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
+      expect(image).not_to have_received(:change_geometry).with(tiny_geometry)
+      expect(image).to have_received(:change_geometry).with(little_geometry).once
     end
 
     it "resizes images for versions" do
       mock_image
       processor.process(filename)
-      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
-      expect(image).to have_received(:change_geometry).with(tablet_geometry).once
+      expect(image).to have_received(:change_geometry).with(tiny_geometry).once
+      expect(image).to have_received(:change_geometry).with(little_geometry).once
     end
   end
 
   describe "#process a single version" do
     it "create the versions on disk" do
-      processor.process(filename, sizes: [PhotoSize.mobile])
-      expect(File.exists?(mobile_photo)).to be true
-      expect(File.exists?(tablet_photo)).not_to be
+      processor.process(filename, sizes: [tiny_size])
+      expect(File.exists?(tiny_photo)).to be true
+      expect(File.exists?(little_photo)).not_to be
     end
 
     it "skips processed photos" do
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(tiny_size)
       mock_image
-      processor.process(filename, sizes: [PhotoSize.mobile])
+      processor.process(filename, sizes: [tiny_size])
       expect(image).not_to have_received(:change_geometry)
     end
 
     it "resizes images for versions" do
       mock_image
-      processor.process(filename, sizes: [PhotoSize.mobile])
-      expect(image).to have_received(:change_geometry).with(mobile_geometry).once
-      expect(image).not_to have_received(:change_geometry).with(tablet_geometry)
+      processor.process(filename, sizes: [tiny_size])
+      expect(image).to have_received(:change_geometry).with(tiny_geometry).once
+      expect(image).not_to have_received(:change_geometry).with(little_geometry)
     end
   end
 
   describe "#create_versions" do
     it "skips processed photos" do
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(tiny_size)
       mock_image
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(tiny_size)
       expect(image).not_to have_received(:change_geometry)
     end
 
     it "does not skip processed photos when force is true" do
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(tiny_size)
       mock_image
-      processor.create_versions(PhotoSize.mobile, force: true)
-      expect(image).to have_received(:change_geometry).with(mobile_geometry).twice
+      processor.create_versions(tiny_size, force: true)
+      expect(image).to have_received(:change_geometry).with(tiny_geometry).twice
+    end
+
+    it "does not create version wider than the original" do
+      mock_image
+      target_height = 50
+      target_width = 100
+      allow(image).to receive(:change_geometry) { |&block|
+        block.call(target_height, target_width)
+      }
+      allow(image).to receive(:rows) { 75 }
+      allow(image).to receive(:columns) { 75 }
+      processor.create_versions(PhotoSize.mobile)
+      expect(image).not_to have_received(:write)
+    end
+
+    it "does not create version taller than the original" do
+      mock_image
+      target_height = 100
+      target_width = 50
+      allow(image).to receive(:change_geometry) {
+        |&block| block.call(target_height, target_width)
+      }
+      allow(image).to receive(:rows) { 75 }
+      allow(image).to receive(:columns) { 75 }
+      processor.create_versions(PhotoSize.mobile)
+      expect(image).not_to have_received(:write)
     end
   end
 
   after do
-    FileUtils.remove_dir(PhotoSize.mobile.full_path(base_path), true)
-    FileUtils.remove_dir(PhotoSize.tablet.full_path(base_path), true)
+    FileUtils.remove_dir(tiny_size.full_path(base_path), true)
+    FileUtils.remove_dir(little_size.full_path(base_path), true)
   end
 end

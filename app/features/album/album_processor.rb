@@ -44,6 +44,10 @@ class AlbumProcessor
     path = size.photo_path(directory, basename.sub(/\..+/, ".jpg"))
     return if File.exists?(path) && !force
     resized_image = image.change_geometry(size.geometry_string) { |height, width|
+      if image_is_too_small?(image, height, width)
+        logger.info("#{image.filename} is too small for #{size.name}, skipping")
+        return
+      end
       image.resize(height, width)
     }
     logger.info("writing #{size.name} size for #{image.filename}")
@@ -54,6 +58,10 @@ class AlbumProcessor
 
   def guard_dir(size)
     FileUtils.mkdir_p(size.full_path(directory))
+  end
+
+  def image_is_too_small?(image, height, width)
+    image.rows < width || image.columns < height
   end
 
   def image_list
