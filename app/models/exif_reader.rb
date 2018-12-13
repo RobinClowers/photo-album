@@ -1,6 +1,7 @@
 class ExifReader
-  def self.extract_photo_model_data(magick_image)
-    properties = magick_image.properties
+  def self.extract_photo_model_data(path)
+    image = Magick::ImageList.new(path)
+    properties = image.properties
     {
       aperture_f_number: fraction_to_float(properties["exif:MaxApertureValue"]),
       camera_make: properties["exif:Make"],
@@ -11,7 +12,7 @@ class ExifReader
       iso_equivalent: properties["exif:ISOSpeedRatings"],
       lat: to_coord_string(properties["exif:GPSLatitude"], properties["exif:GPSLatitudeRef"]),
       lon: to_coord_string(properties["exif:GPSLongitude"], properties["exif:GPSLongitudeRef"]),
-      mime_type: magick_image.mime_type,
+      mime_type: image.mime_type,
       taken_at: to_date(properties["exif:DateTime"]),
       width: properties["exif:ExifImageWidth"],
     }

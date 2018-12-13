@@ -14,7 +14,7 @@ class Photo < ApplicationRecord
   end
 
   def has_size!(size, filename, mime_type)
-    photo_versions.creeat!(size: size.name, filename: filename, mime_type: mime_type)
+    photo_versions.create!(size: size.name, filename: filename, mime_type: mime_type)
   end
 
   def version_url(version)

@@ -4,9 +4,8 @@ describe ExifReader do
   describe ".extract_photo_model_data" do
     it "parses exif data for photo model" do
       path = Rails.root.join('spec', 'fixtures', 'files', 'photos', 'P1080205.JPG')
-      image = Magick::ImageList.new(path)
 
-      expect(ExifReader.extract_photo_model_data(image)).to eq({
+      expect(ExifReader.extract_photo_model_data(path)).to eq({
         aperture_f_number: 3.4453125,
         camera_make: "Panasonic",
         camera_model: "DMC-ZS40",
@@ -24,9 +23,8 @@ describe ExifReader do
 
     it "handles empty gps coords" do
       path = Rails.root.join('spec', 'fixtures', 'files', 'photos', 'P1120375.JPG')
-      image = Magick::ImageList.new(path)
 
-      expect(ExifReader.extract_photo_model_data(image)).to eq({
+      expect(ExifReader.extract_photo_model_data(path)).to eq({
         aperture_f_number: 3.44,
         camera_make: "Panasonic",
         camera_model: "DMC-FS15",

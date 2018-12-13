@@ -12,13 +12,13 @@ class AlbumProcessor
 
   def process(basename, sizes: PhotoSize.all, force: false, &block)
     image = Magick::ImageList.new(File.join(directory, basename))
-    process_image(image, basename, sizes, force, &block)
+    process_image(image, basename, sizes, force, block)
   end
 
   def create_versions(size, force: false, &block)
     guard_dir(size)
     each_image(force: force) do |image, basename|
-      create_version(size, image, basename, force, callback)
+      create_version(size, image, basename, force, block)
     end
   end
 
@@ -50,11 +50,12 @@ class AlbumProcessor
       end
       image.resize(height, width)
     }
+    image.format = "JPEG"
     logger.info("writing #{size.name} size for #{image.filename}")
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end
-    callback(size, filename, resized_image)
+    callback.call(size, filename, resized_image.mime_type) if callback
   end
 
   def guard_dir(size)
