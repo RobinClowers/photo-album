@@ -10,7 +10,6 @@ class Album < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   attr_accessor :google_id
-  attribute :cover_photo_insecure_url, :string
   attribute :cover_photo_secure_url, :string
 
   def self.new_from_slug(slug)
@@ -41,11 +40,6 @@ class Album < ApplicationRecord
 
   def publish!
     update_attributes!(published_at: Time.current)
-  end
-
-  # these methods should be in a presenter
-  def cover_photo_insecure_url
-    cover_photo.insecure_url if cover_photo
   end
 
   def cover_photo_secure_url

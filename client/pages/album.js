@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Error from 'next/error'
 import Layout from 'client/components/Layout'
 import Grid from '@material-ui/core/Grid'
@@ -42,6 +43,16 @@ class Album extends React.Component {
 
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
+        <Head>
+          <title>{`${album.title} photos`}</title>
+          <meta property="title" content={`Photos from ${album.title}`} />
+          <meta property="description" content={`Photos from ${album.title}`} />
+          <meta property="og:title" content={album.title} />
+          <meta property="og:description" content={`Photos from ${album.title}`} />
+          <meta property="og:url" content={`${process.env.ROOT_URL}/albums/${album.slug}`} />
+          <meta property="og:image" content={album.cover_photo_secure_url} />
+          <meta property="og:image:secure_url" content={album.cover_photo_secure_url} />
+        </Head>
         <div style={{padding: 20}} >
           <Typography className={classes.title} variant="h2" color="inherit" noWrap>
             {album.title}

@@ -10,6 +10,7 @@ class AlbumsController < ApplicationController
     render json: {
       user: current_user,
       albums: albums.includes(:cover_photo).as_json(include: :cover_photo),
+      openGraphImageUrl: albums.first.cover_photo_secure_url,
     }
   end
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import Head from 'next/head'
 import Error from 'next/error'
 import Swipe from 'react-easy-swipe'
 import { withStyles } from '@material-ui/core/styles'
@@ -113,6 +114,16 @@ class Photo extends React.Component {
 
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
+        <Head>
+          <title>{`${album.title} photo`}</title>
+          <meta property="title" content={`Photo from ${album.title}`} />
+          <meta property="description" content={photo.caption || `A photo from ${album.title}.`} />
+          <meta property="og:title" content={`Photo from ${album.title}`} />
+          <meta property="og:description" content={photo.caption || `A photo from ${album.title}.`} />
+          <meta property="og:url" content={`${process.env.ROOT_URL}/albums/${album.slug}/${photo.filename}`} />
+          <meta property="og:image" content={photo.url} />
+          <meta property="og:image:secure_url" content={photo.url} />
+        </Head>
         <BackToAlbumLink url={`/albums/${album.slug}`} />
         <Swipe
           onSwipeLeft={this.handleSwipeLeft}

@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import Layout from 'client/components/Layout'
 import AlbumGrid from 'client/components/AlbumGrid'
 import { getAlbums } from 'client/src/api'
@@ -8,9 +9,18 @@ export default class extends React.Component {
   }
 
   render() {
-    const { user, albums } = this.props
+    const { user, albums, openGraphImageUrl } = this.props
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
+        <Head>
+          <meta property="title" content="Robin's Photos" />
+          <meta property="description" content="Travel photos from all over the world by Robin Clowers." />
+          <meta property="og:title" content="Photos by Robin Clowers" />
+          <meta property="og:description" content="Travel photos from all over the world by Robin Clowers." />
+          <meta property="og:url" content={process.env.ROOT_URL} />
+          <meta property="og:image" content={openGraphImageUrl} />
+          <meta property="og:image:secure_url" content={openGraphImageUrl} />
+        </Head>
         <AlbumGrid albums={this.props.albums} />
       </Layout>
     )
