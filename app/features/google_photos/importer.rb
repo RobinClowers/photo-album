@@ -23,9 +23,7 @@ class GooglePhotos::Importer
   private
 
   def download_item(item, full_path)
-    width = item["mediaMetadata"]["width"]
-    height = item["mediaMetadata"]["height"]
-    download_url = "#{item["baseUrl"]}=w#{width}-h#{height}"
+    download_url = "#{item["baseUrl"]}=d"
     response = HTTP.get(download_url)
     if response.status == 200
       open(full_path, "wb") do |file|
