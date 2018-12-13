@@ -10,25 +10,24 @@ class AlbumProcessor
     raise "### You must specify a directory containing images to process" unless File.directory?(directory)
   end
 
-  def process(basename, sizes: PhotoSize.all, force: false)
+  def process(basename, sizes: PhotoSize.all, force: false, &block)
     image = Magick::ImageList.new(File.join(directory, basename))
-    process_image(image, basename, sizes: sizes, force: force)
-    yield(image) if block_given?
+    process_image(image, basename, sizes, force, &block)
   end
 
-  def create_versions(size, force: false)
+  def create_versions(size, force: false, &block)
     guard_dir(size)
     each_image(force: force) do |image, basename|
-      create_version(size, image, basename, force: force)
+      create_version(size, image, basename, force, callback)
     end
   end
 
   private
 
-  def process_image(image, basename, sizes: PhotoSize.all, force: false)
+  def process_image(image, basename, sizes, force, callback)
     auto_orient_image!(image)
     sizes.each do |size|
-      create_version(size, image, basename, force: force)
+      create_version(size, image, basename, force, callback)
     end
   end
 
@@ -39,9 +38,10 @@ class AlbumProcessor
     end
   end
 
-  def create_version(size, image, basename, force: false)
+  def create_version(size, image, basename, force, callback)
     guard_dir(size)
-    path = size.photo_path(directory, basename.sub(/\..+/, ".jpg"))
+    filename = basename.sub(/\..+/, ".jpg")
+    path = size.photo_path(directory, filename)
     return if File.exists?(path) && !force
     resized_image = image.change_geometry(size.geometry_string) { |height, width|
       if image_is_too_small?(image, height, width)
@@ -54,6 +54,7 @@ class AlbumProcessor
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end
+    callback(size, filename, resized_image)
   end
 
   def guard_dir(size)

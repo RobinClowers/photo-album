@@ -28,14 +28,14 @@ class ProcessPhotos
       logger.info("processing #{filename}")
       album_photos.download_original(filename, tmp_dir)
       photo = album.photos.find_by_filename(filename)
-      processor.process(filename, sizes: sizes, force: force) do |image|
-        exif_data = ExifReader.extract_photo_model_data(image)
-        photo.update_attributes!(exif_data)
-      end
-      sizes.each do |size|
-        next unless File.exists?(File.join(path_for(size), filename))
-        uploader.upload(path_for(size), filename, size, overwrite: force)
-        photo.has_size!(size)
+      processor.process(filename, sizes: sizes, force: force) do |size, name, image|
+        if size.name == "original"
+          exif_data = ExifReader.extract_photo_model_data(image)
+          photo.update_attributes!(exif_data)
+        else
+          uploader.upload(path_for(size), filename, size, overwrite: force)
+          photo.has_size!(size, filename, image.mime_type)
+        end
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end
