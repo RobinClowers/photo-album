@@ -24,21 +24,20 @@ class ProcessPhotos
   end
 
   def process_images(images, sizes = PhotoSize.all, force: false)
-    images.each do |path|
-      logger.info("processing #{path}")
-      album_photos.download_original(path, tmp_dir)
-      filename = Pathname.new(path).basename
-      photo = album.photos.find_by_filename(filename.to_s)
+    images.each do |filename|
+      logger.info("processing #{filename}")
+      album_photos.download_original(filename, tmp_dir)
+      photo = album.photos.find_by_filename(filename)
       processor.process(filename, sizes: sizes, force: force) do |image|
         exif_data = ExifReader.extract_photo_model_data(image)
         photo.update_attributes!(exif_data)
       end
       sizes.each do |size|
-        next unless File.exists?(File.join(path_for(size), path))
-        uploader.upload(path_for(size), path, size, overwrite: force)
+        next unless File.exists?(File.join(path_for(size), filename))
+        uploader.upload(path_for(size), filename, size, overwrite: force)
         photo.has_size!(size)
       end
-      FileUtils.rm(File.join(tmp_dir, path))
+      FileUtils.rm(File.join(tmp_dir, filename))
     end
     FileUtils.rm_rf(tmp_dir)
   end

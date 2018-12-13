@@ -47,7 +47,7 @@ describe ProcessPhotos do
 
     it "processes all photos" do
       expect(album_processor).to have_received(:process).once
-        .with(Pathname.new(filename), sizes: PhotoSize.all, force: false)
+        .with(filename, sizes: PhotoSize.all, force: false)
     end
 
     it "uploads all versions" do
@@ -89,7 +89,7 @@ describe ProcessPhotos do
 
     it "processes all photos" do
       expect(album_processor).to have_received(:process).once
-        .with(Pathname.new(filename), sizes: [mobile_size], force: false)
+        .with(filename, sizes: [mobile_size], force: false)
     end
 
     it "uploads the specified version" do
@@ -150,7 +150,7 @@ describe ProcessPhotos do
 
     it "processes all photos" do
       expect(album_processor).to have_received(:process).once
-        .with(Pathname.new(filename), sizes: [mobile_size], force: true)
+        .with(filename, sizes: [mobile_size], force: true)
     end
 
     it "uploads the specified version" do
