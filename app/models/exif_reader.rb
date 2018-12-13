@@ -12,7 +12,7 @@ class ExifReader
       lat: to_coord_string(properties["exif:GPSLatitude"], properties["exif:GPSLatitudeRef"]),
       lon: to_coord_string(properties["exif:GPSLongitude"], properties["exif:GPSLongitudeRef"]),
       mime_type: magick_image.mime_type,
-      taken_at: properties["exif:DateTime"],
+      taken_at: to_date(properties["exif:DateTime"]),
       width: properties["exif:ExifImageWidth"],
     }
   end
@@ -29,5 +29,9 @@ class ExifReader
     minutes = fraction_to_float(minutes)
     seconds = fraction_to_float(seconds)
     "#{degrees.to_i}° #{minutes.to_i}’ #{seconds}” #{direction}"
+  end
+
+  def self.to_date(string)
+    DateTime.strptime(string, "%Y:%m:%d %H:%M:%S")
   end
 end

@@ -17,7 +17,7 @@ describe ExifReader do
         lat: "9° 27’ 3.49” N",
         lon: "100° 1’ 46.58” E",
         mime_type: "image/jpeg",
-        taken_at: "2017:01:27 17:55:53",
+        taken_at: DateTime.parse("2017-01-27T17:55:53+00:00"),
         width: "4896",
       })
     end
@@ -37,7 +37,7 @@ describe ExifReader do
         lat: nil,
         lon: nil,
         mime_type: "image/jpeg",
-        taken_at: "2013:01:16 23:15:41",
+        taken_at: DateTime.parse("2013-01-16T23:15:41+00:00"),
         width: "4000",
       })
     end

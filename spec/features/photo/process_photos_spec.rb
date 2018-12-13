@@ -19,7 +19,7 @@ describe ProcessPhotos do
     lat: "9° 27’ 3.49” N",
     lon: "100° 1’ 46.58” E",
     mime_type: "image/jpeg",
-    taken_at: "2018-12-12T14:41:01-06:00",
+    taken_at: DateTime.parse("2018-12-12T14:41:01-06:00"),
     width: "4896",
   } }
   let!(:album) { Album.create!(slug: slug) }
