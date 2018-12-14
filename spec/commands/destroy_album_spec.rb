@@ -4,7 +4,7 @@ describe DestroyAlbum, ".execute" do
   it "destroys photos, versions and album" do
     album = Album.create!(slug: "test")
     photo = album.photos.create!(filename: "test")
-    photo.photo_versions.create!(size: "mobile")
+    photo.photo_versions.create!(size: "mobile_sm")
 
     DestroyAlbum.execute(album.slug)
 

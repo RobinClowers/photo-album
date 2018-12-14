@@ -9,7 +9,7 @@ describe Uploader do
   let(:filepath) { File.join(path, filename) }
   let(:slug) { AlbumSlug.new("new-album") }
   let(:album_photos) { double(:album_photos, keys: [], create: nil) }
-  let(:size) { PhotoSize.mobile }
+  let(:size) { PhotoSize.mobile_sm }
   subject(:uploader) { Uploader.new(slug) }
 
   before do

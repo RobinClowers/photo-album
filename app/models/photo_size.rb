@@ -1,22 +1,27 @@
 PhotoSize = Struct.new(:name, :width, :height) do
-  # 428 x 321
-  def self.mobile
-    new('mobile', :natural, 321)
+  # 640 x 480
+  def self.mobile_sm
+    new('mobile_sm', :natural, 480)
   end
 
-  # 768 x 576
+  # 1280 x 960
+  def self.mobile_lg
+    new('mobile_lg',:natural, 960)
+  end
+
+  # 1536 x 1152
   def self.tablet
-    new('tablet',:natural, 576)
-  end
-
-  # 1024 x 768
-  def self.laptop
-    new('laptop', :natural, 768)
+    new('tablet',:natural, 1152)
   end
 
   # 2048 x 1535
+  def self.laptop
+    new('laptop', :natural, 1535)
+  end
+
+  # 3072 x 2304
   def self.desktop
-    new('desktop', :natural, 1536)
+    new('desktop', :natural, 2304)
   end
 
   def self.original
@@ -24,7 +29,7 @@ PhotoSize = Struct.new(:name, :width, :height) do
   end
 
   def self.all
-    [mobile, tablet, laptop, desktop]
+    [mobile_sm, mobile_lg, tablet, laptop, desktop]
   end
 
   def self.from_name(name)

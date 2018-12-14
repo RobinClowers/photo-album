@@ -10,7 +10,7 @@ describe ProcessPhotos do
   let(:filename) { "P1120375.JPG" }
   let(:slug) { "test-album" }
   let(:tmp_dir) { "tmp/photo_processing/#{slug}" }
-  let(:mobile_size) { PhotoSize.mobile }
+  let(:mobile_size) { PhotoSize.mobile_sm }
   let(:exif_data) { {
     aperture_f_number: 3.4453125,
     camera_make: "Panasonic",
@@ -57,7 +57,7 @@ describe ProcessPhotos do
 
       processor.process_album
       expect(uploader).to have_received(:upload)
-        .with(File.join(tmp_dir, "mobile"), filename, PhotoSize.mobile, overwrite: false)
+        .with(File.join(tmp_dir, "mobile_sm"), filename, PhotoSize.mobile_sm, overwrite: false)
       expect(uploader).to have_received(:upload)
         .with(File.join(tmp_dir, "tablet"), filename, PhotoSize.tablet, overwrite: false)
     end
@@ -100,7 +100,7 @@ describe ProcessPhotos do
 
       processor.process_album([mobile_size])
       expect(uploader).to have_received(:upload)
-        .with(File.join(tmp_dir, "mobile"), filename, PhotoSize.mobile, overwrite: false)
+        .with(File.join(tmp_dir, "mobile_sm"), filename, PhotoSize.mobile_sm, overwrite: false)
       expect(uploader).to have_received(:upload)
         .with(File.join(tmp_dir, "tablet"), filename, PhotoSize.tablet, overwrite: false)
     end

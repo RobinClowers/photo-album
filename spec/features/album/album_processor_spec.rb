@@ -116,7 +116,7 @@ describe AlbumProcessor do
       }
       allow(image).to receive(:rows) { 75 }
       allow(image).to receive(:columns) { 75 }
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(PhotoSize.mobile_sm)
       expect(image).not_to have_received(:write)
     end
 
@@ -129,7 +129,7 @@ describe AlbumProcessor do
       }
       allow(image).to receive(:rows) { 75 }
       allow(image).to receive(:columns) { 75 }
-      processor.create_versions(PhotoSize.mobile)
+      processor.create_versions(PhotoSize.mobile_sm)
       expect(image).not_to have_received(:write)
     end
 
