@@ -40,8 +40,8 @@ class FullScreenPhoto extends React.Component {
     window.removeEventListener('resize', this.handleResize, false)
   }
 
-  componentDidUpdate({ photo_url }) {
-    if (this.props.photo_url !== photo_url) {
+  componentDidUpdate({ photo_urls }) {
+    if (this.props.photo_urls !== photo_urls) {
       this.setState({ imageWidth: undefined, imageHeight: undefined })
     }
   }
@@ -80,7 +80,7 @@ class FullScreenPhoto extends React.Component {
   }
 
   render() {
-    const { photo_url, topOffset, classes } = this.props
+    const { photoUrls, topOffset, classes } = this.props
 
     return (
       <img
@@ -90,7 +90,7 @@ class FullScreenPhoto extends React.Component {
         }}
         ref={this.image}
         onLoad={this.imageLoaded}
-        src={photo_url}
+        src={photoUrls.desktop}
         className={classes.image} />
     )
   }

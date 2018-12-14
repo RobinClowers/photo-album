@@ -21,10 +21,6 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     textAlign: 'center',
   },
-  image: {
-    width: 240,
-    height: 240,
-  },
 })
 
 class Album extends React.Component {
@@ -65,7 +61,7 @@ class Album extends React.Component {
                 key={photo.id}>
                 <Grid item>
                   <div className={classes.gridItem}>
-                    <img src={photo.small_url} className={classes.image} />
+                    <img src={photo.urls.mobile_sm} className={classes.image} />
                   </div>
                 </Grid>
               </Link>

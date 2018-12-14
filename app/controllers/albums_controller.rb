@@ -2,7 +2,7 @@ class AlbumsController < ApplicationController
   respond_to :json
 
   expose(:albums) { AlbumsQuery.new(current_user).active }
-  expose(:album) { album_relation.find_by_slug!(slug) }
+  expose(:album) { album_relation.includes(:photos, :cover_photo).find_by_slug!(slug) }
   expose(:redirect) { Redirect.find_by_from(slug) }
   expose(:images) { album.photos.to_a }
 
