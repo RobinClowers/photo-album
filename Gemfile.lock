@@ -119,6 +119,10 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
+    exiftool (1.2.1)
+      json
+    exiftool_vendored (10.65.0)
+      exiftool (>= 0.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
@@ -324,6 +328,8 @@ DEPENDENCIES
   decent_exposure (~> 3.0.2)
   dotenv-rails (~> 2.5.0)
   exception_notification (~> 4.3.0)
+  exiftool (~> 1.2.1)
+  exiftool_vendored (~> 10.65.0)
   http (~> 3.3.0)
   jquery-rails (~> 4.3.1)
   listen
