@@ -16,15 +16,16 @@ class AlbumPhotos
 
   def create(name, image_path, size, overwrite: false)
     key_to_create = key(size.name, name)
+    logger.info("Attempting to upload #{image_path} to s3://#{key_to_create}")
     if bucket.objects[key_to_create].exists?
       if overwrite
-        logger.info("overwriting #{key_to_create}")
+        logger.info("Overwriting s3://#{key_to_create}")
       else
-        logger.info("object already exists at #{key_to_create}")
+        logger.info("Object already exists at s3://#{key_to_create}")
         return
       end
     else
-      logger.info("creating #{key_to_create}")
+      logger.info("Uploading s3://#{key_to_create}")
     end
     bucket.objects.create(key_to_create, file: image_path)
   rescue Errno::EPIPE
@@ -59,7 +60,7 @@ class AlbumPhotos
     filepath = "#{target_dir}/#{filename}"
     return if File.exist? filepath
 
-    logger.info("writing to #{filepath}")
+    logger.info("Downloading s3://#{key} to #{filepath}")
 
     File.open(filepath, 'wb') do |file|
       bucket.objects[key].read do |chunk|

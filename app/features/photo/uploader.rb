@@ -26,7 +26,7 @@ class Uploader
       end
     end
 
-    logger.info("Finished!")
+    logger.info("Upload finished")
   end
 
   private

@@ -33,7 +33,7 @@ class AlbumProcessor
 
   def auto_orient_image!(image)
     if image.auto_orient!
-      logger.info("rotating #{image.filename}")
+      logger.info("Rotating #{image.filename}")
       image.write image.filename
     end
   end
@@ -51,7 +51,7 @@ class AlbumProcessor
       image.resize(height, width)
     }
     image.format = "JPEG"
-    logger.info("writing #{size.name} size for #{image.filename}")
+    logger.info("Writing #{path}")
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end

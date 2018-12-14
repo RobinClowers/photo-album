@@ -25,7 +25,7 @@ class ProcessPhotos
 
   def process_images(images, sizes = PhotoSize.all, force: false)
     images.each do |filename|
-      logger.info("processing #{filename}")
+      logger.info("Processing #{filename}")
       album_photos.download_original(filename, tmp_dir)
       photo = album.photos.find_by_filename(filename)
       exif_data = ExifReader.extract_photo_model_data(File.join(tmp_dir, filename))
