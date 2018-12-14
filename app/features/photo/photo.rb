@@ -73,6 +73,10 @@ class Photo < ApplicationRecord
     caption || "Photo in the album #{album.title}"
   end
 
+  def versions
+    photo_versions.map { |version| [version.size, version] }.to_h
+  end
+
   def urls
     photo_versions.map { |version| [version.size, version_url(version)] }.to_h
   end

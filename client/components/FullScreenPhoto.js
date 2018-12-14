@@ -22,17 +22,24 @@ class FullScreenPhoto extends React.Component {
     super(props)
     this.image = React.createRef()
     this.state = {
-      imageWidth: undefined,
-      imageHeight: undefined,
+      isClient: false,
+      imageLoaded: false,
     }
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize, false)
+    this.setState({ ...this.state, isClient: true })
 
     const element = this.image.current
-    if (element && element.complete) {
-        this.imageLoaded()
+     if (element && element.complete) {
+      this.setState({ isClient: true, imageLoaded: true })
+     }
+  }
+
+  componentDidUpdate({ photo }) {
+    if (this.props.photo !== photo) {
+      this.setState({ ...this.state, imageLoaded: false })
     }
   }
 
@@ -40,58 +47,53 @@ class FullScreenPhoto extends React.Component {
     window.removeEventListener('resize', this.handleResize, false)
   }
 
-  componentDidUpdate({ photo_urls }) {
-    if (this.props.photo_urls !== photo_urls) {
-      this.setState({ imageWidth: undefined, imageHeight: undefined })
-    }
-  }
-
   handleResize = debounce(() => this.forceUpdate(), 20, false)
 
-  imageLoaded = _event => {
-    this.setState({
-      imageWidth: this.image.current.width,
-      imageHeight: this.image.current.height,
-    })
+  handleImageLoad = _event => {
+    this.setState({ ...this.state, imageLoaded: true })
   }
 
-  calculateImageDimensions(topOffset) {
-    const { imageWidth, imageHeight } = this.state
-    if (!imageWidth) return undefined
-
+  calculateImageDimensions(photo, topOffset) {
+    if (!this.state.isClient) {
+      return { display: 'none', }
+    }
+    const { width, height } = photo.versions.desktop
     if (this.heightRatio(topOffset) > this.widthRatio()) {
       return {
-        width: byRatio(imageWidth, this.widthRatio()),
-        height: byRatio(imageHeight, this.widthRatio()),
+        display: this.state.imageLoaded ? 'block' : 'none',
+        width: byRatio(width, this.widthRatio()),
+        height: byRatio(height, this.widthRatio()),
       }
     }
     return {
-      width: byRatio(imageWidth, this.heightRatio(topOffset)),
-      height: byRatio(imageHeight, this.heightRatio(topOffset)),
+      display: this.state.imageLoaded ? 'block' : 'none',
+      width: byRatio(width, this.heightRatio(topOffset)),
+      height: byRatio(height, this.heightRatio(topOffset)),
     }
   }
 
   heightRatio(topOffset) {
-    return ceiling(maxHeight(topOffset) / this.state.imageHeight, 1)
+    return ceiling(maxHeight(topOffset) / this.props.photo.versions.desktop.height, 1)
   }
 
   widthRatio() {
-    return ceiling(maxWidth() / this.state.imageWidth, 1)
+    return ceiling(maxWidth() / this.props.photo.versions.desktop.width, 1)
   }
 
   render() {
-    const { photoUrls, alt, topOffset, classes } = this.props
+    const { photo, topOffset, classes } = this.props
+    const { urls, versions } = photo
 
     return (
       <img
-        style={{
-          display: this.state.imageWidth ? 'block' : 'none',
-          ...this.calculateImageDimensions(topOffset),
-        }}
+        style={{ ...this.calculateImageDimensions(photo, topOffset) }}
         ref={this.image}
-        onLoad={this.imageLoaded}
-        src={photoUrls.desktop}
-        alt={alt}
+        onLoad={this.handleImageLoad}
+        src={photo.urls.desktop}
+        srcSet={Object.keys(versions).map(
+          key => `${versions[key].url} ${versions[key].width}w`
+        ).join(', ')}
+        alt={photo.alt}
         className={classes.image} />
     )
   }
