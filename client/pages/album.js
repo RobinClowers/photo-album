@@ -61,7 +61,10 @@ class Album extends React.Component {
                 key={photo.id}>
                 <Grid item>
                   <div className={classes.gridItem}>
-                    <img src={photo.urls.mobile_sm} className={classes.image} />
+                    <img
+                      src={photo.urls.mobile_sm}
+                      alt={photo.alt}
+                      className={classes.image} />
                   </div>
                 </Grid>
               </Link>

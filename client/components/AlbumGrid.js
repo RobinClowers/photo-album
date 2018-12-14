@@ -35,6 +35,7 @@ function AlbumGrid({ classes, albums }) {
             <Grid item>
               <Paper className={classes.paper}>
                 <div
+                  title={album.cover_photo.alt}
                   style={{backgroundImage: `url(${album.cover_photo.urls.mobile_sm})`}}
                   className={classes.image} />
                 <h3 className={classes.title}>{album.title}</h3>

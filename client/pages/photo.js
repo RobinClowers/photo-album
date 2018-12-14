@@ -137,6 +137,7 @@ class Photo extends React.Component {
           }
           <FullScreenPhoto
             photoUrls={photo.urls}
+            alt={photo.alt}
             topOffset={headerHeight + backLinkHeight + minMetaHeight + metaMargin} />
           {next_photo_filename &&
             <ChangePhotoButton

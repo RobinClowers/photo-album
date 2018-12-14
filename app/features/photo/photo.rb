@@ -3,6 +3,7 @@ class Photo < ApplicationRecord
   has_many :photo_versions, inverse_of: :photo
 
   attribute :urls
+  attribute :alt
 
   default_scope -> { order(:filename) }
 

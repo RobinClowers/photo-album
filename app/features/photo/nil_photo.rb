@@ -30,4 +30,8 @@ class NilPhoto < Photo
   def thumb_url
     ''
   end
+
+  def alt
+    'Missing photo'
+  end
 end

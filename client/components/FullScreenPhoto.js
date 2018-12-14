@@ -80,7 +80,7 @@ class FullScreenPhoto extends React.Component {
   }
 
   render() {
-    const { photoUrls, topOffset, classes } = this.props
+    const { photoUrls, alt, topOffset, classes } = this.props
 
     return (
       <img
@@ -91,6 +91,7 @@ class FullScreenPhoto extends React.Component {
         ref={this.image}
         onLoad={this.imageLoaded}
         src={photoUrls.desktop}
+        alt={alt}
         className={classes.image} />
     )
   }
