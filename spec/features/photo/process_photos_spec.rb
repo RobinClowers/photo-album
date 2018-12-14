@@ -8,6 +8,7 @@ describe ProcessPhotos do
     double(:magick_image_list, mime_type: "image/jpeg", columns: 10, rows: 5)
   }
   let(:filename) { "P1120375.JPG" }
+  let(:processed_filename) { "P1120375.jpg" }
   let(:slug) { "test-album" }
   let(:tmp_dir) { "tmp/photo_processing/#{slug}" }
   let(:mobile_size) { PhotoSize.mobile_sm }
@@ -51,15 +52,15 @@ describe ProcessPhotos do
 
     it "uploads each time the process block is called" do
       allow(album_processor).to receive(:process) do |&block|
-        block.call(mobile_size, filename, image)
-        block.call(PhotoSize.tablet, filename, image)
+        block.call(mobile_size, processed_filename, image)
+        block.call(PhotoSize.tablet, processed_filename, image)
       end
 
       processor.process_album
       expect(uploader).to have_received(:upload)
-        .with(File.join(tmp_dir, "mobile_sm"), filename, PhotoSize.mobile_sm, overwrite: false)
+        .with(File.join(tmp_dir, "mobile_sm"), processed_filename, PhotoSize.mobile_sm, overwrite: false)
       expect(uploader).to have_received(:upload)
-        .with(File.join(tmp_dir, "tablet"), filename, PhotoSize.tablet, overwrite: false)
+        .with(File.join(tmp_dir, "tablet"), processed_filename, PhotoSize.tablet, overwrite: false)
     end
 
     it "updates photo with exif data" do
