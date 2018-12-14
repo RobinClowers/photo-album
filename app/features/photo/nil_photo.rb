@@ -19,15 +19,7 @@ class NilPhoto < Photo
     ''
   end
 
-  def insecure_url
-    ''
-  end
-
   def secure_url
-    ''
-  end
-
-  def thumb_url
     ''
   end
 
