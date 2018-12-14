@@ -12,17 +12,17 @@ describe ProcessPhotos do
   let(:tmp_dir) { "tmp/photo_processing/#{slug}" }
   let(:mobile_size) { PhotoSize.mobile_sm }
   let(:exif_data) { {
-    aperture_f_number: 3.4453125,
+    aperture_f_number: 3.3,
     camera_make: "Panasonic",
     camera_model: "DMC-ZS40",
-    focal_length: 4.3,
-    height: "3672",
+    focal_length: "4.3 mm",
+    height: 3672,
     iso_equivalent: 160,
-    lat: "9° 27’ 3.49” N",
-    lon: "100° 1’ 46.58” E",
+    lat: 9.45096944,
+    lon: 100.02960556,
     mime_type: "image/jpeg",
     taken_at: DateTime.parse("2018-12-12T14:41:01-06:00"),
-    width: "4896",
+    width: 4896,
   } }
   let!(:album) { Album.create!(slug: slug) }
   let!(:photo) { Photo.create!(filename: filename, album: album) }
@@ -65,14 +65,14 @@ describe ProcessPhotos do
     it "updates photo with exif data" do
       processor.process_album
       photo.reload
-      expect(photo.aperture_f_number.to_f).to eq(3.4453125)
+      expect(photo.aperture_f_number.to_f).to eq(3.3)
       expect(photo.camera_make).to eq("Panasonic")
       expect(photo.camera_model).to eq("DMC-ZS40")
       expect(photo.focal_length.to_f).to eq(4.3)
       expect(photo.height).to eq(3672)
       expect(photo.iso_equivalent).to eq(160)
-      expect(photo.lat).to eq("9° 27’ 3.49” N")
-      expect(photo.lon).to eq("100° 1’ 46.58” E")
+      expect(photo.lat).to eq("9.45096944")
+      expect(photo.lon).to eq("100.02960556")
       expect(photo.mime_type).to eq("image/jpeg")
       expect(photo.taken_at).to eq("2018-12-12T14:41:01-06:00")
       expect(photo.width).to eq(4896)

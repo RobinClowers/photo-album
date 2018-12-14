@@ -6,18 +6,18 @@ describe ExifReader do
       path = Rails.root.join('spec', 'fixtures', 'files', 'photos', 'P1080205.JPG')
 
       expect(ExifReader.extract_photo_model_data(path)).to eq({
-        aperture_f_number: 3.4453125,
+        aperture_f_number: 3.3,
         camera_make: "Panasonic",
         camera_model: "DMC-ZS40",
-        exposure_time: "10/10000",
-        focal_length: 4.3,
-        height: "3672",
-        iso_equivalent: "160",
-        lat: "9° 27’ 3.49” N",
-        lon: "100° 1’ 46.58” E",
+        exposure_time: "1/1000",
+        focal_length: "4.3 mm",
+        height: 75,
+        iso_equivalent: 160,
+        lat: 9.45096944,
+        lon: 100.02960556,
         mime_type: "image/jpeg",
         taken_at: DateTime.parse("2017-01-27T17:55:53+00:00"),
-        width: "4896",
+        width: 75,
       })
     end
 
@@ -25,28 +25,19 @@ describe ExifReader do
       path = Rails.root.join('spec', 'fixtures', 'files', 'photos', 'P1120375.JPG')
 
       expect(ExifReader.extract_photo_model_data(path)).to eq({
-        aperture_f_number: 3.44,
+        aperture_f_number: 4,
         camera_make: "Panasonic",
         camera_model: "DMC-FS15",
-        exposure_time: "10/6400",
-        focal_length: 5.2,
-        height: "3000",
-        iso_equivalent: "125",
+        exposure_time: "1/640",
+        focal_length: "5.2 mm",
+        height: 75,
+        iso_equivalent: 125,
         lat: nil,
         lon: nil,
         mime_type: "image/jpeg",
         taken_at: DateTime.parse("2013-01-16T23:15:41+00:00"),
-        width: "4000",
+        width: 75,
       })
     end
-  end
-
-  it ".fraction_to_float produces a float from a fraction string" do
-    expect(ExifReader.fraction_to_float("4442/1000")).to eq(4.442)
-  end
-
-  it ".to_coord_string produces a human readable coordinate string" do
-    expect(ExifReader.to_coord_string("19/1, 24/1, 1848/100", "N"))
-      .to eq("19° 24’ 18.48” N")
   end
 end
