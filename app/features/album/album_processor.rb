@@ -29,6 +29,8 @@ class AlbumProcessor
     sizes.each do |size|
       create_version(size, image, basename, force, callback)
     end
+  ensure
+    image && image.destroy!
   end
 
   def auto_orient_image!(image)
@@ -56,6 +58,8 @@ class AlbumProcessor
       i.interlace = ::Magick::PlaneInterlace
     end
     callback.call(size, filename, resized_image) if callback
+  ensure
+    resized_image && resized_image.destroy!
   end
 
   def guard_dir(size)
