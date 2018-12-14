@@ -29,7 +29,7 @@ PhotoSize = Struct.new(:name, :width, :height) do
   end
 
   def self.all
-    [mobile_sm, mobile_lg, tablet, laptop, desktop]
+    [mobile_sm, mobile_lg, tablet, laptop, desktop, original]
   end
 
   def self.from_name(name)

@@ -36,7 +36,7 @@ class ProcessPhotos
         force: force
       ) do |size, filenamename, image|
         uploader.upload(path_for(size), filename, size, overwrite: force)
-        photo.has_size!(size, filename, image)
+        photo.has_size!(size, filename, image.mime_type, image.columns, image.rows)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end

@@ -13,13 +13,13 @@ class Photo < ApplicationRecord
     photo_versions.where(name: version.name).any?
   end
 
-  def has_size!(size, filename, image)
+  def has_size!(size, filename, mime_type, width, height)
     photo_versions.create!(
       size: size.name,
       filename: filename,
-      mime_type: image.mime_type,
-      width: image.columns,
-      height: image.rows
+      mime_type: mime_type,
+      width: width,
+      height: height
     )
   end
 

@@ -40,8 +40,10 @@ class GooglePhotos::Importer
       Rails.logger.info("Photo #{filename} exists")
       return
     end
-    meta = media_item["mediaMetadata"]
+
     raise unless album.id
+
+    meta = media_item["mediaMetadata"]
     photo = Photo.create!(
       filename: filename,
       path: album.slug,
@@ -57,6 +59,13 @@ class GooglePhotos::Importer
       focal_length: meta["focalLength"],
       aperture_f_number: meta["apertureFNumber"],
       iso_equivalent: meta["isoEquivalent"],
+    )
+    photo.has_size!(
+      PhotoSize.original,
+      filename,
+      media_item["mimeType"],
+      meta["width"],
+      meta["height"]
     )
     if cover_photo_id && photo.google_id == cover_photo_id
       Rails.logger.info("Setting cover photo #{photo.filename}")
