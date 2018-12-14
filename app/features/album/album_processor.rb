@@ -55,7 +55,7 @@ class AlbumProcessor
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end
-    callback.call(size, filename, resized_image.mime_type) if callback
+    callback.call(size, filename, resized_image) if callback
   end
 
   def guard_dir(size)

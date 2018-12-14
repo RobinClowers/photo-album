@@ -36,8 +36,8 @@ describe AlbumProcessor do
     it "skips processed photos" do
       processor.create_versions(tiny_size)
       mock_image
-      processor.process(filename) do |size, filename, mime_type|
-        callback.call(size, filename, mime_type)
+      processor.process(filename) do |size, filename, image|
+        callback.call(size, filename, image)
       end
       expect(image).not_to have_received(:change_geometry).with(tiny_geometry)
       expect(image).to have_received(:change_geometry).with(little_geometry).once
@@ -52,13 +52,14 @@ describe AlbumProcessor do
     end
 
     it "calls the callback for each version" do
-      processor.process(filename) do |size, filename, mime_type|
-        callback.call(size, filename, mime_type)
+      mock_image
+      processor.process(filename) do |size, filename, image|
+        callback.call(size, filename, image)
       end
       expect(callback).to have_received(:call)
-        .with(tiny_size, processed_filename, "image/jpeg")
+        .with(tiny_size, processed_filename, image)
       expect(callback).to have_received(:call)
-        .with(little_size, processed_filename, "image/jpeg")
+        .with(little_size, processed_filename, image)
     end
   end
 
@@ -84,8 +85,8 @@ describe AlbumProcessor do
     end
 
     it "calls the callback for that version" do
-      processor.process(filename, sizes: [tiny_size]) do |size, filename, mime_type|
-        callback.call(size, filename, mime_type)
+      processor.process(filename, sizes: [tiny_size]) do |size, filename, image|
+        callback.call(size, filename, image)
       end
       expect(callback).to have_received(:call).once
     end
@@ -133,8 +134,8 @@ describe AlbumProcessor do
     end
 
     it "calls the callback for each file" do
-      processor.create_versions(tiny_size) do |size, filename, mime_type|
-        callback.call(size, filename, mime_type)
+      processor.create_versions(tiny_size) do |size, filename, image|
+        callback.call(size, filename, image)
       end
       expect(callback).to have_received(:call).twice
     end
