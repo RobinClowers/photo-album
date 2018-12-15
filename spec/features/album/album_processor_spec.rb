@@ -51,6 +51,13 @@ describe AlbumProcessor do
       expect(image).to have_received(:change_geometry).with(little_geometry).once
     end
 
+    it "does not process original images" do
+      allow(PhotoSize).to receive(:all) { [PhotoSize.original] }
+      mock_image
+      processor.process(filename)
+      expect(image).not_to have_received(:change_geometry)
+    end
+
     it "calls the callback for each version" do
       mock_image
       processor.process(filename) do |size, filename, image|
@@ -60,6 +67,16 @@ describe AlbumProcessor do
         .with(tiny_size, processed_filename, image)
       expect(callback).to have_received(:call)
         .with(little_size, processed_filename, image)
+    end
+
+    it "calls the callback for original version with original filename" do
+      allow(PhotoSize).to receive(:all) { [PhotoSize.original] }
+      mock_image
+      processor.process(filename) do |size, filename, image|
+        callback.call(size, filename, image)
+      end
+      expect(callback).to have_received(:call)
+        .with(PhotoSize.original, filename, image)
     end
   end
 

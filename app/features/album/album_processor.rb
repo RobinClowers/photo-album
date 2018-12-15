@@ -41,6 +41,10 @@ class AlbumProcessor
   end
 
   def create_version(size, image, basename, force, callback)
+    if size == PhotoSize.original
+      callback.call(size, basename, image) if callback
+      return
+    end
     guard_dir(size)
     filename = basename.sub(/\..+/, ".jpg")
     path = size.photo_path(directory, filename)

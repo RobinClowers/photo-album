@@ -50,10 +50,11 @@ describe ProcessPhotos do
         .with(filename, sizes: PhotoSize.all, force: false)
     end
 
-    it "uploads each time the process block is called" do
+    it "uploads each time the process block is called, except for original size" do
       allow(album_processor).to receive(:process) do |&block|
         block.call(mobile_size, processed_filename, image)
         block.call(PhotoSize.tablet, processed_filename, image)
+        block.call(PhotoSize.original, processed_filename, image)
       end
 
       processor.process_album
@@ -61,6 +62,7 @@ describe ProcessPhotos do
         .with(File.join(tmp_dir, "mobile_sm"), processed_filename, PhotoSize.mobile_sm, overwrite: false)
       expect(uploader).to have_received(:upload)
         .with(File.join(tmp_dir, "tablet"), processed_filename, PhotoSize.tablet, overwrite: false)
+      expect(uploader).to have_received(:upload).twice
     end
 
     it "updates photo with exif data" do
