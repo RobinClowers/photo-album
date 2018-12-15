@@ -16,6 +16,7 @@ set :conditionally_migrate, true
 
 set :default_env, {
   'PATH' => '/opt/rubies/ruby-2.3.3/bin:$PATH',
+  'MALLOC_ARENA_MAX' => 2,
 }
 
 # Default branch is :master
