@@ -4,9 +4,7 @@ class ProcessAllAlbumsWorker
 
   def perform
     Album.pluck(:slug).each do |slug|
-      ProcessPhotos.new(slug).process_album(
-        PhotoSize.from_names(version_names),
-      )
+      ProcessAlbumWorker.perform_async(slug)
     end
   end
 end
