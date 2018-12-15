@@ -38,6 +38,8 @@ gem 'http', '~> 3.3.0'
 gem 'oauth2', '~> 1.4.0'
 gem 'exiftool', '~> 1.2.1'
 gem 'exiftool_vendored', '~> 10.65.0'
+gem 'image_optim'
+gem 'image_optim_pack'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'

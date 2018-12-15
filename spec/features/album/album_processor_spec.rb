@@ -10,6 +10,7 @@ describe AlbumProcessor do
   let(:little_photo) { little_size.photo_path(base_path, processed_filename) }
   let(:tiny_photo) { tiny_size.photo_path(base_path, processed_filename) }
   let(:image) { double(:image).as_null_object }
+  let(:optimizer) { double(:image_optim, optimize_image!: nil) }
   let(:callback) { double(:callback, call: nil) }
   let(:tiny_geometry) { tiny_size.geometry_string }
   let(:little_geometry) { little_size.geometry_string }
@@ -19,6 +20,7 @@ describe AlbumProcessor do
 
   before do
     allow(PhotoSize).to receive(:all) { [little_size, tiny_size] }
+    allow(ImageOptim).to receive(:new) { optimizer }
   end
 
   def mock_image
@@ -44,11 +46,18 @@ describe AlbumProcessor do
       expect(callback).to have_received(:call).once
     end
 
-    it "resizes images for versions" do
+    it "resizes each version" do
       mock_image
       processor.process(filename)
       expect(image).to have_received(:change_geometry).with(tiny_geometry).once
       expect(image).to have_received(:change_geometry).with(little_geometry).once
+    end
+
+    it "optimizes each version" do
+      mock_image
+      processor.process(filename)
+      expect(optimizer).to have_received(:optimize_image!).with(tiny_photo).once
+      expect(optimizer).to have_received(:optimize_image!).with(little_photo).once
     end
 
     it "does not process original images" do
@@ -56,6 +65,13 @@ describe AlbumProcessor do
       mock_image
       processor.process(filename)
       expect(image).not_to have_received(:change_geometry)
+    end
+
+    it "does not optimize originals" do
+      allow(PhotoSize).to receive(:all) { [PhotoSize.original] }
+      mock_image
+      processor.process(filename)
+      expect(optimizer).not_to have_received(:optimize_image!)
     end
 
     it "calls the callback for each version" do

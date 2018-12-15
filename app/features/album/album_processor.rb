@@ -61,9 +61,14 @@ class AlbumProcessor
     resized_image.write(path) do |i|
       i.interlace = ::Magick::PlaneInterlace
     end
+    image_optim.optimize_image!(path)
     callback.call(size, filename, resized_image) if callback
   ensure
     resized_image && resized_image.destroy!
+  end
+
+  def image_optim
+    @image_optim ||= ImageOptim.new({ pngout: false, svgo: false })
   end
 
   def guard_dir(size)
