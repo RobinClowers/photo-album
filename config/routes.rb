@@ -1,6 +1,3 @@
-require 'sidekiq/web'
-Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
-
 Rails.application.routes.draw do
   root 'albums#index'
   get '/albums', to: redirect('/')

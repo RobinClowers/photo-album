@@ -1,3 +1,7 @@
+require 'sidekiq/web'
+Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
+Sidekiq::Web.set :sessions, domain: ENV['COOKIE_DOMAIN']
+
 redis_config = {
   url: ENV['REDIS_URL'],
   password: ENV['REDIS_PASSWORD'],
