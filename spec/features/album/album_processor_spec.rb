@@ -9,7 +9,7 @@ describe AlbumProcessor do
   let!(:originals) { Dir.entries(base_path).select { |f| f =~ /\.jpg|png\Z/i } }
   let(:little_photo) { little_size.photo_path(base_path, processed_filename) }
   let(:tiny_photo) { tiny_size.photo_path(base_path, processed_filename) }
-  let(:image) { double(:image).as_null_object }
+  let(:image) { double(:mini_magic_image, height: 75, width: 75) }
   let(:optimizer) { double(:image_optim, optimize_image!: nil) }
   let(:callback) { double(:callback, call: nil) }
   let(:tiny_geometry) { tiny_size.geometry_string }
@@ -24,8 +24,15 @@ describe AlbumProcessor do
   end
 
   def mock_image
-    allow(Magick::ImageList).to receive(:new) { image }
-    allow(image).to receive(:change_geometry) { image }
+    allow(MiniMagick::Image).to receive(:open) { image }
+    allow(image).to receive(:auto_orient) { image }
+    allow(image).to receive(:resize) { image }
+    allow(image).to receive(:interlace) { image }
+    allow(image).to receive(:format) { image }
+    allow(image).to receive(:write) { image }
+    allow(image).to receive(:combine_options) do |&block|
+      block.call(image)
+    end
   end
 
   describe "#process all versions" do
@@ -41,16 +48,16 @@ describe AlbumProcessor do
       processor.process(filename) do |size, filename, image|
         callback.call(size, filename, image)
       end
-      expect(image).not_to have_received(:change_geometry).with(tiny_geometry)
-      expect(image).to have_received(:change_geometry).with(little_geometry).once
+      expect(image).not_to have_received(:resize).with(tiny_geometry)
+      expect(image).to have_received(:resize).with(little_geometry).once
       expect(callback).to have_received(:call).once
     end
 
     it "resizes each version" do
       mock_image
       processor.process(filename)
-      expect(image).to have_received(:change_geometry).with(tiny_geometry).once
-      expect(image).to have_received(:change_geometry).with(little_geometry).once
+      expect(image).to have_received(:resize).with(tiny_geometry).once
+      expect(image).to have_received(:resize).with(little_geometry).once
     end
 
     it "optimizes each version" do
@@ -64,7 +71,7 @@ describe AlbumProcessor do
       allow(PhotoSize).to receive(:all) { [PhotoSize.original] }
       mock_image
       processor.process(filename)
-      expect(image).not_to have_received(:change_geometry)
+      expect(image).not_to have_received(:resize)
     end
 
     it "does not optimize originals" do
@@ -107,14 +114,14 @@ describe AlbumProcessor do
       processor.create_versions(tiny_size)
       mock_image
       processor.process(filename, sizes: [tiny_size])
-      expect(image).not_to have_received(:change_geometry)
+      expect(image).not_to have_received(:resize)
     end
 
     it "resizes images for versions" do
       mock_image
       processor.process(filename, sizes: [tiny_size])
-      expect(image).to have_received(:change_geometry).with(tiny_geometry).once
-      expect(image).not_to have_received(:change_geometry).with(little_geometry)
+      expect(image).to have_received(:resize).with(tiny_geometry).once
+      expect(image).not_to have_received(:resize).with(little_geometry)
     end
 
     it "calls the callback for that version" do
@@ -130,25 +137,25 @@ describe AlbumProcessor do
       processor.create_versions(tiny_size)
       mock_image
       processor.create_versions(tiny_size)
-      expect(image).not_to have_received(:change_geometry)
+      expect(image).not_to have_received(:resize)
     end
 
     it "does not skip processed photos when force is true" do
       processor.create_versions(tiny_size)
       mock_image
       processor.create_versions(tiny_size, force: true)
-      expect(image).to have_received(:change_geometry).with(tiny_geometry).twice
+      expect(image).to have_received(:resize).with(tiny_geometry).twice
     end
 
     it "does not create version wider than the original" do
       mock_image
       target_height = 50
       target_width = 100
-      allow(image).to receive(:change_geometry) { |&block|
+      allow(image).to receive(:resize) { |&block|
         block.call(target_height, target_width)
       }
-      allow(image).to receive(:rows) { 75 }
-      allow(image).to receive(:columns) { 75 }
+      allow(image).to receive(:height) { 75 }
+      allow(image).to receive(:width) { 75 }
       processor.create_versions(PhotoSize.mobile_sm)
       expect(image).not_to have_received(:write)
     end
@@ -157,11 +164,11 @@ describe AlbumProcessor do
       mock_image
       target_height = 100
       target_width = 50
-      allow(image).to receive(:change_geometry) {
+      allow(image).to receive(:resize) {
         |&block| block.call(target_height, target_width)
       }
-      allow(image).to receive(:rows) { 75 }
-      allow(image).to receive(:columns) { 75 }
+      allow(image).to receive(:height) { 75 }
+      allow(image).to receive(:width) { 75 }
       processor.create_versions(PhotoSize.mobile_sm)
       expect(image).not_to have_received(:write)
     end

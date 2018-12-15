@@ -38,7 +38,7 @@ class ProcessPhotos
         if size != PhotoSize.original
           uploader.upload(path_for(size), version_filename, size, overwrite: force)
         end
-        photo.has_size!(size, version_filename, image.mime_type, image.columns, image.rows)
+        photo.has_size!(size, version_filename, image.mime_type, image.width, image.height)
       end
       FileUtils.rm(File.join(tmp_dir, filename))
     end

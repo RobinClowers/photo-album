@@ -8,7 +8,7 @@ class ImageList
 
   def each_image(filenames=all_images)
     filenames.each do |basename|
-      image = Magick::ImageList.new(File.join(path, basename))
+      image = MiniMagick::Image.open(File.join(path, basename))
       yield image, basename
     end
   end

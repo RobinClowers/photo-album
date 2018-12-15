@@ -1,4 +1,3 @@
-require "rmagick"
 require "fileutils"
 
 class AlbumProcessor
@@ -11,36 +10,26 @@ class AlbumProcessor
   end
 
   def process(basename, sizes: PhotoSize.all, force: false, &block)
-    image = Magick::ImageList.new(File.join(directory, basename))
-    process_image(image, basename, sizes, force, block)
+    process_image(basename, sizes, force, block)
   end
 
   def create_versions(size, force: false, &block)
     guard_dir(size)
     each_image(force: force) do |image, basename|
-      create_version(size, image, basename, force, block)
+      create_version(size, basename, force, block)
     end
   end
 
   private
 
-  def process_image(image, basename, sizes, force, callback)
-    auto_orient_image!(image)
+  def process_image(basename, sizes, force, callback)
     sizes.each do |size|
-      create_version(size, image, basename, force, callback)
-    end
-  ensure
-    image && image.destroy!
-  end
-
-  def auto_orient_image!(image)
-    if image.auto_orient!
-      logger.info("Rotating #{image.filename}")
-      image.write image.filename
+      create_version(size, basename, force, callback)
     end
   end
 
-  def create_version(size, image, basename, force, callback)
+  def create_version(size, basename, force, callback)
+    image = MiniMagick::Image.open(File.join(directory, basename))
     if size == PhotoSize.original
       callback.call(size, basename, image) if callback
       return
@@ -49,22 +38,20 @@ class AlbumProcessor
     filename = basename.sub(/\..+/, ".jpg")
     path = size.photo_path(directory, filename)
     return if File.exists?(path) && !force
-    resized_image = image.change_geometry(size.geometry_string) { |height, width|
-      if image_is_too_small?(image, height, width)
-        logger.info("#{image.filename} is too small for #{size.name}, skipping")
-        return
-      end
-      image.resize(height, width)
-    }
-    image.format = "JPEG"
-    logger.info("Writing #{path}")
-    resized_image.write(path) do |i|
-      i.interlace = ::Magick::PlaneInterlace
+    width, height = size.calculate(image.width, image.height)
+    if width == :invalid || height == :invalid
+      logger.info("#{basename} is too small for #{size.name}, skipping")
+      return
     end
+    image.format("JPEG")
+    image.combine_options do |i|
+      i.auto_orient
+      i.resize(size.geometry_string)
+      i.interlace("plane")
+    end
+    image.write(path)
     image_optim.optimize_image!(path)
-    callback.call(size, filename, resized_image) if callback
-  ensure
-    resized_image && resized_image.destroy!
+    callback.call(size, filename, image) if callback
   end
 
   def image_optim
@@ -73,10 +60,6 @@ class AlbumProcessor
 
   def guard_dir(size)
     FileUtils.mkdir_p(size.full_path(directory))
-  end
-
-  def image_is_too_small?(image, height, width)
-    image.rows < width || image.columns < height
   end
 
   def image_list

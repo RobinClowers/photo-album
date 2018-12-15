@@ -49,6 +49,35 @@ PhotoSize = Struct.new(:name, :width, :height) do
     File.join(base_path, name)
   end
 
+  def calculate(original_width, original_height)
+    case
+    when width == :natural && height == :natural
+      [original_width, original_height]
+    when height != :natural
+      ratio = height.to_f / original_height
+      new_width = (original_width * ratio).to_i
+      [
+        constrain_dimension(new_width, original_width),
+        constrain_dimension(height, original_height)
+      ]
+    when width != :natural
+      ratio = width.to_f / original_width
+      new_height = (original_height * ratio).to_i
+      [
+        constrain_dimension(width, original_width),
+        constrain_dimension(new_height, original_height)
+      ]
+    end
+  end
+
+  def constrain_dimension(new, original)
+    if new > original
+      :invalid
+    else
+      new
+    end
+  end
+
   def geometry_string
     geometry_height = height unless height == :natural
     geometry_width = width unless width == :natural

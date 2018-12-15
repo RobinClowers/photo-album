@@ -5,7 +5,7 @@ describe ProcessPhotos do
   let(:uploader) { double(:uploader, upload: nil) }
   let(:album_processor) { double(:album_processor) }
   let(:image) {
-    double(:magick_image_list, mime_type: "image/jpeg", columns: 10, rows: 5)
+    double(:mini_magic_image, mime_type: "image/jpeg", width: 10, height: 5)
   }
   let(:filename) { "P1120375.JPG" }
   let(:processed_filename) { "P1120375.jpg" }
