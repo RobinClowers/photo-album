@@ -9,7 +9,7 @@ class ProcessPhotos
   def initialize(slug)
     @logger = Rails.logger
     @album = Album.includes(:photos).find_by_slug(slug.to_s)
-    raise "Album not found with slug: #{album.slug}" unless @album
+    raise "Album not found with slug: #{slug}" unless @album
     @paths = {}
   end
 
