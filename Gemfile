@@ -27,6 +27,7 @@ gem 'jquery-rails', '~> 4.3.1'
 gem 'sass-rails', '~> 5.0.7'
 gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
+gem 'mini_magick', '~> 4.9.2'
 # For #to_url method
 gem 'stringex'
 gem 'dotenv-rails', '~> 2.5.0'
