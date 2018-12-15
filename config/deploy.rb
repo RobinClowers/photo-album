@@ -8,8 +8,11 @@ set :assets_roles, [:web]
 set :sidekiq_roles, [:sidekiq_utility, :sidekiq_web]
 set :sidekiq_web_queue, :web
 set :sidekiq_utility_queue, :utility
-set sidekiq_concurrency: 1
+set :sidekiq_concurrency, 1
 set :conditionally_migrate, true
+
+# Default is true, false is useful for debugging
+# set :format_options, truncate: false
 
 set :default_env, {
   'PATH' => '/opt/rubies/ruby-2.3.3/bin:$PATH',
