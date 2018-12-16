@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :validatable, :confirmable, :omniauthable
   has_secure_password validations: false
 
   attribute :profile_photo_url
