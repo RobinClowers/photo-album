@@ -72,8 +72,10 @@ const icon = variant => {
 const ChangePhotoButton = ({ variant, albumSlug, photoFilename, classes }) => (
   <Link
     route='photo'
-    params={{slug: albumSlug, filename: photoFilename}}>
+    params={{slug: albumSlug, filename: photoFilename}}
+    passHref>
     <ButtonBase
+      component="a"
       className={variant === 'next' ? classes.nextButton : classes.previousButton}
       aria-label={variant}
       disableRipple={true}>

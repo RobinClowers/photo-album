@@ -25,7 +25,6 @@ const styles = theme => ({
     flexGrow: 1,
   },
   title: {
-    cursor: 'pointer',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -93,9 +92,11 @@ class PrimarySearchAppBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Link route='index'>
-              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                Robin&#700;s Photos
-              </Typography>
+              <a>
+                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                  Robin&#700;s Photos
+                </Typography>
+              </a>
             </Link>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
