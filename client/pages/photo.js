@@ -123,6 +123,8 @@ class Photo extends React.Component {
           <meta property="og:url" content={`${process.env.ROOT_URL}/albums/${album.slug}/${photo.filename}`} />
           <meta property="og:image" content={photo.urls.desktop} />
           <meta property="og:image:secure_url" content={photo.urls.desktop} />
+          <meta property="og:image:width" content={photo.width} />
+          <meta property="og:image:height" content={photo.height} />
         </Head>
         <BackToAlbumLink url={`/albums/${album.slug}`} />
         <Swipe

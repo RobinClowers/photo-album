@@ -10,7 +10,9 @@ class Album < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
 
   attr_accessor :google_id
-  attribute :cover_photo_secure_url, :string
+  attribute :cover_photo_url, :string
+  attribute :cover_photo_width
+  attribute :cover_photo_height
 
   def self.new_from_slug(slug)
     slug = ::AlbumSlug.new(slug)
@@ -42,7 +44,15 @@ class Album < ApplicationRecord
     update_attributes!(published_at: Time.current)
   end
 
-  def cover_photo_secure_url
-    cover_photo.secure_url if cover_photo
+  def cover_photo_url
+    cover_photo.url if cover_photo
+  end
+
+  def cover_photo_width
+    cover_photo.width if cover_photo
+  end
+
+  def cover_photo_height
+    cover_photo.height if cover_photo
   end
 end

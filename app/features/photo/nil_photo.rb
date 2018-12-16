@@ -19,10 +19,6 @@ class NilPhoto < Photo
     ''
   end
 
-  def secure_url
-    ''
-  end
-
   def alt
     'Missing photo'
   end
