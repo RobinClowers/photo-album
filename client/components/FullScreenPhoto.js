@@ -2,11 +2,15 @@ import { withStyles } from '@material-ui/core/styles'
 import debounce from 'lodash/debounce'
 
 const styles = theme => ({
-  image: {
+  imageContainer: {
     position: 'relative',
     left: '50%',
     transform: 'translateX(-50%)',
   },
+  image: {
+    width: '100%',
+    height: '100%'
+  }
 })
 
 const ceiling = (num, ceiling) => (num > ceiling) ? ceiling : num
@@ -53,23 +57,29 @@ class FullScreenPhoto extends React.Component {
     this.setState({ ...this.state, imageLoaded: true })
   }
 
-  calculateImageDimensions(photo, topOffset) {
+  calculateImageDimensions() {
+    const { photo, topOffset } = this.props
     if (!this.state.isClient) {
       return { display: 'none', }
     }
     const { width, height } = photo.versions.desktop
     if (this.heightRatio(topOffset) > this.widthRatio()) {
       return {
-        display: this.state.imageLoaded ? 'block' : 'none',
         width: byRatio(width, this.widthRatio()),
         height: byRatio(height, this.widthRatio()),
       }
     }
     return {
-      display: this.state.imageLoaded ? 'block' : 'none',
       width: byRatio(width, this.heightRatio(topOffset)),
       height: byRatio(height, this.heightRatio(topOffset)),
     }
+  }
+
+  showPhoto() {
+    if (!this.state.isClient || !this.state.imageLoaded) {
+      return { display: 'none', }
+    }
+    return { display: 'block', }
   }
 
   heightRatio(topOffset) {
@@ -81,20 +91,24 @@ class FullScreenPhoto extends React.Component {
   }
 
   render() {
-    const { photo, topOffset, classes } = this.props
+    const { photo, classes } = this.props
     const { urls, versions } = photo
 
     return (
-      <img
-        style={{ ...this.calculateImageDimensions(photo, topOffset) }}
-        ref={this.image}
-        onLoad={this.handleImageLoad}
-        src={photo.urls.desktop}
-        srcSet={Object.keys(versions).map(
-          key => `${versions[key].url} ${versions[key].width}w`
-        ).join(', ')}
-        alt={photo.alt}
-        className={classes.image} />
+      <div
+        className={classes.imageContainer}
+        style={{ ...this.calculateImageDimensions() }}>
+        <img
+          style={{ ...this.showPhoto() }}
+          className={classes.image}
+          ref={this.image}
+          onLoad={this.handleImageLoad}
+          src={photo.urls.desktop}
+          srcSet={Object.keys(versions).map(
+            key => `${versions[key].url} ${versions[key].width}w`
+          ).join(', ')}
+          alt={photo.alt} />
+      </div>
     )
   }
 }
