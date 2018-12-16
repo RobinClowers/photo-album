@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "users/omniauth_callbacks"
+  }
   root 'albums#index'
   get '/albums', to: redirect('/')
-
-  get "/auth/:provider/callback" => "sessions#create"
-  delete "/signout" => "sessions#destroy", :as => :signout
 
   resources :albums, only: [:show] do
     resources :photos, only: [:show], controller: 'albums/photos'

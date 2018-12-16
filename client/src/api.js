@@ -25,7 +25,7 @@ const getJson = async (path, request = {}) => {
 }
 
 export const signOut = async (request = {}) => {
-  const response = await fetch(`${scheme}://${host}/signout`, {
+  const response = await fetch(`${scheme}://${host}/users/sign_out`, {
     method: 'DELETE',
     credentials: 'include',
     headers: {
@@ -35,7 +35,7 @@ export const signOut = async (request = {}) => {
     },
   })
 
-  return response.status === 200
+  return response.status === 204
 }
 
 export const postComment = async (photo_id, comment) => {

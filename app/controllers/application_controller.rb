@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    @current_user ||= CurrentUser.get(request)
+    super || User::NullUser.new
   end
   helper_method :current_user
 
@@ -26,10 +26,6 @@ class ApplicationController < ActionController::Base
     render nothing: true, status: :unauthorized unless current_user.signed_in?
   end
 
-  def return_path
-    request.env["omniauth.origin"] || home_url
-  end
-
   def home_url
     ENV.fetch("FRONT_END_ROOT")
   end
@@ -39,5 +35,15 @@ class ApplicationController < ActionController::Base
     if protect_against_forgery?
       headers['X-CSRF-Token'] = form_authenticity_token
     end
+  end
+
+  protected
+
+  def after_sign_in_path_for(resource)
+    request.env['omniauth.origin'] || stored_location_for(resource) || root_path
+  end
+
+  def after_sign_out_path_for(resource)
+    home_url
   end
 end
