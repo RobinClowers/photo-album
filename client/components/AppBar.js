@@ -54,6 +54,11 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  profileImage: {
+    height: 24,
+    width: 24,
+    borderRadius: 24,
+  },
   inputRoot: {
     color: 'inherit',
     width: '100%',
@@ -128,7 +133,13 @@ class PrimarySearchAppBar extends React.Component {
                     aria-haspopup="true"
                     color="inherit"
                     {...bindTrigger(popupState)}>
-                    <Icon>account_circle</Icon>
+                    {user.id ?
+                      <img
+                        className={classes.profileImage}
+                        src={user.profile_photo_url}
+                        alt="profile photo" />
+                      :
+                      <Icon>account_circle</Icon>}
                   </IconButton>
                   <Popover {...bindPopover(popupState)}>
                     <div style={{padding: 20}}>
