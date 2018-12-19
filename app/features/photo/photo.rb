@@ -21,7 +21,7 @@ class Photo < ApplicationRecord
       width: width,
       height: height
     )
-  rescue ActiveRecord::NotUnique
+  rescue ActiveRecord::RecordNotUnique
   end
 
   def version_url(version)
