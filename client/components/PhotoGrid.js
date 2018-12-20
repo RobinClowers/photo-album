@@ -14,10 +14,11 @@ const styles = theme => ({
 })
 
 const buildGrid = (photos, width = global.innerWidth - gutter * 2) => {
-  const result = justify(photos.map(p => ({ height: p.height, width: p.width })), {
-    containerWidth: width,
+  const dimensions = photos.map(p => {
+    const { original } = p.versions
+    return { height: original.height, width: original.width }
   })
-
+  const result = justify(dimensions, { containerWidth: width })
   return result.boxes.map((box, i) => ({ ...box, photo: photos[i] }))
 }
 
