@@ -44,7 +44,8 @@ class Albums::PhotosController < ApplicationController
 
   def next_photo_filename
     index = photo_ids.index(photo.id)
-    if index >= photo_ids.count
+
+    if index >= (photo_ids.count - 1)
       nil
     else
       Photo.find(photo_ids[index + 1]).filename
