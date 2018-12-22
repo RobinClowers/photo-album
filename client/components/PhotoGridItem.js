@@ -3,9 +3,9 @@ import { Link } from 'client/routes'
 
 const styles = theme => ({
   photo: {
+    backgroundColor: theme.palette.primary.light,
     position: 'absolute',
     textAlign: 'center',
-    color: theme.palette.text.secondary,
     whiteSpace: 'nowrap',
   },
 })
