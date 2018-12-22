@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   has_secure_password validations: false
 
+  attribute :profile_photo_url
+
   validates :provider, presence: true
 
   def self.create_with_omniauth(auth)

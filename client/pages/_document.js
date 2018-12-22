@@ -35,6 +35,12 @@ class MyDocument extends Document {
           <link href="/static/android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png" />
           <link href="/static/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png" />
           <link href="/static/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png" />
+          <style global jsx>{`
+            a {
+              text-decoration: none;
+              color: inherit;
+            }
+          `}</style>
         </Head>
         <body>
           <Main />

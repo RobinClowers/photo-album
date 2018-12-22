@@ -2,11 +2,15 @@ import { withStyles } from '@material-ui/core/styles'
 import debounce from 'lodash/debounce'
 
 const styles = theme => ({
-  image: {
+  imageContainer: {
     position: 'relative',
     left: '50%',
     transform: 'translateX(-50%)',
   },
+  image: {
+    width: '100%',
+    height: '100%'
+  }
 })
 
 const ceiling = (num, ceiling) => (num > ceiling) ? ceiling : num
@@ -22,17 +26,25 @@ class FullScreenPhoto extends React.Component {
     super(props)
     this.image = React.createRef()
     this.state = {
-      imageWidth: undefined,
-      imageHeight: undefined,
+      isClient: false,
+      showImage: true,
     }
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize, false)
+    this.setState({ ...this.state, isClient: true })
 
     const element = this.image.current
-    if (element && element.complete) {
-        this.imageLoaded()
+     if (element && element.complete) {
+      this.setState({ isClient: true, showImage: true })
+     }
+  }
+
+  componentDidUpdate({ photo }) {
+    if (this.props.photo !== photo) {
+      this.setState({ ...this.state, showImage: false })
+      global.setTimeout(this.handleTimeout, 20)
     }
   }
 
@@ -40,58 +52,63 @@ class FullScreenPhoto extends React.Component {
     window.removeEventListener('resize', this.handleResize, false)
   }
 
-  componentDidUpdate({ photo_url }) {
-    if (this.props.photo_url !== photo_url) {
-      this.setState({ imageWidth: undefined, imageHeight: undefined })
-    }
-  }
-
   handleResize = debounce(() => this.forceUpdate(), 20, false)
 
-  imageLoaded = _event => {
-    this.setState({
-      imageWidth: this.image.current.width,
-      imageHeight: this.image.current.height,
-    })
+  handleTimeout = _event => {
+    this.setState({ ...this.state, showImage: true })
   }
 
-  calculateImageDimensions(topOffset) {
-    const { imageWidth, imageHeight } = this.state
-    if (!imageWidth) return undefined
-
+  calculateImageDimensions() {
+    const { photo, topOffset } = this.props
+    if (!this.state.isClient) {
+      return { display: 'none', }
+    }
+    const { width, height } = photo.versions.desktop
     if (this.heightRatio(topOffset) > this.widthRatio()) {
       return {
-        width: byRatio(imageWidth, this.widthRatio()),
-        height: byRatio(imageHeight, this.widthRatio()),
+        width: byRatio(width, this.widthRatio()),
+        height: byRatio(height, this.widthRatio()),
       }
     }
     return {
-      width: byRatio(imageWidth, this.heightRatio(topOffset)),
-      height: byRatio(imageHeight, this.heightRatio(topOffset)),
+      width: byRatio(width, this.heightRatio(topOffset)),
+      height: byRatio(height, this.heightRatio(topOffset)),
     }
   }
 
+  showPhoto() {
+    if (!this.state.isClient || !this.state.showImage) {
+      return { display: 'none', }
+    }
+    return { display: 'block', }
+  }
+
   heightRatio(topOffset) {
-    return ceiling(maxHeight(topOffset) / this.state.imageHeight, 1)
+    return ceiling(maxHeight(topOffset) / this.props.photo.versions.desktop.height, 1)
   }
 
   widthRatio() {
-    return ceiling(maxWidth() / this.state.imageWidth, 1)
+    return ceiling(maxWidth() / this.props.photo.versions.desktop.width, 1)
   }
 
   render() {
-    const { photo_url, topOffset, classes } = this.props
+    const { photo, classes } = this.props
+    const { urls, versions } = photo
 
     return (
-      <img
-        style={{
-          display: this.state.imageWidth ? 'block' : 'none',
-          ...this.calculateImageDimensions(topOffset),
-        }}
-        ref={this.image}
-        onLoad={this.imageLoaded}
-        src={photo_url}
-        className={classes.image} />
+      <div
+        className={classes.imageContainer}
+        style={{ ...this.calculateImageDimensions() }}>
+        <img
+          style={{ ...this.showPhoto() }}
+          className={classes.image}
+          ref={this.image}
+          src={photo.urls.desktop}
+          srcSet={Object.keys(versions).map(
+            key => `${versions[key].url} ${versions[key].width}w`
+          ).join(', ')}
+          alt={photo.alt} />
+      </div>
     )
   }
 }

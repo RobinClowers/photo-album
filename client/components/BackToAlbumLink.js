@@ -7,7 +7,6 @@ import { Link } from 'client/routes'
 const styles = theme => ({
   link: {
     alignItems: 'center',
-    cursor: 'pointer',
     display: 'flex',
     margin: theme.spacing.unit * 2, // match app bar gutter
     [theme.breakpoints.up('sm')]: {
@@ -20,10 +19,12 @@ const styles = theme => ({
 
 const BackToAlbumLink = ({ url, classes }) => (
   <Link route={url}>
-    <Typography variant="body2" component="a" className={classes.link}>
-      <Icon>arrow_back</Icon>
-      Back to album
-    </Typography>
+    <a>
+      <Typography variant="body2" className={classes.link}>
+        <Icon>arrow_back</Icon>
+        Back to album
+      </Typography>
+    </a>
   </Link>
 )
 

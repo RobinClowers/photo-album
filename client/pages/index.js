@@ -9,7 +9,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { user, albums, openGraphImageUrl } = this.props
+    const { user, albums, share_photo } = this.props
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
@@ -18,8 +18,10 @@ export default class extends React.Component {
           <meta property="og:title" content="Photos by Robin Clowers" />
           <meta property="og:description" content="Travel photos from all over the world by Robin Clowers." />
           <meta property="og:url" content={process.env.ROOT_URL} />
-          <meta property="og:image" content={openGraphImageUrl} />
-          <meta property="og:image:secure_url" content={openGraphImageUrl} />
+          <meta property="og:image" content={share_photo.url} />
+          <meta property="og:image:secure_url" content={share_photo.url} />
+          <meta property="og:image:width" content={share_photo.width} />
+          <meta property="og:image:height" content={share_photo.height} />
         </Head>
         <AlbumGrid albums={this.props.albums} />
       </Layout>

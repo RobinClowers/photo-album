@@ -7,10 +7,9 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   paper: {
-    cursor: 'pointer',
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
+    width: 240,
     overflow: 'hidden',
   },
   title: {
@@ -19,7 +18,10 @@ const styles = theme => ({
   },
   image: {
     width: 240,
-    height: 240,
+    height: 180,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
   },
 })
 
@@ -28,14 +30,19 @@ function AlbumGrid({ classes, albums }) {
     <div style={{padding: 20}} >
       <Grid justify='center' container spacing={24}>
         {albums.map(album => (
-          <Link route='album' params={{slug: album.slug}} key={album.id}>
-            <Grid item>
-              <Paper className={classes.paper}>
-                <img src={album.cover_photo.small_url} className={classes.image} />
-                <h3 className={classes.title}>{album.title}</h3>
-              </Paper>
-            </Grid>
-          </Link>
+          <Grid item key={album.id}>
+            <Link route='album' params={{slug: album.slug}}>
+              <a>
+                <Paper className={classes.paper}>
+                  <div
+                    title={album.cover_photo.alt}
+                    style={{backgroundImage: `url(${album.cover_photo.urls.mobile_sm})`}}
+                    className={classes.image} />
+                  <h3 className={classes.title}>{album.title}</h3>
+                </Paper>
+              </a>
+            </Link>
+          </Grid>
         ))}
       </Grid>
     </div>

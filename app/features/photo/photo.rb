@@ -2,8 +2,8 @@ class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
   has_many :photo_versions, inverse_of: :photo
 
-  attribute :url
-  attribute :small_url
+  attribute :urls
+  attribute :alt
 
   default_scope -> { order(:filename) }
 
@@ -25,7 +25,7 @@ class Photo < ApplicationRecord
   end
 
   def version_url(version)
-    File.join(protocol, base_path, path, version.name, filename)
+    File.join(protocol, base_path, path, version.size, version.filename)
   end
 
   def legacy_version_url(version)
@@ -36,19 +36,7 @@ class Photo < ApplicationRecord
     legacy_version_url(:thumbs)
   end
 
-  def small_url
-    legacy_version_url(:small)
-  end
-
   def url
-    secure_url
-  end
-
-  def insecure_url
-    File.join(protocol(secure: false), base_path, path, filename)
-  end
-
-  def secure_url
     File.join(protocol, base_path, path, filename)
   end
 
@@ -75,5 +63,13 @@ class Photo < ApplicationRecord
   # these methods should be in a presenter
   def alt
     caption || "Photo in the album #{album.title}"
+  end
+
+  def versions
+    photo_versions.map { |version| [version.size, version] }.to_h
+  end
+
+  def urls
+    photo_versions.map { |version| [version.size, version_url(version)] }.to_h
   end
 end

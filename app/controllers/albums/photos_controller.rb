@@ -1,6 +1,6 @@
 class Albums::PhotosController < ApplicationController
-  expose(:album) { Album.find_by_slug(params[:album_id]) }
-  expose(:photo) { album.photos.find_by_filename(filename) }
+  expose(:album) { Album.find_by_slug!(params[:album_id]) }
+  expose(:photo) { album.photos.includes(:photo_versions).find_by_filename!(filename) }
   expose(:comments) { Comment.where(photo: photo).includes(:user) }
   expose(:plus_ones) { PlusOne.where(photo: photo).includes(:user) }
 
@@ -8,7 +8,7 @@ class Albums::PhotosController < ApplicationController
     render json: {
       photo: photo.as_json().merge({
         favorites: {
-          count: plus_ones.count,
+          count: plus_ones.length,
           names: plus_ones_names,
           current_user_favorite: plus_ones.where(user: current_user).first,
         },
@@ -44,7 +44,8 @@ class Albums::PhotosController < ApplicationController
 
   def next_photo_filename
     index = photo_ids.index(photo.id)
-    if index >= photo_ids.count
+
+    if index >= (photo_ids.count - 1)
       nil
     else
       Photo.find(photo_ids[index + 1]).filename

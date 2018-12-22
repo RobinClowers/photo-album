@@ -25,7 +25,6 @@ const styles = theme => ({
     flexGrow: 1,
   },
   title: {
-    cursor: 'pointer',
     display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
@@ -54,6 +53,11 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  profileImage: {
+    height: 24,
+    width: 24,
+    borderRadius: 24,
   },
   inputRoot: {
     color: 'inherit',
@@ -93,9 +97,11 @@ class PrimarySearchAppBar extends React.Component {
         <AppBar position="static">
           <Toolbar>
             <Link route='index'>
-              <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                Robin&#700;s Photos
-              </Typography>
+              <a>
+                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                  Robin&#700;s Photos
+                </Typography>
+              </a>
             </Link>
             <div className={classes.search}>
               <div className={classes.searchIcon}>
@@ -127,7 +133,13 @@ class PrimarySearchAppBar extends React.Component {
                     aria-haspopup="true"
                     color="inherit"
                     {...bindTrigger(popupState)}>
-                    <Icon>account_circle</Icon>
+                    {user.id ?
+                      <img
+                        className={classes.profileImage}
+                        src={user.profile_photo_url}
+                        alt="profile photo" />
+                      :
+                      <Icon>account_circle</Icon>}
                   </IconButton>
                   <Popover {...bindPopover(popupState)}>
                     <div style={{padding: 20}}>
