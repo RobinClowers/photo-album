@@ -9,7 +9,7 @@ const styles = theme => ({
   paper: {
     textAlign: 'center',
     color: theme.palette.text.secondary,
-    whiteSpace: 'nowrap',
+    width: 240,
     overflow: 'hidden',
   },
   title: {
