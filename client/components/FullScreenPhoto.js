@@ -27,7 +27,7 @@ class FullScreenPhoto extends React.Component {
     this.image = React.createRef()
     this.state = {
       isClient: false,
-      imageLoaded: false,
+      showImage: true,
     }
   }
 
@@ -37,13 +37,14 @@ class FullScreenPhoto extends React.Component {
 
     const element = this.image.current
      if (element && element.complete) {
-      this.setState({ isClient: true, imageLoaded: true })
+      this.setState({ isClient: true, showImage: true })
      }
   }
 
   componentDidUpdate({ photo }) {
     if (this.props.photo !== photo) {
-      this.setState({ ...this.state, imageLoaded: false })
+      this.setState({ ...this.state, showImage: false })
+      global.setTimeout(this.handleTimeout, 20)
     }
   }
 
@@ -53,8 +54,8 @@ class FullScreenPhoto extends React.Component {
 
   handleResize = debounce(() => this.forceUpdate(), 20, false)
 
-  handleImageLoad = _event => {
-    this.setState({ ...this.state, imageLoaded: true })
+  handleTimeout = _event => {
+    this.setState({ ...this.state, showImage: true })
   }
 
   calculateImageDimensions() {
@@ -76,7 +77,7 @@ class FullScreenPhoto extends React.Component {
   }
 
   showPhoto() {
-    if (!this.state.isClient || !this.state.imageLoaded) {
+    if (!this.state.isClient || !this.state.showImage) {
       return { display: 'none', }
     }
     return { display: 'block', }
@@ -102,7 +103,6 @@ class FullScreenPhoto extends React.Component {
           style={{ ...this.showPhoto() }}
           className={classes.image}
           ref={this.image}
-          onLoad={this.handleImageLoad}
           src={photo.urls.desktop}
           srcSet={Object.keys(versions).map(
             key => `${versions[key].url} ${versions[key].width}w`
