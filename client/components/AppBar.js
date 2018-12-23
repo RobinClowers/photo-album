@@ -14,6 +14,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 import { facebookSignInUrl, adminUrl } from 'client/src/urls'
+import SignUp from 'client/components/SignUp'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
@@ -77,6 +78,13 @@ const styles = theme => ({
 })
 
 class PrimarySearchAppBar extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      signUpOpen: false,
+    }
+  }
+
   searchKeyDown = (e) => {
     if (e.which === 13) {
       window.location = `https://www.google.com/search?q=site%3Aphotos.robinclowers.com&q=${e.target.value}`
@@ -87,6 +95,14 @@ class PrimarySearchAppBar extends React.Component {
     if (await signOut()) {
       window.location.reload()
     }
+  }
+
+  handleSignUp = _event => {
+    this.setState({ ...this.state, signUpOpen: true })
+  }
+
+  handleCancelSignUp = _event => {
+    this.setState({ ...this.state, signUpOpen: false })
   }
 
   render() {
@@ -158,6 +174,9 @@ class PrimarySearchAppBar extends React.Component {
                           <MenuItem component="a" href={facebookSignInUrl}>
                             Sign in with Facebook
                           </MenuItem>
+                          <MenuItem component="a" onClick={this.handleSignUp}>
+                            Sign up with email
+                          </MenuItem>
                         </React.Fragment>}
                     </div>
                   </Popover>
@@ -166,6 +185,7 @@ class PrimarySearchAppBar extends React.Component {
             </PopupState>
           </Toolbar>
         </AppBar>
+        <SignUp open={this.state.signUpOpen} cancel={this.handleCancelSignUp} />
       </div>
     )
   }

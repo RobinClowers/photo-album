@@ -87,3 +87,16 @@ export const updatePhoto = async (photo_id, photo) => {
     body: JSON.stringify(photo),
   })
 }
+
+export const signUp = async user => {
+  return await fetch(`${scheme}://${host}/users`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify({ user: { ...user, provider: "email" } }),
+  })
+}
