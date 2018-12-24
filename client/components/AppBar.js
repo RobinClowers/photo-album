@@ -97,11 +97,12 @@ class PrimarySearchAppBar extends React.Component {
     }
   }
 
-  handleSignUp = _event => {
+  handleSignUp = popupState => _event => {
+    popupState.close()
     this.setState({ ...this.state, signUpOpen: true })
   }
 
-  handleCancelSignUp = _event => {
+  handleDismissSignUp = _event => {
     this.setState({ ...this.state, signUpOpen: false })
   }
 
@@ -174,7 +175,7 @@ class PrimarySearchAppBar extends React.Component {
                           <MenuItem component="a" href={facebookSignInUrl}>
                             Sign in with Facebook
                           </MenuItem>
-                          <MenuItem component="a" onClick={this.handleSignUp}>
+                          <MenuItem component="a" onClick={this.handleSignUp(popupState)}>
                             Sign up with email
                           </MenuItem>
                         </React.Fragment>}
@@ -185,7 +186,7 @@ class PrimarySearchAppBar extends React.Component {
             </PopupState>
           </Toolbar>
         </AppBar>
-        <SignUp open={this.state.signUpOpen} cancel={this.handleCancelSignUp} />
+        <SignUp open={this.state.signUpOpen} dismiss={this.handleDismissSignUp} />
       </div>
     )
   }
