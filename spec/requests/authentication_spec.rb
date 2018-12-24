@@ -1,22 +1,9 @@
 require "spec_helper"
 
 RSpec.describe "POST /users/sign_in" do
-  let(:user) {
-    User.create!(
-      email: "test@example.com",
-      password: "password",
-      password_confirmation: "password",
-      provider: "email",
-      confirmed_at: DateTime.now
-    )
-  }
+  let(:user) { Factory.create_user }
   let(:url) { new_user_session_path }
-  let(:headers) {
-    {
-      "ACCEPT" => "application/json",
-      "CONTENT_TYPE" => "application/json",
-    }
-  }
+  let(:headers) { RequestHelper.json_headers }
   let(:params) {
     {
       user: {
@@ -39,6 +26,7 @@ end
 
 RSpec.describe "DELETE /users/sign_out", type: :request do
   let(:url) { destroy_user_session_path }
+  let(:headers) { RequestHelper.json_headers }
 
   it "returns 204, no content" do
     delete(url, headers: headers)
