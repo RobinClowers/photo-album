@@ -1,5 +1,22 @@
 require "spec_helper"
 
+RSpec.describe "POST /users/confirmation" do
+  let(:user) { Factory.create_user(confirmed_at: nil) }
+  let(:url) { user_confirmation_path }
+
+  before do
+    get(url, params: { confirmation_token: user.confirmation_token })
+  end
+
+  it "redirects to root when confirmation token is valid" do
+    expect(response).to redirect_to("http://localhost:3000/?emailConfirmed=true")
+  end
+
+  it "marks user confirmed when confirmation token is valid" do
+    expect(user.reload.confirmed?).to be(true)
+  end
+end
+
 RSpec.describe "POST /users/sign_in" do
   let(:user) { Factory.create_user }
   let(:url) { new_user_session_path }
