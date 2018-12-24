@@ -34,5 +34,7 @@ Rails.application.routes.draw do
     get "/google_photos_authorizations/callback" => "google_photos_authorizations#create"
   end
 
-  mount Sidekiq::Web, at: "/sidekiq", constraints: AdminConstraint.new
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web, at: "/sidekiq"
+  end
 end
