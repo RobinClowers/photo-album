@@ -5,24 +5,12 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from '@material-ui/core/styles'
+import NarrowPaper from 'client/components/NarrowPaper'
 import Layout from 'client/components/Layout'
 import { Router } from 'client/routes';
 import { getUser, changePassword } from 'client/src/api'
-
-const styles = theme => ({
-  paper: {
-    marginTop: theme.spacing.unit * 2,
-    padding: theme.spacing.unit * 2,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 600,
-    },
-  },
-})
 
 class ChangePassword extends React.Component {
   constructor(props) {
@@ -57,7 +45,7 @@ class ChangePassword extends React.Component {
   }
 
   render() {
-    const { user, classes } = this.props
+    const { user } = this.props
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
@@ -76,7 +64,7 @@ class ChangePassword extends React.Component {
           </Dialog>
         }
         <Grid container justify="center">
-          <Paper className={classes.paper}>
+          <NarrowPaper>
             <Typography variant="h4" gutterBottom>
               Change password
             </Typography>
@@ -115,11 +103,11 @@ class ChangePassword extends React.Component {
                 </Button>
               </Grid>
             </form>
-          </Paper>
+          </NarrowPaper>
         </Grid>
       </Layout>
     )
   }
 }
 
-export default withStyles(styles)(ChangePassword)
+export default ChangePassword
