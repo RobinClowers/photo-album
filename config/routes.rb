@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   root 'albums#index'
   get '/albums', to: redirect('/')
+  get '/users/current' => 'current_user#show', as: 'current_user'
 
   resources :albums, only: [:show] do
     resources :photos, only: [:show], controller: 'albums/photos'

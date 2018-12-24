@@ -178,6 +178,12 @@ class PrimarySearchAppBar extends React.Component {
                               <MenuItem component="a" href={adminUrl}>
                                 Admin
                               </MenuItem>}
+                            {user.provider === 'email' &&
+                              <Link route='changePassword'>
+                                <MenuItem component="a">
+                                  Change Password
+                                </MenuItem>
+                              </Link>}
                             <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
                           </React.Fragment>}
                         {!user || !user.id &&

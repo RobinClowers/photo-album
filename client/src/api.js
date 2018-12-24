@@ -3,6 +3,8 @@ import fetch from 'isomorphic-unfetch'
 const scheme = process.env.API_SCHEME
 const host = process.env.API_HOST
 
+export const getUser = async request => await getJson('/users/current', request)
+
 export const getAlbums = async request => await getJson('/', request)
 
 export const getAlbum = async (slug, request) => await getJson(`/albums/${slug}`, request)
@@ -111,5 +113,18 @@ export const signUp = async user => {
       'X-CSRF-Token': window.csrfToken,
     },
     body: JSON.stringify({ user: { ...user, provider: "email" } }),
+  })
+}
+
+export const changePassword = async params => {
+  return await fetch(`${scheme}://${host}/users`, {
+    method: 'PATCH',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify({ user: params })
   })
 }
