@@ -16,6 +16,7 @@ class ForgotPassword extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      email: '',
       errors: {},
       emailSent: false,
     }
@@ -25,9 +26,13 @@ class ForgotPassword extends React.Component {
     return await getUser(req)
   }
 
+  handleChange = field => event => {
+    this.setState({ ...this.state, [field]: event.target.value })
+  }
+
   handleSubmit = async event => {
     event.preventDefault()
-    const response = await sendPasswordReset(document.getElementById("email").value)
+    const response = await sendPasswordReset(this.state.email)
     if (response.ok) {
       this.setState({ ...this.state, errors: {}, emailSent: true })
     } else {
@@ -73,9 +78,10 @@ class ForgotPassword extends React.Component {
                 error={!!this.state.errors.email}
                 fullWidth
                 helperText={this.state.errors.email}
-                id="email"
                 label="Email"
                 margin="normal"
+                onChange={this.handleChange('email')}
+                value={this.state.email}
                 variant="outlined" />
               <Grid container justify="flex-end">
                 <Button color="primary" variant="contained" type="submit">

@@ -15,15 +15,21 @@ class SignIn extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      email: '',
       error: undefined,
+      password: '',
     }
+  }
+
+  handleChange = field => event => {
+    this.setState({ ...this.state, [field]: event.target.value })
   }
 
   handleSignIn = async event => {
     event.preventDefault()
     const response = await signIn(
-      document.getElementById("email").value,
-      document.getElementById("password").value
+      this.state.email,
+      this.state.password,
     )
     if (response.ok) {
       window.location.reload()
@@ -44,16 +50,19 @@ class SignIn extends React.Component {
               autoFocus
               style={{ marginTop: 0 }}
               fullWidth
-              id="email"
               label="Email"
               margin="normal"
+              onChange={this.handleChange('email')}
+              value={this.state.email}
               variant="outlined" />
             <TextField
               fullWidth
               id="password"
               label="Password"
               margin="normal"
+              onChange={this.handleChange('password')}
               type="password"
+              value={this.state.password}
               variant="outlined" />
             {this.state.error &&
               <FormHelperText error={true}>

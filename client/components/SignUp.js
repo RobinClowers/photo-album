@@ -12,17 +12,24 @@ class SignUp extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      email: '',
       errors: {},
+      password: '',
+      password_confirmation: '',
       registrationSucceeded: false,
     }
+  }
+
+  handleChange = field => event => {
+    this.setState({ ...this.state, [field]: event.target.value })
   }
 
   handleSignUp = async event => {
     event.preventDefault()
     const response = await signUp({
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value,
-      password_confirmation: document.getElementById('password_confirmation').value
+      email: this.state.email,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
     })
     if (response.ok) {
       this.setState({ ...this.state, registrationSucceeded: true })
@@ -57,27 +64,30 @@ class SignUp extends React.Component {
                 error={!!this.state.errors.email}
                 fullWidth
                 helperText={this.state.errors.email}
-                id="email"
                 label="Email"
                 margin="normal"
+                onChange={this.handleChange('email')}
+                value={this.state.email}
                 variant="outlined" />
               <TextField
                 error={!!this.state.errors.password}
                 fullWidth
                 helperText={this.state.errors.password}
-                id="password"
                 label="Password"
                 margin="normal"
+                onChange={this.handleChange('password')}
                 type="password"
+                value={this.state.password}
                 variant="outlined" />
               <TextField
                 error={!!this.state.errors.password_confirmation}
                 fullWidth
                 helperText={this.state.errors.password_confirmation}
-                id="password_confirmation"
                 label="Confirm Password"
                 margin="normal"
+                onChange={this.handleChange('password_confirmation')}
                 type="password"
+                value={this.state.password_confirmation}
                 variant="outlined" />
             </DialogContent>
             <DialogActions>

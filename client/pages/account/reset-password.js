@@ -18,6 +18,8 @@ class ResetPassword extends React.Component {
     super(props)
     this.state = {
       errors: {},
+      password: '',
+      password_confirmation: '',
       passwordChanged: false,
     }
   }
@@ -27,11 +29,15 @@ class ResetPassword extends React.Component {
     return { ...result, passwordResetToken: query.token }
   }
 
+  handleChange = field => event => {
+    this.setState({ ...this.state, [field]: event.target.value })
+  }
+
   handleSubmit = async event => {
     event.preventDefault()
     const response = await resetPassword({
-      password: document.getElementById("password").value,
-      password_confirmation: document.getElementById("password_confirmation").value,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
       reset_password_token: this.props.passwordResetToken,
     })
     if (response.ok) {
@@ -76,19 +82,21 @@ class ResetPassword extends React.Component {
                 error={!!this.state.errors.password}
                 fullWidth
                 helperText={this.state.errors.password}
-                id="password"
                 label="New password"
                 margin="normal"
+                onChange={this.handleChange('password')}
                 type="password"
+                value={this.state.password}
                 variant="outlined" />
               <TextField
                 error={!!this.state.errors.password_confirmation}
                 fullWidth
                 helperText={this.state.errors.password_confirmation}
-                id="password_confirmation"
                 label="Confirm new password"
                 margin="normal"
-                type="password"
+                onChange={this.handleChange('password_confirmation')}
+                type="password_confirmation"
+                value={this.state.password}
                 variant="outlined" />
               <Grid container justify="flex-end">
                 <Button color="primary" variant="contained" type="submit">

@@ -16,7 +16,10 @@ class ChangePassword extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      current_password: '',
       errors: {},
+      password: '',
+      password_confirmation: '',
       passwordChanged: false,
     }
   }
@@ -25,12 +28,16 @@ class ChangePassword extends React.Component {
     return await getUser(req)
   }
 
+  handleChange = field => event => {
+    this.setState({ ...this.state, [field]: event.target.value })
+  }
+
   handleSubmit = async event => {
     event.preventDefault()
     const response = await changePassword({
-      current_password: document.getElementById("current_password").value,
-      password: document.getElementById("password").value,
-      password_confirmation: document.getElementById("password_confirmation").value
+      current_password: this.state.current_password,
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
     })
     if (response.ok) {
       this.setState({ ...this.state, errors: {}, passwordChanged: true })
@@ -74,28 +81,31 @@ class ChangePassword extends React.Component {
                 error={!!this.state.errors.current_password}
                 fullWidth
                 helperText={this.state.errors.current_password}
-                id="current_password"
                 label="Current password"
                 margin="normal"
+                onChange={this.handleChange('current_password')}
                 type="password"
+                value={this.state.current_password}
                 variant="outlined" />
               <TextField
                 error={!!this.state.errors.password}
                 fullWidth
                 helperText={this.state.errors.password}
-                id="password"
                 label="New password"
                 margin="normal"
+                onChange={this.handleChange('password')}
                 type="password"
+                value={this.state.password}
                 variant="outlined" />
               <TextField
                 error={!!this.state.errors.password_confirmation}
                 fullWidth
                 helperText={this.state.errors.password_confirmation}
-                id="password_confirmation"
                 label="Confirm new password"
                 margin="normal"
+                onChange={this.handleChange('password_confirmation')}
                 type="password"
+                value={this.state.password_confirmation}
                 variant="outlined" />
               <Grid container justify="flex-end">
                 <Button color="primary" variant="contained" type="submit">
