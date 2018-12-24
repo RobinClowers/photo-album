@@ -61,7 +61,7 @@ class SignIn extends React.Component {
               </FormHelperText>
             }
           <DialogContentText>
-            Or, if haven't signed up yet:
+            Or, if havenʼt signed up yet:
             <Button onClick={signUp}>Create account</Button>
           </DialogContentText>
           </DialogContent>

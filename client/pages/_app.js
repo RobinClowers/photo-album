@@ -38,7 +38,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>Robin&#700;s Photos</title>
+          <title>Robinʼs Photos</title>
         </Head>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider

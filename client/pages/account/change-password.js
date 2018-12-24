@@ -49,7 +49,7 @@ class ChangePassword extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
-          <title>Change Password - Robin&#700;s Photos</title>
+          <title>Change Password - Robinʼs Photos</title>
         </Head>
         {this.state.passwordChanged &&
           <Dialog open={this.state.passwordChanged}>

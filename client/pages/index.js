@@ -28,7 +28,7 @@ export default class extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
-          <meta property="title" content="Robin's Photos" />
+          <meta property="title" content="Robinʼs Photos" />
           <meta property="description" content="Travel photos from all over the world by Robin Clowers." />
           <meta property="og:title" content="Photos by Robin Clowers" />
           <meta property="og:description" content="Travel photos from all over the world by Robin Clowers." />

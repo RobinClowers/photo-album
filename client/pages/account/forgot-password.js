@@ -45,7 +45,7 @@ class ForgotPassword extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
-          <title>Forgot Password - Robin&#700;s Photos</title>
+          <title>Forgot Password - Robinʼs Photos</title>
         </Head>
         {this.state.emailSent &&
           <Dialog open={this.state.emailSent}>

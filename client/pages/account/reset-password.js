@@ -51,7 +51,7 @@ class ResetPassword extends React.Component {
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
-          <title>Reset Password - Robin&#700;s Photos</title>
+          <title>Reset Password - Robinʼs Photos</title>
         </Head>
         {this.state.passwordChanged &&
           <Dialog open={this.state.passwordChanged}>

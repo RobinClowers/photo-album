@@ -5,7 +5,7 @@ doctype html
 html
   head
     meta charset="utf-8"
-    title= content_for?(:title) ? content_for(:title) : "Robin's Photos"
+    title= content_for?(:title) ? content_for(:title) : "Robinʼs Photos"
     == stylesheet_link_tag    "application", media: "all"
     == csrf_meta_tags
     meta content="Robin Clowers" name="author"
@@ -30,12 +30,11 @@ html
     meta content="#da532c" name="msapplication-TileColor"
     meta content="/mstile-144x144.png" name="msapplication-TileImage"
     meta content="#ffffff" name="theme-color"
-    meta property="og:site_name" content="Robin's Photos"
     = content_for :head
   body.no-sidebar
     header role="banner"
       h1
-        a href="/" Robin's Photos Admin
+        a href="/" Robinʼs Photos Admin
     nav role="navigation"
       ul.main-navigation.login-view
         li

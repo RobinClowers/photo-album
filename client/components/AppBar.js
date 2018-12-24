@@ -129,7 +129,7 @@ class PrimarySearchAppBar extends React.Component {
                 <Link route='index'>
                   <a>
                     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                      Robin&#700;s Photos
+                      Robinʼs Photos
                     </Typography>
                   </a>
                 </Link>
