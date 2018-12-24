@@ -1,7 +1,5 @@
 import { withStyles } from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
-import FormControl from '@material-ui/core/FormControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
 import Button from '@material-ui/core/Button'
 import { postComment } from 'client/src/api'
 
@@ -57,22 +55,18 @@ class AddComment extends React.Component {
 
     return (
       <div className={classes.container}>
-        <FormControl fullWidth error aria-describedby="component-error-text">
-          <TextField
-            error={this.state.errors.length > 0}
-            label="Add a comment"
-            multiline
-            rowsMax="4"
-            value={this.state.comment}
-            onChange={this.handleChange('comment')}
-            onKeyPress={this.handleKeyPress}
-            className={classes.textField}
-            margin="normal"
-            variant="outlined" />
-          <FormHelperText id="component-error-text" error style={{ margin: 8 }}>
-            {this.state.errors}
-          </FormHelperText>
-        </FormControl>
+        <TextField
+          error={this.state.errors.length > 0}
+          helperText={this.state.errors}
+          label="Add a comment"
+          multiline
+          rowsMax="4"
+          value={this.state.comment}
+          onChange={this.handleChange('comment')}
+          onKeyPress={this.handleKeyPress}
+          className={classes.textField}
+          margin="normal"
+          variant="outlined" />
         <Button variant="contained" color="primary" onClick={this.handleSubmit}>
           Post
         </Button>
