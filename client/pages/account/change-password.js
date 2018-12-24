@@ -85,6 +85,7 @@ class ChangePassword extends React.Component {
             </Typography>
             <form onSubmit={this.handleSubmit}>
               <TextField
+                autoFocus
                 error={!!this.state.errors.current_password}
                 fullWidth
                 helperText={this.state.errors.current_password}
