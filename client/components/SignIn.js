@@ -4,9 +4,11 @@ import DialogTitle from '@material-ui/core/DialogTitle'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogActions from '@material-ui/core/DialogActions'
+import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Button from '@material-ui/core/Button'
+import { Link } from 'client/routes'
 import { signIn } from 'client/src/api'
 
 class SignIn extends React.Component {
@@ -64,6 +66,13 @@ class SignIn extends React.Component {
           </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Grid container justify="flex-start">
+              <Link route='forgotPassword'>
+                <Button >
+                  Forgot Password?
+                </Button>
+              </Link>
+            </Grid>
             <Button onClick={dismiss}>Cancel</Button>
             <Button color="primary" type="submit">Submit</Button>
           </DialogActions>

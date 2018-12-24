@@ -128,3 +128,16 @@ export const changePassword = async params => {
     body: JSON.stringify({ user: params })
   })
 }
+
+export const sendPasswordReset = async email => {
+  return await fetch(`${scheme}://${host}/users/password`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify({ user: { email } })
+  })
+}

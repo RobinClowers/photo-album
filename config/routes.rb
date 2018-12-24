@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     :registrations => "users/registrations",
     :sessions => "users/sessions",
     :confirmations => "users/confirmations",
+    :passwords => "users/passwords",
   }
   root 'albums#index'
   get '/albums', to: redirect('/')
