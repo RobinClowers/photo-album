@@ -14,7 +14,7 @@ const EmailConfirmed = ({ open, dismiss }) => (
         </DialogContentText>
       </DialogContent>
     <DialogActions>
-      <Button onClick={dismiss}>Ok</Button>
+      <Button autoFocus color="primary" onClick={dismiss}>Ok</Button>
     </DialogActions>
   </Dialog>
 )
