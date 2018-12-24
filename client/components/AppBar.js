@@ -15,6 +15,7 @@ import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 import { facebookSignInUrl, adminUrl } from 'client/src/urls'
 import SignUp from 'client/components/SignUp'
+import SignIn from 'client/components/SignIn'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
@@ -82,6 +83,7 @@ class PrimarySearchAppBar extends React.Component {
     super(props)
     this.state = {
       signUpOpen: false,
+      signInOpen: false,
     }
   }
 
@@ -99,95 +101,108 @@ class PrimarySearchAppBar extends React.Component {
 
   handleSignUp = popupState => _event => {
     popupState.close()
-    this.setState({ ...this.state, signUpOpen: true })
+    this.setState({ ...this.state, signUpOpen: true, signInOpen: false })
   }
 
   handleDismissSignUp = _event => {
     this.setState({ ...this.state, signUpOpen: false })
   }
 
+  handleSignIn = popupState => _event => {
+    popupState.close()
+    this.setState({ ...this.state, signInOpen: true })
+  }
+
+  handleDismissSignIn = _event => {
+    this.setState({ ...this.state, signInOpen: false })
+  }
+
   render() {
     const { user, classes } = this.props
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Link route='index'>
-              <a>
-                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                  Robin&#700;s Photos
-                </Typography>
-              </a>
-            </Link>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <Icon>search</Icon>
-              </div>
-              <form action="https://google.com/search" method="get">
-                <InputBase
-                  name="q"
-                  type="hidden"
-                  value="site:photos.robinclowers.com"
-                />
-                <InputBase
-                  name="q"
-                  placeholder="Search"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  onKeyDown={this.searchKeyDown}
-                />
-              </form>
-            </div>
-            <div className={classes.grow} />
-            <PopupState variant="popover" popupId="demo-popup-popover">
-              {popupState => (
-                <div>
-                  <IconButton
-                    aria-owns={popupState ? 'material-appbar' : undefined}
-                    aria-haspopup="true"
-                    color="inherit"
-                    {...bindTrigger(popupState)}>
-                    {user.id ?
-                      <img
-                        className={classes.profileImage}
-                        src={user.profile_photo_url}
-                        alt="profile photo" />
-                      :
-                      <Icon>account_circle</Icon>}
-                  </IconButton>
-                  <Popover {...bindPopover(popupState)}>
-                    <div style={{padding: 20}}>
-                      {user && user.id &&
-                        <React.Fragment>
-                          <Typography variant="h6">{user.name}</Typography>
-                          {user.admin &&
-                            <MenuItem component="a" href={adminUrl}>
-                              Admin
-                            </MenuItem>}
-                          <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
-                        </React.Fragment>}
-                      {!user || !user.id &&
-                        <React.Fragment>
-                          <Typography variant="h6">Welcome</Typography>
-                          <MenuItem component="a" href={facebookSignInUrl}>
-                            Sign in with Facebook
-                          </MenuItem>
-                          <MenuItem component="a" onClick={this.handleSignUp(popupState)}>
-                            Sign up with email
-                          </MenuItem>
-                        </React.Fragment>}
-                    </div>
-                  </Popover>
+      <PopupState variant="popover" popupId="demo-popup-popover">
+        {popupState => (
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Link route='index'>
+                  <a>
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      Robin&#700;s Photos
+                    </Typography>
+                  </a>
+                </Link>
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <Icon>search</Icon>
+                  </div>
+                  <form action="https://google.com/search" method="get">
+                    <InputBase
+                      name="q"
+                      type="hidden"
+                      value="site:photos.robinclowers.com"
+                    />
+                    <InputBase
+                      name="q"
+                      placeholder="Search"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                      }}
+                      onKeyDown={this.searchKeyDown}
+                    />
+                  </form>
                 </div>
-              )}
-            </PopupState>
-          </Toolbar>
-        </AppBar>
-        <SignUp open={this.state.signUpOpen} dismiss={this.handleDismissSignUp} />
-      </div>
+                <div className={classes.grow} />
+                  <div>
+                    <IconButton
+                      aria-owns={popupState ? 'material-appbar' : undefined}
+                      aria-haspopup="true"
+                      color="inherit"
+                      {...bindTrigger(popupState)}>
+                      {user.id && user.profile_photo_url ?
+                        <img
+                          className={classes.profileImage}
+                          src={user.profile_photo_url}
+                          alt="profile photo" />
+                        :
+                        <Icon>account_circle</Icon>}
+                    </IconButton>
+                    <Popover {...bindPopover(popupState)}>
+                      <div style={{padding: 20}}>
+                        {user && user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">{user.name}</Typography>
+                            {user.admin &&
+                              <MenuItem component="a" href={adminUrl}>
+                                Admin
+                              </MenuItem>}
+                            <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
+                          </React.Fragment>}
+                        {!user || !user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">Welcome</Typography>
+                            <MenuItem component="a" href={facebookSignInUrl}>
+                              Sign in with Facebook
+                            </MenuItem>
+                            <MenuItem component="a" onClick={this.handleSignIn(popupState)}>
+                              Sign in with email
+                            </MenuItem>
+                          </React.Fragment>}
+                      </div>
+                    </Popover>
+                  </div>
+              </Toolbar>
+            </AppBar>
+            <SignUp open={this.state.signUpOpen} dismiss={this.handleDismissSignUp} />
+            <SignIn
+              open={this.state.signInOpen}
+              dismiss={this.handleDismissSignIn}
+              signUp={this.handleSignUp(popupState)} />
+          </div>
+        )}
+      </PopupState>
     )
   }
 }

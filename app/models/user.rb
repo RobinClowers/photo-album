@@ -21,6 +21,7 @@ class User < ApplicationRecord
   end
 
   def profile_photo_url
+    return nil unless uid
     "https://graph.facebook.com/v2.3/#{uid}/picture"
   end
 

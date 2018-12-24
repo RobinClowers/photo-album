@@ -24,6 +24,19 @@ const getJson = async (path, request = {}) => {
   return { ...data, csrfToken: response.headers.get('x-csrf-token') }
 }
 
+export const signIn = async (email, password) => {
+  return await fetch(`${scheme}://${host}/users/sign_in`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'X-CSRF-Token': window.csrfToken,
+    },
+    body: JSON.stringify({ user: { email, password } }),
+  })
+}
+
 export const signOut = async (request = {}) => {
   const response = await fetch(`${scheme}://${host}/users/sign_out`, {
     method: 'DELETE',
