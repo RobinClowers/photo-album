@@ -266,7 +266,7 @@ Devise.setup do |config|
   # Because we are using Cloudflare flexible SSL, requests are not ssl by the time they
   # reach the rails app. Therefore omniauth won't use an https callback url unless we
   # override this config value.
-  OmniAuth.config.full_host = ENV.fetch("FULL_HOST")
+  OmniAuth.config.full_host = ENV.fetch("BACKEND_FULL_HOST")
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

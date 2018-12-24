@@ -1,15 +1,30 @@
 import Head from 'next/head'
 import Layout from 'client/components/Layout'
 import AlbumGrid from 'client/components/AlbumGrid'
+import EmailConfirmed from 'client/components/EmailConfirmed'
+import { Router } from 'client/routes';
 import { getAlbums } from 'client/src/api'
 
 export default class extends React.Component {
-  static async getInitialProps({ req }) {
-    return await getAlbums(req)
+  constructor(props) {
+    super(props)
+    this.state = {
+      emailConfirmedOpen: this.props.emailConfirmed,
+    }
+  }
+
+  static async getInitialProps({ req, query }) {
+    const result = await getAlbums(req)
+    return await { ...result, emailConfirmed: query.emailConfirmed === 'true' }
+  }
+
+  handleDismissEmailConfirmed = () => {
+    this.setState({ emailConfirmedOpen: false })
+    Router.replaceRoute('index')
   }
 
   render() {
-    const { user, albums, share_photo } = this.props
+    const { user, albums, share_photo, emailConfirmed } = this.props
     return (
       <Layout user={user} pageContext={this.props.pageContext}>
         <Head>
@@ -24,6 +39,11 @@ export default class extends React.Component {
           <meta property="og:image:height" content={share_photo.height} />
         </Head>
         <AlbumGrid albums={this.props.albums} />
+        {this.state.emailConfirmedOpen &&
+          <EmailConfirmed
+            open={this.state.emailConfirmedOpen}
+            dismiss={this.handleDismissEmailConfirmed} />
+        }
       </Layout>
     )
   }

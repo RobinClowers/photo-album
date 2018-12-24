@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     :omniauth_callbacks => "users/omniauth_callbacks",
     :registrations => "users/registrations",
     :sessions => "users/sessions",
+    :confirmations => "users/confirmations",
   }
   root 'albums#index'
   get '/albums', to: redirect('/')
