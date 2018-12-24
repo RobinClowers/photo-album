@@ -22,9 +22,6 @@ const styles = theme => ({
       width: 600,
     },
   },
-  heading: {
-    marginBottom: theme.spacing.unit * 2,
-  },
 })
 
 class ResetPassword extends React.Component {
@@ -81,7 +78,7 @@ class ResetPassword extends React.Component {
         }
         <Grid container justify="center">
           <Paper className={classes.paper}>
-            <Typography variant="h4" className={classes.heading}>
+            <Typography variant="h4" gutterBottom>
               Change password
             </Typography>
             <form onSubmit={this.handleSubmit}>
