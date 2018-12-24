@@ -4,16 +4,22 @@ RSpec.describe "POST /users/confirmation" do
   let(:user) { Factory.create_user(confirmed_at: nil) }
   let(:url) { user_confirmation_path }
 
-  before do
-    get(url, params: { confirmation_token: user.confirmation_token })
-  end
-
   it "redirects to root when confirmation token is valid" do
+    get(url, params: { confirmation_token: user.confirmation_token })
     expect(response).to redirect_to("http://localhost:3000/?emailConfirmed=true")
   end
 
   it "marks user confirmed when confirmation token is valid" do
+    get(url, params: { confirmation_token: user.confirmation_token })
     expect(user.reload.confirmed?).to be(true)
+  end
+
+  it "redirects to root with error when the token is invalid" do
+    user.confirm
+    get(url, params: { confirmation_token: user.confirmation_token })
+    expect(response).to redirect_to(
+      "http://localhost:3000/?emailConfirmed=false&error=Email was already confirmed, please try signing in"
+    )
   end
 end
 

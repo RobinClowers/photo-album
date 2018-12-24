@@ -15,7 +15,11 @@ export default class extends React.Component {
 
   static async getInitialProps({ req, query }) {
     const result = await getAlbums(req)
-    return await { ...result, emailConfirmed: query.emailConfirmed === 'true' }
+    return {
+      ...result,
+      emailConfirmed: query.emailConfirmed === 'true' ,
+      error: query.error,
+    }
   }
 
   handleDismissEmailConfirmed = () => {
@@ -39,11 +43,10 @@ export default class extends React.Component {
           <meta property="og:image:height" content={share_photo.height} />
         </Head>
         <AlbumGrid albums={this.props.albums} />
-        {this.state.emailConfirmedOpen &&
-          <EmailConfirmed
-            open={this.state.emailConfirmedOpen}
-            dismiss={this.handleDismissEmailConfirmed} />
-        }
+        <EmailConfirmed
+          open={this.state.emailConfirmedOpen || !!this.props.error}
+          error={this.props.error}
+          dismiss={this.handleDismissEmailConfirmed} />
       </Layout>
     )
   }
