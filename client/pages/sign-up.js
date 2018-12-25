@@ -118,7 +118,7 @@ class SignUp extends React.Component {
               <Typography variant="body2">
                 Or, if you already have an account:
                 {' '}
-                <Link route='signIn'>
+                <Link route="signIn">
                   <Button>Sign in</Button>
                 </Link>
               </Typography>
