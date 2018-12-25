@@ -14,8 +14,6 @@ import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
 import { facebookSignInUrl, adminUrl } from 'client/src/urls'
-import SignUp from 'client/components/SignUp'
-import SignIn from 'client/components/SignIn'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
@@ -79,14 +77,6 @@ const styles = theme => ({
 })
 
 class PrimarySearchAppBar extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      signUpOpen: false,
-      signInOpen: false,
-    }
-  }
-
   searchKeyDown = (e) => {
     if (e.which === 13) {
       window.location = `https://www.google.com/search?q=site%3Aphotos.robinclowers.com&q=${e.target.value}`
@@ -97,24 +87,6 @@ class PrimarySearchAppBar extends React.Component {
     if (await signOut()) {
       window.location.reload()
     }
-  }
-
-  handleSignUp = popupState => _event => {
-    popupState.close()
-    this.setState({ ...this.state, signUpOpen: true, signInOpen: false })
-  }
-
-  handleDismissSignUp = _event => {
-    this.setState({ ...this.state, signUpOpen: false })
-  }
-
-  handleSignIn = popupState => _event => {
-    popupState.close()
-    this.setState({ ...this.state, signInOpen: true })
-  }
-
-  handleDismissSignIn = _event => {
-    this.setState({ ...this.state, signInOpen: false })
   }
 
   render() {
@@ -192,20 +164,17 @@ class PrimarySearchAppBar extends React.Component {
                             <MenuItem component="a" href={facebookSignInUrl}>
                               Sign in with Facebook
                             </MenuItem>
-                            <MenuItem component="a" onClick={this.handleSignIn(popupState)}>
-                              Sign in with email
-                            </MenuItem>
+                            <Link route="signIn">
+                              <MenuItem component="a">
+                                Sign in with email
+                              </MenuItem>
+                            </Link>
                           </React.Fragment>}
                       </div>
                     </Popover>
                   </div>
               </Toolbar>
             </AppBar>
-            <SignUp open={this.state.signUpOpen} dismiss={this.handleDismissSignUp} />
-            <SignIn
-              open={this.state.signInOpen}
-              dismiss={this.handleDismissSignIn}
-              signUp={this.handleSignUp(popupState)} />
           </div>
         )}
       </PopupState>
