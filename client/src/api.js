@@ -28,26 +28,16 @@ const getJson = async (path, request = {}) => {
 
 export const signIn = async (email, password) => {
   return await fetch(`${scheme}://${host}/users/sign_in`, {
+    ...defaultOptions(),
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ user: { email, password } }),
   })
 }
 
 export const signOut = async (request = {}) => {
   const response = await fetch(`${scheme}://${host}/users/sign_out`, {
+    ...defaultOptions(),
     method: 'DELETE',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
   })
 
   return response.status === 204
@@ -55,102 +45,71 @@ export const signOut = async (request = {}) => {
 
 export const postComment = async (photo_id, comment) => {
   return await fetch(`${scheme}://${host}/photos/${photo_id}/comments`, {
+    ...defaultOptions(),
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ comment }),
   })
 }
 
 export const createFavorite = async (photo_id) => {
   return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones`, {
+    ...defaultOptions(),
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
   })
 }
 
 export const deleteFavorite = async (photo_id, plus_one_id) => {
   return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones/${plus_one_id}`, {
+    ...defaultOptions(),
     method: 'DELETE',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
   })
 }
 
 export const updatePhoto = async (photo_id, photo) => {
   return await fetch(`${scheme}://${host}/admin/photos/${photo_id}`, {
+    ...defaultOptions(),
     method: 'PUT',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify(photo),
   })
 }
 
 export const signUp = async user => {
   return await fetch(`${scheme}://${host}/users`, {
+    ...defaultOptions(),
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ user: { ...user, provider: "email" } }),
   })
 }
 
 export const changePassword = async params => {
   return await fetch(`${scheme}://${host}/users`, {
+    ...defaultOptions(),
     method: 'PATCH',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ user: params })
   })
 }
 
 export const resetPassword = async params => {
   return await fetch(`${scheme}://${host}/users/password`, {
+    ...defaultOptions(),
     method: 'PATCH',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ user: params })
   })
 }
 
 export const sendPasswordReset = async email => {
   return await fetch(`${scheme}://${host}/users/password`, {
+    ...defaultOptions(),
     method: 'POST',
-    credentials: 'include',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-CSRF-Token': window.csrfToken,
-    },
     body: JSON.stringify({ user: { email } })
   })
 }
+
+const defaultOptions = () => ({
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'X-CSRF-Token': window.csrfToken,
+  },
+})
