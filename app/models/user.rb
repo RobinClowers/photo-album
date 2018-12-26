@@ -1,17 +1,19 @@
 class User < ApplicationRecord
-  has_secure_password validations: false
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :validatable, :confirmable, :omniauthable, omniauth_providers: %i[facebook]
 
   attribute :profile_photo_url
 
   validates :provider, presence: true
 
-  def self.create_with_omniauth(auth)
-    create!(
-      provider: auth["provider"],
-      uid: auth["uid"],
-      name: auth["info"]["name"],
-      email: auth["info"]["email"]
-    )
+  def self.from_omniauth(auth)
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
+      user.skip_confirmation!
+    end
   end
 
   def signed_in?
@@ -19,6 +21,7 @@ class User < ApplicationRecord
   end
 
   def profile_photo_url
+    return nil unless uid
     "https://graph.facebook.com/v2.3/#{uid}/picture"
   end
 

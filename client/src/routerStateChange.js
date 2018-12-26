@@ -1,4 +1,5 @@
 import { Router } from 'client/routes'
+import { setReturnUrl } from 'client/src/urls'
 
 const subscribers = {}
 
@@ -14,14 +15,15 @@ const eachSubscriber = callback => {
   Object.keys(subscribers).forEach(key => callback(subscribers[key]))
 }
 
-Router.onRouteChangeStart = _url => {
+Router.onRouteChangeStart = _path => {
   eachSubscriber(callback => callback(true))
 }
 
-Router.onRouteChangeComplete = _url => {
+Router.onRouteChangeComplete = _path => {
   eachSubscriber(callback => callback(false))
+  setReturnUrl(global.location.href)
 }
 
-Router.onRouteChangeError = _url => {
+Router.onRouteChangeError = _path => {
   eachSubscriber(callback => callback(false))
 }

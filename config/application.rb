@@ -23,7 +23,7 @@ module PhotoAlbum
     config.base_secure_photo_url = "https://s3.amazonaws.com/#{config.bucket_name}/"
     config.action_controller.forgery_protection_origin_check = false
     config.action_mailer.default_url_options = {
-      host: 'photos.robinclowers.com'
+      host: ENV["FRONT_END_DOMAIN"],
     }
 
     Slim::Engine.options[:pretty] = false

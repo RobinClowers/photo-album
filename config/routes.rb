@@ -1,9 +1,14 @@
 Rails.application.routes.draw do
+  devise_for :users, :controllers => {
+    :omniauth_callbacks => "users/omniauth_callbacks",
+    :registrations => "users/registrations",
+    :sessions => "users/sessions",
+    :confirmations => "users/confirmations",
+    :passwords => "users/passwords",
+  }
   root 'albums#index'
   get '/albums', to: redirect('/')
-
-  get "/auth/:provider/callback" => "sessions#create"
-  delete "/signout" => "sessions#destroy", :as => :signout
+  get '/users/current' => 'current_user#show', as: 'current_user'
 
   resources :albums, only: [:show] do
     resources :photos, only: [:show], controller: 'albums/photos'
@@ -29,5 +34,7 @@ Rails.application.routes.draw do
     get "/google_photos_authorizations/callback" => "google_photos_authorizations#create"
   end
 
-  mount Sidekiq::Web, at: "/sidekiq", constraints: AdminConstraint.new
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web, at: "/sidekiq"
+  end
 end

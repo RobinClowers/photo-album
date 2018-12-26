@@ -9,7 +9,7 @@ import Paper from '@material-ui/core/Paper'
 import Fade from '@material-ui/core/Fade'
 import Caption from 'client/components/Caption'
 import AddComment from 'client/components/AddComment'
-import { facebookSignInUrl } from 'client/src/urls'
+import { Link } from 'client/routes'
 
 const styles = theme => ({
   commentContainer: {
@@ -101,7 +101,10 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
               <Card>
                 <CardContent>
                   <Typography variant="body2">
-                    <a href={facebookSignInUrl}>Sign in</a> to add a favorite
+                    <Link route='signIn'>
+                      <a>Sign in</a>
+                    </Link>
+                    {' '}to add a favorite
                   </Typography>
                 </CardContent>
               </Card>
@@ -138,7 +141,10 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="body2">
-              <a href={facebookSignInUrl}>Sign in</a> to leave a comment
+              <Link route="signIn">
+                <a>Sign in</a>
+              </Link>
+              {' '}to leave a comment
             </Typography>
           </CardContent>
         </Card>

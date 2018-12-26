@@ -13,7 +13,7 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import { facebookSignInUrl, adminUrl } from 'client/src/urls'
+import { adminUrl } from 'client/src/urls'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
@@ -93,80 +93,93 @@ class PrimarySearchAppBar extends React.Component {
     const { user, classes } = this.props
 
     return (
-      <div className={classes.root}>
-        <AppBar position="static">
-          <Toolbar>
-            <Link route='index'>
-              <a>
-                <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-                  Robin&#700;s Photos
-                </Typography>
-              </a>
-            </Link>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <Icon>search</Icon>
-              </div>
-              <form action="https://google.com/search" method="get">
-                <InputBase
-                  name="q"
-                  type="hidden"
-                  value="site:photos.robinclowers.com"
-                />
-                <InputBase
-                  name="q"
-                  placeholder="Search"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                  onKeyDown={this.searchKeyDown}
-                />
-              </form>
-            </div>
-            <div className={classes.grow} />
-            <PopupState variant="popover" popupId="demo-popup-popover">
-              {popupState => (
-                <div>
-                  <IconButton
-                    aria-owns={popupState ? 'material-appbar' : undefined}
-                    aria-haspopup="true"
-                    color="inherit"
-                    {...bindTrigger(popupState)}>
-                    {user.id ?
-                      <img
-                        className={classes.profileImage}
-                        src={user.profile_photo_url}
-                        alt="profile photo" />
-                      :
-                      <Icon>account_circle</Icon>}
-                  </IconButton>
-                  <Popover {...bindPopover(popupState)}>
-                    <div style={{padding: 20}}>
-                      {user && user.id &&
-                        <React.Fragment>
-                          <Typography variant="h6">{user.name}</Typography>
-                          {user.admin &&
-                            <MenuItem component="a" href={adminUrl}>
-                              Admin
-                            </MenuItem>}
-                          <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
-                        </React.Fragment>}
-                      {!user || !user.id &&
-                        <React.Fragment>
-                          <Typography variant="h6">Welcome</Typography>
-                          <MenuItem component="a" href={facebookSignInUrl}>
-                            Sign in with Facebook
-                          </MenuItem>
-                        </React.Fragment>}
-                    </div>
-                  </Popover>
+      <PopupState variant="popover" popupId="demo-popup-popover">
+        {popupState => (
+          <div className={classes.root}>
+            <AppBar position="static">
+              <Toolbar>
+                <Link route='index'>
+                  <a>
+                    <Typography className={classes.title} variant="h6" color="inherit" noWrap>
+                      Robinʼs Photos
+                    </Typography>
+                  </a>
+                </Link>
+                <div className={classes.search}>
+                  <div className={classes.searchIcon}>
+                    <Icon>search</Icon>
+                  </div>
+                  <form action="https://google.com/search" method="get">
+                    <InputBase
+                      name="q"
+                      type="hidden"
+                      value="site:photos.robinclowers.com"
+                    />
+                    <InputBase
+                      name="q"
+                      placeholder="Search"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                      }}
+                      onKeyDown={this.searchKeyDown}
+                    />
+                  </form>
                 </div>
-              )}
-            </PopupState>
-          </Toolbar>
-        </AppBar>
-      </div>
+                <div className={classes.grow} />
+                  <div>
+                    <IconButton
+                      aria-owns={popupState ? 'material-appbar' : undefined}
+                      aria-haspopup="true"
+                      color="inherit"
+                      {...bindTrigger(popupState)}>
+                      {user.id && user.profile_photo_url ?
+                        <img
+                          className={classes.profileImage}
+                          src={user.profile_photo_url}
+                          alt="profile photo" />
+                        :
+                        <Icon>account_circle</Icon>}
+                    </IconButton>
+                    <Popover {...bindPopover(popupState)}>
+                      <div style={{padding: 20}}>
+                        {user && user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">{user.name}</Typography>
+                            {user.admin &&
+                              <MenuItem component="a" href={adminUrl}>
+                                Admin
+                              </MenuItem>}
+                            {user.provider === 'email' &&
+                              <Link route='changePassword'>
+                                <MenuItem component="a">
+                                  Change Password
+                                </MenuItem>
+                              </Link>}
+                            <MenuItem component="a" onClick={this.signOut}>Sign Out</MenuItem>
+                          </React.Fragment>}
+                        {!user || !user.id &&
+                          <React.Fragment>
+                            <Typography variant="h6">Welcome</Typography>
+                            <Link route="signIn">
+                              <MenuItem component="a">
+                                Sign in
+                              </MenuItem>
+                            </Link>
+                            <Link route="signUp">
+                              <MenuItem component="a">
+                                Sign up
+                              </MenuItem>
+                            </Link>
+                          </React.Fragment>}
+                      </div>
+                    </Popover>
+                  </div>
+              </Toolbar>
+            </AppBar>
+          </div>
+        )}
+      </PopupState>
     )
   }
 }

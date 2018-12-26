@@ -5,6 +5,7 @@ import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import JssProvider from 'react-jss/lib/JssProvider'
 import getPageContext from 'src/getPageContext'
+import { setReturnUrl } from 'client/src/urls'
 
 const removeFacebookLoginHash = () => {
   if (window.location.hash && window.location.hash == '#_=_') {
@@ -26,6 +27,7 @@ class MyApp extends App {
     removeFacebookLoginHash()
     // Make the CSRF token available on window
     window.csrfToken = this.props.pageProps.csrfToken
+    setReturnUrl(window.location.href)
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentNode) {
@@ -38,7 +40,7 @@ class MyApp extends App {
     return (
       <Container>
         <Head>
-          <title>Robin&#700;s Photos</title>
+          <title>Robinʼs Photos</title>
         </Head>
         {/* Wrap every page in Jss and Theme providers */}
         <JssProvider
