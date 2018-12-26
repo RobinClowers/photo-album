@@ -36,7 +36,7 @@ class Album extends React.Component {
           <meta property="description" content={`Photos from ${album.title}`} />
           <meta property="og:title" content={album.title} />
           <meta property="og:description" content={`Photos from ${album.title}`} />
-          <meta property="og:url" content={`${process.env.ROOT_URL}/albums/${album.slug}`} />
+          <meta property="og:url" content={`${process.env.FRONT_END_ROOT}/albums/${album.slug}`} />
           <meta property="og:image" content={album.cover_photo_url} />
           <meta property="og:image:secure_url" content={album.cover_photo_url} />
           <meta property="og:image:width" content={album.cover_photo_width} />

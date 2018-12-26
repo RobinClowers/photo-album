@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "name": "photo-album",
+  "build": {
+    "env": {
+      "API_ROOT": "https://photos-app.robinclowers.com",
+      "FRONT_END_ROOT": "https://photos.robinclowers.com"
+    }
+  },
+  "routes": [
+    {
+      "src": "/albums/(?<slug>[^/]*)",
+      "dest": "/client/album?slug=$slug"
+    },
+    {
+      "src": "/albums/(?<slug>[^/]*)/(?<filename>[^/]*)",
+      "dest": "/client/photo?slug=$slug&filename=$filename"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/$1"
+    }
+  ],
+  "builds": [
+    {
+      "src": "client/next.config.js",
+      "use": "@now/next",
+      "config": {
+        "maxLambdaSize": "50mb"
+      }
+    }
+  ]
+}

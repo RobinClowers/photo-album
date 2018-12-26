@@ -36,7 +36,7 @@ export default class extends React.Component {
           <meta property="description" content="Travel photos from all over the world by Robin Clowers." />
           <meta property="og:title" content="Photos by Robin Clowers" />
           <meta property="og:description" content="Travel photos from all over the world by Robin Clowers." />
-          <meta property="og:url" content={process.env.ROOT_URL} />
+          <meta property="og:url" content={process.env.FRONT_END_ROOT} />
           <meta property="og:image" content={share_photo.url} />
           <meta property="og:image:secure_url" content={share_photo.url} />
           <meta property="og:image:width" content={share_photo.width} />

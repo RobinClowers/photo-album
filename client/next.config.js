@@ -13,9 +13,8 @@ module.exports = (phase) => {
     webpack: (config, {}) => {
       config.plugins.push(
         new webpack.DefinePlugin({
-          'process.env.API_SCHEME': JSON.stringify(process.env.API_SCHEME),
-          'process.env.API_HOST': JSON.stringify(process.env.API_HOST),
-          'process.env.ROOT_URL': JSON.stringify(process.env.FRONT_END_ROOT),
+          'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
+          'process.env.FRONT_END_ROOT': JSON.stringify(process.env.FRONT_END_ROOT),
         })
       )
       return config
