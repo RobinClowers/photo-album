@@ -13,7 +13,7 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import { facebookSignInUrl, adminUrl } from 'client/src/urls'
+import { adminUrl } from 'client/src/urls'
 import { signOut } from 'client/src/api'
 import { Link } from 'client/routes'
 
@@ -161,12 +161,14 @@ class PrimarySearchAppBar extends React.Component {
                         {!user || !user.id &&
                           <React.Fragment>
                             <Typography variant="h6">Welcome</Typography>
-                            <MenuItem component="a" href={facebookSignInUrl}>
-                              Sign in with Facebook
-                            </MenuItem>
                             <Link route="signIn">
                               <MenuItem component="a">
-                                Sign in with email
+                                Sign in
+                              </MenuItem>
+                            </Link>
+                            <Link route="signUp">
+                              <MenuItem component="a">
+                                Sign up
                               </MenuItem>
                             </Link>
                           </React.Fragment>}

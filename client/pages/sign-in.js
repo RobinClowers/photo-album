@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import Layout from 'client/components/Layout'
 import Section from 'client/components/Section'
 import NarrowPaper from 'client/components/NarrowPaper'
+import FacebookLoginButton from 'client/components/FacebookLoginButton'
 import { Link } from 'client/routes'
 import { Router } from 'client/routes';
 import { getUser, signIn } from 'client/src/api'
@@ -45,7 +46,7 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const { user, classes } = this.props
+    const { user } = this.props
     return (
       <Layout user={user}>
         <Grid container justify="center">
@@ -53,6 +54,14 @@ class SignIn extends React.Component {
             <form onSubmit={this.handleSignIn}>
               <Section>
                 <Typography variant="h4" gutterBottom>Sign In</Typography>
+              </Section>
+              <Section centered fullWidth>
+                <FacebookLoginButton />
+              </Section>
+              <Section centered>
+                <Typography variant="body2">
+                  Or
+                </Typography>
               </Section>
               <Section>
                 <TextField
@@ -88,14 +97,15 @@ class SignIn extends React.Component {
                 </Grid>
               </Section>
             </form>
-            <Section>
+            <Section centered>
               <Typography variant="body2">
-                Or, if havenʼt signed up yet:
-                {' '}
-                <Link route='signUp'>
-                  <Button>Sign up</Button>
-                </Link>
+                Or, if havenʼt signed up yet
               </Typography>
+            </Section>
+            <Section centered fullWidth>
+              <Link route='signUp'>
+                <Button fullWidth variant="contained">Sign up</Button>
+              </Link>
             </Section>
           </NarrowPaper>
         </Grid>

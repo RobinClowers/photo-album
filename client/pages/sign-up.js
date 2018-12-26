@@ -114,14 +114,15 @@ class SignUp extends React.Component {
                 </Grid>
               </Section>
             </form>
-            <Section>
+            <Section centered>
               <Typography variant="body2">
-                Or, if you already have an account:
-                {' '}
-                <Link route="signIn">
-                  <Button>Sign in</Button>
-                </Link>
+                Or, if you already have an account
               </Typography>
+            </Section>
+            <Section centered fullWidth>
+              <Link route="signIn">
+                <Button fullWidth variant="contained">Sign in</Button>
+              </Link>
             </Section>
           </NarrowPaper>
         </Grid>
