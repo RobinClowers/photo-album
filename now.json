@@ -1,6 +1,12 @@
 {
   "version": 2,
   "name": "photo-album",
+  "build": {
+    "env": {
+      "API_ROOT": "https://photos-app.robinclowers.com",
+      "FRONT_END_ROOT": "https://photos.robinclowers.com"
+    }
+  },
   "routes": [
     {
       "src": "/albums/(?<slug>[^/]*)",

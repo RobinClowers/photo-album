@@ -120,7 +120,7 @@ class Photo extends React.Component {
           <meta property="description" content={photo.caption || `A photo from ${album.title}.`} />
           <meta property="og:title" content={`Photo from ${album.title}`} />
           <meta property="og:description" content={photo.caption || `A photo from ${album.title}.`} />
-          <meta property="og:url" content={`${process.env.ROOT_URL}/albums/${album.slug}/${photo.filename}`} />
+          <meta property="og:url" content={`${process.env.FRONT_END_ROOT}/albums/${album.slug}/${photo.filename}`} />
           <meta property="og:image" content={photo.urls.desktop} />
           <meta property="og:image:secure_url" content={photo.urls.desktop} />
           <meta property="og:image:width" content={photo.width} />

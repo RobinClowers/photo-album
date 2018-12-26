@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-unfetch'
 
-const scheme = process.env.API_SCHEME
-const host = process.env.API_HOST
+const apiRoot = process.env.API_ROOT
 
 export const getUser = async request => await getJson('/users/current', request)
 
@@ -14,7 +13,7 @@ export const getPhoto = async (slug, filename, request) =>
 
 const getJson = async (path, request = {}) => {
   const cookie = request.headers && request.headers.cookie
-  const response = await fetch(`${scheme}://${host}${path}`, {
+  const response = await fetch(`${apiRoot}${path}`, {
     credentials: 'include',
     headers: {
       'Cookie': cookie,
@@ -27,7 +26,7 @@ const getJson = async (path, request = {}) => {
 }
 
 export const signIn = async (email, password) => {
-  return await fetch(`${scheme}://${host}/users/sign_in`, {
+  return await fetch(`${apiRoot}/users/sign_in`, {
     ...defaultOptions(),
     method: 'POST',
     body: JSON.stringify({ user: { email, password } }),
@@ -35,7 +34,7 @@ export const signIn = async (email, password) => {
 }
 
 export const signOut = async (request = {}) => {
-  const response = await fetch(`${scheme}://${host}/users/sign_out`, {
+  const response = await fetch(`${apiRoot}/users/sign_out`, {
     ...defaultOptions(),
     method: 'DELETE',
   })
@@ -44,7 +43,7 @@ export const signOut = async (request = {}) => {
 }
 
 export const postComment = async (photo_id, comment) => {
-  return await fetch(`${scheme}://${host}/photos/${photo_id}/comments`, {
+  return await fetch(`${apiRoot}/photos/${photo_id}/comments`, {
     ...defaultOptions(),
     method: 'POST',
     body: JSON.stringify({ comment }),
@@ -52,21 +51,21 @@ export const postComment = async (photo_id, comment) => {
 }
 
 export const createFavorite = async (photo_id) => {
-  return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones`, {
+  return await fetch(`${apiRoot}/photos/${photo_id}/plus_ones`, {
     ...defaultOptions(),
     method: 'POST',
   })
 }
 
 export const deleteFavorite = async (photo_id, plus_one_id) => {
-  return await fetch(`${scheme}://${host}/photos/${photo_id}/plus_ones/${plus_one_id}`, {
+  return await fetch(`${apiRoot}/photos/${photo_id}/plus_ones/${plus_one_id}`, {
     ...defaultOptions(),
     method: 'DELETE',
   })
 }
 
 export const updatePhoto = async (photo_id, photo) => {
-  return await fetch(`${scheme}://${host}/admin/photos/${photo_id}`, {
+  return await fetch(`${apiRoot}/admin/photos/${photo_id}`, {
     ...defaultOptions(),
     method: 'PUT',
     body: JSON.stringify(photo),
@@ -74,7 +73,7 @@ export const updatePhoto = async (photo_id, photo) => {
 }
 
 export const signUp = async user => {
-  return await fetch(`${scheme}://${host}/users`, {
+  return await fetch(`${apiRoot}/users`, {
     ...defaultOptions(),
     method: 'POST',
     body: JSON.stringify({ user: { ...user, provider: "email" } }),
@@ -82,7 +81,7 @@ export const signUp = async user => {
 }
 
 export const changePassword = async params => {
-  return await fetch(`${scheme}://${host}/users`, {
+  return await fetch(`${apiRoot}/users`, {
     ...defaultOptions(),
     method: 'PATCH',
     body: JSON.stringify({ user: params })
@@ -90,7 +89,7 @@ export const changePassword = async params => {
 }
 
 export const resetPassword = async params => {
-  return await fetch(`${scheme}://${host}/users/password`, {
+  return await fetch(`${apiRoot}/users/password`, {
     ...defaultOptions(),
     method: 'PATCH',
     body: JSON.stringify({ user: params })
@@ -98,7 +97,7 @@ export const resetPassword = async params => {
 }
 
 export const sendPasswordReset = async email => {
-  return await fetch(`${scheme}://${host}/users/password`, {
+  return await fetch(`${apiRoot}/users/password`, {
     ...defaultOptions(),
     method: 'POST',
     body: JSON.stringify({ user: { email } })
