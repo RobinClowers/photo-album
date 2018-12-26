@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Router from 'next/router';
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -12,7 +13,7 @@ import Layout from 'client/components/Layout'
 import NarrowPaper from 'client/components/NarrowPaper'
 import Section from 'client/components/Section'
 import { Link } from 'client/routes'
-import { Router } from 'client/routes';
+import { getReturnUrl } from 'client/src/urls'
 import { getUser, signUp } from 'client/src/api'
 
 class SignUp extends React.Component {
@@ -52,7 +53,7 @@ class SignUp extends React.Component {
 
   handleOkClick = event => {
     this.setState({ ...this.state, confirmationOpen: false })
-    Router.pushRoute('index')
+    Router.push(getReturnUrl())
   }
 
   render() {

@@ -17,8 +17,13 @@ const styles = theme => ({
   },
 })
 
+const handleClick = event => {
+  event.preventDefault()
+  window.location = facebookSignInUrl()
+}
+
 const FacebookLoginButton = ({ classes }) => (
-  <a href={facebookSignInUrl} className={classes.container}>
+  <a href={facebookSignInUrl()} onClick={handleClick} className={classes.container}>
     <img src="/static/fb-f-logo.png" className={classes.image} />
     <Typography variant="body2">
       Sign in with Facebook

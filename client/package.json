@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development API_HOST=localhost:5000 API_SCHEME=http node server.js",
+    "dev": "NODE_ENV=development API_HOST=localhost:5000 API_SCHEME=http FRONT_END_ROOT=http://localhost:3000 node server.js",
     "build": "next build",
     "start": "NODE_ENV=development node server.js",
-    "staging-deploy": "now -b API_HOST=photos-app-staging.robinclowers.com -b API_SCHEME=https",
+    "staging-deploy": "now -b API_HOST=photos-app-staging.robinclowers.com -b API_SCHEME=https -b FRONT_END_ROOT=https://photos-staging.robinclowers.com",
     "staging-alias": "now alias photos-staging.robinclowers.com",
-    "prod-deploy": "now -b API_HOST=photos-app.robinclowers.com -b API_SCHEME=https",
+    "prod-deploy": "now -b API_HOST=photos-app.robinclowers.com -b API_SCHEME=https -b FRONT_END_ROOT=https://photos.robinclowers.com",
     "prod-alias": "now alias photos.robinclowers.com"
   },
   "keywords": [],

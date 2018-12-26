@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import Router from 'next/router';
 import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
@@ -10,7 +11,7 @@ import Section from 'client/components/Section'
 import NarrowPaper from 'client/components/NarrowPaper'
 import FacebookLoginButton from 'client/components/FacebookLoginButton'
 import { Link } from 'client/routes'
-import { Router } from 'client/routes';
+import { getReturnUrl } from 'client/src/urls'
 import { getUser, signIn } from 'client/src/api'
 
 class SignIn extends React.Component {
@@ -38,7 +39,7 @@ class SignIn extends React.Component {
       this.state.password,
     )
     if (response.ok) {
-      Router.pushRoute('index')
+      Router.push(getReturnUrl())
     } else {
       const body = await response.json()
       this.setState({ ...this.state, error: body.error })
