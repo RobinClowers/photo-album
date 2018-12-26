@@ -106,8 +106,8 @@ class SignIn extends React.Component {
               </Typography>
             </Section>
             <Section centered fullWidth>
-              <Link route='signUp'>
-                <Button fullWidth variant="contained">Sign up</Button>
+              <Link route='signUp' passHref>
+                <Button component="a" fullWidth variant="contained">Sign up</Button>
               </Link>
             </Section>
           </NarrowPaper>
