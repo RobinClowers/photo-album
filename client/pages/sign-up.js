@@ -80,6 +80,7 @@ class SignUp extends React.Component {
               </Section>
               <Section>
                 <TextField
+                  autoComplete="email"
                   autoFocus
                   style={{ marginTop: 0 }}
                   error={!!this.state.errors.email}
@@ -91,6 +92,7 @@ class SignUp extends React.Component {
                   value={this.state.email}
                   variant="outlined" />
                 <TextField
+                  autoComplete="new-password"
                   error={!!this.state.errors.password}
                   fullWidth
                   helperText={this.state.errors.password}
@@ -101,6 +103,7 @@ class SignUp extends React.Component {
                   value={this.state.password}
                   variant="outlined" />
                 <TextField
+                  autoComplete="new-password"
                   error={!!this.state.errors.password_confirmation}
                   fullWidth
                   helperText={this.state.errors.password_confirmation}

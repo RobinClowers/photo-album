@@ -78,6 +78,7 @@ class ResetPassword extends React.Component {
             </Typography>
             <form onSubmit={this.handleSubmit}>
               <TextField
+                autoComplete="new-password"
                 autoFocus
                 error={!!this.state.errors.password}
                 fullWidth
@@ -89,6 +90,7 @@ class ResetPassword extends React.Component {
                 value={this.state.password}
                 variant="outlined" />
               <TextField
+                autoComplete="new-password"
                 error={!!this.state.errors.password_confirmation}
                 fullWidth
                 helperText={this.state.errors.password_confirmation}

@@ -74,6 +74,7 @@ class ForgotPassword extends React.Component {
             </Typography>
             <form onSubmit={this.handleSubmit}>
               <TextField
+                autoComplete="email"
                 autoFocus
                 error={!!this.state.errors.email}
                 fullWidth

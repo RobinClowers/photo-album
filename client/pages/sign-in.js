@@ -66,6 +66,7 @@ class SignIn extends React.Component {
               </Section>
               <Section>
                 <TextField
+                  autoComplete="email"
                   autoFocus
                   style={{ marginTop: 0 }}
                   fullWidth
@@ -75,6 +76,7 @@ class SignIn extends React.Component {
                   value={this.state.email}
                   variant="outlined" />
                 <TextField
+                  autoComplete="password"
                   fullWidth
                   id="password"
                   label="Password"
