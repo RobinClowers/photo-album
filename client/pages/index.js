@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Layout from 'client/components/Layout'
 import AlbumGrid from 'client/components/AlbumGrid'
 import EmailConfirmed from 'client/components/EmailConfirmed'
+import ErrorDialog from 'client/components/ErrorDialog'
 import { Router } from 'client/routes';
 import { getAlbums } from 'client/src/api'
 
@@ -10,6 +11,7 @@ export default class extends React.Component {
     super(props)
     this.state = {
       emailConfirmedOpen: this.props.emailConfirmed,
+      errorDialogOpen: !!this.props.error,
     }
   }
 
@@ -24,6 +26,11 @@ export default class extends React.Component {
 
   handleDismissEmailConfirmed = () => {
     this.setState({ emailConfirmedOpen: false })
+    Router.replaceRoute('index')
+  }
+
+  handleDismissError = () => {
+    this.setState({ errorDialogOpen: false })
     Router.replaceRoute('index')
   }
 
@@ -44,9 +51,12 @@ export default class extends React.Component {
         </Head>
         <AlbumGrid albums={this.props.albums} />
         <EmailConfirmed
-          open={this.state.emailConfirmedOpen || !!this.props.error}
-          error={this.props.error}
+          open={this.state.emailConfirmedOpen}
           dismiss={this.handleDismissEmailConfirmed} />
+        <ErrorDialog
+          open={!!this.state.errorDialogOpen}
+          error={this.props.error}
+          dismiss={this.handleDismissError} />
       </Layout>
     )
   }

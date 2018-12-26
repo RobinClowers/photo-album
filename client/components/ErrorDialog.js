@@ -5,14 +5,14 @@ import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 
-const EmailConfirmed = ({ open, dismiss }) => (
+const ErrorDialog = ({ open, error, dismiss }) => (
   <Dialog open={open} aria-labelledby="email-confirmed-dialog-title">
-    <DialogTitle id="email-confirmed-dialog-title">
-        Email Confirmed
+    <DialogTitle id="error-dialog-title">
+        An error occured
       </DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Your email address has been successfully confirmed.
+          {error}
         </DialogContentText>
       </DialogContent>
     <DialogActions>
@@ -21,4 +21,4 @@ const EmailConfirmed = ({ open, dismiss }) => (
   </Dialog>
 )
 
-export default EmailConfirmed
+export default ErrorDialog
