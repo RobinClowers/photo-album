@@ -1,34 +1,27 @@
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import { facebookSignInUrl } from 'client/src/urls'
 
 const styles = theme => ({
-  container: {
-    backgroundColor: theme.palette.grey[200],
-    alignItems: 'center',
-    justifyContent: 'center',
-    display: 'flex',
-    padding: theme.spacing.unit,
-    width: '100%',
-  },
   image: {
-    width: '30px',
+    width: 21,
     marginRight: theme.spacing.unit,
   },
 })
 
 const handleClick = event => {
   event.preventDefault()
-  window.location = facebookSignInUrl()
+  window.location.replace(facebookSignInUrl())
 }
 
 const FacebookLoginButton = ({ classes }) => (
-  <a href={facebookSignInUrl()} onClick={handleClick} className={classes.container}>
+  <Button fullWidth variant="contained" onClick={handleClick}>
     <img src="/static/fb-f-logo.png" className={classes.image} />
     <Typography variant="body2">
       Sign in with Facebook
     </Typography>
-  </a>
+  </Button>
 )
 
 export default withStyles(styles)(FacebookLoginButton)
