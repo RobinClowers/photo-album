@@ -21,3 +21,16 @@ module.exports = (phase) => {
     },
   }
 }
+
+const definePluginConfig = () => {
+  if (process.env.NOW_GITHUB_COMMIT_REF === 'staging') {
+    return {
+      'process.env.API_ROOT': JSON.stringify(process.env.STAGING_API_ROOT),
+      'process.env.FRONT_END_ROOT': JSON.stringify(process.env.STAGING_FRONT_END_ROOT),
+    }
+  }
+  return {
+    'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
+    'process.env.FRONT_END_ROOT': JSON.stringify(process.env.FRONT_END_ROOT),
+  }
+}
