@@ -1,6 +1,6 @@
 class Albums::PhotosController < ApplicationController
   expose(:album) { Album.find_by_slug!(params[:album_id]) }
-  expose(:photo) { album.photos.includes(:photo_versions).find_by_filename!(filename) }
+  expose(:photo) { album.photos.includes(:versions).find_by_filename!(filename) }
   expose(:comments) { Comment.where(photo: photo).includes(:user) }
   expose(:plus_ones) { PlusOne.where(photo: photo).includes(:user) }
 

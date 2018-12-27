@@ -1,20 +1,17 @@
 class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
-  has_many :photo_versions, inverse_of: :photo
-
-  attribute :urls
-  attribute :alt
+  has_many :versions, inverse_of: :photo, class_name: "PhotoVersion"
 
   default_scope -> { order(:filename) }
 
   VALID_FILENAME_REGEX = /\.jpg|png\Z/i
 
   def has_version?(version)
-    photo_versions.where(name: version.name).any?
+    versions.where(name: version.name).any?
   end
 
   def has_size!(size, filename, mime_type, width, height)
-    photo_versions.create!(
+    versions.create!(
       size: size.name,
       filename: filename,
       mime_type: mime_type,
@@ -65,11 +62,15 @@ class Photo < ApplicationRecord
     caption || "Photo in the album #{album.title}"
   end
 
-  def versions
-    photo_versions.map { |version| [version.size, version] }.to_h
+  def serializable_hash(options = {})
+    super(options).merge!({
+      versions: versions.map { |version| [version.size, version] }.to_h,
+      urls: urls,
+      alt: alt,
+    })
   end
 
   def urls
-    photo_versions.map { |version| [version.size, version_url(version)] }.to_h
+    versions.map { |version| [version.size, version_url(version)] }.to_h
   end
 end
