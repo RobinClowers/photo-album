@@ -114,8 +114,8 @@ describe ProcessPhotos do
       end
 
       processor.process_album([mobile_size])
-      expect(photo.reload.photo_versions.first).not_to be_nil
-      expect(photo.reload.photo_versions.first.size).to eq(mobile_size.name)
+      expect(photo.reload.versions.first).not_to be_nil
+      expect(photo.reload.versions.first.size).to eq(mobile_size.name)
     end
 
     it "cleans up after itself" do

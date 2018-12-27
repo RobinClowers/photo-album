@@ -3,7 +3,7 @@ class PhotoVersion < ApplicationRecord
 
   attribute :url
 
-  belongs_to :photo, inverse_of: :photo_versions, required: true
+  belongs_to :photo, inverse_of: :versions, required: true
 
   validates :size, presence: true, inclusion: { in: VALID_SIZES }
 
