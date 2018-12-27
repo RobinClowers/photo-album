@@ -6,11 +6,7 @@
   "scripts": {
     "dev": "NODE_ENV=development API_ROOT=http://localhost:5000 FRONT_END_ROOT=http://localhost:3000 node server.js",
     "build": "next build",
-    "start": "NODE_ENV=development node server.js",
-    "staging-deploy": "now -b API_ROOT=https://photos-app-staging.robinclowers.com -b FRONT_END_ROOT=https://photos-staging.robinclowers.com",
-    "staging-alias": "now alias photos-staging.robinclowers.com",
-    "prod-deploy": "now",
-    "prod-alias": "now alias photos.robinclowers.com"
+    "start": "NODE_ENV=development node server.js"
   },
   "keywords": [],
   "author": "",

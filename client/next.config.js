@@ -12,10 +12,7 @@ module.exports = (phase) => {
   return {
     webpack: (config, {}) => {
       config.plugins.push(
-        new webpack.DefinePlugin({
-          'process.env.API_ROOT': JSON.stringify(process.env.API_ROOT),
-          'process.env.FRONT_END_ROOT': JSON.stringify(process.env.FRONT_END_ROOT),
-        })
+        new webpack.DefinePlugin(definePluginConfig())
       )
       return config
     },
