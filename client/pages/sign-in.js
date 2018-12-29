@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Router from 'next/router';
+import Link from 'next/link'
 import Button from '@material-ui/core/Button'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Grid from '@material-ui/core/Grid'
@@ -10,8 +11,7 @@ import Layout from 'client/components/Layout'
 import Section from 'client/components/Section'
 import NarrowPaper from 'client/components/NarrowPaper'
 import FacebookLoginButton from 'client/components/FacebookLoginButton'
-import { Link } from 'client/routes'
-import { getReturnUrl } from 'client/src/urls'
+import { getReturnUrl, forgotPasswordPath, signUpPath } from 'client/src/urls'
 import { getUser, signIn } from 'client/src/api'
 
 class SignIn extends React.Component {
@@ -91,7 +91,7 @@ class SignIn extends React.Component {
                   </FormHelperText>
                   }
                 <Grid container justify="space-between">
-                  <Link route='forgotPassword'>
+                  <Link href={forgotPasswordPath()}>
                     <Button>
                       Forgot Password?
                     </Button>
@@ -106,7 +106,7 @@ class SignIn extends React.Component {
               </Typography>
             </Section>
             <Section centered fullWidth>
-              <Link route='signUp' passHref>
+              <Link href={signUpPath()} passHref>
                 <Button component="a" fullWidth variant="contained">Sign up</Button>
               </Link>
             </Section>

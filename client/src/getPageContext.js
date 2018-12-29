@@ -4,7 +4,6 @@ import { SheetsRegistry } from 'jss'
 import { createMuiTheme, createGenerateClassName } from '@material-ui/core/styles'
 import orange from '@material-ui/core/colors/orange';
 import blue from '@material-ui/core/colors/blue';
-import { Router } from 'client/routes';
 
 // A theme with custom primary and secondary color.
 // It's optional.

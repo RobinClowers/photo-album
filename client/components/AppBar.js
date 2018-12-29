@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
@@ -13,9 +14,8 @@ import Menu from '@material-ui/core/Menu'
 import { fade } from '@material-ui/core/styles/colorManipulator'
 import { withStyles } from '@material-ui/core/styles'
 import Icon from '@material-ui/core/Icon'
-import { adminUrl } from 'client/src/urls'
+import { adminUrl, changePasswordPath, signInPath, signUpPath } from 'client/src/urls'
 import { signOut } from 'client/src/api'
-import { Link } from 'client/routes'
 
 const styles = theme => ({
   root: {
@@ -98,7 +98,7 @@ class PrimarySearchAppBar extends React.Component {
           <div className={classes.root}>
             <AppBar position="static">
               <Toolbar>
-                <Link route='index'>
+                <Link href='/'>
                   <a>
                     <Typography className={classes.title} variant="h6" color="inherit" noWrap>
                       Robinʼs Photos
@@ -147,11 +147,11 @@ class PrimarySearchAppBar extends React.Component {
                           <React.Fragment>
                             <Typography variant="h6">{user.name}</Typography>
                             {user.admin &&
-                              <MenuItem component="a" href={adminUrl}>
+                              <MenuItem component="a" href={adminUrl()}>
                                 Admin
                               </MenuItem>}
                             {user.provider === 'email' &&
-                              <Link route='changePassword'>
+                              <Link href={changePasswordPath()}>
                                 <MenuItem component="a">
                                   Change Password
                                 </MenuItem>
@@ -161,12 +161,12 @@ class PrimarySearchAppBar extends React.Component {
                         {!user || !user.id &&
                           <React.Fragment>
                             <Typography variant="h6">Welcome</Typography>
-                            <Link route="signIn">
+                            <Link href={signInPath()}>
                               <MenuItem component="a">
                                 Sign in
                               </MenuItem>
                             </Link>
-                            <Link route="signUp">
+                            <Link href={signUpPath()}>
                               <MenuItem component="a">
                                 Sign up
                               </MenuItem>

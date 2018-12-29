@@ -1,8 +1,9 @@
 import React from 'react'
+import Link from 'next/link'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
-import { Link } from 'client/routes'
+import { albumPath } from 'client/src/urls'
 
 const styles = theme => ({
   link: {
@@ -17,8 +18,8 @@ const styles = theme => ({
   },
 })
 
-const BackToAlbumLink = ({ url, classes }) => (
-  <Link route={url}>
+const BackToAlbumLink = ({ slug, classes }) => (
+  <Link href={albumPath(slug)}>
     <a>
       <Typography variant="body2" className={classes.link}>
         <Icon>arrow_back</Icon>

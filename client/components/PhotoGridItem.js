@@ -1,5 +1,6 @@
+import Link from 'next/link'
 import { withStyles } from '@material-ui/core/styles'
-import { Link } from 'client/routes'
+import { photoPath } from 'client/src/urls'
 
 const styles = theme => ({
   photo: {
@@ -14,9 +15,7 @@ const PhotoGridItem = ({ albumSlug, item, classes }) => {
   const { versions } = item.photo
 
   return (
-    <Link
-      route='photo'
-      params={{slug: albumSlug, filename: item.photo.filename}}>
+    <Link href={photoPath(albumSlug, item.photo.filename)}>
       <a>
         <img
           style={{

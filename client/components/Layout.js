@@ -39,7 +39,7 @@ class Layout extends React.Component {
   }
 
   componentDidMount() {
-    bindRouterStateChange(this, loading => this.setState({appLoading: loading}))
+    bindRouterStateChange(this, (_url, loading) => this.setState({appLoading: loading}))
   }
 
   componentWillUnmount() {

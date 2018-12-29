@@ -1,4 +1,4 @@
-import { Router } from 'client/routes'
+import { Router } from 'next/router'
 import { setReturnUrl } from 'client/src/urls'
 
 const subscribers = {}
@@ -15,15 +15,15 @@ const eachSubscriber = callback => {
   Object.keys(subscribers).forEach(key => callback(subscribers[key]))
 }
 
-Router.onRouteChangeStart = _path => {
-  eachSubscriber(callback => callback(true))
-}
+Router.events.on('routeChangeStart', url => {
+  eachSubscriber(callback => callback(url, true))
+})
 
-Router.onRouteChangeComplete = _path => {
-  eachSubscriber(callback => callback(false))
+Router.events.on('routeChangeComplete', url => {
+  eachSubscriber(callback => callback(url, false))
   setReturnUrl(global.location.href)
-}
+})
 
-Router.onRouteChangeError = _path => {
-  eachSubscriber(callback => callback(false))
-}
+Router.events.on('routeChangeError', url => {
+  eachSubscriber(callback => callback(url, false))
+})

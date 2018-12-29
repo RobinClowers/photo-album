@@ -20,7 +20,6 @@
     "lodash": "^4.17.11",
     "material-ui-popup-state": "^1.0.1",
     "next": "^7.0.2",
-    "next-routes": "^1.4.2",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-easy-swipe": "^0.0.17",

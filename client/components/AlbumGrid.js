@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Link } from 'client/routes'
+import Link from 'next/link'
 import { withStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
+import { albumPath } from 'client/src/urls'
 
 const styles = theme => ({
   paper: {
@@ -31,7 +32,7 @@ function AlbumGrid({ classes, albums }) {
       <Grid justify='center' container spacing={24}>
         {albums.map(album => (
           <Grid item key={album.id}>
-            <Link route='album' params={{slug: album.slug}}>
+            <Link href={albumPath(album.slug)}>
               <a>
                 <Paper className={classes.paper}>
                   <div

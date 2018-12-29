@@ -3,7 +3,7 @@ import Layout from 'client/components/Layout'
 import AlbumGrid from 'client/components/AlbumGrid'
 import EmailConfirmed from 'client/components/EmailConfirmed'
 import ErrorDialog from 'client/components/ErrorDialog'
-import { Router } from 'client/routes';
+import { Router } from 'next/router';
 import { getAlbums } from 'client/src/api'
 
 export default class extends React.Component {
@@ -26,12 +26,12 @@ export default class extends React.Component {
 
   handleDismissEmailConfirmed = () => {
     this.setState({ emailConfirmedOpen: false })
-    Router.replaceRoute('index')
+    Router.replace('index')
   }
 
   handleDismissError = () => {
     this.setState({ errorDialogOpen: false })
-    Router.replaceRoute('index')
+    Router.replace('index')
   }
 
   render() {

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
@@ -9,7 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import Fade from '@material-ui/core/Fade'
 import Caption from 'client/components/Caption'
 import AddComment from 'client/components/AddComment'
-import { Link } from 'client/routes'
+import { signInPath } from 'client/src/urls'
 
 const styles = theme => ({
   commentContainer: {
@@ -101,7 +102,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
               <Card>
                 <CardContent>
                   <Typography variant="body2">
-                    <Link route='signIn'>
+                    <Link href={signInPath()}>
                       <a>Sign in</a>
                     </Link>
                     {' '}to add a favorite
@@ -141,7 +142,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         <Card className={classes.card}>
           <CardContent>
             <Typography variant="body2">
-              <Link route="signIn">
+              <Link href={signInPath()}>
                 <a>Sign in</a>
               </Link>
               {' '}to leave a comment

@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import NarrowPaper from 'client/components/NarrowPaper'
 import Layout from 'client/components/Layout'
-import { Router } from 'client/routes';
+import { Router } from 'next/router';
 import { getUser, changePassword } from 'client/src/api'
 
 class ChangePassword extends React.Component {
@@ -48,7 +48,7 @@ class ChangePassword extends React.Component {
   }
 
   handleDismiss = _event => {
-    Router.pushRoute('index')
+    Router.push('index')
   }
 
   render() {

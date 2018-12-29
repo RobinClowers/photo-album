@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
 import NarrowPaper from 'client/components/NarrowPaper'
 import Layout from 'client/components/Layout'
-import { Router } from 'client/routes';
+import { Router } from 'next/router';
 import { getUser, resetPassword } from 'client/src/api'
 
 class ResetPassword extends React.Component {
@@ -49,7 +49,7 @@ class ResetPassword extends React.Component {
   }
 
   handleDismiss = _event => {
-    Router.pushRoute('index')
+    Router.push('index')
   }
 
   render() {

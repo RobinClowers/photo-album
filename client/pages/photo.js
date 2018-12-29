@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
+import { Router } from 'next/router'
 import Swipe from 'react-easy-swipe'
 import { withStyles } from '@material-ui/core/styles'
 import Layout from 'client/components/Layout'
@@ -9,7 +10,6 @@ import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
 import PhotoComments from 'client/components/PhotoComments'
 import { getPhoto, createFavorite, deleteFavorite } from 'client/src/api'
-import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
 const headerHeight = 64
@@ -64,7 +64,7 @@ class Photo extends React.Component {
 
   refresh = () => {
     const { album, photo } = this.props
-    Router.replaceRoute('photo', { slug: album.slug, filename: photo.filename })
+    Router.replace('photo', { slug: album.slug, filename: photo.filename })
   }
 
   handleFavorite = async event => {
@@ -83,17 +83,17 @@ class Photo extends React.Component {
 
   handleCaptionUpdated = _event => {
     const { album, photo } = this.props
-    Router.pushRoute('photo', { slug: album.slug, filename: photo.filename })
+    Router.push('photo', { slug: album.slug, filename: photo.filename })
   }
 
   handleSwipeLeft = (pos, event) => {
     const { album, next_photo_filename } = this.props
-    Router.pushRoute('photo', { slug: album.slug, filename: next_photo_filename })
+    Router.push('photo', { slug: album.slug, filename: next_photo_filename })
   }
 
   handleSwipeRight = (pos, event) => {
     const { album, previous_photo_filename } = this.props
-    Router.pushRoute('photo', { slug: album.slug, filename: previous_photo_filename })
+    Router.push('photo', { slug: album.slug, filename: previous_photo_filename })
   }
 
   render() {
@@ -126,7 +126,7 @@ class Photo extends React.Component {
           <meta property="og:image:width" content={photo.width} />
           <meta property="og:image:height" content={photo.height} />
         </Head>
-        <BackToAlbumLink url={`/albums/${album.slug}`} />
+        <BackToAlbumLink slug={album.slug} />
         <Swipe
           onSwipeLeft={this.handleSwipeLeft}
           onSwipeRight={this.handleSwipeRight}

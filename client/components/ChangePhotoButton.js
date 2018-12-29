@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import { withStyles } from '@material-ui/core/styles'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Icon from '@material-ui/core/Icon'
-import { Link } from 'client/routes'
+import { photoPath } from 'client/src/urls'
 
 const button = theme => ({
   position: 'absolute',
@@ -70,10 +71,7 @@ const icon = variant => {
 }
 
 const ChangePhotoButton = ({ variant, albumSlug, photoFilename, classes }) => (
-  <Link
-    route='photo'
-    params={{slug: albumSlug, filename: photoFilename}}
-    passHref>
+  <Link href={photoPath(albumSlug, photoFilename)} passHref>
     <ButtonBase
       component="a"
       className={variant === 'next' ? classes.nextButton : classes.previousButton}
