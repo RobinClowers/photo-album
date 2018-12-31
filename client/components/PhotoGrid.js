@@ -9,16 +9,25 @@ const gutter = 8 * 4
 const styles = theme => ({
   container: {
     position: 'relative',
-    marginLeft: gutter,
-    marginRight: gutter,
+    margin: 0,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: gutter,
+      marginRight: gutter,
+    },
   },
 })
 
-const gridWidth = windowWidth => {
-  if (windowWidth < 425) {
-    return windowWidth
+const gridOptions = windowWidth => {
+  if (windowWidth < 600) {
+    return {
+      containerWidth: windowWidth,
+      containerPadding: 0,
+    }
   }
-  return windowWidth - gutter * 2
+  return {
+    containerWidth: windowWidth - gutter * 2,
+    containerPadding: 10,
+  }
 }
 
 const buildGrid = (photos, windowWidth) => {
@@ -26,7 +35,7 @@ const buildGrid = (photos, windowWidth) => {
     const { original } = p.versions
     return { height: original.height, width: original.width }
   })
-  const result = justify(dimensions, { containerWidth: gridWidth(windowWidth) })
+  const result = justify(dimensions, gridOptions(windowWidth))
   return result.boxes.map((box, i) => ({ ...box, photo: photos[i] }))
 }
 
