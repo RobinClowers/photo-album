@@ -2,7 +2,7 @@ class Photos::CommentsController < ApplicationController
   before_action :authenticate_user!, except: :ndex
   layout false
 
-  expose(:comment) { Comment.find_or_initialize_by(id: photo_id, user_id: current_user.id) }
+  expose(:comment) { Comment.new(photo_id: photo_id, user_id: current_user.id) }
   expose(:photo_id) { params[:photo_id] }
 
   def create
