@@ -43,6 +43,8 @@ gem 'image_optim_pack'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
+  gem 'webmock', '~> 3.5.1'
+  gem 'vcr', '~> 4.0.0'
   gem 'pry'
   gem 'pry-byebug'
   gem 'better_errors'
