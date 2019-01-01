@@ -43,7 +43,7 @@ class Album extends React.Component {
           <meta property="og:image:height" content={album.cover_photo_height} />
         </Head>
         <div>
-          <Typography className={classes.title} variant="h2" color="inherit" noWrap>
+          <Typography className={classes.title} variant="h2" color="inherit">
             {album.title}
           </Typography>
           <PhotoGrid photos={album.photos} albumSlug={album.slug} />
