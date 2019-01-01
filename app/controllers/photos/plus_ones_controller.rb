@@ -1,5 +1,5 @@
 class Photos::PlusOnesController < ApplicationController
-  before_action :require_signed_in, except: :index
+  before_action :authenticate_user!, except: :index
 
   def create
     if plus_one.save

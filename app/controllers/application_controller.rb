@@ -22,10 +22,6 @@ class ApplicationController < ActionController::Base
     session[:user_id]
   end
 
-  def require_signed_in
-    render nothing: true, status: :unauthorized unless current_user.signed_in?
-  end
-
   def home_url
     ENV.fetch("FRONT_END_ROOT")
   end

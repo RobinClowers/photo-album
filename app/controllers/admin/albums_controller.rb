@@ -23,7 +23,7 @@ class Admin::AlbumsController < Admin::ApplicationController
 
   def update
     album_creator.insert_all_photos
-    render nothing: true, status: :ok
+    head :ok
   end
 
   def error

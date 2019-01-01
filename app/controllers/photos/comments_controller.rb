@@ -1,5 +1,5 @@
 class Photos::CommentsController < ApplicationController
-  before_action :require_signed_in, except: :index
+  before_action :authenticate_user!, except: :ndex
   layout false
 
   expose(:comment) { Comment.find_or_initialize_by(id: photo_id, user_id: current_user.id) }

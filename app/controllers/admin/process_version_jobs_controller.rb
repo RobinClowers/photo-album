@@ -4,7 +4,7 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
       if process_single_album
         head :created
       else
-        render nothing: true, status: :unprocessable_entity
+        head :unprocessable_entity
       end
     else
       process_all_albums

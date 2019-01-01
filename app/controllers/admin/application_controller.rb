@@ -9,7 +9,7 @@ class Admin::ApplicationController < ApplicationController
 
   def forbidden
     if request.xhr?
-      render nothing: true, status: :forbidden
+      head :forbidden
     else
       redirect_to root_path
     end

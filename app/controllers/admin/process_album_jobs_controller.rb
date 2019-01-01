@@ -1,7 +1,7 @@
 class Admin::ProcessAlbumJobsController < Admin::ApplicationController
   def create
     if slug.blank?
-      render nothing: true, status: :unprocessable_entity
+      head :unprocessable_entity
     else
       ProcessAlbumWorker.perform_async(slug)
       head :created
