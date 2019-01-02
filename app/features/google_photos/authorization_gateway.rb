@@ -29,6 +29,6 @@ class GooglePhotos::AuthorizationGateway
       site: GOOGLE_TOKEN_BASE_PATH,
       token_url: GOOGLE_TOKEN_PATH,
     )
-    client.auth_code.get_token(auth_code, :redirect_uri => redirect_uri)
+    client.auth_code.get_token(auth_code, redirect_uri: redirect_uri)
   end
 end

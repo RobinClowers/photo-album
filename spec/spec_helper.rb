@@ -14,6 +14,7 @@ VCR.configure do |c|
   c.cassette_library_dir = "spec/cassettes"
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.filter_sensitive_data("<GOOGLE_SECRET>") { ENV.fetch("GOOGLE_SECRET") }
 end
 
 RSpec.configure do |config|
