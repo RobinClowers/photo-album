@@ -40,6 +40,7 @@ gem 'exiftool', '~> 1.2.1'
 gem 'exiftool_vendored', '~> 10.65.0'
 gem 'image_optim'
 gem 'image_optim_pack'
+gem 'attr_encrypted', '~> 3.1.0'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
