@@ -17,6 +17,8 @@ VCR.configure do |c|
   c.filter_sensitive_data("<GOOGLE_SECRET>") { ENV.fetch("GOOGLE_SECRET") }
 end
 
+RSpec::Support::ObjectFormatter.default_instance.max_formatted_output_length = 1000
+
 RSpec.configure do |config|
   config.before(:each) do
     Sidekiq::Worker.clear_all

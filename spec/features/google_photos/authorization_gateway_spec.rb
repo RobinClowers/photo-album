@@ -7,7 +7,7 @@ RSpec.describe GooglePhotos::AuthorizationGateway do
   describe "#build_authorization_url" do
     it "returns a valid url" do
       expect(gateway.build_authorization_url(redirect_uri)).to eq(
-        "https://accounts.google.com/o/oauth2/v2/auth?client_id=268034760811-b8v9ktoi81gt5kivhv497jhqr7uth3m4.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%2Fauth&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.readonly"
+        "https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&client_id=268034760811-b8v9ktoi81gt5kivhv497jhqr7uth3m4.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%2Fauth&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.readonly"
       )
     end
   end
@@ -22,7 +22,7 @@ RSpec.describe GooglePhotos::AuthorizationGateway do
         "scope" => "https://www.googleapis.com/auth/photoslibrary.readonly",
         "token_type" => "Bearer",
         access_token: "<ACCESS_TOKEN>",
-        refresh_token: nil,
+        refresh_token: "<REFRESH_TOKEN>",
       })
     end
   end

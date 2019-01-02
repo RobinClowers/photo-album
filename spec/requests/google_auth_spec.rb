@@ -25,7 +25,7 @@ RSpec.describe "GET /admin/google_photos_authorizations/new" do
     sign_in(admin)
     get(path)
     expect(response).to redirect_to(
-      "https://accounts.google.com/o/oauth2/v2/auth?client_id=268034760811-b8v9ktoi81gt5kivhv497jhqr7uth3m4.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fwww.example.com%2Fadmin%2Fgoogle_photos_authorizations%2Fcallback&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.readonly"
+      "https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&client_id=268034760811-b8v9ktoi81gt5kivhv497jhqr7uth3m4.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Fwww.example.com%2Fadmin%2Fgoogle_photos_authorizations%2Fcallback&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fphotoslibrary.readonly"
     )
   end
 end

@@ -19,7 +19,8 @@ class GooglePhotos::AuthorizationGateway
       site: GOOGLE_AUTH_BASE_PATH,
       authorize_url: GOOGLE_AUTH_PATH,
     )
-    client.auth_code.authorize_url(redirect_uri: redirect_uri, scope: SCOPE)
+    client.auth_code.authorize_url(
+      redirect_uri: redirect_uri, scope: SCOPE, access_type: "offline")
   end
 
   def request_token(auth_code, redirect_uri)

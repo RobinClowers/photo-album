@@ -27,7 +27,7 @@ http_interactions:
       - Referer
       - X-Origin
       Date:
-      - Wed, 02 Jan 2019 01:04:31 GMT
+      - Wed, 02 Jan 2019 01:59:58 GMT
       Server:
       - ESF
       Cache-Control:
@@ -47,10 +47,11 @@ http_interactions:
       string: |-
         {
           "access_token": "<ACCESS_TOKEN>",
-          "expires_in": 3450,
+          "expires_in": 3600,
+          "refresh_token": "<REFRESH_TOKEN>",
           "scope": "https://www.googleapis.com/auth/photoslibrary.readonly",
           "token_type": "Bearer"
         }
     http_version: 
-  recorded_at: Wed, 02 Jan 2019 01:04:32 GMT
+  recorded_at: Wed, 02 Jan 2019 01:59:58 GMT
 recorded_with: VCR 4.0.0
