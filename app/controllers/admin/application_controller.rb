@@ -15,8 +15,9 @@ class Admin::ApplicationController < ApplicationController
     end
   end
 
-  def google_access_token_hash
-    session[:google_access_token_hash]
+  def google_authorization
+    GoogleAuthorization.find_by_user_id(current_user) or
+      raise GoogleAuthenticationError.new("Missing google authentication")
   end
 
   def redirect_to_google_auth

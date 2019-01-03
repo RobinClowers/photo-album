@@ -17,8 +17,7 @@ RSpec.describe GooglePhotos::AuthorizationGateway do
     let(:redirect_uri) { admin_google_photos_authorizations_callback_url(host: "localhost:5000") }
 
     it "returns a token hash" do
-      access_token = gateway.request_token(auth_code, redirect_uri)
-      expect(access_token.to_hash).to include({
+      expect(gateway.request_token(auth_code, redirect_uri)).to include({
         scope: "https://www.googleapis.com/auth/photoslibrary.readonly",
         token_type: "Bearer",
         access_token: "<ACCESS_TOKEN>",

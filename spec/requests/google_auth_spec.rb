@@ -63,12 +63,6 @@ RSpec.describe "GET /admin/google_photos_authorizations/callback" do
     expect(response).to redirect_to(root_path)
   end
 
-  it "stores google access token hash in session" do
-    sign_in(admin)
-    get(path, params: { code: "1234"})
-    expect(session[:google_access_token_hash]).to eq(token_hash)
-  end
-
   it "creates a GoogleAuthorization model" do
     sign_in(admin)
     get(path, params: { code: "1234"})

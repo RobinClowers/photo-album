@@ -1,7 +1,7 @@
 class GooglePhotos::Importer
-  def import(token_hash, google_album_id, force: false)
-    album_data = api.get_album(token_hash, google_album_id)
-    items = api.search_media_items(token_hash, {album_id: google_album_id})
+  def import(google_auth, google_album_id, force: false)
+    album_data = api.get_album(google_auth, google_album_id)
+    items = api.search_media_items(google_auth, {album_id: google_album_id})
 
     slug = ::AlbumSlug.new(album_data["title"])
     album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
