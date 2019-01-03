@@ -25,4 +25,23 @@ RSpec.describe GooglePhotos::AuthorizationGateway do
       })
     end
   end
+
+  describe "#refresh_token", :vcr do
+    let(:token_hash) { {
+      scope: "https://www.googleapis.com/auth/photoslibrary.readonly",
+      token_type: "Bearer",
+      expires_at: 1546539895,
+      access_token: "<OLD_ACCESS_TOKEN>",
+      refresh_token: "<REFRESH_TOKEN>",
+    } }
+
+    it "returns a refreshed token hash" do
+      expect(gateway.refresh_token(token_hash)).to include({
+        scope: "https://www.googleapis.com/auth/photoslibrary.readonly",
+        token_type: "Bearer",
+        access_token: "<NEW_ACCESS_TOKEN>",
+        refresh_token: "<REFRESH_TOKEN>",
+      })
+    end
+  end
 end
