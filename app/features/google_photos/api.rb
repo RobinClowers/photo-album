@@ -37,6 +37,6 @@ class GooglePhotos::Api
   private
   def auth_header(token_hash)
      raise GoogleAuthenticationError.new("Missing google api token") unless token_hash
-    "Bearer #{token_hash["access_token"]}"
+    "Bearer #{token_hash[:access_token]}"
   end
 end

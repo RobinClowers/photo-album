@@ -19,8 +19,8 @@ RSpec.describe GooglePhotos::AuthorizationGateway do
     it "returns a token hash" do
       access_token = gateway.request_token(auth_code, redirect_uri)
       expect(access_token.to_hash).to include({
-        "scope" => "https://www.googleapis.com/auth/photoslibrary.readonly",
-        "token_type" => "Bearer",
+        scope: "https://www.googleapis.com/auth/photoslibrary.readonly",
+        token_type: "Bearer",
         access_token: "<ACCESS_TOKEN>",
         refresh_token: "<REFRESH_TOKEN>",
       })

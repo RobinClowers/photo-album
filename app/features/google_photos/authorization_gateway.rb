@@ -30,6 +30,13 @@ class GooglePhotos::AuthorizationGateway
       site: GOOGLE_TOKEN_BASE_PATH,
       token_url: GOOGLE_TOKEN_PATH,
     )
-    client.auth_code.get_token(auth_code, redirect_uri: redirect_uri)
+    token = client.auth_code.get_token(auth_code, redirect_uri: redirect_uri).to_hash
+    {
+      scope: token["scope"],
+      token_type: token["token_type"],
+      expires_at: token[:expires_at],
+      access_token: token[:access_token],
+      refresh_token: token[:refresh_token],
+    }
   end
 end
