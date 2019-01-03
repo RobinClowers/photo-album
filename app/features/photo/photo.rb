@@ -21,20 +21,12 @@ class Photo < ApplicationRecord
   rescue ActiveRecord::RecordNotUnique
   end
 
+  def original_version
+    versions.find_by_size(PhotoSize.original.name)
+  end
+
   def version_url(version)
     File.join(protocol, base_path, path, version.size, version.filename)
-  end
-
-  def legacy_version_url(version)
-    File.join(protocol, base_path, path, version.to_s, filename)
-  end
-
-  def thumb_url
-    legacy_version_url(:thumbs)
-  end
-
-  def url
-    File.join(protocol, base_path, path, filename)
   end
 
   def protocol(secure: true)
