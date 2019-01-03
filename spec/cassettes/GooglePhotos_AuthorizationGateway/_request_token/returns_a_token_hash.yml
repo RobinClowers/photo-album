@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/oauth2/v4/token
+    body:
+      encoding: UTF-8
+      string: client_id=268034760811-b8v9ktoi81gt5kivhv497jhqr7uth3m4.apps.googleusercontent.com&client_secret=<GOOGLE_SECRET>&code=<AUTH_CODE>&grant_type=authorization_code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fadmin%2Fgoogle_photos_authorizations%2Fcallback
+    headers:
+      User-Agent:
+      - Faraday v0.12.2
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Type:
+      - application/json; charset=utf-8
+      Vary:
+      - Origin
+      - Referer
+      - X-Origin
+      Date:
+      - Wed, 02 Jan 2019 01:59:58 GMT
+      Server:
+      - ESF
+      Cache-Control:
+      - private
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Content-Type-Options:
+      - nosniff
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="44,43,39,35"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: ASCII-8BIT
+      string: |-
+        {
+          "access_token": "<ACCESS_TOKEN>",
+          "expires_in": 3600,
+          "refresh_token": "<REFRESH_TOKEN>",
+          "scope": "https://www.googleapis.com/auth/photoslibrary.readonly",
+          "token_type": "Bearer"
+        }
+    http_version: 
+  recorded_at: Wed, 02 Jan 2019 01:59:58 GMT
+recorded_with: VCR 4.0.0

@@ -6,7 +6,14 @@ class Admin::GooglePhotosAuthorizationsController < Admin::ApplicationController
   def create
     if params["code"]
       token = auth_gateway.request_token(params["code"], redirect_uri)
-      session[:google_access_token_hash] = token.to_hash
+      GoogleAuthorization.create(
+        user: current_user,
+        scope: token[:scope],
+        token_type: token[:token_type],
+        expires_at: Time.at(token[:expires_at]),
+        access_token: token[:access_token],
+        refresh_token: token[:refresh_token],
+      )
     end
     redirect_to admin_google_photos_albums_path
   end

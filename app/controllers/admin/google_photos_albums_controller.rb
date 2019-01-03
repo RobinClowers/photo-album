@@ -1,12 +1,12 @@
 class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
-  expose(:albums) { GooglePhotos::Api.new.list(google_access_token_hash) }
+  expose(:albums) { GooglePhotos::Api.new.list(google_authorization) }
   expose(:new_album) { Album.new }
 
   def index; end
 
   def create
     if google_id
-      ImportGoogleAlbumWorker.perform_async(google_access_token_hash, google_id, force)
+      ImportGoogleAlbumWorker.perform_async(google_authorization.id, google_id, force)
       redirect_to admin_root_path, notice: "Album imported queued"
     else
       redirect_to admin_google_photos_albums_path, notice: "missing google album ID"
