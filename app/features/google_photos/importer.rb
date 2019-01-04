@@ -67,13 +67,6 @@ class GooglePhotos::Importer
       aperture_f_number: meta["apertureFNumber"],
       iso_equivalent: meta["isoEquivalent"],
     )
-    photo.has_size!(
-      PhotoSize.original,
-      filename,
-      media_item["mimeType"],
-      meta["width"],
-      meta["height"]
-    )
     if cover_photo_id && photo.google_id == cover_photo_id
       Rails.logger.info("Setting cover photo #{photo.filename}")
       album.update_attributes!(cover_photo: photo)
