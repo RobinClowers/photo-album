@@ -22,8 +22,8 @@ RSpec.describe GooglePhotos::PageFetcher do
   it "#all returns all items from multiple pages" do
     source = Proc.new { |params|
       break nil unless params[:key] == "key"
-      case params[:next_page]
-        when nil then { items: [1, 2], page: 2 }
+      case params[:page]
+        when nil then { items: [1, 2], next_page: 2 }
         when 2 then { items: [3, 4] }
       end
     }

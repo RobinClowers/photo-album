@@ -4,8 +4,9 @@ class GooglePhotos::PageFetcher
     loop do
       result = yield(params)
       items.concat(result[item_key] || [])
-      params[next_page_key] = result[page_key]
-      break unless result[page_key]
+      params[page_key] = result[next_page_key]
+      Rails.logger.info("page token: #{result[next_page_key]}")
+      break unless result[next_page_key]
     end
     items
   end
