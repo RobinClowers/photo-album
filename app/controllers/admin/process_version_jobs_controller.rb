@@ -31,7 +31,7 @@ class Admin::ProcessVersionJobsController < Admin::ApplicationController
   end
 
   def album_contains_all_photos
-    album_photos = Album.find_by_slug(album).photos.pluck(:filename)
+    album_photos = Album.find_by_slug(album_slug).photos.pluck(:filename)
     photo_filenames.all? { |filename| album_photos.include?(filename) }
   end
 
