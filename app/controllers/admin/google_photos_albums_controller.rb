@@ -1,5 +1,5 @@
 class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
-  expose(:albums) { GooglePhotos::Api.new.list(google_authorization) }
+  expose(:albums) { all_albums }
   expose(:new_album) { Album.new }
 
   def index; end
@@ -21,5 +21,12 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
 
   def force
     !!params["force"]
+  end
+
+  def all_albums
+    fetcher = GooglePhotos::PageFetcher.new
+    fetcher.all({ pageSize: 50 }, item_key: "albums") { |fetchParams|
+      GooglePhotos::Api.new.list(google_authorization, fetchParams)
+    }
   end
 end

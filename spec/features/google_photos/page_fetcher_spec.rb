@@ -8,7 +8,12 @@ RSpec.describe GooglePhotos::PageFetcher do
       break nil unless params[:key] == "key"
       { items: [1, 2] }
     }
-    result = fetcher.all({ key: "key" }, :items, :page, :next_page) { |params|
+    result = fetcher.all(
+      { key: "key" },
+      item_key: :items,
+      page_key: :page,
+      next_page_key: :next_page
+    ) { |params|
       source.call(params)
     }
     expect(result).to eq([1, 2])
@@ -22,7 +27,12 @@ RSpec.describe GooglePhotos::PageFetcher do
         when 2 then { items: [3, 4] }
       end
     }
-    result = fetcher.all({ key: "key" }, :items, :page, :next_page) { |params|
+    result = fetcher.all(
+      { key: "key" },
+      item_key: :items,
+      page_key: :page,
+      next_page_key: :next_page
+    ) { |params|
       source.call(params)
     }
     expect(result).to eq([1, 2, 3, 4])

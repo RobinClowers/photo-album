@@ -24,7 +24,7 @@ RSpec.describe GooglePhotos::Api do
     } }
     let(:unauthorized_http) { double(:http, get: FakeResponse.new(401)) }
     let(:authorized_http) { double(:http, get: FakeResponse.new(200, valid_response.to_json)) }
-    let(:valid_response) { { albums: ["an album"] } }
+    let(:valid_response) { { "albums" => ["an album"] } }
     let(:fake_auth_gateway) { double(:google_photos_authorization_gateway) }
     let(:valid_auth_header) { "Bearer #{refresh_token_hash[:access_token]}" }
 
@@ -41,7 +41,7 @@ RSpec.describe GooglePhotos::Api do
     end
 
     it "retries and returns valid response" do
-      expect(api.list(auth)).to eq(valid_response[:albums])
+      expect(api.list(auth)).to eq(valid_response)
     end
   end
 end

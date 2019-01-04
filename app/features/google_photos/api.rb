@@ -1,13 +1,13 @@
 class GooglePhotos::Api
-  def list(google_auth, page_size = 50)
+  def list(google_auth, params = { pageSize: 50 })
     execute_with_retry(google_auth) {
       response = HTTP
         .auth(auth_header(google_auth))
-        .get("https://photoslibrary.googleapis.com/v1/albums?pageSize=#{page_size}")
+        .get("https://photoslibrary.googleapis.com/v1/albums", params: params)
       if response.status == 401
         raise GoogleAuthenticationError.new("Failed to fetch albums", response)
       else
-        JSON.parse(response.body.to_s)["albums"]
+        JSON.parse(response.body.to_s)
       end
     }
   end
