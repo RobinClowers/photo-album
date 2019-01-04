@@ -1,7 +1,9 @@
 class GooglePhotos::Importer
   def import(google_auth, google_album_id, force: false)
     album_data = api.get_album(google_auth, google_album_id)
-    items = api.search_media_items(google_auth, {album_id: google_album_id})
+    items = fetcher.all({ albumId: google_album_id }) { |params|
+      api.search_media_items(google_auth, params)
+    }
 
     slug = ::AlbumSlug.new(album_data["title"])
     album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
@@ -76,5 +78,9 @@ class GooglePhotos::Importer
 
   def api
     @api ||= GooglePhotos::Api.new
+  end
+
+  def fetcher
+    @fetcher ||= GooglePhotos::PageFetcher.new
   end
 end

@@ -35,7 +35,7 @@ class GooglePhotos::Api
       if response.status == 401
         raise GoogleAuthenticationError.new("Failed to search media items", response)
       else
-        JSON.parse(response.body.to_s)["mediaItems"]
+        JSON.parse(response.body.to_s)
       end
     }
   end
