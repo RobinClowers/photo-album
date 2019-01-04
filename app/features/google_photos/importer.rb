@@ -1,7 +1,7 @@
 class GooglePhotos::Importer
   def import(google_auth, google_album_id, force: false)
     album_data = api.get_album(google_auth, google_album_id)
-    items = fetcher.all({ albumId: google_album_id }) { |params|
+    items = fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
       api.search_media_items(google_auth, params)
     }
 
