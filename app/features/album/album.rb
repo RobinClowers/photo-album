@@ -1,5 +1,5 @@
 class Album < ApplicationRecord
-  has_many :photos, inverse_of: :album
+  has_many :photos, -> { order "taken_at" }, inverse_of: :album
   belongs_to :cover_photo, class_name: 'Photo'
 
   before_create :generate_slug
