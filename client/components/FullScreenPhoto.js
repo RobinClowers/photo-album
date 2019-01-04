@@ -63,7 +63,7 @@ class FullScreenPhoto extends React.Component {
     if (!this.state.isClient) {
       return { display: 'none', }
     }
-    const { width, height } = photo.versions.desktop
+    const { width, height } = photo.versions.original
     if (this.heightRatio(topOffset) > this.widthRatio()) {
       return {
         width: byRatio(width, this.widthRatio()),
@@ -84,11 +84,11 @@ class FullScreenPhoto extends React.Component {
   }
 
   heightRatio(topOffset) {
-    return ceiling(maxHeight(topOffset) / this.props.photo.versions.desktop.height, 1)
+    return ceiling(maxHeight(topOffset) / this.props.photo.versions.original.height, 1)
   }
 
   widthRatio() {
-    return ceiling(maxWidth() / this.props.photo.versions.desktop.width, 1)
+    return ceiling(maxWidth() / this.props.photo.versions.original.width, 1)
   }
 
   render() {
@@ -103,7 +103,7 @@ class FullScreenPhoto extends React.Component {
           style={{ ...this.showPhoto() }}
           className={classes.image}
           ref={this.image}
-          src={photo.urls.desktop}
+          src={photo.urls.original}
           srcSet={Object.keys(versions).map(
             key => `${versions[key].url} ${versions[key].width}w`
           ).join(', ')}
