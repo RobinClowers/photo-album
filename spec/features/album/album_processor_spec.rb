@@ -5,7 +5,6 @@ describe AlbumProcessor do
   let(:filename) { "P1120375.JPG" }
   let(:processed_filename) { "P1120375.jpg" }
   let(:other_filename) { "P1080205.JPG" }
-  let(:processed_filename) { "P1120375.jpg" }
   let!(:originals) { Dir.entries(base_path).select { |f| f =~ /\.jpg|png\Z/i } }
   let(:little_photo) { little_size.photo_path(base_path, processed_filename) }
   let(:tiny_photo) { tiny_size.photo_path(base_path, processed_filename) }

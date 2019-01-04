@@ -13,13 +13,14 @@ class GooglePhotos::Importer
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
 
     items.each do |item|
-      next if log_if_existing_photo(item["filename"])
-      full_path = File.join(tmp_dir, item["filename"])
+      filename = Photo::FilenameScrubber.scrub(item["filename"])
+      next if log_if_existing_photo(filename)
+      full_path = File.join(tmp_dir, filename)
       Rails.logger.info("Downloading #{item["filename"]}")
       download_item(item, full_path) unless File.exists?(full_path)
-      Rails.logger.info("Uploading #{item["filename"]}")
-      uploader.upload(tmp_dir, item["filename"], PhotoSize.original, overwrite: force)
-      create_photo(item, album, album_data["coverPhotoMediaItemId"])
+      Rails.logger.info("Uploading #{filename}")
+      uploader.upload(tmp_dir, filename, PhotoSize.original, overwrite: force)
+      create_photo(item, filename, album, album_data["coverPhotoMediaItemId"])
     end
     processor.process_album(force: force)
     FileUtils.rm_rf(tmp_dir)
@@ -48,8 +49,7 @@ class GooglePhotos::Importer
     end
   end
 
-  def create_photo(media_item, album, cover_photo_id)
-    filename = media_item["filename"]
+  def create_photo(media_item, filename, album, cover_photo_id)
     meta = media_item["mediaMetadata"]
     photo = Photo.create!(
       filename: filename,

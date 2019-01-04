@@ -9,6 +9,7 @@ class Uploader
   end
 
   def upload(base_path, name, size, overwrite: false)
+    name = Photo::FilenameScrubber.scrub(name)
     base_path = realpath(base_path)
     create(base_path, name, size, overwrite)
   end
@@ -21,6 +22,7 @@ class Uploader
     end
 
     valid_images(base_path).each do |filename|
+      filename = Photo::FilenameScrubber.scrub(filename)
       if overwrite || !existing_photos.include?(filename)
         create(base_path, filename, size, overwrite)
       end
