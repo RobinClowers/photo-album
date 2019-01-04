@@ -2,8 +2,6 @@ class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
   has_many :versions, inverse_of: :photo, class_name: "PhotoVersion"
 
-  default_scope -> { order(:filename) }
-
   VALID_FILENAME_REGEX = /\.jpg|png\Z/i
 
   def has_version?(version)
