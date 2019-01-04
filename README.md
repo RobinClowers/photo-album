@@ -9,6 +9,8 @@ bundle config build.puma --with-opt-dir=/usr/local/opt/openssl
 bundle
 bundle exec rake db:setup
 bundle exec rails server
+cd client
+yarn install
 ```
 
 ### Development
@@ -17,6 +19,13 @@ To run the rails server
 
 ```bash
 bundle exec rails s
+```
+
+To run the nextjs client
+
+```bash
+cd client
+yarn dev
 ```
 
 To run the sidekiq server
