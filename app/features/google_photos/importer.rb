@@ -1,7 +1,9 @@
 class GooglePhotos::Importer
   def import(google_auth, google_album_id, force: false)
     album_data = api.get_album(google_auth, google_album_id)
-    items = api.search_media_items(google_auth, {album_id: google_album_id})
+    items = fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
+      api.search_media_items(google_auth, params)
+    }
 
     slug = ::AlbumSlug.new(album_data["title"])
     album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
@@ -11,8 +13,11 @@ class GooglePhotos::Importer
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
 
     items.each do |item|
+      next if log_if_existing_photo(item["filename"])
       full_path = File.join(tmp_dir, item["filename"])
+      Rails.logger.info("Downloading #{item["filename"]}")
       download_item(item, full_path) unless File.exists?(full_path)
+      Rails.logger.info("Uploading #{item["filename"]}")
       uploader.upload(tmp_dir, item["filename"], PhotoSize.original, overwrite: force)
       create_photo(item, album, album_data["coverPhotoMediaItemId"])
     end
@@ -21,6 +26,15 @@ class GooglePhotos::Importer
   end
 
   private
+
+  def log_if_existing_photo(filename)
+    if Photo.find_by_filename(filename)
+      Rails.logger.info("Photo #{filename} exists")
+      true
+    else
+      false
+    end
+  end
 
   def download_item(item, full_path)
     download_url = "#{item["baseUrl"]}=d"
@@ -36,13 +50,6 @@ class GooglePhotos::Importer
 
   def create_photo(media_item, album, cover_photo_id)
     filename = media_item["filename"]
-    if Photo.where(filename: filename).first
-      Rails.logger.info("Photo #{filename} exists")
-      return
-    end
-
-    raise unless album.id
-
     meta = media_item["mediaMetadata"]
     photo = Photo.create!(
       filename: filename,
@@ -60,13 +67,6 @@ class GooglePhotos::Importer
       aperture_f_number: meta["apertureFNumber"],
       iso_equivalent: meta["isoEquivalent"],
     )
-    photo.has_size!(
-      PhotoSize.original,
-      filename,
-      media_item["mimeType"],
-      meta["width"],
-      meta["height"]
-    )
     if cover_photo_id && photo.google_id == cover_photo_id
       Rails.logger.info("Setting cover photo #{photo.filename}")
       album.update_attributes!(cover_photo: photo)
@@ -76,5 +76,9 @@ class GooglePhotos::Importer
 
   def api
     @api ||= GooglePhotos::Api.new
+  end
+
+  def fetcher
+    @fetcher ||= GooglePhotos::PageFetcher.new
   end
 end
