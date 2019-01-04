@@ -28,7 +28,7 @@ class GooglePhotos::Importer
   private
 
   def log_if_existing_photo(filename)
-    if Photo.find_by_filename(filename)
+    if Photo.where(filename: filename).exists?
       Rails.logger.info("Photo #{filename} exists")
       true
     else

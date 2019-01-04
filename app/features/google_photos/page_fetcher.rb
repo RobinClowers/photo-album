@@ -1,5 +1,5 @@
 class GooglePhotos::PageFetcher
-  def all(params, item_key = "items", page_key = "pageToken", next_page_key = "nextPageToken")
+  def all(params, item_key = "mediaItems", page_key = "pageToken", next_page_key = "nextPageToken")
     items = []
     loop do
       result = yield(params)
