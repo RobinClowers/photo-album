@@ -4,22 +4,22 @@ class NilPhoto < Photo
   end
 
   def url
-    ''
+    nil
   end
 
   def path
-    ''
+    nil
   end
 
   def version_url(version)
-    ''
+    nil
   end
 
   def filename
-    ''
+    nil
   end
 
   def alt
-    'Missing photo'
+    nil
   end
 end
