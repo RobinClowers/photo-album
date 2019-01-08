@@ -65,3 +65,29 @@ class Photo < ApplicationRecord
     versions.map { |version| [version.size, version_url(version)] }.to_h
   end
 end
+
+class Photo::Nil < Photo
+  def self.instance
+    @instance ||= self.new
+  end
+
+  def url
+    nil
+  end
+
+  def path
+    nil
+  end
+
+  def version_url(version)
+    nil
+  end
+
+  def filename
+    nil
+  end
+
+  def alt
+    nil
+  end
+end
