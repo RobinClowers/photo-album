@@ -1,21 +1,33 @@
 require "spec_helper"
 
 RSpec.describe AlbumListQuery do
+  let!(:current_time) { Time.zone.now.change(usec: 0) }
   let(:admin) { Factory.create_admin }
   let(:user) { Factory.create_user }
-  let!(:album) { Factory.create_album(published_at: DateTime.now) }
-  let!(:photo) { Factory.create_photo(album: album) }
-  let!(:version) { Factory.create_photo_version(photo: photo) }
+  let(:album) { Factory.create_album(published_at: current_time) }
+  let(:photo) { Factory.create_photo(album: album) }
+  let(:version) { Factory.create_photo_version(photo: photo) }
   subject(:album_list) { AlbumListQuery.new(current_user: user) }
 
   before do
+    Timecop.freeze(current_time)
     photo.update_attributes!(album: album)
+    version
   end
+
+ after do
+    Timecop.return
+ end
 
   describe "#as_json" do
     it "album with cover photo" do
       album.update_attributes(cover_photo: photo)
       album_list = AlbumListQuery.new(current_user: user)
+      p album.as_json(include: :cover_photo)["published_at"].to_f
+      p album.as_json(include: :cover_photo)["updated_at"].to_f
+      p album.as_json(include: :cover_photo)["created_at"].to_f
+      p album.as_json(include: :cover_photo)["cover_photo"]["updated_at"].to_f
+      p album.as_json(include: :cover_photo)["cover_photo"]["created_at"].to_f
       expect(album_list.as_json).to eq({
         user: user,
         albums: [album.as_json(include: :cover_photo)],
