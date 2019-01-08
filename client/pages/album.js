@@ -22,7 +22,7 @@ class Album extends React.Component {
   }
 
   render() {
-    const { classes, user, album, error } = this.props
+    const { classes, user, album, share_photo, error } = this.props
 
     if (error) {
       return <Error statusCode={500} />
@@ -38,9 +38,9 @@ class Album extends React.Component {
           <meta property="og:description" content={`Photos from ${album.title}`} />
           <meta property="og:url" content={`${process.env.FRONT_END_ROOT}/albums/${album.slug}`} />
           <meta property="og:image" content={album.cover_photo.urls.original} />
-          <meta property="og:image:secure_url" content={album.cover_photo.urls.original} />
-          <meta property="og:image:width" content={album.cover_photo.versions.original.width} />
-          <meta property="og:image:height" content={album.cover_photo.versions.original.height} />
+          <meta property="og:image:secure_url" content={share_photo.url} />
+          <meta property="og:image:width" content={share_photo.width} />
+          <meta property="og:image:height" content={share_photo.height} />
         </Head>
         <div>
           <Typography className={classes.title} variant="h2" color="inherit">

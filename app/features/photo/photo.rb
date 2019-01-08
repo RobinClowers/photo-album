@@ -20,7 +20,8 @@ class Photo < ApplicationRecord
   end
 
   def original_version
-    versions.find_by_size(PhotoSize.original.name)
+    versions.find_by_size(PhotoSize.original.name) ||
+      PhotoVersion::Nil.instance
   end
 
   def version_url(version)
@@ -62,5 +63,31 @@ class Photo < ApplicationRecord
 
   def urls
     versions.map { |version| [version.size, version_url(version)] }.to_h
+  end
+end
+
+class Photo::Nil < Photo
+  def self.instance
+    @instance ||= self.new
+  end
+
+  def url
+    nil
+  end
+
+  def path
+    nil
+  end
+
+  def version_url(version)
+    nil
+  end
+
+  def filename
+    nil
+  end
+
+  def alt
+    nil
   end
 end

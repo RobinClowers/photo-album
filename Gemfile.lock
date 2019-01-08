@@ -33,6 +33,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.0.3)
+    active_interaction (3.6.2)
+      activemodel (>= 4, < 6)
     activejob (5.2.1)
       activesupport (= 5.2.1)
       globalid (>= 0.3.6)
@@ -327,6 +329,7 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    timecop (0.9.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.6)
@@ -349,6 +352,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_interaction (~> 3.6)
   attr_encrypted (~> 3.1.0)
   aws-sdk
   bcrypt-ruby (~> 3.1.1)
@@ -391,6 +395,7 @@ DEPENDENCIES
   sinatra (~> 2.0.3)
   slim-rails (~> 3.1.3)
   stringex
+  timecop (~> 0.9)
   uglifier (~> 4.1.6)
   vcr (~> 4.0.0)
   webmock (~> 3.5.1)

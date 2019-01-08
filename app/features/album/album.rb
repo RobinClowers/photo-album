@@ -29,12 +29,8 @@ class Album < ApplicationRecord
   end
 
   def cover_photo
-    return NilPhoto.instance unless attributes["cover_photo_id"]
+    return Photo::Nil.instance unless attributes["cover_photo_id"]
     super
-  end
-
-  def cover_photo_filename
-    cover_photo.filename
   end
 
   def publish!

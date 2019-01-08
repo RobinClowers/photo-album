@@ -41,6 +41,7 @@ gem 'exiftool_vendored', '~> 10.65.0'
 gem 'image_optim'
 gem 'image_optim_pack'
 gem 'attr_encrypted', '~> 3.1.0'
+gem 'active_interaction', '~> 3.6'
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
@@ -51,6 +52,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen'
+  gem 'timecop', '~> 0.9'
 end
 
 group :production do

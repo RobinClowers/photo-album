@@ -11,3 +11,25 @@ class PhotoVersion < ApplicationRecord
     photo.version_url(self)
   end
 end
+
+class PhotoVersion::Nil < PhotoVersion
+  def self.instance
+    @instance ||= self.new
+  end
+
+  def url
+    nil
+  end
+
+  def width
+    nil
+  end
+
+  def height
+    nil
+  end
+
+  def filename
+    nil
+  end
+end
