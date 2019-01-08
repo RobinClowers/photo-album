@@ -33,10 +33,6 @@ class Album < ApplicationRecord
     super
   end
 
-  def cover_photo_filename
-    cover_photo.filename
-  end
-
   def publish!
     update_attributes!(published_at: Time.current)
   end
