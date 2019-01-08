@@ -52,6 +52,7 @@ group :development, :test do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'listen'
+  gem 'timecop', '~> 0.9'
 end
 
 group :production do
