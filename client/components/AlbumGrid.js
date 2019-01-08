@@ -36,7 +36,8 @@ function AlbumGrid({ classes, albums }) {
                 <Paper className={classes.paper}>
                   <div
                     title={album.cover_photo.alt}
-                    style={{backgroundImage: `url(${album.cover_photo.urls.mobile_sm})`}}
+                    style={album.cover_photo.urls.mobile_sm &&
+                      {backgroundImage: `url(${album.cover_photo.urls.mobile_sm})`}}
                     className={classes.image} />
                   <h3 className={classes.title}>{album.title}</h3>
                 </Paper>
