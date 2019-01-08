@@ -10,6 +10,13 @@ module Factory
     }))
   end
 
+  def self.create_admin(params = {})
+    create_user(params.reverse_merge({
+      email: "admin@example.com",
+      admin: true,
+    }))
+  end
+
   def self.create_album(params = {})
     Album.create!(params.reverse_merge({
       title: "Test Album",
@@ -18,13 +25,22 @@ module Factory
 
   def self.create_photo(params = {})
     Photo.create!(params.reverse_merge({
+      path: "test-album",
       filename: "P1080110.JPG",
     }))
   end
 
-  def self.create_comment(params = {})
+  def self.create_photo_version(params = {photo: create_photo})
+    PhotoVersion.create!(params.reverse_merge({
+      filename: "P1080110.JPG",
+      size: PhotoSize.original.name,
+      width: 4,
+      height: 3,
+    }))
+  end
+
+  def self.create_comment(params = {photo: create_photo})
     Comment.create!(params.reverse_merge({
-      photo: create_photo,
       body: "example comment",
     }))
   end

@@ -20,7 +20,8 @@ class Photo < ApplicationRecord
   end
 
   def original_version
-    versions.find_by_size(PhotoSize.original.name)
+    versions.find_by_size(PhotoSize.original.name) ||
+      PhotoVersion::Nil.instance
   end
 
   def version_url(version)
