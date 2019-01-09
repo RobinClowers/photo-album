@@ -5,7 +5,8 @@ describe GooglePhotos::Importer do
   let(:title) { "Sipadan 2018" }
   let(:slug) { "sipadan-2018" }
   let(:video_filename) { "VID_20181229_180357.mp4" }
-  let(:first_filename) { "IMG_20180703_103130.jpg" }
+  let(:first_filename) { filenames.first }
+  let(:filenames) { ["IMG_20180703_103130.jpg", "IMG_20180703_103444.jpg", "IMG_20180705_181748.jpg"] }
   let(:first_google_id) { "AKkM_aJiYtFoRDZW0bGBLWONPTpmj4xh5gNN2f5UvMRGND_gIlWsUMAc46AcfnmwO4hH2MpWsVA_m-eSMU36FqXxa9-j8yi8IA" }
   let(:album) { Album.find_by_slug(slug) }
   let(:album_id) { "AKkM_aLGjbim7Z44iBgIBWy_2f8rY2G-q0aIuvlIHUzFqa4y2QNXbA0se4SoY-5CgDsLmHTYlEDM" }
@@ -15,7 +16,7 @@ describe GooglePhotos::Importer do
   let(:media_result) { JSON.parse(File.read(media_result_path)) }
   let(:download_response) { double(:download_response, status: 200, body: photo_file) }
   let(:photo_file) { Magick::Image.new(1,1).tap { |i| i.format = "jpg" }.to_blob }
-  let(:processor) { double(:process_photos, process_album: nil, tmp_dir: tmp_dir) }
+  let(:processor) { double(:process_photos, process_images: nil, tmp_dir: tmp_dir) }
   let(:tmp_dir) { "tmp/photo_processing_test/#{album.slug}" }
   let(:uploader) { double(:uploader, upload: nil) }
   let(:album_response) { {
@@ -75,6 +76,10 @@ describe GooglePhotos::Importer do
       expect(Photo.exists?(filename: video_filename)).to be(false)
     end
 
+    it "processes all the files" do
+      expect(processor).to have_received(:process_images).with(filenames, force: false)
+    end
+
     it "set the cover photo" do
       expect(album.cover_photo.google_id).to eq(media_result["coverPhotoMediaItemId"])
     end
@@ -91,7 +96,11 @@ describe GooglePhotos::Importer do
       importer.import(google_auth, album_id)
     end
 
-    it "update captions for existing phto" do
+    it "processes only the new files" do
+      expect(processor).to have_received(:process_images).with(filenames - [first_filename], force: false)
+    end
+
+    it "update captions for existing photo" do
       expect(Photo.first.caption).to eq("updated description")
     end
 

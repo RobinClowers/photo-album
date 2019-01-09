@@ -29,7 +29,6 @@ class GooglePhotos::Importer
     @logger.info("Skipping import of #{existing.count} files: #{existing_filenames.join(", ")}")
     to_create.each do |item|
       filename = item["scrubbed_filename"]
-      next if log_if_existing_photo(filename, existing_filenames)
       full_path = File.join(tmp_dir, filename)
       @logger.info("Downloading #{item["filename"]}")
       download_item(item, full_path) unless File.exists?(full_path)
@@ -37,12 +36,14 @@ class GooglePhotos::Importer
       uploader.upload(tmp_dir, filename, PhotoSize.original, overwrite: force)
       create_photo(item, filename, album)
     end
+    @logger.info("Updating attribues on #{existing.count} photos")
     existing.each do |item|
       photo = Photo.find_by_filename(item["scrubbed_filename"])
       photo.update_attributes(caption: item["description"])
     end
     set_cover_photo(album, items, album_data["coverPhotoMediaItemId"])
-    processor.process_album(force: force)
+    filenames_to_process = to_create.map { |item| item["scrubbed_filename"] }
+    processor.process_images(filenames_to_process, force: force)
     FileUtils.rm_rf(tmp_dir)
   end
 
@@ -62,15 +63,6 @@ class GooglePhotos::Importer
 
   def photo?(media_item)
     ["image/jpeg", "image/png"].include?(media_item["mimeType"])
-  end
-
-  def log_if_existing_photo(filename, existing_filenames)
-    if existing_filenames.include?(filename)
-      @logger.info("Photo #{filename} exists")
-      true
-    else
-      false
-    end
   end
 
   def download_item(item, full_path)
