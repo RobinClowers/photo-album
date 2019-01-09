@@ -26,7 +26,7 @@ class GooglePhotos::Importer
 
     existing_filenames = album.photos.where(filename: items.keys).pluck(:filename)
     existing, to_create = partition_items(items, existing_filenames)
-    @logger.info("Skipping import of #{existing.count} files: #{existing.join(", ")}")
+    @logger.info("Skipping import of #{existing.count} files: #{existing_filenames.join(", ")}")
     to_create.each do |item|
       filename = item["scrubbed_filename"]
       next if log_if_existing_photo(filename, existing_filenames)
