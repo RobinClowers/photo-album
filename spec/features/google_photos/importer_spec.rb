@@ -4,6 +4,7 @@ describe GooglePhotos::Importer do
   let(:api) { double(:google_api) }
   let(:title) { "Sipadan 2018" }
   let(:slug) { "sipadan-2018" }
+  let(:video_filename) { "VID_20181229_180357.mp4" }
   let(:first_filename) { "IMG_20180703_103130.jpg" }
   let(:first_google_id) { "AKkM_aJiYtFoRDZW0bGBLWONPTpmj4xh5gNN2f5UvMRGND_gIlWsUMAc46AcfnmwO4hH2MpWsVA_m-eSMU36FqXxa9-j8yi8IA" }
   let(:album) { Album.find_by_slug(slug) }
@@ -68,6 +69,10 @@ describe GooglePhotos::Importer do
     it "creates the photos in the database" do
       expect(Photo.first.filename).to eq(first_filename)
       expect(Photo.count).to eq(3)
+    end
+
+    it "skips video" do
+      expect(Photo.exists?(filename: video_filename)).to be(false)
     end
 
     it "set the cover photo" do

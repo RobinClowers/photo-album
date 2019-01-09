@@ -54,10 +54,14 @@ class GooglePhotos::Importer
       if existing_filenames.include?(Photo::FilenameScrubber.scrub(filename))
         existing << item
       else
-        to_create << item
+        to_create << item if photo?(item)
       end
       result
     }
+  end
+
+  def photo?(media_item)
+    ["image/jpeg", "image/png"].include?(media_item["mimeType"])
   end
 
   def log_if_existing_photo(filename, existing_filenames)
