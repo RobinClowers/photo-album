@@ -1,9 +1,21 @@
 class GooglePhotos::Importer
+  def initialize(logger = Rails.logger)
+    @logger = logger
+  end
+
   def import(google_auth, google_album_id, force: false)
+    @logger.info("fetching alubm")
     album_data = api.get_album(google_auth, google_album_id)
+    @logger.info("Found #{album_data["title"]}")
     items = fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
       api.search_media_items(google_auth, params)
+    }.reduce({}) { |result, item|
+      filename = Photo::FilenameScrubber.scrub(item["filename"])
+      item["scrubbed_filename"] = filename
+      result[filename] = item
+      result
     }
+    @logger.info("Found #{items.count} photos")
 
     slug = ::AlbumSlug.new(album_data["title"])
     album = Album.find_or_create_by!(title: album_data["title"], slug: slug.to_s)
@@ -12,25 +24,41 @@ class GooglePhotos::Importer
     tmp_dir = processor.tmp_dir
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
 
-    items.each do |item|
-      filename = Photo::FilenameScrubber.scrub(item["filename"])
-      next if log_if_existing_photo(filename)
+    existing_filenames = album.photos.where(filename: items.keys).pluck(:filename)
+    existing, to_create = partition_items(items, existing_filenames)
+    @logger.info("Skipping import of #{existing.count} files: #{existing.join(", ")}")
+    to_create.each do |item|
+      filename = item["scrubbed_filename"]
+      next if log_if_existing_photo(filename, existing_filenames)
       full_path = File.join(tmp_dir, filename)
-      Rails.logger.info("Downloading #{item["filename"]}")
+      @logger.info("Downloading #{item["filename"]}")
       download_item(item, full_path) unless File.exists?(full_path)
-      Rails.logger.info("Uploading #{filename}")
+      @logger.info("Uploading #{filename}")
       uploader.upload(tmp_dir, filename, PhotoSize.original, overwrite: force)
-      create_photo(item, filename, album, album_data["coverPhotoMediaItemId"])
+      create_photo(item, filename, album)
     end
+    set_cover_photo(album, items, album_data["coverPhotoMediaItemId"])
     processor.process_album(force: force)
     FileUtils.rm_rf(tmp_dir)
   end
 
   private
 
-  def log_if_existing_photo(filename)
-    if Photo.where(filename: filename).exists?
-      Rails.logger.info("Photo #{filename} exists")
+  def partition_items(items, existing_filenames)
+    items.reduce([[], []]) { |result, (filename, item)|
+      existing, to_create = result
+      if existing_filenames.include?(Photo::FilenameScrubber.scrub(filename))
+        existing << item
+      else
+        to_create << item
+      end
+      result
+    }
+  end
+
+  def log_if_existing_photo(filename, existing_filenames)
+    if existing_filenames.include?(filename)
+      @logger.info("Photo #{filename} exists")
       true
     else
       false
@@ -49,7 +77,10 @@ class GooglePhotos::Importer
     end
   end
 
-  def create_photo(media_item, filename, album, cover_photo_id)
+  def photos_to_create(media_items)
+  end
+
+  def create_photo(media_item, filename, album)
     meta = media_item["mediaMetadata"]
     photo = Photo.create!(
       filename: filename,
@@ -67,11 +98,15 @@ class GooglePhotos::Importer
       aperture_f_number: meta["apertureFNumber"],
       iso_equivalent: meta["isoEquivalent"],
     )
-    if cover_photo_id && photo.google_id == cover_photo_id
-      Rails.logger.info("Setting cover photo #{photo.filename}")
-      album.update_attributes!(cover_photo: photo)
-    end
-    photo
+  rescue ActiveRecord::RecordNotUnique
+    @logger.warn("Photo #{photo.filename} already exists")
+  end
+
+  def set_cover_photo(album, items, cover_photo_id)
+    return unless cover_photo_id
+    cover_photo = album.photos.where(google_id: cover_photo_id).first
+    @logger.info("Setting cover photo #{cover_photo.filename}")
+    album.update_attributes!(cover_photo: cover_photo)
   end
 
   def api
