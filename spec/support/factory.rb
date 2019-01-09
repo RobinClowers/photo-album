@@ -44,4 +44,10 @@ module Factory
       body: "example comment",
     }))
   end
+
+  def self.create_google_auth(params = {user: create_admin})
+    GoogleAuthorization.create!(params.reverse_merge({
+      access_token: "access-token",
+    }))
+  end
 end
