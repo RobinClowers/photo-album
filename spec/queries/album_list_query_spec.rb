@@ -23,11 +23,6 @@ RSpec.describe AlbumListQuery do
     it "album with cover photo" do
       album.update_attributes(cover_photo: photo)
       album_list = AlbumListQuery.new(current_user: user)
-      p album.as_json(include: :cover_photo)["published_at"].to_f
-      p album.as_json(include: :cover_photo)["updated_at"].to_f
-      p album.as_json(include: :cover_photo)["created_at"].to_f
-      p album.as_json(include: :cover_photo)["cover_photo"]["updated_at"].to_f
-      p album.as_json(include: :cover_photo)["cover_photo"]["created_at"].to_f
       expect(album_list.as_json).to eq({
         user: user,
         albums: [album.as_json(include: :cover_photo)],
