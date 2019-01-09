@@ -156,4 +156,27 @@ describe ProcessPhotos do
       expect(FileUtils).to have_received(:rm_rf).with(tmp_dir)
     end
   end
+
+  describe "#processed" do
+    let(:photos) { [filename] }
+
+    before do
+      allow(album_photos).to receive(:keys) { photos }
+    end
+
+    it "includes photos with all version" do
+      expect(processor.processed(PhotoSize.all)).to eq(photos)
+    end
+
+    it "doesn't include photos with a missing version" do
+      allow(album_photos).to receive(:keys).with(PhotoSize.desktop) { [] }
+      expect(processor.processed(PhotoSize.all)).to eq([])
+    end
+
+    it "with a single version" do
+      allow(album_photos).to receive(:keys) { [] }
+      allow(album_photos).to receive(:keys).with(PhotoSize.desktop) { photos }
+      expect(processor.processed([PhotoSize.desktop])).to eq(photos)
+    end
+  end
 end
