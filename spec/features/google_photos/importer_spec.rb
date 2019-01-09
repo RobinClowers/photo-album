@@ -3,8 +3,10 @@ require "spec_helper"
 describe GooglePhotos::Importer do
   let(:api) { double(:google_api) }
   let(:title) { "Sipadan 2018" }
+  let(:slug) { "sipadan-2018" }
   let(:first_filename) { "IMG_20180703_103130.jpg" }
-  let(:album) { Album.find_by_slug("sipadan-2018") }
+  let(:first_google_id) { "AKkM_aJiYtFoRDZW0bGBLWONPTpmj4xh5gNN2f5UvMRGND_gIlWsUMAc46AcfnmwO4hH2MpWsVA_m-eSMU36FqXxa9-j8yi8IA" }
+  let(:album) { Album.find_by_slug(slug) }
   let(:album_id) { "AKkM_aLGjbim7Z44iBgIBWy_2f8rY2G-q0aIuvlIHUzFqa4y2QNXbA0se4SoY-5CgDsLmHTYlEDM" }
   let(:google_auth) { Factory.create_google_auth }
   let(:importer) { GooglePhotos::Importer.new }
@@ -36,12 +38,14 @@ describe GooglePhotos::Importer do
     allow(HTTP).to receive(:get) { download_response }
     allow(api).to receive(:search_media_items)
       .with(google_auth, {albumId: album_id, pageSize: 100}) { media_result }
-
-    importer.import(google_auth, album_id)
   end
 
 
-  describe "#import" do
+  describe "#import with new album" do
+    before do
+      importer.import(google_auth, album_id)
+    end
+
     it "fetches album with correct params" do
       expect(api).to have_received(:get_album).with(google_auth, album_id)
     end
@@ -72,6 +76,26 @@ describe GooglePhotos::Importer do
 
     it "cleans up tmp dir" do
       expect(Dir.exist?(tmp_dir)).to be(false)
+    end
+  end
+
+  describe "#import with existing items" do
+    before do
+      album = Album.create!(slug: slug, title: title)
+      album.photos.create!(filename: first_filename, google_id: first_google_id)
+      importer.import(google_auth, album_id)
+    end
+
+    it "update captions for existing phto" do
+      expect(Photo.first.caption).to eq("updated description")
+    end
+
+    it "only uploads new photos to s3" do
+      expect(uploader).to have_received(:upload).exactly(2).times
+    end
+
+    it "creates new photos in the database" do
+      expect(Photo.count).to eq(3)
     end
   end
 end

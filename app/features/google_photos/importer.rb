@@ -37,6 +37,10 @@ class GooglePhotos::Importer
       uploader.upload(tmp_dir, filename, PhotoSize.original, overwrite: force)
       create_photo(item, filename, album)
     end
+    existing.each do |item|
+      photo = Photo.find_by_filename(item["scrubbed_filename"])
+      photo.update_attributes(caption: item["description"])
+    end
     set_cover_photo(album, items, album_data["coverPhotoMediaItemId"])
     processor.process_album(force: force)
     FileUtils.rm_rf(tmp_dir)
