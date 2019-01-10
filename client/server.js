@@ -6,6 +6,8 @@ const { parse } = require('url')
 const next = require('next')
 const routes = require('./routes')
 
+require('dotenv').config()
+
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = routes.getRequestHandler(app)
