@@ -6,6 +6,17 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import JssProvider from 'react-jss/lib/JssProvider'
 import getPageContext from 'src/getPageContext'
 import { setReturnUrl } from 'client/src/urls'
+import ReactGA from 'react-ga'
+
+
+const initializeGoogleAnalytics = () => {
+  if (!process.env.GA_TRACKING_ID) {
+    console.log("Google Analytics disabled")
+    return
+  }
+  ReactGA.initialize(process.env.GA_TRACKING_ID, { debug: process.env.DEBUG_GA })
+  ReactGA.pageview(window.location.pathname + window.location.search)
+}
 
 const removeFacebookLoginHash = () => {
   if (window.location.hash && window.location.hash == '#_=_') {
@@ -33,6 +44,7 @@ class MyApp extends App {
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles)
     }
+    initializeGoogleAnalytics()
   }
 
   render() {
