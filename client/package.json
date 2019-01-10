@@ -29,6 +29,6 @@
     "react-jss": "^8.6.1"
   },
   "devDependencies": {
-    "now": "^13.0.2"
+    "now": "^13.0.4"
   }
 }
