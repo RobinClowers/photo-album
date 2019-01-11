@@ -1887,6 +1887,11 @@ domain-browser@^1.1.1:
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
   integrity sha512-jnjyiM6eRyZl2H+W8Q/zLMA481hzi0eszAaBUzIVnmYVDBbnLxVNnfu1HgEBvCbL+71FrxMl3E6lpKH7Ge3OXA==
 
+dotenv@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
+  integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
+
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/duplexify/-/duplexify-3.6.1.tgz#b1a7a29c4abfd639585efaecce80d666b1e34125"
@@ -3464,10 +3469,10 @@ normalize-scroll-left@^0.1.2:
   resolved "https://registry.yarnpkg.com/normalize-scroll-left/-/normalize-scroll-left-0.1.2.tgz#6b79691ba79eb5fb107fa5edfbdc06b55caee2aa"
   integrity sha512-F9YMRls0zCF6BFIE2YnXDRpHPpfd91nOIaNdDgrx5YMoPLo8Wqj+6jNXHQsYBavJeXP4ww8HCt0xQAKc5qk2Fg==
 
-now@^13.0.2:
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/now/-/now-13.0.2.tgz#479fb6cb8bf4ad7a994df2f93f7fb5db939fb340"
-  integrity sha512-icuaRyuApd1IqpFfhAoJfG30adOolz333MlSzDlLD35k/HdasDRXbVQQPxilOBxhiBCdgsdDN3p5R+/0pL1A0Q==
+now@^13.0.4:
+  version "13.0.4"
+  resolved "https://registry.yarnpkg.com/now/-/now-13.0.4.tgz#0e753c7a2f1107cc07ead0e8cff8caf4d41c04fa"
+  integrity sha512-o7uS6JEdlslP021/zC/5VzrXuCLfFak43AbjSq3l4QcRlyUyXq40hZiLcSsk6m+oZeFY7RpDHWg0vEMYrYLQZQ==
 
 npm-bundled@^1.0.1:
   version "1.0.3"
@@ -3959,6 +3964,11 @@ react-event-listener@^0.6.2:
     "@babel/runtime" "7.0.0"
     prop-types "^15.6.0"
     warning "^4.0.1"
+
+react-ga@^2.5.6:
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/react-ga/-/react-ga-2.5.6.tgz#5a2e2fa78ae298e5b0a4498210eeec631ef1b562"
+  integrity sha512-g04dz6zrbdHRxVaURPWT3RUbjLflh74sS6dCuhGeZupj7ii+UEt9lwTjALb2ST2w+7wAmzG1YqYlNX4yvRXe1g==
 
 react-is@^16.3.2:
   version "16.6.3"

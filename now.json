@@ -6,7 +6,8 @@
       "API_ROOT": "https://photos-app.robinclowers.com",
       "FRONT_END_ROOT": "https://photos.robinclowers.com",
       "STAGING_API_ROOT": "https://photos-app-staging.robinclowers.com",
-      "STAGING_FRONT_END_ROOT": "https://photos-staging.robinclowers.com"
+      "STAGING_FRONT_END_ROOT": "https://photos-staging.robinclowers.com",
+      "GA_TRACKING_ID": "@ga_tracking_id"
     }
   },
   "routes": [
