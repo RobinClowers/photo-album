@@ -69,6 +69,7 @@ describe GooglePhotos::Importer do
 
     it "creates the photos in the database" do
       expect(Photo.first.filename).to eq(first_filename)
+      expect(Photo.first.caption).to eq("updated description")
       expect(Photo.count).to eq(3)
     end
 

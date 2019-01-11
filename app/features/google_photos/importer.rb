@@ -86,7 +86,7 @@ class GooglePhotos::Importer
       filename: filename,
       path: album.slug,
       album_id: album.id,
-      caption: meta["description"],
+      caption: media_item["description"],
       mime_type: media_item["mimeType"],
       google_id: media_item["id"],
       taken_at: meta["creationTime"],
