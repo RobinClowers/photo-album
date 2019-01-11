@@ -21,8 +21,12 @@ class User < ApplicationRecord
   end
 
   def profile_photo_url
-    return nil unless uid
-    "https://graph.facebook.com/v2.3/#{uid}/picture"
+    if uid
+      "https://graph.facebook.com/v2.3/#{uid}/picture"
+    else
+      gravatar = Digest::MD5::hexdigest(email.strip.downcase)
+      "http://gravatar.com/avatar/#{gravatar}"
+    end
   end
 
   class NullUser < User
