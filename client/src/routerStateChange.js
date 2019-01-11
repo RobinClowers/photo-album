@@ -1,5 +1,6 @@
 import { Router } from 'client/routes'
 import { setReturnUrl } from 'client/src/urls'
+import ReactGA from 'react-ga'
 
 const subscribers = {}
 
@@ -22,6 +23,7 @@ Router.onRouteChangeStart = _path => {
 Router.onRouteChangeComplete = _path => {
   eachSubscriber(callback => callback(false))
   setReturnUrl(global.location.href)
+  ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
 Router.onRouteChangeError = _path => {
