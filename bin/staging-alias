@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SCRIPTDIR=$(cd $(dirname "$0") && pwd)
+SCRIPTNAME=$(basename $0)
+
+cd $SCRIPTDIR/../client
+
+yarn now alias $1 photos-staging.robinclowers.com
