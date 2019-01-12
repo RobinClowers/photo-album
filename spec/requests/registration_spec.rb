@@ -12,6 +12,7 @@ RSpec.describe "POST /users" do
     {
       user: {
         email: "test@example.com",
+        name: "test-name",
         password: "password",
         password_confirmation: "password",
         provider: "email",
@@ -22,6 +23,11 @@ RSpec.describe "POST /users" do
   it "returns created status when registration params are valid" do
     post(url, params: params.to_json, headers: headers)
     expect(response).to have_http_status(201)
+  end
+
+  it "creates a user" do
+    post(url, params: params.to_json, headers: headers)
+    expect(User.first.name).to eq("test-name")
   end
 
   it "returns unprocessable status when registration params are invalid" do

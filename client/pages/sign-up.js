@@ -22,6 +22,7 @@ class SignUp extends React.Component {
     this.state = {
       confirmationOpen: false,
       email: '',
+      name: '',
       errors: {},
       password: '',
       password_confirmation: '',
@@ -40,6 +41,7 @@ class SignUp extends React.Component {
     event.preventDefault()
     const response = await signUp({
       email: this.state.email,
+      name: this.state.name,
       password: this.state.password,
       password_confirmation: this.state.password_confirmation,
     })
@@ -90,6 +92,16 @@ class SignUp extends React.Component {
                   margin="normal"
                   onChange={this.handleChange('email')}
                   value={this.state.email}
+                  variant="outlined" />
+                <TextField
+                  autoComplete="name"
+                  error={!!this.state.errors.name}
+                  fullWidth
+                  helperText={this.state.errors.name}
+                  label="Name"
+                  margin="normal"
+                  onChange={this.handleChange('name')}
+                  value={this.state.name}
                   variant="outlined" />
                 <TextField
                   autoComplete="new-password"
