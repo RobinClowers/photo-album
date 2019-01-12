@@ -1,6 +1,7 @@
 class Photo < ApplicationRecord
   belongs_to :album, inverse_of: :photos, optional: true
   has_many :versions, inverse_of: :photo, class_name: "PhotoVersion"
+  has_many :comments, inverse_of: :photo
 
   VALID_FILENAME_REGEX = /\.jpg|png\Z/i
 
