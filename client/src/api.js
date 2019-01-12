@@ -1,4 +1,5 @@
 import fetch from 'isomorphic-unfetch'
+import cookie from 'cookie'
 
 const apiRoot = process.env.API_ROOT
 
@@ -24,6 +25,8 @@ const getJson = async (path, request = {}) => {
   const data = await response.json()
   return { ...data, csrfToken: response.headers.get('x-csrf-token') }
 }
+
+
 
 export const signIn = async (email, password) => {
   return await fetch(`${apiRoot}/users/sign_in`, {
@@ -109,6 +112,8 @@ const defaultOptions = () => ({
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    'X-CSRF-Token': window.csrfToken,
+    'X-CSRF-Token': csrfToken(),
   },
 })
+
+const csrfToken = () => cookie.parse(document.cookie)['X-CSRF-Token'] || window.csrfToken

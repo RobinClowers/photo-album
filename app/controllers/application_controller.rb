@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  after_action :set_csrf_header
+  after_action :set_csrf_cookie
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_404
   rescue_from ActionView::MissingTemplate, with: :render_404
@@ -27,9 +27,9 @@ class ApplicationController < ActionController::Base
   end
   helper_method :home_url
 
-  def set_csrf_header
+  def set_csrf_cookie
     if protect_against_forgery?
-      headers['X-CSRF-Token'] = form_authenticity_token
+      cookies['X-CSRF-Token'] = form_authenticity_token
     end
   end
 
