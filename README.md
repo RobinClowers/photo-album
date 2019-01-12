@@ -24,8 +24,7 @@ bundle exec rails s
 To run the nextjs client
 
 ```bash
-cd client
-yarn dev
+bin/client-dev
 ```
 
 To run the sidekiq server
