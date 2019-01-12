@@ -1,14 +1,10 @@
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
-import IconButton from '@material-ui/core/IconButton'
-import Icon from '@material-ui/core/Icon'
 import CardContent from '@material-ui/core/CardContent'
-import Popper from '@material-ui/core/Popper'
-import Paper from '@material-ui/core/Paper'
-import Fade from '@material-ui/core/Fade'
 import Caption from 'client/components/Caption'
 import AddComment from 'client/components/AddComment'
+import FavoriteButton from 'client/components/FavoriteButton'
 import TextLink from 'client/components/TextLink'
 
 const styles = theme => ({
@@ -38,14 +34,6 @@ const styles = theme => ({
     paddingTop: theme.spacing.unit * 1.5, // match button
     position: 'relative',
   },
-  heartContainer: {
-    marginLeft: theme.spacing.unit,
-  },
-  favoriteCount: {
-    paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
-    display: 'inline',
-  },
   commentList: {
     alignItems: 'center',
     display: 'flex',
@@ -73,9 +61,6 @@ const styles = theme => ({
     width: 50,
     marginRight: theme.spacing.unit,
   },
-  userFavorite: {
-    color: theme.palette.primary.main,
-  },
 })
 
 const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
@@ -86,36 +71,11 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         caption={photo.caption}
         user={user}
         handleCaptionUpdated={props.handleCaptionUpdated} />
-      <div className={classes.heartContainer}>
-        <Typography variant="body2" className={classes.favoriteCount}>
-          {photo.favorites.count}
-        </Typography>
-        <IconButton
-          className={photo.favorites.current_user_favorite && classes.userFavorite}
-          aria-label="Favorite" onClick={props.handleFavorite}>
-          <Icon>favorite</Icon>
-        </IconButton>
-        <Popper
-          id={props.showSignInPopper ? 'sign-in-popper' : undefined}
-          open={props.showSignInPopper}
-          anchorEl={props.signInPopperEl}
-          transition>
-          {({ TransitionProps }) => (
-            <Fade {...TransitionProps} timeout={350}>
-              <Card>
-                <CardContent>
-                  <Typography variant="body2">
-                    <TextLink route='signIn'>
-                      Sign in
-                    </TextLink>
-                    {' '}to add a favorite
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Fade>
-          )}
-        </Popper>
-      </div>
+      <FavoriteButton
+        photo_id={photo.id}
+        favorites={photo.favorites}
+        onSuccess={props.handleFavorite}
+        user={user} />
     </div>
   <ul className={classes.commentList}>
     {comments.map(comment => (

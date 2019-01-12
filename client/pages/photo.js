@@ -8,7 +8,7 @@ import BackToAlbumLink from 'client/components/BackToAlbumLink'
 import ChangePhotoButton from 'client/components/ChangePhotoButton'
 import FullScreenPhoto from 'client/components/FullScreenPhoto'
 import PhotoComments from 'client/components/PhotoComments'
-import { getPhoto, createFavorite, deleteFavorite } from 'client/src/api'
+import { getPhoto } from 'client/src/api'
 import { Router } from 'client/routes'
 import debounce from 'lodash/debounce'
 
@@ -35,23 +35,7 @@ class Photo extends React.Component {
     super(props)
     this.state = {
       editCaption: false,
-      showSignInPopper: false,
-      signInPopperEl: undefined,
       caption: props.caption,
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener('click', this.handleClick, true)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('click', this.handleClick, true)
-  }
-
-  handleClick = event => {
-    if (this.state.showSignInPopper) {
-      this.setState({ showSignInPopper: false, signInPopperEl: undefined })
     }
   }
 
@@ -60,25 +44,9 @@ class Photo extends React.Component {
     this.refresh()
   }
 
-  refreshOnSuccess = result => result.ok && this.refresh()
-
   refresh = () => {
     const { album, photo } = this.props
     Router.replaceRoute('photo', { slug: album.slug, filename: photo.filename })
-  }
-
-  handleFavorite = async event => {
-    if (!this.props.user.id) {
-      this.setState({ showSignInPopper: true, signInPopperEl: event.currentTarget })
-      return
-    }
-    const photo_id = this.props.photo.id
-    const { current_user_favorite } = this.props.photo.favorites
-    if (current_user_favorite) {
-      this.refreshOnSuccess(await deleteFavorite(photo_id, current_user_favorite.id))
-    } else {
-      this.refreshOnSuccess(await await createFavorite(photo_id))
-    }
   }
 
   handleCaptionUpdated = _event => {
@@ -153,9 +121,7 @@ class Photo extends React.Component {
           user={user}
           handleCommentAdded={this.handleCommentAdded}
           handleCaptionUpdated={this.handleCaptionUpdated}
-          showSignInPopper={this.state.showSignInPopper}
-          signInPopperEl={this.state.signInPopperEl}
-          handleFavorite={this.handleFavorite} />
+          handleFavorite={this.refresh} />
       </Layout>
     )
   }
