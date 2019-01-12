@@ -65,13 +65,12 @@ const styles = theme => ({
     textAlign: 'left',
     width: '100%',
   },
-  commentRight: {
-    paddingLeft: 50 + theme.spacing.unit,
+  cardContent: {
+    display: 'flex',
   },
   profileImage: {
     height: 50,
     width: 50,
-    float: 'left',
     marginRight: theme.spacing.unit,
   },
 })
@@ -117,12 +116,12 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
     {comments.map(comment => (
       <li className={classes.commentListItem} key={comment.id}>
         <Card className={classes.card}>
-          <CardContent>
+          <CardContent className={classes.cardContent}>
             <img
               className={classes.profileImage}
               src={comment.user_profile_photo_url}
               alt="profile photo" />
-            <div className={classes.commentRight}>
+            <div>
               <Typography variant="subtitle2">
                 {comment.user_name}
               </Typography>
