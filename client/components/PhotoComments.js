@@ -73,6 +73,9 @@ const styles = theme => ({
     width: 50,
     marginRight: theme.spacing.unit,
   },
+  userFavorite: {
+    color: theme.palette.primary.main,
+  },
 })
 
 const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
@@ -87,7 +90,9 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
         <Typography variant="body2" className={classes.favoriteCount}>
           {photo.favorites.count}
         </Typography>
-        <IconButton aria-label="Favorite" onClick={props.handleFavorite}>
+        <IconButton
+          className={photo.favorites.current_user_favorite && classes.userFavorite}
+          aria-label="Favorite" onClick={props.handleFavorite}>
           <Icon>favorite</Icon>
         </IconButton>
         <Popper
