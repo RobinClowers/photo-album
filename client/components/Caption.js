@@ -21,6 +21,10 @@ class Caption extends React.Component {
     }
   }
 
+  static defaultProps = {
+    noWrap: false,
+  }
+
   handleEditCaption = _event => {
     this.setState({ ...this.state, editCaption: true })
   }
@@ -31,26 +35,27 @@ class Caption extends React.Component {
   }
 
   render() {
-    const { caption, photo_id, user, classes } = this.props
+    const { caption, noWrap, photo_id, user, editable, classes } = this.props
     const { editCaption } = this.state
 
     return (
       <React.Fragment>
         {!editCaption &&
-          <Typography className={classes.caption} variant="caption">
+          <Typography noWrap={noWrap} className={classes.caption} variant="caption">
             {caption}
           </Typography>}
-        {user.admin && !editCaption &&
-          <IconButton
-            aria-label="Edit"
-            onClick={this.handleEditCaption}>
-            <Icon>edit</Icon>
-          </IconButton>}
-        {editCaption &&
-          <EditCaption
-            photo_id={photo_id}
-            initalValue={caption}
-            handleCaptionUpdated={this.handleCaptionUpdated} />}
+        {editable &&
+          user.admin && !editCaption &&
+            <IconButton
+              aria-label="Edit"
+              onClick={this.handleEditCaption}>
+              <Icon>edit</Icon>
+            </IconButton>}
+          {editCaption &&
+            <EditCaption
+              photo_id={photo_id}
+              initalValue={caption}
+              handleCaptionUpdated={this.handleCaptionUpdated} />}
       </React.Fragment>
     )
   }

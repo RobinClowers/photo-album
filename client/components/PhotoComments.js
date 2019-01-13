@@ -28,7 +28,6 @@ const styles = theme => ({
     alignItems: 'start',
     display: 'flex',
     justifyContent: 'space-between',
-    paddingLeft: theme.spacing.unit * 2,
   },
   caption: {
     paddingTop: theme.spacing.unit * 1.5, // match button
@@ -67,6 +66,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
   <div className={classes.commentContainer}>
     <div className={classes.meta}>
       <Caption
+        editable
         photo_id={photo.id}
         caption={photo.caption}
         user={user}

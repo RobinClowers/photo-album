@@ -8,7 +8,6 @@ const styles = theme => ({
     alignItems: 'flex-end',
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing.unit,
     width: '100%',
   },
   textField: {

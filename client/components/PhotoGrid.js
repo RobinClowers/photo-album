@@ -30,16 +30,46 @@ const gridOptions = windowWidth => {
   }
 }
 
+const metaHeight = 64
+
 const buildGrid = (photos, windowWidth) => {
+  var firstRowTop, currentRowTop, currentHeightOffset
   const dimensions = photos.map(p => {
     const { original } = p.versions
     return { height: original.height, width: original.width }
   })
   const result = justify(dimensions, gridOptions(windowWidth))
-  return result.boxes.map((box, i) => ({ ...box, photo: photos[i] }))
+  var updated, firstRowTop, currentRowTop, currentHeightOffset
+  return result.boxes.map((dimensions, i) => {
+    [firstRowTop, currentRowTop, currentHeightOffset] =
+      calculateOffset(dimensions, firstRowTop, currentRowTop, currentHeightOffset)
+    dimensions.top = dimensions.top + currentHeightOffset
+    dimensions.height = dimensions.height + metaHeight
+    return {
+      photo: photos[i],
+      dimensions,
+    }
+  })
 }
 
-const PhotoGrid = ({ photos, albumSlug, classes }) => {
+const calculateOffset = (dimensions, firstRowTop, currentRowTop, currentHeightOffset = 0) => {
+  // First call sets the top row, current row and offset
+  if (!firstRowTop) {
+    return [dimensions.top, dimensions.top, 0]
+  }
+  // First row item
+  if (dimensions.top == firstRowTop) {
+    return [firstRowTop, currentRowTop, currentHeightOffset]
+  }
+  // First item in a new row
+  if (dimensions.top != currentRowTop) {
+    return [firstRowTop, dimensions.top, currentHeightOffset + metaHeight]
+  }
+  // Additional item in row
+  return [firstRowTop, dimensions.top, currentHeightOffset]
+}
+
+const PhotoGrid = ({ photos, albumSlug, user, classes }) => {
   const [isClient, updateIsClient] = useState(false)
   useEffect(() => {
     updateIsClient(true)
@@ -60,12 +90,12 @@ const PhotoGrid = ({ photos, albumSlug, classes }) => {
     <div className={classes.container}>
       {isClient ?
         buildGrid(photos, windowWidth).map(item => (
-          <PhotoGridItem item={item} albumSlug={albumSlug} key={item.photo.id} />
+          <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
         ))
       :
         <div style={{display: 'none'}}>
           {buildGrid(photos, 1060).map(item => (
-            <PhotoGridItem item={item} albumSlug={albumSlug} key={item.photo.id} />
+            <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
           ))}
         </div>
       }

@@ -13,7 +13,7 @@ class AlbumQuery
     cover_photo = album.cover_photo
     {
       user: current_user,
-      album: album.as_json(include: [:photos, :cover_photo]),
+      album: album.as_json(include: [{photos: {include: [:comments, :favorites]}}, :cover_photo]),
       share_photo: {
         url: cover_photo.original_version.url,
         width: cover_photo.original_version.width,

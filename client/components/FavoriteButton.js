@@ -48,10 +48,11 @@ const FavoriteButton = ({ photo_id, favorites, user, onSuccess, classes}) => {
   const { current_user_favorite } = favorites
   const [showPopper, updateShowPopper] = useState(false)
   const [popperEl, updatePopperEl] = useState()
+  const handleClick = () => updateShowPopper(false)
   useEffect(() => {
-    window.addEventListener('click', () => updateShowPopper(false), true)
+    window.addEventListener('click', handleClick, true)
     return () => {
-      window.removeEventListener('click', () => updateShowPopper(false), true)
+      window.removeEventListener('click', handleClick, true)
     }
   })
 
