@@ -13,12 +13,24 @@ class AlbumQuery
     cover_photo = album.cover_photo
     {
       user: current_user,
-      album: album.as_json(include: [{photos: {include: [:comments, :favorites]}}, :cover_photo]),
+      album: build_album(album),
       share_photo: {
         url: cover_photo.original_version.url,
         width: cover_photo.original_version.width,
         height: cover_photo.original_version.height,
       },
     }
+  end
+
+  def build_album(album)
+    result = album.as_json(include: [
+      {photos: {include: [:comments, {favorites: {include: :user}}]}},
+      :cover_photo,
+    ])
+    result["photos"] = result["photos"].map { |photo|
+      photo["favorites"] = FavoritesMapper.map(photo["favorites"], current_user)
+      photo
+    }
+    result
   end
 end
