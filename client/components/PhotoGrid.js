@@ -30,7 +30,7 @@ const gridOptions = windowWidth => {
   }
 }
 
-const metaHeight = 64
+const metaHeight = 31
 
 const buildGrid = (photos, windowWidth) => {
   var firstRowTop, currentRowTop, currentHeightOffset

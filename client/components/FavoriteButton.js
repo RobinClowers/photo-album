@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import classNames from 'classnames'
 import { withStyles } from '@material-ui/core/styles'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -22,6 +23,9 @@ const styles = theme => ({
   userFavorite: {
     color: theme.palette.primary.main,
   },
+  white: {
+    color: theme.palette.common.white,
+  },
 })
 
 const handleFavorite = (photoId, currentUserFavorite, user_id, updateShowPopper, updatePopperEl, onSuccess) =>
@@ -44,7 +48,7 @@ const handleFavorite = (photoId, currentUserFavorite, user_id, updateShowPopper,
     }
   }
 
-const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes}) => {
+const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...options}) => {
   const [showPopper, updateShowPopper] = useState(false)
   const [popperEl, updatePopperEl] = useState()
   const handleClick = () => updateShowPopper(false)
@@ -54,16 +58,23 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes}) => {
       window.removeEventListener('click', handleClick, true)
     }
   })
-
+  const countClasses = classNames({
+    [classes.favoriteCount]: true,
+    [classes.white]: options.invertColors,
+  })
+  const buttonClasses = classNames({
+    [classes.userFavorite]: favorites.current_user_favorite,
+    [classes.white]: options.invertColors && !favorites.current_user_favorite,
+  })
 
   return (
     <div className={classes.heartContainer}>
-      <Typography variant="body2" className={classes.favoriteCount}>
+      <Typography variant="body2" className={countClasses}>
         {favorites.count}
       </Typography>
       <IconButton
         aria-label="Favorite"
-        className={favorites.current_user_favorite && classes.userFavorite}
+        className={buttonClasses}
         onClick={handleFavorite(
           photoId,
           favorites.current_user_favorite,
@@ -96,6 +107,10 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes}) => {
       </Popper>
     </div>
   )
+}
+
+FavoriteButton.defaultOptions = {
+  invertColors: false,
 }
 
 export default withStyles(styles)(FavoriteButton)

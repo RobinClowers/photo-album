@@ -5,21 +5,24 @@ import FavoriteButton from 'client/components/FavoriteButton'
 
 const styles = theme => ({
   container: {
-    backgroundColor: theme.palette.primary.light,
     display: 'flex',
     flexDirection: 'column',
     position: 'absolute',
     whiteSpace: 'nowrap',
   },
+  favoriteContainer: {
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+  },
   link: {
+    backgroundColor: theme.palette.primary.light,
     display: 'flex',
+    position: 'relative',
   },
   meta: {
-    backgroundColor: theme.palette.common.white,
-    color: theme.palette.white,
     display: 'flex',
-    padding: theme.spacing.unit,
-    width: '100%',
+    marginTop: 0,
   },
 })
 
@@ -49,6 +52,14 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
             sizes={`${dimensions.width}px`}
             src={photo.urls.mobile_sm}
             alt={photo.alt} />
+          <div className={classes.favoriteContainer}>
+            <FavoriteButton
+              invertColors
+              photoId={photo.id}
+              favorites={favorites}
+              onSuccess={handleFavorite}
+              user={user} />
+          </div>
         </a>
       </Link>
       <div className={classes.meta}>
@@ -56,11 +67,6 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
           caption={photo.caption}
           noWrap
           photoId={photo.id}
-          user={user} />
-        <FavoriteButton
-          photoId={photo.id}
-          favorites={favorites}
-          onSuccess={handleFavorite}
           user={user} />
       </div>
     </div>

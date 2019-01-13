@@ -67,6 +67,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
     <div className={classes.meta}>
       <Caption
         editable
+        topPadding
         photo_id={photo.id}
         caption={photo.caption}
         user={user}
