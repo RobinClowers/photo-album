@@ -12,13 +12,20 @@ import { createFavorite, deleteFavorite } from 'client/src/api'
 import TextLink from 'client/components/TextLink'
 
 const styles = theme => ({
+  background: {
+    backgroundColor: `${theme.palette.grey[900]}85`,
+    borderRadius: 24,
+  },
   heartContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
     marginLeft: theme.spacing.unit,
   },
   favoriteCount: {
-    paddingLeft: theme.spacing.unit,
+    padding: theme.spacing.unit * 1.5, // match IconButton
     paddingRight: theme.spacing.unit / 2,
-    display: 'inline',
+    width: 24,
   },
   userFavorite: {
     color: theme.palette.primary.main,
@@ -58,6 +65,10 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...optio
       window.removeEventListener('click', handleClick, true)
     }
   })
+  const containerClasses = classNames({
+    [classes.heartContainer]: true,
+    [classes.background]: options.invertColors,
+  })
   const countClasses = classNames({
     [classes.favoriteCount]: true,
     [classes.white]: options.invertColors,
@@ -68,7 +79,7 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...optio
   })
 
   return (
-    <div className={classes.heartContainer}>
+    <div className={containerClasses}>
       <Typography variant="body2" className={countClasses}>
         {favorites.count}
       </Typography>
