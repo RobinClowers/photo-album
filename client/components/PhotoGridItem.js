@@ -41,7 +41,7 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
       <Link
         route='photo'
         params={{slug: albumSlug, filename: photo.filename}}>
-        <a className={classes.link}>
+        <a className={classes.link} style={{height: dimensions.imageHeight}}>
           <img
             srcSet={Object.keys(versions).map(
               key => `${versions[key].url} ${versions[key].width}w`

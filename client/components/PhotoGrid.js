@@ -44,6 +44,7 @@ const buildGrid = (photos, windowWidth) => {
     [firstRowTop, currentRowTop, currentHeightOffset] =
       calculateOffset(dimensions, firstRowTop, currentRowTop, currentHeightOffset)
     dimensions.top = dimensions.top + currentHeightOffset
+    dimensions.imageHeight = dimensions.height
     dimensions.height = dimensions.height + metaHeight
     return {
       photo: photos[i],
