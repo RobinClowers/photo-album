@@ -17,7 +17,7 @@ const styles = theme => ({
   },
   favoriteCount: {
     paddingLeft: theme.spacing.unit,
-    paddingRight: theme.spacing.unit,
+    paddingRight: theme.spacing.unit / 2,
     display: 'inline',
   },
   userFavorite: {
