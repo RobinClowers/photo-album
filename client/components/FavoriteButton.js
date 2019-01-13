@@ -24,28 +24,27 @@ const styles = theme => ({
   },
 })
 
-const handleFavorite = (photo_id, current_user_favorite, user_id, updateShowPopper, updatePopperEl, onSuccess) =>
+const handleFavorite = (photoId, currentUserFavorite, user_id, updateShowPopper, updatePopperEl, onSuccess) =>
   async event => {
     if (!user_id) {
       updateShowPopper(true)
       updatePopperEl(event.currentTarget)
       return
     }
-    if (current_user_favorite) {
-      const result = await deleteFavorite(photo_id, current_user_favorite.id)
+    if (currentUserFavorite) {
+      const result = await deleteFavorite(photoId, currentUserFavorite.id)
       if (result.ok) {
         onSuccess()
       }
     } else {
-      const result = await createFavorite(photo_id)
+      const result = await createFavorite(photoId)
       if (result.ok) {
         onSuccess()
       }
     }
   }
 
-const FavoriteButton = ({ photo_id, favorites, user, onSuccess, classes}) => {
-  const { current_user_favorite } = favorites
+const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes}) => {
   const [showPopper, updateShowPopper] = useState(false)
   const [popperEl, updatePopperEl] = useState()
   const handleClick = () => updateShowPopper(false)
@@ -64,10 +63,10 @@ const FavoriteButton = ({ photo_id, favorites, user, onSuccess, classes}) => {
       </Typography>
       <IconButton
         aria-label="Favorite"
-        className={current_user_favorite && classes.userFavorite}
+        className={favorites.current_user_favorite && classes.userFavorite}
         onClick={handleFavorite(
-          photo_id,
-          current_user_favorite,
+          photoId,
+          favorites.current_user_favorite,
           user.id,
           updateShowPopper,
           updatePopperEl,

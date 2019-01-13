@@ -35,7 +35,7 @@ class Caption extends React.Component {
   }
 
   render() {
-    const { caption, noWrap, photo_id, user, editable, classes } = this.props
+    const { caption, noWrap, photoId, user, editable, classes } = this.props
     const { editCaption } = this.state
 
     return (
@@ -53,7 +53,7 @@ class Caption extends React.Component {
             </IconButton>}
           {editCaption &&
             <EditCaption
-              photo_id={photo_id}
+              photoId={photoId}
               initalValue={caption}
               handleCaptionUpdated={this.handleCaptionUpdated} />}
       </React.Fragment>
