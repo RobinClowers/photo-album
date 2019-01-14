@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import justify from 'justified-layout'
-import PhotoGridItem from 'client/components/PhotoGridItem'
-import { withStyles } from '@material-ui/core/styles'
 import debounce from 'lodash/debounce'
+import justify from 'justified-layout'
+import { withStyles } from '@material-ui/core/styles'
+import PhotoGridItem from 'client/components/PhotoGridItem'
+import LayoutOffset from 'client/src/LayoutOffset'
 
 const gutter = 8 * 4
 
@@ -30,44 +31,18 @@ const gridOptions = windowWidth => {
   }
 }
 
-const metaHeight = 31
+const metaHeight = 18
 
 const buildGrid = (photos, windowWidth) => {
-  var firstRowTop, currentRowTop, currentHeightOffset
   const dimensions = photos.map(p => {
     const { original } = p.versions
     return { height: original.height, width: original.width }
   })
   const result = justify(dimensions, gridOptions(windowWidth))
-  var updated, firstRowTop, currentRowTop, currentHeightOffset
-  return result.boxes.map((dimensions, i) => {
-    [firstRowTop, currentRowTop, currentHeightOffset] =
-      calculateOffset(dimensions, firstRowTop, currentRowTop, currentHeightOffset)
-    dimensions.top = dimensions.top + currentHeightOffset
-    dimensions.imageHeight = dimensions.height
-    dimensions.height = dimensions.height + metaHeight
-    return {
-      photo: photos[i],
-      dimensions,
-    }
-  })
-}
-
-const calculateOffset = (dimensions, firstRowTop, currentRowTop, currentHeightOffset = 0) => {
-  // First call sets the top row, current row and offset
-  if (!firstRowTop) {
-    return [dimensions.top, dimensions.top, 0]
-  }
-  // First row item
-  if (dimensions.top == firstRowTop) {
-    return [firstRowTop, currentRowTop, currentHeightOffset]
-  }
-  // First item in a new row
-  if (dimensions.top != currentRowTop) {
-    return [firstRowTop, dimensions.top, currentHeightOffset + metaHeight]
-  }
-  // Additional item in row
-  return [firstRowTop, dimensions.top, currentHeightOffset]
+  const layoutOffset = new LayoutOffset(metaHeight)
+  return result.boxes.map((dimensions, i) => (
+    layoutOffset.calculate(dimensions, photos[i])
+  ))
 }
 
 const PhotoGrid = ({ photos, albumSlug, user, classes }) => {

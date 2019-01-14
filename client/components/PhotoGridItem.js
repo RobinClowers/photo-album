@@ -22,6 +22,7 @@ const styles = theme => ({
   },
   meta: {
     display: 'flex',
+    height: 18,
     marginTop: 0,
   },
 })
@@ -62,13 +63,14 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
           </div>
         </a>
       </Link>
-      <div className={classes.meta}>
-        <Caption
-          caption={photo.caption}
-          noWrap
-          photoId={photo.id}
-          user={user} />
-      </div>
+      {photo.caption && (
+        <div className={classes.meta}>
+          <Caption
+            caption={photo.caption}
+            noWrap
+            photoId={photo.id}
+            user={user} />
+        </div>)}
     </div>
   )
 }
