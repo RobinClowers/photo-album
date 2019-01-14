@@ -7,11 +7,7 @@ class Albums::PhotosController < ApplicationController
   def show
     render json: {
       photo: photo.as_json().merge({
-        favorites: {
-          count: plus_ones.length,
-          names: plus_ones_names,
-          current_user_favorite: plus_ones.where(user: current_user).first,
-        },
+        favorites: FavoritesMapper.map(plus_ones, current_user)
       }),
       next_photo_filename: next_photo_filename,
       previous_photo_filename: previous_photo_filename,
@@ -29,17 +25,6 @@ class Albums::PhotosController < ApplicationController
 
   def photo_ids
     @photo_ids = album.photo_ids
-  end
-
-  MAX_PLUS_ONE_NAMES = 6
-  def plus_ones_names
-    users = plus_ones.map(&:user)
-    result = users.take(MAX_PLUS_ONE_NAMES).map(&:name).join(', ')
-    if users.length <= MAX_PLUS_ONE_NAMES
-      result
-    else
-      "#{result} and #{users.length - MAX_PLUS_ONE_NAMES} more people"
-    end
   end
 
   def next_photo_filename

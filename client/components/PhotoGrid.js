@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
-import justify from 'justified-layout'
-import PhotoGridItem from 'client/components/PhotoGridItem'
-import { withStyles } from '@material-ui/core/styles'
 import debounce from 'lodash/debounce'
+import justify from 'justified-layout'
+import { withStyles } from '@material-ui/core/styles'
+import PhotoGridItem from 'client/components/PhotoGridItem'
+import LayoutOffset from 'client/src/LayoutOffset'
 
 const gutter = 8 * 4
 
@@ -30,16 +31,21 @@ const gridOptions = windowWidth => {
   }
 }
 
+const metaHeight = 18
+
 const buildGrid = (photos, windowWidth) => {
   const dimensions = photos.map(p => {
     const { original } = p.versions
     return { height: original.height, width: original.width }
   })
   const result = justify(dimensions, gridOptions(windowWidth))
-  return result.boxes.map((box, i) => ({ ...box, photo: photos[i] }))
+  const layoutOffset = new LayoutOffset(metaHeight)
+  return result.boxes.map((dimensions, i) => (
+    layoutOffset.calculate(dimensions, photos[i])
+  ))
 }
 
-const PhotoGrid = ({ photos, albumSlug, classes }) => {
+const PhotoGrid = ({ photos, albumSlug, user, classes }) => {
   const [isClient, updateIsClient] = useState(false)
   useEffect(() => {
     updateIsClient(true)
@@ -60,12 +66,12 @@ const PhotoGrid = ({ photos, albumSlug, classes }) => {
     <div className={classes.container}>
       {isClient ?
         buildGrid(photos, windowWidth).map(item => (
-          <PhotoGridItem item={item} albumSlug={albumSlug} key={item.photo.id} />
+          <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
         ))
       :
         <div style={{display: 'none'}}>
           {buildGrid(photos, 1060).map(item => (
-            <PhotoGridItem item={item} albumSlug={albumSlug} key={item.photo.id} />
+            <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
           ))}
         </div>
       }

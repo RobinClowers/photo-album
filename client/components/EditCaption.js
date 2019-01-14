@@ -34,7 +34,7 @@ class EditCaption extends React.Component {
   }
 
   handleSubmit = async _event => {
-    const response = await updatePhoto(this.props.photo_id, {
+    const response = await updatePhoto(this.props.photoId, {
       caption: this.state.caption,
     })
     if (response.ok) {
