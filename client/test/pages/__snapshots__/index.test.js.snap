@@ -1,0 +1,206 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`index page matches snapshot 1`] = `
+Array [
+  <div
+    className="PrimarySearchAppBar-root-3"
+  >
+    <header
+      className="MuiPaper-root-20 MuiPaper-elevation4-26 MuiAppBar-root-11 MuiAppBar-positionStatic-15 MuiAppBar-colorPrimary-18"
+    >
+      <div
+        className="MuiToolbar-root-47 MuiToolbar-regular-49 MuiToolbar-gutters-48"
+      >
+        <a
+          href="/"
+          onClick={[Function]}
+        >
+          <h6
+            className="MuiTypography-root-51 MuiTypography-h6-68 MuiTypography-colorInherit-80 MuiTypography-noWrap-77 PrimarySearchAppBar-title-5"
+          >
+            Robinʼs Photos
+          </h6>
+        </a>
+        <div
+          className="PrimarySearchAppBar-search-6"
+        >
+          <div
+            className="PrimarySearchAppBar-searchIcon-7"
+          >
+            <span
+              aria-hidden="true"
+              className="material-icons MuiIcon-root-86"
+            >
+              search
+            </span>
+          </div>
+          <form
+            action="https://google.com/search"
+            method="get"
+          >
+            <div
+              className="MuiInputBase-root-95"
+              onClick={[Function]}
+            >
+              <input
+                className="MuiInputBase-input-105 MuiInputBase-inputType-108"
+                name="q"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                type="hidden"
+                value="site:photos.robinclowers.com"
+              />
+            </div>
+            <div
+              className="MuiInputBase-root-95 PrimarySearchAppBar-inputRoot-9"
+              onClick={[Function]}
+            >
+              <input
+                className="MuiInputBase-input-105 PrimarySearchAppBar-inputInput-10"
+                name="q"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                placeholder="Search"
+                type="text"
+              />
+            </div>
+          </form>
+        </div>
+        <div
+          className="PrimarySearchAppBar-grow-4"
+        />
+        <div>
+          <button
+            aria-haspopup={true}
+            aria-owns={null}
+            className="MuiButtonBase-root-118 MuiIconButton-root-112 MuiIconButton-colorInherit-113"
+            disabled={false}
+            onBlur={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            onMouseDown={[Function]}
+            onMouseLeave={[Function]}
+            onMouseUp={[Function]}
+            onTouchEnd={[Function]}
+            onTouchMove={[Function]}
+            onTouchStart={[Function]}
+            tabIndex="0"
+            type="button"
+          >
+            <span
+              className="MuiIconButton-label-117"
+            >
+              <img
+                alt="profile photo"
+                className="PrimarySearchAppBar-profileImage-8"
+                src="https://graph.facebook.com/v2.3/1368883301/picture"
+              />
+            </span>
+            <span
+              className="MuiTouchRipple-root-237"
+            />
+          </button>
+        </div>
+      </div>
+    </header>
+  </div>,
+  <div
+    style={
+      Object {
+        "padding": 20,
+      }
+    }
+  >
+    <div
+      className="MuiGrid-container-127 MuiGrid-spacing-xs-24-151 MuiGrid-justify-xs-center-144"
+    >
+      <div
+        className="MuiGrid-item-128"
+      >
+        <a
+          href="/albums/bogota"
+          onClick={[Function]}
+        >
+          <div
+            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
+          >
+            <div
+              className="AlbumGrid-image-126"
+              style={
+                Object {
+                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/bogota/mobile_sm/P1070612.jpg)",
+                }
+              }
+              title="Photo in the album Bogotá"
+            />
+            <h3
+              className="AlbumGrid-title-125"
+            >
+              Bogotá
+            </h3>
+          </div>
+        </a>
+      </div>
+      <div
+        className="MuiGrid-item-128"
+      >
+        <a
+          href="/albums/medellin"
+          onClick={[Function]}
+        >
+          <div
+            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
+          >
+            <div
+              className="AlbumGrid-image-126"
+              style={
+                Object {
+                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/medellin/mobile_sm/P1070440.jpg)",
+                }
+              }
+              title="Photo in the album Medellin"
+            />
+            <h3
+              className="AlbumGrid-title-125"
+            >
+              Medellin
+            </h3>
+          </div>
+        </a>
+      </div>
+      <div
+        className="MuiGrid-item-128"
+      >
+        <a
+          href="/albums/cartagena"
+          onClick={[Function]}
+        >
+          <div
+            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
+          >
+            <div
+              className="AlbumGrid-image-126"
+              style={
+                Object {
+                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/cartagena/mobile_sm/P1070358.jpg)",
+                }
+              }
+              title="Photo in the album Cartagena"
+            />
+            <h3
+              className="AlbumGrid-title-125"
+            >
+              Cartagena
+            </h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>,
+]
+`;
