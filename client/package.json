@@ -39,6 +39,7 @@
     "babel-jest": "^23.6.0",
     "jest": "^23.6.0",
     "now": "^13.0.4",
+    "react-test-renderer": "^16.7.0",
     "regenerator-runtime": "^0.13.1"
   }
 }
