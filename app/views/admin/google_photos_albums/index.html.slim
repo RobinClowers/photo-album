@@ -10,7 +10,7 @@
       - albums.each do |album|
         ul.simple-list
           li
-            img src=album["coverPhotoBaseUrl"]
+            img src=album["coverPhotoBaseUrl"] height="380"
             h3= album["title"]
             = form_for new_album, url: admin_google_photos_albums_path do |f|
               = f.hidden_field :id, value: album["id"]
