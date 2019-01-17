@@ -36,7 +36,7 @@
       .album
         h2 Other Actions
         ul.plain-list
-          li= link_to "Trigger an error", admin_test_error_path, method: :post
+          li= button_to "Trigger an error", admin_test_error_path, method: :post
           li
             = button_to "Process all version for all albums", admin_process_all_albums_jobs_path,
               method: :post,
