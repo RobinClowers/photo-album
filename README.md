@@ -30,7 +30,7 @@ bin/client-dev
 To run the sidekiq server
 
 ```bash
-bundle exec sidekiq -q web -q utility
+bin/sidekiq-dev
 ```
 
 To run in offline mode, run the server with
