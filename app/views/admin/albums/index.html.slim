@@ -8,6 +8,10 @@
         - flash.each do |name, msg|
           = content_tag :div, msg, class: name
       .albums
+        h2 Google Album Import
+        ul.plain-list
+          li= link_to "Album list", admin_google_photos_albums_path
+      .albums
         - if unpublished_albums.any?
           h2 Unpublished Albums
         - unpublished_albums.each do |album|
@@ -32,7 +36,6 @@
       .album
         h2 Other Actions
         ul.plain-list
-          li= link_to "Import Google Albums", admin_google_photos_albums_path
           li= link_to "Trigger an error", admin_test_error_path, method: :post
           li
             = button_to "Process all version for all albums", admin_process_all_albums_jobs_path,
