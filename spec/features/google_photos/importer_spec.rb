@@ -82,7 +82,7 @@ describe GooglePhotos::Importer do
     end
 
     it "set the cover photo" do
-      expect(album.cover_photo.google_id).to eq(media_result["coverPhotoMediaItemId"])
+      expect(album.reload.cover_photo.google_id).to eq(first_google_id)
     end
 
     it "cleans up tmp dir" do
