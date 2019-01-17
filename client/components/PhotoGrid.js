@@ -36,9 +36,10 @@ const metaHeight = 18
 const buildGrid = (photos, windowWidth) => {
   const dimensions = photos.map(p => {
     const { original } = p.versions
+    if (!original) return null
     return { height: original.height, width: original.width }
   })
-  const result = justify(dimensions, gridOptions(windowWidth))
+  const result = justify(dimensions.filter(d => !!d), gridOptions(windowWidth))
   const layoutOffset = new LayoutOffset(metaHeight)
   return result.boxes.map((dimensions, i) => (
     layoutOffset.calculate(dimensions, photos[i])
