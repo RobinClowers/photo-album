@@ -21,13 +21,14 @@ class ProcessPhotos
       to_process = original - processed(sizes)
       process_images(to_process, sizes, force: force)
     end
+    FileUtils.rm_rf(tmp_dir) unless ENV["KEEP_PHOTO_CACHE"]
   end
 
   def process_images(images, sizes = PhotoSize.all, force: false)
     images.each do |filename|
       logger.info("Processing #{filename}")
       album_photos.download_original(filename, tmp_dir)
-      photo = album.photos.find_by_filename(filename)
+      photo = album.photos.find_by_filename!(filename)
       exif_data = ExifReader.extract_photo_model_data(File.join(tmp_dir, filename))
       photo.update_attributes!(exif_data)
       processor.process(
@@ -40,9 +41,8 @@ class ProcessPhotos
         end
         photo.has_size!(size, version_filename, image.mime_type, image.columns, image.rows)
       end
-      FileUtils.rm(File.join(tmp_dir, filename))
+      FileUtils.rm(File.join(tmp_dir, filename)) unless ENV["KEEP_PHOTO_CACHE"]
     end
-    FileUtils.rm_rf(tmp_dir)
   end
 
   def processed(sizes)

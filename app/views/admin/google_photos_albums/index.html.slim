@@ -16,6 +16,9 @@
               = f.hidden_field :id, value: album["id"]
               ol
                 li
+                  = text_field_tag :filename
+                  = label_tag :filename, :Filename, style: "margin-left: 10px;"
+                  br
                   = check_box_tag :force, "1"
                   = label_tag :force, "Force"
                 li= f.submit("Import")

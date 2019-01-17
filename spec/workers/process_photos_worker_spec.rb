@@ -5,7 +5,8 @@ describe ProcessPhotosWorker do
     subject(:worker) { ProcessPhotosWorker.new }
     let(:album_title) { "title" }
     let(:photo_filenames) { ["1.jpg", "2.jpg"] }
-    let(:processor) { double(:processor, process_images: nil) }
+    let(:tmp_dir) { "tmp/photo_processing_test/title/" }
+    let(:processor) { double(:processor, process_images: nil, tmp_dir: tmp_dir) }
 
     before do
       allow(ProcessPhotos).to receive(:new).with(album_title) { processor }
@@ -21,6 +22,10 @@ describe ProcessPhotosWorker do
       worker.perform(album_title, photo_filenames, ['tablet'], true)
       expect(processor).to have_received(:process_images).
         with(photo_filenames, [PhotoSize.tablet], force: true)
+    end
+
+    it "cleans up tmp dir" do
+      expect(Dir.exist?(processor.tmp_dir)).to be(false)
     end
   end
 end

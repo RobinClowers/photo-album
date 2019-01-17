@@ -11,13 +11,13 @@ describe GooglePhotos::Importer do
   let(:album) { Album.find_by_slug(slug) }
   let(:album_id) { "AKkM_aLGjbim7Z44iBgIBWy_2f8rY2G-q0aIuvlIHUzFqa4y2QNXbA0se4SoY-5CgDsLmHTYlEDM" }
   let(:google_auth) { Factory.create_google_auth }
-  let(:importer) { GooglePhotos::Importer.new }
+  let(:importer) { GooglePhotos::Importer.new(google_auth, album_id) }
   let(:media_result_path) { Rails.root.join("spec", "fixtures", "files", "search_media_items_by_album.json") }
   let(:media_result) { JSON.parse(File.read(media_result_path)) }
   let(:download_response) { double(:download_response, status: 200, body: photo_file) }
   let(:photo_file) { Magick::Image.new(1,1).tap { |i| i.format = "jpg" }.to_blob }
   let(:processor) { double(:process_photos, process_images: nil, tmp_dir: tmp_dir) }
-  let(:tmp_dir) { "tmp/photo_processing_test/#{album.slug}" }
+  let(:tmp_dir) { "tmp/photo_processing_test/#{slug}" }
   let(:uploader) { double(:uploader, upload: nil) }
   let(:album_response) { {
     "id": album_id,
@@ -39,13 +39,15 @@ describe GooglePhotos::Importer do
     } }
     allow(HTTP).to receive(:get) { download_response }
     allow(api).to receive(:search_media_items)
+      .with(google_auth, {albumId: album_id, pageSize: 1}) { media_result }
+    allow(api).to receive(:search_media_items)
       .with(google_auth, {albumId: album_id, pageSize: 100}) { media_result }
   end
 
 
   describe "#import with new album" do
     before do
-      importer.import(google_auth, album_id)
+      importer.import
     end
 
     it "fetches album with correct params" do
@@ -78,7 +80,9 @@ describe GooglePhotos::Importer do
     end
 
     it "processes all the files" do
-      expect(processor).to have_received(:process_images).with(filenames, force: false)
+      expect(processor).to have_received(:process_images).with([filenames.first], force: false)
+      expect(processor).to have_received(:process_images).with([filenames.second], force: false)
+      expect(processor).to have_received(:process_images).with([filenames.third], force: false)
     end
 
     it "set the cover photo" do
@@ -94,11 +98,12 @@ describe GooglePhotos::Importer do
     before do
       album = Album.create!(slug: slug, title: title)
       album.photos.create!(filename: first_filename, google_id: first_google_id)
-      importer.import(google_auth, album_id)
+      importer.import
     end
 
     it "processes only the new files" do
-      expect(processor).to have_received(:process_images).with(filenames - [first_filename], force: false)
+      expect(processor).to have_received(:process_images).with([filenames.second], force: false)
+      expect(processor).to have_received(:process_images).with([filenames.third], force: false)
     end
 
     it "update captions for existing photo" do
@@ -111,6 +116,18 @@ describe GooglePhotos::Importer do
 
     it "creates new photos in the database" do
       expect(Photo.count).to eq(3)
+    end
+  end
+
+  describe "#reprocess" do
+    before do
+      album = Album.create!(slug: slug, title: title)
+      album.photos.create!(filename: first_filename, google_id: first_google_id)
+      importer.reprocess(first_filename)
+    end
+
+    it "processes only the one file" do
+      expect(processor).to have_received(:process_images).with([first_filename], force: false)
     end
   end
 end
