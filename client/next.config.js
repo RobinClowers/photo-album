@@ -1,15 +1,7 @@
-const { PHASE_PRODUCTION_SERVER } =
-  process.env.NODE_ENV === "development"
-    ? require("next/constants")
-    : require("next-server/constants");
-
 module.exports = (phase) => {
-  if (phase === PHASE_PRODUCTION_SERVER) {
-    return {}
-  }
-
   const webpack = require('webpack')
   return {
+    target: 'serverless',
     webpack: (config, {}) => {
       config.plugins.push(
         new webpack.DefinePlugin(definePluginConfig())

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_ENV=development node server.js",
+    "now-build": "next build",
     "build": "next build",
     "start": "NODE_ENV=development node server.js",
     "test": "jest"
@@ -23,7 +24,7 @@
     "justified-layout": "^2.1.1",
     "lodash": "^4.17.11",
     "material-ui-popup-state": "^1.0.1",
-    "next": "^7.0.2",
+    "next": "^8.0.0-canary.7",
     "next-routes": "^1.4.2",
     "react": "next",
     "react-dom": "next",
