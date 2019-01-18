@@ -83,12 +83,11 @@ describe ProcessPhotos do
 
     it "cleans up after itself" do
       processor.process_album
-      expect(FileUtils).to have_received(:rm).with(File.join(tmp_dir, filename))
       expect(FileUtils).to have_received(:rm_rf).with(tmp_dir)
     end
   end
 
-  describe "#process([:version])" do
+  describe "#process_album([:version])" do
     it "processes all photos" do
       processor.process_album([mobile_size])
       expect(album_processor).to have_received(:process).once
@@ -125,7 +124,7 @@ describe ProcessPhotos do
     end
   end
 
-  describe "#process([:version]) with existing photo" do
+  describe "#process_album([:version]) with existing photo" do
     before do
       allow(album_photos).to receive(:keys) { [filename] }
       processor.process_album([mobile_size])
@@ -140,7 +139,7 @@ describe ProcessPhotos do
     end
   end
 
-  describe "#process([:version], force: true) with existing photo" do
+  describe "#process_album([:version], force: true) with existing photo" do
     before do
       allow(album_photos).to receive(:keys) { [filename] }
       processor.process_album([mobile_size], force: true)

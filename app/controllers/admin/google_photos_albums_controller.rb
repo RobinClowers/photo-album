@@ -5,11 +5,15 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
   def index; end
 
   def create
-    if google_id
+    unless google_id
+      redirect_to admin_google_photos_albums_path, notice: "missing google album ID"
+    end
+    unless filename.blank?
+      ReprocessGooglePhotoWorker.perform_async(google_authorization.id, google_id, filename, force)
+      redirect_to admin_root_path, notice: "Reprocessing queued"
+    else
       ImportGoogleAlbumWorker.perform_async(google_authorization.id, google_id, force)
       redirect_to admin_root_path, notice: "Album imported queued"
-    else
-      redirect_to admin_google_photos_albums_path, notice: "missing google album ID"
     end
   end
 
@@ -17,6 +21,10 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
 
   def google_id
     @google_id ||= params.require(:album)[:id]
+  end
+
+  def filename
+    params["filename"]
   end
 
   def force
