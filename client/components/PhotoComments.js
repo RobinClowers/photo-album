@@ -28,6 +28,10 @@ const styles = theme => ({
     alignItems: 'start',
     display: 'flex',
     justifyContent: 'space-between',
+    margin: `0px ${theme.spacing.unit}px`,
+    [theme.breakpoints.up('sm')]: {
+      margin: 0,
+    },
   },
   caption: {
     paddingTop: theme.spacing.unit * 1.5, // match button
