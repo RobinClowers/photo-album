@@ -13,20 +13,23 @@ export const getPhoto = async (slug, filename, request) =>
   await getJson(`/albums/${slug}/photos/${filename}`, request)
 
 const getJson = async (path, request = {}) => {
-  const cookie = request.headers && request.headers.cookie
   const response = await fetch(`${apiRoot}${path}`, {
     credentials: 'include',
     headers: {
-      'Cookie': cookie,
+      'Cookie': request.headers && request.headers.cookie,
       'Content-Type': 'application/json',
       'Accept': 'application/json',
     },
   })
   const data = await response.json()
-  return { ...data, csrfToken: response.headers.get('x-csrf-token') }
+  return { ...data, csrfToken: csrfTokenFromHeader(response) }
 }
 
-
+const csrfTokenFromHeader = response => {
+  if (response && response.headers) {
+    return response.headers.get('x-csrf-token')
+  }
+}
 
 export const signIn = async (email, password) => {
   return await fetch(`${apiRoot}/users/sign_in`, {
@@ -116,4 +119,4 @@ const defaultOptions = () => ({
   },
 })
 
-const csrfToken = () => cookie.parse(document.cookie)['X-CSRF-Token'] || window.csrfToken
+const csrfToken = () => cookie.parse(document.cookie)['csrfToken']

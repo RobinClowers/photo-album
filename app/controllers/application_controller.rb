@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
 
   def set_csrf_cookie
     if protect_against_forgery?
-      cookies['X-CSRF-Token'] = form_authenticity_token
+      headers['X-CSRF-Token'] = form_authenticity_token
     end
   end
 

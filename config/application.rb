@@ -26,6 +26,14 @@ module PhotoAlbum
       host: ENV["FRONT_END_DOMAIN"],
     }
 
+    # CORS settings
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins ENV.fetch("FRONT_END_DOMAIN")
+        resource "*", headers: :any, expose: ["x-csrf-token"], methods: :any, credentials: true
+      end
+    end
+
     Slim::Engine.options[:pretty] = false
 
     # Load defaults from config/*.env in config
