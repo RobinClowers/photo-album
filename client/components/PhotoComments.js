@@ -68,12 +68,12 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
       <Caption
         editable
         topPadding
-        photo_id={photo.id}
+        photoId={photo.id}
         caption={photo.caption}
         user={user}
         handleCaptionUpdated={props.handleCaptionUpdated} />
       <FavoriteButton
-        photo_id={photo.id}
+        photoId={photo.id}
         favorites={photo.favorites}
         onSuccess={props.handleFavorite}
         user={user} />
@@ -101,7 +101,7 @@ const PhotoComments = ({ comments, photo, user, classes, ...props}) => (
     ))}
     <li className={classes.commentListItem}>
       {user.id ?
-        <AddComment photo_id={photo.id} handleCommentAdded={props.handleCommentAdded} />
+        <AddComment photoId={photo.id} handleCommentAdded={props.handleCommentAdded} />
         :
         <Card className={classes.card}>
           <CardContent>

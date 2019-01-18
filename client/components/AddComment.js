@@ -31,7 +31,7 @@ class AddComment extends React.Component {
   }
 
   handleSubmit = async _event => {
-    const response = await postComment(this.props.photo_id, {
+    const response = await postComment(this.props.photoId, {
       body: this.state.comment,
     })
     if (response.ok) {
