@@ -22,28 +22,28 @@ test('LayoutOffset does nothing for a single row', () => {
 test('LayoutOffset adds an offset for a row with at least one comment', () => {
   const layout = new LayoutOffset(13)
   const { dimensions: first } = layout.calculate({
-      top: 10,
-      left: 10,
+      top: 0,
+      left: 0,
       height: 300,
       width: 400,
     },
     { caption: true })
-  expect(first.top).toEqual(10)
+  expect(first.top).toEqual(0)
   layout.calculate({
-      top: 10,
-      left: 10,
+      top: 0,
+      left: 0,
       height: 300,
       width: 400,
     },
     { caption: true })
   const { dimensions: third } = layout.calculate({
-      top: 320,
-      left: 420,
+      top: 310,
+      left: 40,
       height: 300,
       width: 400,
     },
     { caption: true })
-  expect(third.top).toEqual(333)
+  expect(third.top).toEqual(323)
 })
 
 test('LayoutOffset does not add an offset for a row with no comments', () => {

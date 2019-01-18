@@ -20,7 +20,7 @@ class LayoutOffset {
     } = this.state
     const hasCaption = rowHasCaption || !!photo.caption
 
-    if (!firstRowTop) {
+    if (firstRowTop === undefined) {
       // First call sets the top row, current row and offset
       this.state = {
         firstRowTop: dimensions.top,
