@@ -36,8 +36,8 @@ class MyApp extends App {
 
   componentDidMount() {
     removeFacebookLoginHash()
-    // Make the CSRF token available on window
-    window.csrfToken = this.props.pageProps.csrfToken
+    // Make the CSRF token available
+    document.cookie = `csrfToken=${this.props.pageProps.csrfToken}`
     setReturnUrl(window.location.href)
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
