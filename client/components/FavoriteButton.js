@@ -37,6 +37,7 @@ const styles = theme => ({
 
 const handleFavorite = (photoId, currentUserFavorite, user_id, updateShowPopper, updatePopperEl, onSuccess) =>
   async event => {
+    event.preventDefault()
     if (!user_id) {
       updateShowPopper(true)
       updatePopperEl(event.currentTarget)
