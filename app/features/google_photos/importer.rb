@@ -8,8 +8,7 @@ class GooglePhotos::Importer
   end
 
   def reprocess(filename, force: false)
-    params = { albumId: google_album_id, pageSize: 1 }
-    item = api.search_media_items(google_auth, params)["mediaItems"].find { |i|
+    item = fetch_album_photos.find { |i|
       i["scrubbed_filename"] = scrub_filename(i["filename"])
       i["scrubbed_filename"] == filename
     }
@@ -24,9 +23,9 @@ class GooglePhotos::Importer
   def import(force: false)
     logger.info("fetching alubm")
     logger.info("Found #{album_data["title"]}")
-    items = fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
-      api.search_media_items(google_auth, params)
-    }.reduce({}) { |result, item| merge_scrubbed_filename(result, item) }
+    items = fetch_album_photos.reduce({}) { |result, item|
+      merge_scrubbed_filename(result, item)
+    }
     logger.info("Found #{items.count} photos")
 
     find_or_create_album
@@ -50,6 +49,12 @@ class GooglePhotos::Importer
   end
 
   private
+
+  def fetch_album_photos
+    fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
+      api.search_media_items(google_auth, params)
+    }
+  end
 
   def download_photo(item, force)
     filename = item["scrubbed_filename"]

@@ -6,6 +6,7 @@ describe GooglePhotos::Importer do
   let(:slug) { "sipadan-2018" }
   let(:video_filename) { "VID_20181229_180357.mp4" }
   let(:first_filename) { filenames.first }
+  let(:last_filename) { filenames.last }
   let(:filenames) { ["IMG_20180703_103130.jpg", "IMG_20180703_103444.jpg", "IMG_20180705_181748.jpg"] }
   let(:first_google_id) { "AKkM_aJiYtFoRDZW0bGBLWONPTpmj4xh5gNN2f5UvMRGND_gIlWsUMAc46AcfnmwO4hH2MpWsVA_m-eSMU36FqXxa9-j8yi8IA" }
   let(:album) { Album.find_by_slug(slug) }
@@ -38,8 +39,6 @@ describe GooglePhotos::Importer do
       "mediaItems": []
     } }
     allow(HTTP).to receive(:get) { download_response }
-    allow(api).to receive(:search_media_items)
-      .with(google_auth, {albumId: album_id, pageSize: 1}) { media_result }
     allow(api).to receive(:search_media_items)
       .with(google_auth, {albumId: album_id, pageSize: 100}) { media_result }
   end
@@ -122,12 +121,12 @@ describe GooglePhotos::Importer do
   describe "#reprocess" do
     before do
       album = Album.create!(slug: slug, title: title)
-      album.photos.create!(filename: first_filename, google_id: first_google_id)
-      importer.reprocess(first_filename)
+      album.photos.create!(filename: last_filename)
+      importer.reprocess(last_filename)
     end
 
     it "processes only the one file" do
-      expect(processor).to have_received(:process_images).with([first_filename], force: false)
+      expect(processor).to have_received(:process_images).with([last_filename], force: false)
     end
   end
 end
