@@ -13,6 +13,7 @@ class GooglePhotos::Importer
       i["scrubbed_filename"] = scrub_filename(i["filename"])
       i["scrubbed_filename"] == filename
     }
+    raise "photo #{filename} not found" unless item
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
 
     download_photo(item, force)
