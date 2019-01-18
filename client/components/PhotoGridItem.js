@@ -23,7 +23,10 @@ const styles = theme => ({
   meta: {
     display: 'flex',
     height: 18,
-    marginTop: 0,
+    margin: `0px ${theme.spacing.unit}px`,
+    [theme.breakpoints.up('sm')]: {
+      margin: 0,
+    },
   },
 })
 
