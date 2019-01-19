@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_02_021439) do
+ActiveRecord::Schema.define(version: 2019_01_19_203912) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_021439) do
     t.datetime "updated_at"
     t.string "slug", limit: 255
     t.datetime "published_at"
+    t.datetime "first_photo_taken_at"
+    t.index ["first_photo_taken_at"], name: "index_albums_on_first_photo_taken_at"
     t.index ["slug"], name: "index_albums_on_slug", unique: true
     t.index ["title"], name: "index_albums_on_title", unique: true
   end
