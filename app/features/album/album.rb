@@ -16,6 +16,17 @@ class Album < ApplicationRecord
     new(slug: slug.to_s, title: slug.to_title)
   end
 
+  def self.update_first_photo_taken_at!
+    all.each do |album|
+      album.update_first_photo_taken_at!
+    end
+  end
+
+  def update_first_photo_taken_at!
+    self.first_photo_taken_at = photos.last.taken_at
+    save!
+  end
+
   def generate_slug
     self.slug = ::AlbumSlug.new(title) unless self.slug
   end
