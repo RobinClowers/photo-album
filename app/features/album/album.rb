@@ -7,8 +7,6 @@ class Album < ApplicationRecord
   scope :active, -> { where.not(published_at: nil, cover_photo_id: nil) }
   scope :unpublished, -> { where(published_at: nil) }
 
-  default_scope -> { order(created_at: :desc) }
-
   attr_accessor :google_id
 
   def self.new_from_slug(slug)
