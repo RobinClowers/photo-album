@@ -1,9 +1,11 @@
-import React from 'react'
+import { useRef, useState, useEffect } from 'react'
 import Portal from '@material-ui/core/Portal'
 import Typography from '@material-ui/core/Typography'
+import classNames from 'classnames'
 import CircularProgress from '@material-ui/core/CircularProgress'
 import { withStyles } from '@material-ui/core/styles'
 import AppBar from 'client/components/AppBar'
+import MenuDrawer, { drawerWidth }  from 'client/components/MenuDrawer'
 import { bindRouterStateChange, unbindRouterStateChange }
   from 'client/src/routerStateChange'
 
@@ -30,43 +32,41 @@ const styles = theme => ({
   },
 })
 
-class Layout extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      appLoading: false,
+const Layout = ({ user, children, classes }) => {
+  const [appLoading, updateAppLoading] = useState(false)
+  const subscription = useRef()
+  useEffect(() => {
+    bindRouterStateChange(subscription, loading => updateAppLoading(loading))
+    return () => {
+      unbindRouterStateChange(subscription)
     }
+  }, [])
+
+  const [drawerOpen, updateDrawerOpen] = useState(false)
+  const handleDrawerOpen = () => {
+    updateDrawerOpen(true)
+  }
+  const handleDrawerClose = () => {
+    updateDrawerOpen(false)
   }
 
-  componentDidMount() {
-    bindRouterStateChange(this, loading => this.setState({appLoading: loading}))
-  }
-
-  componentWillUnmount() {
-    unbindRouterStateChange(this)
-  }
-
-  render() {
-    const {user, children, classes} = this.props
-    const { appLoading } = this.state
-
-    return (
-      <React.Fragment>
-        <Portal>
-        {appLoading &&
-          <div className={classes.loadingIndicator}>
-            <span className={classes.loading}>
-              Loading
-            </span>
-            <CircularProgress color="secondary" size={20} />
-          </div>
-        }
-        </Portal>
-        <AppBar user={user} />
-        {children}
-      </React.Fragment>
-    )
-  }
+  return (
+    <React.Fragment>
+      <Portal>
+      {appLoading &&
+        <div className={classes.loadingIndicator}>
+          <span className={classes.loading}>
+            Loading
+          </span>
+          <CircularProgress color="secondary" size={20} />
+        </div>
+      }
+      </Portal>
+      <AppBar user={user} openDrawer={handleDrawerOpen} />
+      {children}
+      <MenuDrawer user={user} open={drawerOpen} close={handleDrawerClose} />
+    </React.Fragment>
+  )
 }
 
 export default withStyles(styles)(Layout)

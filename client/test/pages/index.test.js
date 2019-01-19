@@ -1,12 +1,12 @@
 import React from 'react'
-import renderer from 'react-test-renderer'
+import ShallowRenderer from 'react-test-renderer/shallow'
 import Index from 'client/pages/index'
 import albumIndexJson from 'client/test/support/json/albumIndex'
 
 describe('index page', () => {
   it('matches snapshot', () => {
-    const component = renderer.create(<Index {...albumIndexJson} emailConfirmed={false} />)
-    const tree = component.toJSON()
-    expect(tree).toMatchSnapshot()
+    const renderer = new ShallowRenderer()
+    const result = renderer.render(<Index {...albumIndexJson} emailConfirmed={false} />)
+    expect(result).toMatchSnapshot()
   })
 })
