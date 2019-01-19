@@ -3,7 +3,9 @@ class AlbumListQuery
 
   def initialize(params)
     @current_user = params[:current_user]
-    @albums = active.includes(cover_photo: [:versions, :album])
+    @albums = active.
+      includes(cover_photo: [:versions, :album]).
+      order(first_photo_taken_at: :desc)
   end
 
   def active

@@ -7,13 +7,22 @@ class Album < ApplicationRecord
   scope :active, -> { where.not(published_at: nil, cover_photo_id: nil) }
   scope :unpublished, -> { where(published_at: nil) }
 
-  default_scope -> { order(created_at: :desc) }
-
   attr_accessor :google_id
 
   def self.new_from_slug(slug)
     slug = ::AlbumSlug.new(slug)
     new(slug: slug.to_s, title: slug.to_title)
+  end
+
+  def self.update_first_photo_taken_at!
+    all.each do |album|
+      album.update_first_photo_taken_at!
+    end
+  end
+
+  def update_first_photo_taken_at!
+    self.first_photo_taken_at = photos.last.taken_at
+    save!
   end
 
   def generate_slug
