@@ -12,7 +12,7 @@ class ExifReader
       lat: exif[:gps_latitude],
       lon: exif[:gps_longitude],
       mime_type: exif[:mime_type],
-      taken_at: to_date(exif[:create_date]),
+      taken_at: to_date(exif[:date_time_original]),
       width: exif[:image_width],
     }
   end
