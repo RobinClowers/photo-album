@@ -45,6 +45,7 @@ class GooglePhotos::Importer
       photo.update_attributes(caption: item["description"])
     end
     set_cover_photo(album, items, album_data["coverPhotoMediaItemId"])
+    album.update_first_photo_taken_at!
     FileUtils.rm_rf(tmp_dir)
   end
 

@@ -84,8 +84,12 @@ describe GooglePhotos::Importer do
       expect(processor).to have_received(:process_images).with([filenames.third], force: false)
     end
 
-    it "set the cover photo" do
+    it "sets the cover photo" do
       expect(album.reload.cover_photo.google_id).to eq(first_google_id)
+    end
+
+    it "sets first_photo_taken_at" do
+      expect(album.reload.first_photo_taken_at).to eq("2018-07-05 10:17:48.000000000 +0000")
     end
 
     it "cleans up tmp dir" do
