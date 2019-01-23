@@ -1,206 +1,414 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`index page matches snapshot 1`] = `
-Array [
-  <div
-    className="PrimarySearchAppBar-root-3"
-  >
-    <header
-      className="MuiPaper-root-20 MuiPaper-elevation4-26 MuiAppBar-root-11 MuiAppBar-positionStatic-15 MuiAppBar-colorPrimary-18"
-    >
-      <div
-        className="MuiToolbar-root-47 MuiToolbar-regular-49 MuiToolbar-gutters-48"
-      >
-        <a
-          href="/"
-          onClick={[Function]}
-        >
-          <h6
-            className="MuiTypography-root-51 MuiTypography-h6-68 MuiTypography-colorInherit-80 MuiTypography-noWrap-77 PrimarySearchAppBar-title-5"
-          >
-            Robinʼs Photos
-          </h6>
-        </a>
-        <div
-          className="PrimarySearchAppBar-search-6"
-        >
-          <div
-            className="PrimarySearchAppBar-searchIcon-7"
-          >
-            <span
-              aria-hidden="true"
-              className="material-icons MuiIcon-root-86"
-            >
-              search
-            </span>
-          </div>
-          <form
-            action="https://google.com/search"
-            method="get"
-          >
-            <div
-              className="MuiInputBase-root-95"
-              onClick={[Function]}
-            >
-              <input
-                className="MuiInputBase-input-105 MuiInputBase-inputType-108"
-                name="q"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                type="hidden"
-                value="site:photos.robinclowers.com"
-              />
-            </div>
-            <div
-              className="MuiInputBase-root-95 PrimarySearchAppBar-inputRoot-9"
-              onClick={[Function]}
-            >
-              <input
-                className="MuiInputBase-input-105 PrimarySearchAppBar-inputInput-10"
-                name="q"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                placeholder="Search"
-                type="text"
-              />
-            </div>
-          </form>
-        </div>
-        <div
-          className="PrimarySearchAppBar-grow-4"
-        />
-        <div>
-          <button
-            aria-haspopup={true}
-            aria-owns={null}
-            className="MuiButtonBase-root-118 MuiIconButton-root-112 MuiIconButton-colorInherit-113"
-            disabled={false}
-            onBlur={[Function]}
-            onClick={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            onMouseDown={[Function]}
-            onMouseLeave={[Function]}
-            onMouseUp={[Function]}
-            onTouchEnd={[Function]}
-            onTouchMove={[Function]}
-            onTouchStart={[Function]}
-            tabIndex="0"
-            type="button"
-          >
-            <span
-              className="MuiIconButton-label-117"
-            >
-              <img
-                alt="profile photo"
-                className="PrimarySearchAppBar-profileImage-8"
-                src="https://graph.facebook.com/v2.3/1368883301/picture"
-              />
-            </span>
-            <span
-              className="MuiTouchRipple-root-237"
-            />
-          </button>
-        </div>
-      </div>
-    </header>
-  </div>,
-  <div
-    style={
-      Object {
-        "padding": 20,
-      }
+<WithStyles(Layout)
+  user={
+    Object {
+      "admin": true,
+      "created_at": "2014-03-06T05:41:09.844Z",
+      "email": "robin.clowers@gmail.com",
+      "id": 1,
+      "name": "Robin Clowers",
+      "profile_photo_url": "https://graph.facebook.com/v2.3/1368883301/picture",
+      "provider": "facebook",
+      "uid": "1368883301",
+      "updated_at": "2014-12-10T20:43:27.883Z",
     }
-  >
-    <div
-      className="MuiGrid-container-127 MuiGrid-spacing-xs-24-151 MuiGrid-justify-xs-center-144"
-    >
-      <div
-        className="MuiGrid-item-128"
-      >
-        <a
-          href="/albums/bogota"
-          onClick={[Function]}
-        >
-          <div
-            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
-          >
-            <div
-              className="AlbumGrid-image-126"
-              style={
-                Object {
-                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/bogota/mobile_sm/P1070612.jpg)",
-                }
-              }
-              title="Photo in the album Bogotá"
-            />
-            <h3
-              className="AlbumGrid-title-125"
-            >
-              Bogotá
-            </h3>
-          </div>
-        </a>
-      </div>
-      <div
-        className="MuiGrid-item-128"
-      >
-        <a
-          href="/albums/medellin"
-          onClick={[Function]}
-        >
-          <div
-            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
-          >
-            <div
-              className="AlbumGrid-image-126"
-              style={
-                Object {
-                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/medellin/mobile_sm/P1070440.jpg)",
-                }
-              }
-              title="Photo in the album Medellin"
-            />
-            <h3
-              className="AlbumGrid-title-125"
-            >
-              Medellin
-            </h3>
-          </div>
-        </a>
-      </div>
-      <div
-        className="MuiGrid-item-128"
-      >
-        <a
-          href="/albums/cartagena"
-          onClick={[Function]}
-        >
-          <div
-            className="MuiPaper-root-20 MuiPaper-elevation2-24 MuiPaper-rounded-21 AlbumGrid-paper-124"
-          >
-            <div
-              className="AlbumGrid-image-126"
-              style={
-                Object {
-                  "backgroundImage": "url(https://s3.amazonaws.com/robin-photos/cartagena/mobile_sm/P1070358.jpg)",
-                }
-              }
-              title="Photo in the album Cartagena"
-            />
-            <h3
-              className="AlbumGrid-title-125"
-            >
-              Cartagena
-            </h3>
-          </div>
-        </a>
-      </div>
-    </div>
-  </div>,
-]
+  }
+>
+  <SideEffect(Head)>
+    <meta
+      content="Robinʼs Photos"
+      property="title"
+    />
+    <meta
+      content="Travel photos from all over the world by Robin Clowers."
+      property="description"
+    />
+    <meta
+      content="Photos by Robin Clowers"
+      property="og:title"
+    />
+    <meta
+      content="Travel photos from all over the world by Robin Clowers."
+      property="og:description"
+    />
+    <meta
+      content="http://localhost:3000"
+      property="og:url"
+    />
+    <meta
+      content="https://s3.amazonaws.com/robin-photos/bogota/original/P1070612.JPG"
+      property="og:image"
+    />
+    <meta
+      content="https://s3.amazonaws.com/robin-photos/bogota/original/P1070612.JPG"
+      property="og:image:secure_url"
+    />
+    <meta
+      content={4896}
+      property="og:image:width"
+    />
+    <meta
+      content={3672}
+      property="og:image:height"
+    />
+  </SideEffect(Head)>
+  <WithStyles(AlbumGrid)
+    albums={
+      Array [
+        Object {
+          "cover_photo": Object {
+            "album_id": 79,
+            "alt": "Photo in the album Bogotá",
+            "aperture_f_number": "4.5",
+            "camera_make": "Panasonic",
+            "camera_model": "DMC-ZS40",
+            "caption": null,
+            "created_at": "2015-07-01T01:03:07.049Z",
+            "exposure_time": "1/250",
+            "filename": "P1070612.JPG",
+            "focal_length": "12.5",
+            "google_id": null,
+            "height": 3672,
+            "id": 10741,
+            "iso_equivalent": 100,
+            "lat": "17056881.853375",
+            "lon": "17056881.853375",
+            "mime_type": "image/jpeg",
+            "path": "bogota",
+            "taken_at": "2015-06-30T12:03:38.000Z",
+            "updated_at": "2018-12-18T13:55:20.029Z",
+            "urls": Object {
+              "desktop": "https://s3.amazonaws.com/robin-photos/bogota/desktop/P1070612.jpg",
+              "laptop": "https://s3.amazonaws.com/robin-photos/bogota/laptop/P1070612.jpg",
+              "mobile_lg": "https://s3.amazonaws.com/robin-photos/bogota/mobile_lg/P1070612.jpg",
+              "mobile_sm": "https://s3.amazonaws.com/robin-photos/bogota/mobile_sm/P1070612.jpg",
+              "original": "https://s3.amazonaws.com/robin-photos/bogota/original/P1070612.JPG",
+              "tablet": "https://s3.amazonaws.com/robin-photos/bogota/tablet/P1070612.jpg",
+            },
+            "versions": Object {
+              "desktop": Object {
+                "created_at": "2018-12-18T13:56:10.279Z",
+                "filename": "P1070612.jpg",
+                "height": 2304,
+                "id": 28756,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "desktop",
+                "updated_at": "2018-12-18T13:56:10.279Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/desktop/P1070612.jpg",
+                "width": 3072,
+              },
+              "laptop": Object {
+                "created_at": "2018-12-18T13:55:59.997Z",
+                "filename": "P1070612.jpg",
+                "height": 1535,
+                "id": 28755,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "laptop",
+                "updated_at": "2018-12-18T13:55:59.997Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/laptop/P1070612.jpg",
+                "width": 2047,
+              },
+              "mobile_lg": Object {
+                "created_at": "2018-12-18T13:55:26.035Z",
+                "filename": "P1070612.jpg",
+                "height": 960,
+                "id": 28753,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "mobile_lg",
+                "updated_at": "2018-12-18T13:55:26.035Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/mobile_lg/P1070612.jpg",
+                "width": 1280,
+              },
+              "mobile_sm": Object {
+                "created_at": "2018-12-18T13:55:22.573Z",
+                "filename": "P1070612.jpg",
+                "height": 480,
+                "id": 28752,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "mobile_sm",
+                "updated_at": "2018-12-18T13:55:22.573Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/mobile_sm/P1070612.jpg",
+                "width": 640,
+              },
+              "original": Object {
+                "created_at": "2018-12-18T13:56:10.295Z",
+                "filename": "P1070612.JPG",
+                "height": 3672,
+                "id": 28757,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "original",
+                "updated_at": "2018-12-18T13:56:10.295Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/original/P1070612.JPG",
+                "width": 4896,
+              },
+              "tablet": Object {
+                "created_at": "2018-12-18T13:55:39.185Z",
+                "filename": "P1070612.jpg",
+                "height": 1152,
+                "id": 28754,
+                "mime_type": "image/jpeg",
+                "photo_id": 10741,
+                "size": "tablet",
+                "updated_at": "2018-12-18T13:55:39.185Z",
+                "url": "https://s3.amazonaws.com/robin-photos/bogota/tablet/P1070612.jpg",
+                "width": 1536,
+              },
+            },
+            "width": 4896,
+          },
+          "cover_photo_id": 10741,
+          "created_at": "2015-07-01T01:03:06.221Z",
+          "id": 79,
+          "published_at": "2015-07-01T01:06:08.908Z",
+          "slug": "bogota",
+          "title": "Bogotá",
+          "updated_at": "2015-07-01T01:06:08.909Z",
+        },
+        Object {
+          "cover_photo": Object {
+            "album_id": 78,
+            "alt": "Photo in the album Medellin",
+            "aperture_f_number": "3.3",
+            "camera_make": "Panasonic",
+            "camera_model": "DMC-ZS40",
+            "caption": null,
+            "created_at": "2015-06-29T14:50:38.277Z",
+            "exposure_time": "1/800",
+            "filename": "P1070440.JPG",
+            "focal_length": "4.3",
+            "google_id": null,
+            "height": 3672,
+            "id": 10632,
+            "iso_equivalent": 100,
+            "lat": "6.24797222",
+            "lon": "-75.62198333",
+            "mime_type": "image/jpeg",
+            "path": "medellin",
+            "taken_at": "2015-06-27T12:46:44.000Z",
+            "updated_at": "2018-12-18T12:51:35.027Z",
+            "urls": Object {
+              "desktop": "https://s3.amazonaws.com/robin-photos/medellin/desktop/P1070440.jpg",
+              "laptop": "https://s3.amazonaws.com/robin-photos/medellin/laptop/P1070440.jpg",
+              "mobile_lg": "https://s3.amazonaws.com/robin-photos/medellin/mobile_lg/P1070440.jpg",
+              "mobile_sm": "https://s3.amazonaws.com/robin-photos/medellin/mobile_sm/P1070440.jpg",
+              "original": "https://s3.amazonaws.com/robin-photos/medellin/original/P1070440.JPG",
+              "tablet": "https://s3.amazonaws.com/robin-photos/medellin/tablet/P1070440.jpg",
+            },
+            "versions": Object {
+              "desktop": Object {
+                "created_at": "2018-12-18T12:52:08.080Z",
+                "filename": "P1070440.jpg",
+                "height": 2304,
+                "id": 28111,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "desktop",
+                "updated_at": "2018-12-18T12:52:08.080Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/desktop/P1070440.jpg",
+                "width": 3072,
+              },
+              "laptop": Object {
+                "created_at": "2018-12-18T12:51:57.162Z",
+                "filename": "P1070440.jpg",
+                "height": 1535,
+                "id": 28110,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "laptop",
+                "updated_at": "2018-12-18T12:51:57.162Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/laptop/P1070440.jpg",
+                "width": 2047,
+              },
+              "mobile_lg": Object {
+                "created_at": "2018-12-18T12:51:41.309Z",
+                "filename": "P1070440.jpg",
+                "height": 960,
+                "id": 28108,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "mobile_lg",
+                "updated_at": "2018-12-18T12:51:41.309Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/mobile_lg/P1070440.jpg",
+                "width": 1280,
+              },
+              "mobile_sm": Object {
+                "created_at": "2018-12-18T12:51:37.673Z",
+                "filename": "P1070440.jpg",
+                "height": 480,
+                "id": 28107,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "mobile_sm",
+                "updated_at": "2018-12-18T12:51:37.673Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/mobile_sm/P1070440.jpg",
+                "width": 640,
+              },
+              "original": Object {
+                "created_at": "2018-12-18T12:52:08.091Z",
+                "filename": "P1070440.JPG",
+                "height": 3672,
+                "id": 28112,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "original",
+                "updated_at": "2018-12-18T12:52:08.091Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/original/P1070440.JPG",
+                "width": 4896,
+              },
+              "tablet": Object {
+                "created_at": "2018-12-18T12:51:45.493Z",
+                "filename": "P1070440.jpg",
+                "height": 1152,
+                "id": 28109,
+                "mime_type": "image/jpeg",
+                "photo_id": 10632,
+                "size": "tablet",
+                "updated_at": "2018-12-18T12:51:45.493Z",
+                "url": "https://s3.amazonaws.com/robin-photos/medellin/tablet/P1070440.jpg",
+                "width": 1536,
+              },
+            },
+            "width": 4896,
+          },
+          "cover_photo_id": 10632,
+          "created_at": "2015-06-29T14:50:37.471Z",
+          "id": 78,
+          "published_at": "2015-06-29T15:04:11.921Z",
+          "slug": "medellin",
+          "title": "Medellin",
+          "updated_at": "2015-06-29T15:04:11.923Z",
+        },
+        Object {
+          "cover_photo": Object {
+            "album_id": 77,
+            "alt": "Photo in the album Cartagena",
+            "aperture_f_number": "4.9",
+            "camera_make": "Panasonic",
+            "camera_model": "DMC-ZS40",
+            "caption": null,
+            "created_at": "2015-06-25T18:03:27.954Z",
+            "exposure_time": "1/320",
+            "filename": "P1070358.JPG",
+            "focal_length": "16.1",
+            "google_id": null,
+            "height": 3672,
+            "id": 10555,
+            "iso_equivalent": 100,
+            "lat": "10.41881944",
+            "lon": "-75.54421389",
+            "mime_type": "image/jpeg",
+            "path": "cartagena",
+            "taken_at": "2015-06-23T12:30:28.000Z",
+            "updated_at": "2018-12-18T16:56:05.597Z",
+            "urls": Object {
+              "desktop": "https://s3.amazonaws.com/robin-photos/cartagena/desktop/P1070358.jpg",
+              "laptop": "https://s3.amazonaws.com/robin-photos/cartagena/laptop/P1070358.jpg",
+              "mobile_lg": "https://s3.amazonaws.com/robin-photos/cartagena/mobile_lg/P1070358.jpg",
+              "mobile_sm": "https://s3.amazonaws.com/robin-photos/cartagena/mobile_sm/P1070358.jpg",
+              "original": "https://s3.amazonaws.com/robin-photos/cartagena/original/P1070358.JPG",
+              "tablet": "https://s3.amazonaws.com/robin-photos/cartagena/tablet/P1070358.jpg",
+            },
+            "versions": Object {
+              "desktop": Object {
+                "created_at": "2018-12-18T16:56:33.744Z",
+                "filename": "P1070358.jpg",
+                "height": 2304,
+                "id": 30022,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "desktop",
+                "updated_at": "2018-12-18T16:56:33.744Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/desktop/P1070358.jpg",
+                "width": 3072,
+              },
+              "laptop": Object {
+                "created_at": "2018-12-18T16:56:22.632Z",
+                "filename": "P1070358.jpg",
+                "height": 1535,
+                "id": 30021,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "laptop",
+                "updated_at": "2018-12-18T16:56:22.632Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/laptop/P1070358.jpg",
+                "width": 2047,
+              },
+              "mobile_lg": Object {
+                "created_at": "2018-12-18T16:56:11.575Z",
+                "filename": "P1070358.jpg",
+                "height": 960,
+                "id": 30019,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "mobile_lg",
+                "updated_at": "2018-12-18T16:56:11.575Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/mobile_lg/P1070358.jpg",
+                "width": 1280,
+              },
+              "mobile_sm": Object {
+                "created_at": "2018-12-18T16:56:08.083Z",
+                "filename": "P1070358.jpg",
+                "height": 480,
+                "id": 30018,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "mobile_sm",
+                "updated_at": "2018-12-18T16:56:08.083Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/mobile_sm/P1070358.jpg",
+                "width": 640,
+              },
+              "original": Object {
+                "created_at": "2018-12-18T16:56:33.757Z",
+                "filename": "P1070358.JPG",
+                "height": 3672,
+                "id": 30023,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "original",
+                "updated_at": "2018-12-18T16:56:33.757Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/original/P1070358.JPG",
+                "width": 4896,
+              },
+              "tablet": Object {
+                "created_at": "2018-12-18T16:56:15.819Z",
+                "filename": "P1070358.jpg",
+                "height": 1152,
+                "id": 30020,
+                "mime_type": "image/jpeg",
+                "photo_id": 10555,
+                "size": "tablet",
+                "updated_at": "2018-12-18T16:56:15.819Z",
+                "url": "https://s3.amazonaws.com/robin-photos/cartagena/tablet/P1070358.jpg",
+                "width": 1536,
+              },
+            },
+            "width": 4896,
+          },
+          "cover_photo_id": 10555,
+          "created_at": "2015-06-25T18:03:27.368Z",
+          "id": 77,
+          "published_at": "2015-06-25T20:19:58.233Z",
+          "slug": "cartagena",
+          "title": "Cartagena",
+          "updated_at": "2015-06-25T20:19:58.235Z",
+        },
+      ]
+    }
+  />
+  <EmailConfirmed
+    dismiss={[Function]}
+    open={false}
+  />
+  <ErrorDialog
+    dismiss={[Function]}
+    open={false}
+  />
+</WithStyles(Layout)>
 `;
