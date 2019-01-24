@@ -1,6 +1,7 @@
 const routes = module.exports = require('next-routes')()
 
 routes.add('index', '/')
+routes.add('favorites', '/favorites')
 routes.add('signIn', '/sign-in', 'sign-in')
 routes.add('signUp', '/sign-up', 'sign-up')
 routes.add('changePassword', '/account/change-password', 'account/change-password')
