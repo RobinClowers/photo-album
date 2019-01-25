@@ -1,7 +1,10 @@
 class Photos::FavoritesController < ApplicationController
   expose(:photos) {
-    ids = Photo.joins(:favorites).group("photos.id").pluck(:id)
-    Photo.includes(:album, :versions, { favorites: :user }).where(id: ids)
+    Photo
+      .joins(:favorites)
+      .group("photos.id")
+      .includes(:album, :versions, { favorites: :user })
+      .order(taken_at: :desc)
   }
 
   def index
