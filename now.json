@@ -20,6 +20,10 @@
       "dest": "/client/photo?slug=$slug&filename=$filename"
     },
     {
+      "src": "/favorites",
+      "dest": "/client/favorites"
+    },
+    {
       "src": "/(.*)",
       "dest": "/client/$1"
     }

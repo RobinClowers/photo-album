@@ -12,7 +12,7 @@ class FavoritesMapper
 
   def map
     {
-      "count" => favorites.count,
+      "count" => favorites.length,
       "names" => favorite_names(favorites),
       "current_user_favorite" => favorites.find { |fav| fav["user_id"] == current_user.id },
     }

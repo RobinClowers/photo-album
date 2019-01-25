@@ -1,5 +1,5 @@
 import { withStyles } from '@material-ui/core/styles'
-import { Link, Router } from 'client/routes'
+import { Link } from 'client/routes'
 import Caption from 'client/components/Caption'
 import FavoriteButton from 'client/components/FavoriteButton'
 
@@ -30,11 +30,8 @@ const styles = theme => ({
   },
 })
 
-const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
+const PhotoGridItem = ({ user, photo, dimensions, handleFavorite, classes }) => {
   const { versions, favorites } = photo
-  const handleFavorite = () => {
-    Router.replaceRoute('album', { slug: albumSlug })
-  }
 
   return (
     <div
@@ -47,7 +44,7 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
       }}>
       <Link
         route='photo'
-        params={{slug: albumSlug, filename: photo.filename}}>
+        params={{slug: photo.albumSlug, filename: photo.filename}}>
         <a className={classes.link} style={{height: dimensions.imageHeight}}>
           <img
             srcSet={Object.keys(versions).map(
@@ -61,7 +58,7 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
               invertColors
               photoId={photo.id}
               favorites={favorites}
-              onSuccess={handleFavorite}
+              onSuccess={handleFavorite(photo.albumSlug)}
               user={user} />
           </div>
         </a>

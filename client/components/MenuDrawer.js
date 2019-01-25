@@ -58,6 +58,14 @@ const MenuDrawer = ({ user, open, close, classes }) => {
             <ListItemText primary="Home" />
           </ListItemLink>
         </Link>
+        <Link route='favorites' passHref>
+          <ListItemLink>
+            <ListItemIcon>
+              <Icon>favorite</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Favorites" />
+          </ListItemLink>
+        </Link>
         {user.admin &&
           <ListItemLink href={adminUrl}>
             <ListItemIcon>

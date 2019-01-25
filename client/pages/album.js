@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Error from 'next/error'
+import { Router } from 'client/routes'
 import Layout from 'client/components/Layout'
 import { withStyles } from '@material-ui/core/styles'
 import Typography from '@material-ui/core/Typography'
@@ -13,6 +14,10 @@ const styles = theme => ({
     textAlign: 'center',
   },
 })
+
+const handleFavorite = slug => () => {
+  Router.replaceRoute('album', { slug })
+}
 
 class Album extends React.Component {
   static async getInitialProps({ req, query }) {
@@ -46,10 +51,7 @@ class Album extends React.Component {
           <Typography className={classes.title} variant="h2" color="inherit">
             {album.title}
           </Typography>
-          <PhotoGrid
-            albumSlug={album.slug}
-            photos={album.photos}
-            user={user} />
+          <PhotoGrid photos={album.photos} user={user} handleFavorite={handleFavorite} />
         </div>
       </Layout>
     )

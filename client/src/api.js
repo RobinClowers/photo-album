@@ -7,6 +7,8 @@ export const getUser = async request => await getJson('/users/current', request)
 
 export const getAlbums = async request => await getJson('/', request)
 
+export const getFavorites = async request => await getJson('/photos/favorites', request)
+
 export const getAlbum = async (slug, request) => await getJson(`/albums/${slug}`, request)
 
 export const getPhoto = async (slug, filename, request) =>

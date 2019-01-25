@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     resources :plus_ones, only: [:create, :destroy], controller: 'photos/plus_ones'
     resources :comments, only: [:create, :destroy], controller: 'photos/comments'
   end
+  namespace :photos do
+    resources :favorites, only: [:index]
+  end
   namespace :admin do
     root 'albums#index'
     post 'error' => 'albums#error', as: 'test_error'
