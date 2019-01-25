@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Popper from '@material-ui/core/Popper'
 import Typography from '@material-ui/core/Typography'
 import { createFavorite, deleteFavorite } from 'client/src/api'
+import FavoritesPopper from 'client/components/FavoritesPopper'
 import TextLink from 'client/components/TextLink'
 
 const styles = theme => ({
@@ -66,6 +67,7 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...optio
       window.removeEventListener('click', handleClick, true)
     }
   })
+
   const containerClasses = classNames({
     [classes.heartContainer]: true,
     [classes.background]: options.invertColors,
@@ -80,7 +82,7 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...optio
   })
 
   return (
-    <div className={containerClasses}>
+    <FavoritesPopper favoriteNames={favorites.names} className={containerClasses}>
       <Typography variant="body2" className={countClasses}>
         {favorites.count}
       </Typography>
@@ -117,7 +119,7 @@ const FavoriteButton = ({ photoId, favorites, user, onSuccess, classes, ...optio
           </Fade>
         )}
       </Popper>
-    </div>
+    </FavoritesPopper>
   )
 }
 

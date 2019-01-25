@@ -23,14 +23,12 @@ class AlbumQuery
   end
 
   def build_album(album)
-    result = album.as_json(include: [
-      {photos: {include: [:comments, {favorites: {include: :user}}]}},
-      :cover_photo,
-    ])
-    result["photos"] = result["photos"].map { |photo|
-      photo["favorites"] = FavoritesMapper.map(photo["favorites"], current_user)
-      photo["albumSlug"] = @album.slug
-      photo
+    result = album.as_json(include: :cover_photo)
+    result["photos"] = album.photos.map { |photo|
+      json = photo.as_json(include: [:comments, {favorites: {include: :user}}])
+      json["favorites"] = FavoritesMapper.map(photo.favorites, current_user)
+      json["albumSlug"] = @album.slug
+      json
     }
     result
   end
