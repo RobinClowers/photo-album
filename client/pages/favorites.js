@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from '@material-ui/core/styles'
+import { Router } from 'client/routes'
 import Layout from 'client/components/Layout'
 import PhotoGrid from 'client/components/PhotoGrid'
 import { getFavorites } from 'client/src/api'
@@ -12,6 +13,10 @@ const styles = theme => ({
     textAlign: 'center',
   },
 })
+
+const handleFavorite = _slug => () => {
+  Router.replaceRoute('favorites')
+}
 
 const Favorites = ({ photos, share_photo, user, pageContext, classes }) => {
   return (
@@ -32,7 +37,7 @@ const Favorites = ({ photos, share_photo, user, pageContext, classes }) => {
         <Typography className={classes.title} variant="h2" color="inherit">
           Favorite Photos
         </Typography>
-        <PhotoGrid photos={photos} user={user} />
+        <PhotoGrid photos={photos} user={user} handleFavorite={handleFavorite} />
       </div>
     </Layout>
   )

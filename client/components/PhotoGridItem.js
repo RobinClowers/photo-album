@@ -1,5 +1,5 @@
 import { withStyles } from '@material-ui/core/styles'
-import { Link, Router } from 'client/routes'
+import { Link } from 'client/routes'
 import Caption from 'client/components/Caption'
 import FavoriteButton from 'client/components/FavoriteButton'
 
@@ -30,11 +30,8 @@ const styles = theme => ({
   },
 })
 
-const PhotoGridItem = ({ user, photo, dimensions, classes }) => {
+const PhotoGridItem = ({ user, photo, dimensions, handleFavorite, classes }) => {
   const { versions, favorites } = photo
-  const handleFavorite = slug => () => {
-    Router.replaceRoute('album', { slug })
-  }
 
   return (
     <div
