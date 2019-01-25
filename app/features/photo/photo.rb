@@ -52,7 +52,7 @@ class Photo < ApplicationRecord
 
   # these methods should be in a presenter
   def alt
-    caption || "Photo in the album #{album.title}"
+    caption || (album && "Photo in the album #{album.title}")
   end
 
   def serializable_hash(options = {})
