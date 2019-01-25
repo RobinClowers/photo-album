@@ -46,7 +46,7 @@ const buildGrid = (photos, windowWidth) => {
   ))
 }
 
-const PhotoGrid = ({ photos, albumSlug, user, classes }) => {
+const PhotoGrid = ({ photos, user, classes }) => {
   const [isClient, updateIsClient] = useState(false)
   useEffect(() => {
     updateIsClient(true)
@@ -67,12 +67,12 @@ const PhotoGrid = ({ photos, albumSlug, user, classes }) => {
     <div className={classes.container}>
       {isClient ?
         buildGrid(photos, windowWidth).map(item => (
-          <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
+          <PhotoGridItem {...item} user={user} key={item.photo.id} />
         ))
       :
         <div style={{display: 'none'}}>
           {buildGrid(photos, 1060).map(item => (
-            <PhotoGridItem {...item} user={user} albumSlug={albumSlug} key={item.photo.id} />
+            <PhotoGridItem {...item} user={user} key={item.photo.id} />
           ))}
         </div>
       }

@@ -30,10 +30,10 @@ const styles = theme => ({
   },
 })
 
-const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
+const PhotoGridItem = ({ user, photo, dimensions, classes }) => {
   const { versions, favorites } = photo
-  const handleFavorite = () => {
-    Router.replaceRoute('album', { slug: albumSlug })
+  const handleFavorite = slug => () => {
+    Router.replaceRoute('album', { slug })
   }
 
   return (
@@ -47,7 +47,7 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
       }}>
       <Link
         route='photo'
-        params={{slug: albumSlug, filename: photo.filename}}>
+        params={{slug: photo.albumSlug, filename: photo.filename}}>
         <a className={classes.link} style={{height: dimensions.imageHeight}}>
           <img
             srcSet={Object.keys(versions).map(
@@ -61,7 +61,7 @@ const PhotoGridItem = ({ albumSlug, user, photo, dimensions, classes }) => {
               invertColors
               photoId={photo.id}
               favorites={favorites}
-              onSuccess={handleFavorite}
+              onSuccess={handleFavorite(photo.albumSlug)}
               user={user} />
           </div>
         </a>

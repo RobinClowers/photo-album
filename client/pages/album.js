@@ -46,10 +46,7 @@ class Album extends React.Component {
           <Typography className={classes.title} variant="h2" color="inherit">
             {album.title}
           </Typography>
-          <PhotoGrid
-            albumSlug={album.slug}
-            photos={album.photos}
-            user={user} />
+          <PhotoGrid photos={album.photos} user={user} />
         </div>
       </Layout>
     )

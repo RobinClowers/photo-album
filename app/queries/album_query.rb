@@ -29,6 +29,7 @@ class AlbumQuery
     ])
     result["photos"] = result["photos"].map { |photo|
       photo["favorites"] = FavoritesMapper.map(photo["favorites"], current_user)
+      photo["albumSlug"] = @album.slug
       photo
     }
     result

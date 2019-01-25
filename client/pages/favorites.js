@@ -1,8 +1,17 @@
 import Head from 'next/head'
 import Typography from '@material-ui/core/Typography'
+import { withStyles } from '@material-ui/core/styles'
 import Layout from 'client/components/Layout'
 import PhotoGrid from 'client/components/PhotoGrid'
 import { getFavorites } from 'client/src/api'
+
+const styles = theme => ({
+  title: {
+    padding: theme.spacing.unit,
+    margin: theme.spacing.unit,
+    textAlign: 'center',
+  },
+})
 
 const Favorites = ({ photos, share_photo, user, pageContext, classes }) => {
   return (
@@ -23,10 +32,7 @@ const Favorites = ({ photos, share_photo, user, pageContext, classes }) => {
         <Typography className={classes.title} variant="h2" color="inherit">
           Favorite Photos
         </Typography>
-        <PhotoGrid
-          albumSlug="test"
-          photos={photos}
-          user={user} />
+        <PhotoGrid photos={photos} user={user} />
       </div>
     </Layout>
   )
@@ -35,4 +41,4 @@ const Favorites = ({ photos, share_photo, user, pageContext, classes }) => {
 Favorites.getInitialProps = async ({ req }) => await getFavorites(req)
 
 
-export default Favorites
+export default withStyles(styles)(Favorites)

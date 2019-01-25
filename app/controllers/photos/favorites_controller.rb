@@ -6,7 +6,8 @@ class Photos::FavoritesController < ApplicationController
     render json: {
       photos: photos.map { |photo|
         photo.as_json.merge({
-          favorites: {
+          "albumSlug" => photo.album.slug,
+          "favorites" => {
             "count" => 0,
             "names" => [],
             "current_user_favorite" => nil
