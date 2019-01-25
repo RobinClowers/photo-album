@@ -1,5 +1,8 @@
 class Photos::FavoritesController < ApplicationController
-  expose(:photos) { Photo.includes(:album, :versions).joins(:favorites).group("photos.id") }
+  expose(:photos) {
+    ids = Photo.joins(:favorites).group("photos.id").pluck(:id)
+    Photo.includes(:album, :versions, { favorites: :user }).where(id: ids)
+  }
 
   def index
     share_photo = photos.first || Photo::Nil.instance
@@ -7,11 +10,7 @@ class Photos::FavoritesController < ApplicationController
       photos: photos.map { |photo|
         photo.as_json.merge({
           "albumSlug" => photo.album.slug,
-          "favorites" => {
-            "count" => 0,
-            "names" => [],
-            "current_user_favorite" => nil
-          }
+          "favorites" => FavoritesMapper.map(photo.favorites, current_user),
         })
       },
       share_photo: {
