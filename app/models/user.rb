@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   attribute :profile_photo_url
 
-  validates :provider, presence: true
+  validates :provider, :name, presence: true
 
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

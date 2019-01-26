@@ -16,6 +16,7 @@ describe User do
   def create_user(attributes)
     attributes.reverse_merge!(
       provider: 'email',
+      name: 'User Person',
       password: 'password',
       password_confirmation: 'password'
     )
