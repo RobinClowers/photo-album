@@ -44,7 +44,7 @@ class GooglePhotos::Importer
       photo = Photo.find_by_filename(item["scrubbed_filename"])
       photo.update_attributes(caption: item["description"])
     end
-    set_cover_photo(album, items, album_data["coverPhotoMediaItemId"])
+    set_cover_photo(album, album_data["coverPhotoMediaItemId"])
     album.update_first_photo_taken_at!
     FileUtils.rm_rf(tmp_dir)
   end
@@ -121,10 +121,9 @@ class GooglePhotos::Importer
 
   def create_photo(media_item, filename)
     meta = media_item["mediaMetadata"]
-    Photo.create!(
+    album.photos.create!(
       filename: filename,
       path: album.slug,
-      album_id: album.id,
       caption: media_item["description"],
       mime_type: media_item["mimeType"],
       google_id: media_item["id"],
@@ -141,11 +140,15 @@ class GooglePhotos::Importer
     logger.warn("Photo #{filename} already exists")
   end
 
-  def set_cover_photo(album, items, cover_photo_id)
+  def set_cover_photo(album, cover_photo_id)
     return unless cover_photo_id
-    cover_photo = album.photos.where(google_id: cover_photo_id).first
-    logger.info("Setting cover photo #{cover_photo.filename}")
-    album.update_attributes!(cover_photo: cover_photo)
+    cover_photo = album.photos.find_by_google_id(cover_photo_id)
+    if cover_photo
+      logger.info("Setting cover photo #{cover_photo.filename}")
+      album.update_attributes!(cover_photo: cover_photo)
+    else
+      logger.warn("cover photo not found with ID: #{cover_photo_id}")
+    end
   end
 
   def api
