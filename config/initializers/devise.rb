@@ -261,7 +261,11 @@ Devise.setup do |config|
     ENV['FACEBOOK_APP_ID'],
     ENV['FACEBOOK_APP_SECRET'],
     scope: 'email',
-    info_fields: 'email'
+    info_fields: 'email',
+    client_options: {
+      site: 'https://graph.facebook.com/v3.2',
+      authorize_url: "https://www.facebook.com/v3.2/dialog/oauth"
+    }
   )
   # Because we are using Cloudflare flexible SSL, requests are not ssl by the time they
   # reach the rails app. Therefore omniauth won't use an https callback url unless we
