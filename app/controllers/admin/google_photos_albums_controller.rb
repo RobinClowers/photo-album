@@ -10,10 +10,10 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
     end
     unless filename.blank?
       ReprocessGooglePhotoWorker.perform_async(google_authorization.id, google_id, filename, force)
-      redirect_to admin_root_path, notice: "Reprocessing queued"
+      render json: { notice: "Reprocessing queued" }
     else
       ImportGoogleAlbumWorker.perform_async(google_authorization.id, google_id, force)
-      redirect_to admin_root_path, notice: "Album imported queued"
+      render json: { notice: "Album imported queued" }
     end
   end
 

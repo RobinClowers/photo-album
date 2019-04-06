@@ -6,13 +6,14 @@
     header
       h1 Google Photos Albums
 
-    section
+    section data-confirmation=true
+      .messages
       - albums.each do |album|
         ul.simple-list
           li
             img src=album["coverPhotoBaseUrl"] height="380"
             h3= album["title"]
-            = form_for new_album, url: admin_google_photos_albums_path do |f|
+            = form_for new_album, remote: true, url: admin_google_photos_albums_path do |f|
               = f.hidden_field :id, value: album["id"]
               ol
                 li
