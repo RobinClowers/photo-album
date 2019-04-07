@@ -12,12 +12,16 @@ class Admin::GooglePhotosAlbumsController < Admin::ApplicationController
       ReprocessGooglePhotoWorker.perform_async(google_authorization.id, google_id, filename, force)
       render json: { notice: "Reprocessing queued" }
     else
-      ImportGoogleAlbumWorker.perform_async(google_authorization.id, google_id, force)
+      ImportGoogleAlbumWorker.perform_async(google_authorization.id, google_id, title, force)
       render json: { notice: "Album imported queued" }
     end
   end
 
   private
+
+  def title
+    params.require(:album)[:title]
+  end
 
   def google_id
     @google_id ||= params.require(:album)[:id]
