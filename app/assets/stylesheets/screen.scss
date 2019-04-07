@@ -1,3 +1,5 @@
+@import 'animation';
+
 .simple-list {
   li {
     vertical-align: top;
@@ -22,6 +24,10 @@
   color: red;
 }
 
+.notice, .error {
+  padding: 3px;
+}
+
 .messages {
   position: fixed;
   width: 100%;
@@ -30,14 +36,16 @@
 }
 
 .messages .notice {
-  padding: 3px;
   background-color: #90EE90;
 }
 
 .messages .error {
-  padding: 3px;
   background-color: #FF6060;
   color: black;
+}
+
+.fade-out {
+  @include animation('slide-down 2s 3');
 }
 
 .small-text {
