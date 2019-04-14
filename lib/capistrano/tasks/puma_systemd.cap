@@ -1,0 +1,13 @@
+namespace :deploy do
+  before :published, :puma_systemd
+  desc 'Puma systemd integration'
+  task :puma_systemd do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      within shared_path do
+        execute "sudo cp #{shared_path}/config/puma.service /etc/systemd/system/puma.service"
+        execute "sudo systemctl daemon-reload"
+        execute "sudo systemctl restart puma"
+      end
+    end
+  end
+end
