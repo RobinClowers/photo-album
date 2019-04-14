@@ -9,6 +9,7 @@ set :sidekiq_roles, [:sidekiq_utility, :sidekiq_web]
 set :sidekiq_web_queue, :web
 set :sidekiq_utility_queue, :utility
 set :sidekiq_concurrency, 1
+set :init_system, :systemd
 set :conditionally_migrate, true
 
 # Default is true, false is useful for debugging
