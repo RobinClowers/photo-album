@@ -42,6 +42,7 @@ gem 'image_optim'
 gem 'image_optim_pack'
 gem 'attr_encrypted', '~> 3.1.0'
 gem 'active_interaction', '~> 3.6'
+gem "sentry-raven"
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.7.1'
