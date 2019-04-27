@@ -18,6 +18,6 @@ class ExifReader
   end
 
   def self.to_date(string)
-    DateTime.strptime(string, "%Y:%m:%d %H:%M:%S")
+    DateTime.strptime(string, "%Y:%m:%d %H:%M:%S") if string
   end
 end
