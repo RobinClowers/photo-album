@@ -261,7 +261,7 @@ Devise.setup do |config|
     ENV['FACEBOOK_APP_ID'],
     ENV['FACEBOOK_APP_SECRET'],
     scope: 'email',
-    info_fields: 'email',
+    info_fields: 'name,email',
     client_options: {
       site: 'https://graph.facebook.com/v3.2',
       authorize_url: "https://www.facebook.com/v3.2/dialog/oauth"
