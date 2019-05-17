@@ -16,7 +16,7 @@ exports[`index page matches snapshot 1`] = `
     }
   }
 >
-  <SideEffect(Head)>
+  <Head>
     <meta
       content="Robinʼs Photos"
       property="title"
@@ -53,7 +53,7 @@ exports[`index page matches snapshot 1`] = `
       content={3672}
       property="og:image:height"
     />
-  </SideEffect(Head)>
+  </Head>
   <WithStyles(AlbumGrid)
     albums={
       Array [
