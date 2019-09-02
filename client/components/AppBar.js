@@ -63,6 +63,7 @@ const styles = theme => ({
     height: 24,
     width: 24,
     borderRadius: 24,
+    fontSize: 12,
   },
   inputRoot: {
     color: 'inherit',
