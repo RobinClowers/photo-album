@@ -4,7 +4,7 @@ class GooglePhotos::GeoImporter
   attr_accessor :path, :logger
 
   def initialize(path, logger = Rails.logger)
-    @path = path
+    @path = File.realpath(File.expand_path(path))
     @logger = logger
   end
 
@@ -16,9 +16,10 @@ class GooglePhotos::GeoImporter
   end
 
   def set_geo_data(photo_metadata, force: false)
-    photo = Photo.find_by_filename(photo_metadata["title"])
+    title = photo_metadata["title"] or return
+    photo = Photo.find_by_filename(title)
     unless photo
-      @logger.warn("photo #{photo_metadata["title"]} not found")
+      @logger.warn("photo #{title} not found")
       return
     end
 
