@@ -69,7 +69,7 @@ gem 'bootsnap', '>= 1.3.2', require: false
 # Use Omiauth for social sign in
 gem 'omniauth', '~> 1.8.1'
 gem 'omniauth-facebook', '~> 4.0.0'
-gem 'devise', '~> 4.6.0'
+gem 'devise', '~> 4.7.1'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.10.1'
