@@ -225,7 +225,7 @@ GEM
       byebug (~> 2.7)
       pry (~> 0.9.12)
     public_suffix (3.0.2)
-    puma (3.11.3)
+    puma (3.12.2)
     rack (2.0.7)
     rack-cors (1.0.5)
       rack (>= 1.6.0)
@@ -385,7 +385,7 @@ DEPENDENCIES
   pg (~> 1.0.0)
   pry
   pry-byebug
-  puma (~> 3.11.3)
+  puma (~> 3.12.2)
   rack-cors (~> 1.0.5)
   rails (~> 5.2.2.1)
   rails-html-sanitizer (~> 1.0.4)
