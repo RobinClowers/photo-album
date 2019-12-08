@@ -16,7 +16,6 @@ set :conditionally_migrate, true
 # set :format_options, truncate: false
 
 set :default_env, {
-  'PATH' => '/opt/rubies/ruby-2.3.3/bin:$PATH',
   'MALLOC_ARENA_MAX' => 2,
 }
 
