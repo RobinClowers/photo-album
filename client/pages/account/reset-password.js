@@ -97,8 +97,8 @@ class ResetPassword extends React.Component {
                 label="Confirm new password"
                 margin="normal"
                 onChange={this.handleChange('password_confirmation')}
-                type="password_confirmation"
-                value={this.state.password}
+                value={this.state.password_confirmation}
+                type="password"
                 variant="outlined" />
               <Grid container justify="flex-end">
                 <Button color="primary" variant="contained" type="submit">
