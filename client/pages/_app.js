@@ -1,5 +1,5 @@
 import React from 'react'
-import App, { Container } from 'next/app'
+import App from 'next/app'
 import Head from 'next/head'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -50,7 +50,7 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
     return (
-      <Container>
+      <>
         <Head>
           <title>Robinʼs Photos</title>
         </Head>
@@ -72,7 +72,7 @@ class MyApp extends App {
             <Component pageContext={this.pageContext} {...pageProps} />
           </MuiThemeProvider>
         </JssProvider>
-      </Container>
+      </>
     )
   }
 }
