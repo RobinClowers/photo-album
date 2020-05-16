@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "dev": "NODE_ENV=development node server.js",
     "now-build": "next build",
