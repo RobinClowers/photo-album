@@ -77,10 +77,7 @@ class FullScreenPhoto extends React.Component {
   }
 
   showPhoto() {
-    if (!this.state.isClient || !this.state.showImage) {
-      return { display: 'none', }
-    }
-    return { display: 'block', }
+    return this.state.isClient && this.state.showImage
   }
 
   heightRatio(topOffset) {
@@ -99,15 +96,14 @@ class FullScreenPhoto extends React.Component {
       <div
         className={classes.imageContainer}
         style={{ ...this.calculateImageDimensions() }}>
-        <img
-          style={{ ...this.showPhoto() }}
+        {this.showPhoto() && <img
           className={classes.image}
           ref={this.image}
           src={photo.urls.original}
           srcSet={Object.keys(versions).map(
             key => `${versions[key].url} ${versions[key].width}w`
           ).join(', ')}
-          alt={photo.alt} />
+          alt={photo.alt} />}
       </div>
     )
   }
