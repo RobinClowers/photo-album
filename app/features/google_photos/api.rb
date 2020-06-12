@@ -47,6 +47,7 @@ class GooglePhotos::Api
   end
 
   def refresh_token(google_auth)
+    google_auth.delete and return unless google_auth.refresh_token
     token = GooglePhotos::AuthorizationGateway.new.refresh_token({
       scope: google_auth.scope,
       token_type: google_auth.token_type,
@@ -67,10 +68,11 @@ class GooglePhotos::Api
     retries = 0
     begin
       yield
-    rescue GoogleAuthenticationError
+    rescue GoogleAuthenticationError => e
       if retries < 1
         Rails.logger.warn("GoogleAuthenticationError, refreshing token and retrying")
-        refresh_token(google_auth)
+        Rails.logger.warn(e.inspect)
+        raise unless refresh_token(google_auth)
         retries += 1
         retry
       else
