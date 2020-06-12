@@ -67,9 +67,10 @@ class GooglePhotos::Api
     retries = 0
     begin
       yield
-    rescue GoogleAuthenticationError
+    rescue GoogleAuthenticationError => e
       if retries < 1
         Rails.logger.warn("GoogleAuthenticationError, refreshing token and retrying")
+        Rails.logger.warn(e.inspect)
         refresh_token(google_auth)
         retries += 1
         retry
