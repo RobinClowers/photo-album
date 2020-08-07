@@ -10,19 +10,14 @@ class Albums
   private
 
   def top_level_branches
-    bucket.as_tree.children.select(&:branch?).map(&:prefix)
-      .map { |prefix| prefix.gsub('/', '') }
+    bucket.objects.map { |o| o.key.sub(/\/.*/, '') }.uniq
   end
 
   def local_folders
     Pathname.new("public/photos/").children.map(&:basename)
   end
 
-  def s3
-    @s3 ||= AWS::S3.new
-  end
-
   def bucket
-    @bucket ||= s3.buckets[Rails.application.config.bucket_name]
+    @bucket ||= Aws::S3::Bucket.new(Rails.application.config.bucket_name)
   end
 end
