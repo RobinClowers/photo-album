@@ -27,7 +27,7 @@ gem 'rmagick'
 # For #to_url method
 gem 'stringex'
 gem 'dotenv-rails', '~> 2.5.0'
-gem 'aws-sdk', '~> 1.53.0'
+gem 'aws-sdk-s3', '~> 1'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
 gem 'exception_notification', '~> 4.3.0'
