@@ -253,25 +253,6 @@ Devise.setup do |config|
   # The default HTTP method used to sign out a resource. Default is :delete.
   config.sign_out_via = :delete
 
-  # ==> OmniAuth
-  # Add a new OmniAuth provider. Check the wiki for more information on setting
-  # up on your models and hooks.
-  config.omniauth(
-    :facebook,
-    ENV['FACEBOOK_APP_ID'],
-    ENV['FACEBOOK_APP_SECRET'],
-    scope: 'email',
-    info_fields: 'name,email',
-    client_options: {
-      site: 'https://graph.facebook.com/v3.2',
-      authorize_url: "https://www.facebook.com/v3.2/dialog/oauth"
-    }
-  )
-  # Because we are using Cloudflare flexible SSL, requests are not ssl by the time they
-  # reach the rails app. Therefore omniauth won't use an https callback url unless we
-  # override this config value.
-  OmniAuth.config.full_host = ENV.fetch("BACKEND_FULL_HOST")
-
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

@@ -18,16 +18,6 @@ const initializeGoogleAnalytics = () => {
   ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
-const removeFacebookLoginHash = () => {
-  if (window.location.hash && window.location.hash == '#_=_') {
-    if (history.replaceState) {
-      history.replaceState(null, null, window.location.href.split('#')[0])
-    } else {
-      window.location.hash = ''
-    }
-  }
-}
-
 class MyApp extends App {
   constructor(props) {
     super(props)
@@ -35,7 +25,6 @@ class MyApp extends App {
   }
 
   componentDidMount() {
-    removeFacebookLoginHash()
     // Make the CSRF token available
     document.cookie = `csrfToken=${this.props.pageProps.csrfToken}`
     setReturnUrl(window.location.href)
