@@ -47,9 +47,6 @@ html
             a Hello #{current_user.name}
           li
             = link_to("Sign out", destroy_user_session_path, :method => :delete)
-        - else
-          li
-            = link_to "Sign in with Facebook", "/users/auth/facebook"
     #main
       #content.main-background
         == yield
