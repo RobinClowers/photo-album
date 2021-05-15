@@ -41,7 +41,10 @@ set :linked_dirs, %w{log tmp/cache tmp/sockets tmp/pids}
 set :linked_files, %w{.env}
 
 # Default value for default_env is {}
-# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :default_env, {
+  PATH: '/home/deploy/.rbenv/shims:$PATH',
+  RBENV_SHELL: 'sh',
+}
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
