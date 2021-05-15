@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.5.1'
+ruby '2.7.3'
 
 gem 'rails', '~> 5.2.4.3'
 gem 'responders', '~> 2.4.0'
@@ -58,7 +58,7 @@ group :production do
 end
 
 # Use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '~> 3.1.1'
+gem 'bcrypt', '~> 3.1.16'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.3.2', require: false
