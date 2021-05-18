@@ -70,10 +70,10 @@ gem 'devise', '~> 4.7.1'
 
 # Use Capistrano for deployment
 gem 'capistrano', '~> 3.10.1'
-gem 'capistrano3-puma', '~> 3.1.1'
+gem 'capistrano3-puma', '~> 5.0.4'
 gem 'capistrano-bundler', '~> 1.3.0'
 gem 'capistrano-rails', '~> 1.3.1'
 gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role-v1.0.2'
 
 # Use Puma server
-gem 'puma', '~> 3.12.6'
+gem 'puma', '~> 5.3.1'
