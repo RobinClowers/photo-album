@@ -93,7 +93,7 @@ class SignIn extends React.Component {
             </form>
             <Section centered>
               <Typography variant="body2">
-                Or, if havenʼt signed up yet
+                Or, if you havenʼt signed up yet
               </Typography>
             </Section>
             <Section centered fullWidth>
