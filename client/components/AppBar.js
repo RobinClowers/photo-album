@@ -155,12 +155,11 @@ const PrimarySearchAppBar = ({ user, openDrawer, classes }) => {
                             <MenuItem component="a" href={adminUrl}>
                               Admin
                             </MenuItem>}
-                          {user.provider === 'email' &&
                             <Link route='changePassword'>
                               <MenuItem component="a">
                                 Change Password
                               </MenuItem>
-                            </Link>}
+                            </Link>
                           <MenuItem component="a" onClick={handleSignOut}>Sign Out</MenuItem>
                         </React.Fragment>}
                       {!user || !user.id &&
