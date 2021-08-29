@@ -27,7 +27,7 @@ class MyApp extends App {
   componentDidMount() {
     // Make the CSRF token available
     document.cookie = `csrfToken=${this.props.pageProps.csrfToken}`
-    setReturnUrl(window.location.href)
+    setReturnUrl(window.location.pathname)
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')
     if (jssStyles && jssStyles.parentNode) {

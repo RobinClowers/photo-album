@@ -22,7 +22,7 @@ Router.onRouteChangeStart = _path => {
 
 Router.onRouteChangeComplete = _path => {
   eachSubscriber(callback => callback(false))
-  setReturnUrl(global.location.href)
+  setReturnUrl(global.location.pathname)
   ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
