@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography'
 import Layout from 'client/components/Layout'
 import Section from 'client/components/Section'
 import NarrowPaper from 'client/components/NarrowPaper'
-import FacebookLoginButton from 'client/components/FacebookLoginButton'
 import { Link } from 'client/routes'
 import { getReturnUrl } from 'client/src/urls'
 import { getUser, signIn } from 'client/src/api'
@@ -56,14 +55,6 @@ class SignIn extends React.Component {
               <Section>
                 <Typography variant="h4" gutterBottom>Sign In</Typography>
               </Section>
-              <Section centered fullWidth>
-                <FacebookLoginButton />
-              </Section>
-              <Section centered>
-                <Typography variant="body2">
-                  Or
-                </Typography>
-              </Section>
               <Section>
                 <TextField
                   autoComplete="email"
@@ -102,7 +93,7 @@ class SignIn extends React.Component {
             </form>
             <Section centered>
               <Typography variant="body2">
-                Or, if havenʼt signed up yet
+                Or, if you havenʼt signed up yet
               </Typography>
             </Section>
             <Section centered fullWidth>
