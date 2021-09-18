@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-unfetch'
-import cookie from 'cookie'
+import { csrfToken } from 'client/src/cookies'
 
 const apiRoot = process.env.API_ROOT
 
@@ -27,7 +27,7 @@ const getJson = async (path, request = {}) => {
   return { ...data, csrfToken: csrfTokenFromHeader(response) }
 }
 
-const csrfTokenFromHeader = response => {
+export const csrfTokenFromHeader = response => {
   if (response && response.headers) {
     return response.headers.get('x-csrf-token')
   }
@@ -120,5 +120,3 @@ const defaultOptions = () => ({
     'X-CSRF-Token': csrfToken(),
   },
 })
-
-const csrfToken = () => cookie.parse(document.cookie)['csrfToken']

@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import JssProvider from 'react-jss/lib/JssProvider'
 import getPageContext from 'client/src/getPageContext'
 import { setReturnUrl } from 'client/src/urls'
+import { setCsrfCookie } from 'client/src/cookies'
 import ReactGA from 'react-ga'
 
 
@@ -26,7 +27,7 @@ class MyApp extends App {
 
   componentDidMount() {
     // Make the CSRF token available
-    document.cookie = `csrfToken=${this.props.pageProps.csrfToken};path=/`
+    setCsrfCookie(this.props.pageProps.csrfToken)
     setReturnUrl(window.location.pathname)
     // Remove the server-side injected CSS.
     const jssStyles = document.querySelector('#jss-server-side')

@@ -11,7 +11,8 @@ import Section from 'client/components/Section'
 import NarrowPaper from 'client/components/NarrowPaper'
 import { Link } from 'client/routes'
 import { getReturnUrl } from 'client/src/urls'
-import { getUser, signIn } from 'client/src/api'
+import { setCsrfCookie } from 'client/src/cookies'
+import { getUser, signIn, csrfTokenFromHeader } from 'client/src/api'
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -38,6 +39,9 @@ class SignIn extends React.Component {
       this.state.password,
     )
     if (response.ok) {
+      const data = await response.json()
+      const csrfToken = csrfTokenFromHeader(response)
+      setCsrfCookie(csrfToken)
       Router.push(getReturnUrl())
     } else {
       const body = await response.json()
