@@ -24,7 +24,7 @@ const getJson = async (path, request = {}) => {
     },
   })
   const data = await response.json()
-  return { ...data, csrfToken: csrfTokenFromHeader(response) }
+  return { ...data, status: response.status, csrfToken: csrfTokenFromHeader(response) }
 }
 
 export const csrfTokenFromHeader = response => {

@@ -27,10 +27,10 @@ class Album extends React.Component {
   }
 
   render() {
-    const { classes, user, album, share_photo, error } = this.props
+    const { classes, user, album, share_photo, status, error } = this.props
 
     if (error) {
-      return <Error statusCode={500} />
+      return <Error statusCode={status} />
     }
 
     return (
