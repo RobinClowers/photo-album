@@ -12,7 +12,7 @@ class User < ApplicationRecord
 
   def profile_photo_url
     gravatar = Digest::MD5::hexdigest(email.strip.downcase)
-    "http://gravatar.com/avatar/#{gravatar}"
+    "https://gravatar.com/avatar/#{gravatar}"
   end
 
   class NullUser < User
