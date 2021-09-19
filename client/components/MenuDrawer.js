@@ -29,9 +29,9 @@ const styles = theme => ({
   },
 })
 
-const ListItemLink = props => (
-  <ListItem button component="a" {...props} />
-)
+const ListItemLink = React.forwardRef((props, ref) => (
+  <ListItem ref={ref} button component="a" {...props} />
+))
 
 const MenuDrawer = ({ user, open, close, classes }) => {
   return (

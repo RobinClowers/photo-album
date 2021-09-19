@@ -8,14 +8,14 @@ const styles = (theme => ({
   },
 }))
 
-const TextLink = ({children, classes, ...linkProps}) => {
+const TextLink = React.forwardRef(({children, classes, ...linkProps}, ref) => {
   return (
-    <Link  {...linkProps}>
-      <a className={classes.link}>
+    <Link {...linkProps}>
+      <a ref={ref} className={classes.link}>
         {children}
       </a>
     </Link>
   )
-}
+})
 
 export default withStyles(styles)(TextLink)
