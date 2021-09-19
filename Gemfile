@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.7.3'
 
-gem 'rails', '~> 5.2.4.3'
+gem 'rails', '~> 5.2.6'
 gem 'responders', '~> 2.4.0'
 gem 'rack-cors', '~> 1.0.5'
 
