@@ -55,7 +55,7 @@ class GooglePhotos::Api
       access_token: google_auth.access_token,
       refresh_token: google_auth.refresh_token,
     })
-    google_auth.update_attributes!(
+    google_auth.update!(
       scope: token[:scope],
       token_type: token[:token_type],
       expires_at: Time.at(token[:expires_at]),

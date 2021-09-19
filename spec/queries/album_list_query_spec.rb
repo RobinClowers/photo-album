@@ -11,7 +11,7 @@ RSpec.describe AlbumListQuery do
 
   before do
     Timecop.freeze(current_time)
-    photo.update_attributes!(album: album)
+    photo.update!(album: album)
     version
   end
 
@@ -21,7 +21,7 @@ RSpec.describe AlbumListQuery do
 
   describe "#as_json" do
     it "album with cover photo" do
-      album.update_attributes(cover_photo: photo)
+      album.update(cover_photo: photo)
       album_list = AlbumListQuery.new(current_user: user)
       expect(album_list.as_json).to eq({
         user: user,

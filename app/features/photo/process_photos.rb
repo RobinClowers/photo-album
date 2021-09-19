@@ -30,7 +30,7 @@ class ProcessPhotos
       album_photos.download_original(filename, tmp_dir)
       photo = album.photos.find_by_filename!(filename)
       exif_data = ExifReader.extract_photo_model_data(File.join(tmp_dir, filename))
-      photo.update_attributes!(exif_data)
+      photo.update!(exif_data)
       processor.process(
         filename,
         sizes: sizes,

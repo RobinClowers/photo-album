@@ -4,7 +4,7 @@ class Album < ApplicationRecord
 
   before_create :generate_slug
 
-  scope :active, -> { where.not(published_at: nil, cover_photo_id: nil) }
+  scope :active, -> { where.not(published_at: nil).where.not(cover_photo_id: nil) }
   scope :unpublished, -> { where(published_at: nil) }
 
   attr_accessor :google_id
@@ -34,7 +34,7 @@ class Album < ApplicationRecord
   end
 
   def update_cover_photo!(filename)
-    update_attributes!(cover_photo: photos.find_by_filename(filename))
+    update!(cover_photo: photos.find_by_filename(filename))
   end
 
   def cover_photo
@@ -43,6 +43,6 @@ class Album < ApplicationRecord
   end
 
   def publish!
-    update_attributes!(published_at: Time.current)
+    update!(published_at: Time.current)
   end
 end

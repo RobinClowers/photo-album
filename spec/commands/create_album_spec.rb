@@ -9,7 +9,7 @@ RSpec.describe CreateAlbum do
     before do
       allow(AlbumCreator).to receive(:new) { album_creator }
       allow(album_creator).to receive(:insert_all_photos) {
-        photo.update_attributes(album_id: album.id)
+        photo.update(album_id: album.id)
       }
       @result = CreateAlbum.run(slug: "test-slug", title: "Test", cover_photo_filename: photo.filename)
     end
@@ -39,7 +39,7 @@ RSpec.describe CreateAlbum do
     before do
       allow(AlbumCreator).to receive(:new) { album_creator }
       allow(album_creator).to receive(:insert_all_photos) {
-        photo.update_attributes(album_id: album.id)
+        photo.update(album_id: album.id)
       }
       @result = CreateAlbum.run({})
     end

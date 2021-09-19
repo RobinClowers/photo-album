@@ -2,7 +2,7 @@ class Admin::PhotosController < Admin::ApplicationController
   expose(:photo) { Photo.find(params[:id]) }
 
   def update
-    if photo.update_attributes(photo_attributes)
+    if photo.update(photo_attributes)
       head :ok
     else
       render json: { errors: photo.errors.full_messages }, status: :unprocessable_entity

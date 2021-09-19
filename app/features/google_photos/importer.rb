@@ -42,7 +42,7 @@ class GooglePhotos::Importer
     logger.info("Updating attribues on #{existing.count} photos")
     existing.each do |item|
       photo = Photo.find_by_filename(item["scrubbed_filename"])
-      photo.update_attributes(caption: item["description"])
+      photo.update(caption: item["description"])
     end
     set_cover_photo(album, album_data["coverPhotoMediaItemId"])
     album.update_first_photo_taken_at!
@@ -145,7 +145,7 @@ class GooglePhotos::Importer
     cover_photo = album.photos.find_by_google_id(cover_photo_id)
     if cover_photo
       logger.info("Setting cover photo #{cover_photo.filename}")
-      album.update_attributes!(cover_photo: cover_photo)
+      album.update!(cover_photo: cover_photo)
     else
       logger.warn("cover photo not found with ID: #{cover_photo_id}")
     end

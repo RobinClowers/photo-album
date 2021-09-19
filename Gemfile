@@ -2,12 +2,12 @@ source 'https://rubygems.org'
 
 ruby '2.7.3'
 
-gem 'rails', '~> 5.2.6'
-gem 'responders', '~> 2.4.0'
+gem 'rails', '~> 6.1.4'
+gem 'responders', '~> 3.0.1'
 gem 'rack-cors', '~> 1.0.5'
 
 # Use postgres as the database for Active Record
-gem 'pg', '~> 1.0.0'
+gem 'pg', '~> 1.2.3'
 
 # Use slim for templates
 gem 'slim-rails', '~> 3.1.3'
@@ -26,11 +26,11 @@ gem 'decent_exposure', '~> 3.0.2'
 gem 'rmagick'
 # For #to_url method
 gem 'stringex'
-gem 'dotenv-rails', '~> 2.5.0'
+gem 'dotenv-rails', '~> 2.7.6'
 gem 'aws-sdk', '~> 1.53.0'
 gem 'sidekiq'
 gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
-gem 'exception_notification', '~> 4.3.0'
+gem 'exception_notification', '~> 4.4.3'
 gem 'http', '~> 3.3.0'
 gem 'oauth2', '~> 1.4.0'
 gem 'exiftool', '~> 1.2.1'
@@ -38,11 +38,11 @@ gem 'exiftool_vendored', '~> 10.65.0'
 gem 'image_optim'
 gem 'image_optim_pack'
 gem 'attr_encrypted', '~> 3.1.0'
-gem 'active_interaction', '~> 3.6'
+gem 'active_interaction', '~> 4.0.5'
 gem "sentry-raven"
 
 group :development, :test do
-  gem 'rspec-rails', '~> 3.7.1'
+  gem 'rspec-rails', '~> 5.0.2'
   gem 'webmock', '~> 3.5.1'
   gem 'vcr', '~> 4.0.0'
   gem 'pry'
@@ -61,7 +61,7 @@ end
 gem 'bcrypt', '~> 3.1.16'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.3.2', require: false
+gem 'bootsnap', '>= 1.9.0', require: false
 
 gem 'devise', '~> 4.7.1'
 

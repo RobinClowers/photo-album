@@ -6,7 +6,7 @@ class Photos::CommentsController < ApplicationController
   expose(:photo_id) { params[:photo_id] }
 
   def create
-    if comment.update_attributes(comment_params)
+    if comment.update(comment_params)
       CommentMailerWorker.perform_async(photo_id, comment.id)
       render json: { comment: comment }, status: :created
     else
