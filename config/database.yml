@@ -4,7 +4,7 @@ shared: &shared
   encoding: unicode
   pool: 5
   username: photo_album
-  password: asdfasdf
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
 
 development:
   <<: *shared
@@ -23,4 +23,3 @@ vagrant:
 production:
   <<: *shared
   database: photo_album_production
-  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
