@@ -23,3 +23,4 @@ vagrant:
 production:
   <<: *shared
   database: photo_album_production
+  password: <%= ENV.fetch("DATABASE_PASSWORD") %>
