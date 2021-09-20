@@ -65,10 +65,10 @@ gem 'bootsnap', '>= 1.9.0', require: false
 gem 'devise', '~> 4.7.1'
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 3.10.1'
+gem 'capistrano', '~> 3.16.0'
 gem 'capistrano3-puma', '~> 5.2.0'
-gem 'capistrano-bundler', '~> 1.3.0'
-gem 'capistrano-rails', '~> 1.3.1'
+gem 'capistrano-bundler', '~> 2.0.1'
+gem 'capistrano-rails', '~> 1.6.1'
 gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role-v1.0.2'
 
 # Use Puma server
