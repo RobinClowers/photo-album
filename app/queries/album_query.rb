@@ -6,7 +6,9 @@ class AlbumQuery
     @slug = params[:slug]
     @album_list ||= AlbumListQuery.new(current_user: current_user)
     @album = album_list.active.includes(
-      { photos: :versions }, { cover_photo: :versions }).find_by_slug!(slug)
+      { photos: [:versions, :comments, :favorites] },
+      { cover_photo: :versions }
+    ).find_by_slug!(slug)
   end
 
   def as_json(_options = {})
