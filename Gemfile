@@ -72,4 +72,4 @@ gem 'capistrano-rails', '~> 1.6.1'
 gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role-v1.0.2'
 
 # Use Puma server
-gem 'puma', '~> 5.5.0'
+gem 'puma', '~> 5.5.1'
