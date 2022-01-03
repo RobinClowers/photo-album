@@ -21,20 +21,24 @@ class GooglePhotos::Importer
   end
 
   def import(force: false)
-    logger.info("fetching alubm")
+    logger.info("Importing google album #{google_album_id}, force: #{force}")
     logger.info("Found #{album_data["title"]}")
-    items = fetch_album_photos.reduce({}) { |result, item|
-      merge_scrubbed_filename(result, item)
+    items = fetch_album_photos.map { |item|
+      item["scrubbed_filename"] = scrub_filename(item["filename"])
+      item
     }
     logger.info("Found #{items.count} photos")
 
     find_or_create_album
     FileUtils.mkdir_p(tmp_dir) unless Dir.exists?(tmp_dir)
 
-    existing_filenames = album.photos.where(filename: items.keys).pluck(:filename)
+    existing_filenames = get_existing_filenames(items, force)
     existing, to_create = partition_items(items, existing_filenames)
+    import_filenames = to_create.map { |item| item["scrubbed_filename"]}
+    logger.info("Importing #{import_filenames.count} files: #{import_filenames}")
     logger.info("Skipping import of #{existing.count} files: #{existing_filenames.join(", ")}")
     to_create.each do |item|
+      logger.info("processing #{item.inspect}")
       download_photo(item, force)
       upload_photo(item, force)
       create_and_process_photo(item, force)
@@ -50,6 +54,14 @@ class GooglePhotos::Importer
   end
 
   private
+
+  def get_existing_filenames(items, force)
+    if force
+      []
+    else
+      album.photos.where(filename: items.keys).pluck(:filename)
+    end
+  end
 
   def fetch_album_photos
     fetcher.all({ albumId: google_album_id, pageSize: 100 }) { |params|
@@ -81,17 +93,10 @@ class GooglePhotos::Importer
     Photo::FilenameScrubber.scrub(filename)
   end
 
-  def merge_scrubbed_filename(result, item)
-    filename = scrub_filename(item["filename"])
-    item["scrubbed_filename"] = filename
-    result[filename] = item
-    result
-  end
-
   def partition_items(items, existing_filenames)
-    items.reduce([[], []]) { |result, (filename, item)|
+    items.reduce([[], []]) { |result, item|
       existing, to_create = result
-      if existing_filenames.include?(Photo::FilenameScrubber.scrub(filename))
+      if existing_filenames.include?(item["scrubbed_filename"])
         existing << item
       else
         to_create << item if photo?(item)
@@ -166,7 +171,6 @@ class GooglePhotos::Importer
   def album_data
     return @album_data if @album_data
     @album_data = api.get_album(google_auth, google_album_id)
-    logger.info("Found #{@album_data["title"]}")
     @album_data
   end
 
