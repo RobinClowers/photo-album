@@ -29,7 +29,7 @@ gem 'stringex'
 gem 'dotenv-rails', '~> 2.7.6'
 gem 'aws-sdk', '~> 1.53.0'
 gem 'sidekiq'
-gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
+gem 'sinatra', '~> 2.2.3', require: false # for sidekiq
 gem 'http', '~> 4.3.0'
 gem 'oauth2', '~> 1.4.0'
 gem 'exiftool', '~> 1.2.1'
