@@ -33,7 +33,7 @@ gem 'sinatra', '~> 2.0.3', require: false # for sidekiq
 gem 'http', '~> 4.3.0'
 gem 'oauth2', '~> 1.4.0'
 gem 'exiftool', '~> 1.2.1'
-gem 'exiftool_vendored', '~> 10.65.0'
+gem 'exiftool_vendored', '~> 12.25.0'
 gem 'image_optim'
 gem 'image_optim_pack'
 gem 'attr_encrypted', '~> 3.1.0'
