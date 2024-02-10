@@ -71,5 +71,9 @@ gem 'capistrano-bundler', '~> 2.0.1'
 gem 'capistrano-rails', '~> 1.6.1'
 gem 'capistrano-sidekiq', git: 'https://github.com/RobinClowers/capistrano-sidekiq.git', branch: 'allow-different-queue-per-role-v1.0.2'
 
+# Required for capistrano ed25519 ssh key support
+gem "ed25519", "~> 1.3"
+gem "bcrypt_pbkdf", "~> 1.1"
+
 # Use Puma server
 gem 'puma', '~> 5.6.4'
